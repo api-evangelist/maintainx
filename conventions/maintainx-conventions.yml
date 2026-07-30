@@ -1,0 +1,84 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://api.getmaintainx.com/v1/docs (Getting Started, Authentication, Rate Limiting,
+  Polling for Changes) + openapi/maintainx-openapi-original.json
+description: >-
+  Cross-cutting request/response conventions that apply across the MaintainX REST API v1:
+  authentication, pagination, change polling, rate-limit signaling, the error envelope,
+  and webhook-vs-poll behavior. These are the runtime-semantics an integrator needs beyond
+  any single operation.
+
+base_url: https://api.getmaintainx.com/v1
+api_style: REST over HTTPS, JSON requests and responses
+
+authentication:
+  scheme: HTTP Bearer token (JWT)
+  header: 'Authorization: bearer {token}'
+  key_source: Generated in-app at Settings > Integrations > API Keys (per user)
+  detail: authentication/maintainx-authentication.yml
+  docs: https://app.getmaintainx.com/settings/integrations/apiKeys
+
+idempotency:
+  supported: false
+  note: >-
+    MaintainX does not document an idempotency-key header. Retried POSTs are not
+    de-duplicated by the API; guard client-side. (A skipWebhook query parameter exists
+    on many write operations but only suppresses webhook emission, not request de-duplication.)
+
+pagination:
+  style: cursor
+  request_params:
+    cursor: opaque cursor pointing at the next page
+    limit: page size
+  note: >-
+    Cursor pagination is used across list endpoints; Work Orders in particular use cursor
+    pagination. Carry the cursor forward until exhausted.
+
+change_polling:
+  mechanism: Timestamp filters on list endpoints
+  params:
+    - 'updatedAt[gte]'
+    - 'updatedAt[lte]'
+    - 'createdAt[gte]'
+    - 'createdAt[lte]'
+  pattern: >-
+    Request records with updatedAt[gte]=<lastSync>, carry the filter across every page, then
+    advance the watermark to the max updatedAt observed and dedupe by id.
+  docs: https://api.getmaintainx.com/v1/docs
+
+field_expansion:
+  supported: true
+  param: expand
+  note: An `expand` query parameter is available on many read endpoints to inline related resources.
+
+multi_organization:
+  header: x-organization-id (single) / x-organization-ids (multiple)
+  note: >-
+    A user may belong to multiple organizations; scope requests with the x-organization-id header.
+
+rate_limit_signaling:
+  headers:
+    - X-Rate-Limit-Limit
+    - X-Rate-Limit-Remaining
+    - X-Rate-Limit-Reset
+  throttled_status: 429
+  detail: rate-limits/maintainx-rate-limits.yml
+
+error_envelope:
+  single: '{ "error": "message" }'
+  multiple: '{ "errors": [ ... ] }'
+  format: custom (not RFC 9457)
+  detail: errors/maintainx-problem-types.yml
+
+webhooks:
+  supported: true
+  note: >-
+    46 event types delivered via user-configured subscriptions; recommended over polling
+    for real-time updates. A skipWebhook query param on write operations suppresses emission.
+  detail: asyncapi/maintainx-webhooks.yml
+
+versioning:
+  scheme: uri-path
+  current: v1
+  detail: lifecycle/maintainx-lifecycle.yml

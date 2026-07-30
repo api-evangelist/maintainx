@@ -1,0 +1,688 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/maintainx-openapi-original.json
+note: No official MaintainX MCP server found (2026-07). Candidate tool list derived one-per-operation from the OpenAPI. Operations
+  are referenced by METHOD+path because the source spec declares no operationIds.
+server:
+  name: maintainx
+  transport: http
+  auth: Bearer JWT (MaintainX API key)
+tool_count: 169
+tools:
+- name: create_assets
+  description: POST /assets
+  source_operation: openapi/maintainx-openapi-original.json#POST /assets
+  tag: Assets
+- name: get_assets
+  description: GET /assets
+  source_operation: openapi/maintainx-openapi-original.json#GET /assets
+  tag: Assets
+- name: get_assets
+  description: GET /assets/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /assets/{id}
+  tag: Assets
+- name: update_assets
+  description: PATCH /assets/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /assets/{id}
+  tag: Assets
+- name: delete_assets
+  description: DELETE /assets/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /assets/{id}
+  tag: Assets
+- name: put_assets_attachments
+  description: PUT /assets/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /assets/{id}/attachments/{filename}
+  tag: Assets
+- name: delete_assets_attachments
+  description: DELETE /assets/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /assets/{id}/attachments/{filename}
+  tag: Assets
+- name: put_assets_thumbnail
+  description: PUT /assets/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /assets/{id}/thumbnail/{filename}
+  tag: Assets
+- name: create_assets_status
+  description: POST /assets/{assetId}/status
+  source_operation: openapi/maintainx-openapi-original.json#POST /assets/{assetId}/status
+  tag: Assets
+- name: get_assetstatuses
+  description: GET /assetstatuses
+  source_operation: openapi/maintainx-openapi-original.json#GET /assetstatuses
+  tag: Asset Statuses
+- name: update_assetstatuses
+  description: PATCH /assetstatuses/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /assetstatuses/{id}
+  tag: Asset Statuses
+- name: get_assetcriticalities
+  description: GET /assetcriticalities
+  source_operation: openapi/maintainx-openapi-original.json#GET /assetcriticalities
+  tag: Asset Criticalities
+- name: get_assetcriticalities
+  description: GET /assetcriticalities/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /assetcriticalities/{id}
+  tag: Asset Criticalities
+- name: create_assetcustomstatuses
+  description: POST /assetcustomstatuses
+  source_operation: openapi/maintainx-openapi-original.json#POST /assetcustomstatuses
+  tag: Asset Custom Statuses
+- name: get_assetcustomstatuses
+  description: GET /assetcustomstatuses
+  source_operation: openapi/maintainx-openapi-original.json#GET /assetcustomstatuses
+  tag: Asset Custom Statuses
+- name: get_assetcustomstatuses
+  description: GET /assetcustomstatuses/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /assetcustomstatuses/{id}
+  tag: Asset Custom Statuses
+- name: update_assetcustomstatuses
+  description: PATCH /assetcustomstatuses/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /assetcustomstatuses/{id}
+  tag: Asset Custom Statuses
+- name: delete_assetcustomstatuses
+  description: DELETE /assetcustomstatuses/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /assetcustomstatuses/{id}
+  tag: Asset Custom Statuses
+- name: create_categories
+  description: POST /categories
+  source_operation: openapi/maintainx-openapi-original.json#POST /categories
+  tag: Categories
+- name: get_categories
+  description: GET /categories
+  source_operation: openapi/maintainx-openapi-original.json#GET /categories
+  tag: Categories
+- name: get_categories
+  description: GET /categories/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /categories/{id}
+  tag: Categories
+- name: update_categories
+  description: PATCH /categories/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /categories/{id}
+  tag: Categories
+- name: delete_categories
+  description: DELETE /categories/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /categories/{id}
+  tag: Categories
+- name: get_conversations
+  description: GET /conversations
+  source_operation: openapi/maintainx-openapi-original.json#GET /conversations
+  tag: Conversations
+- name: get_conversations_members
+  description: GET /conversations/{id}/members
+  source_operation: openapi/maintainx-openapi-original.json#GET /conversations/{id}/members
+  tag: Conversations
+- name: create_conversations_messages
+  description: POST /conversations/{id}/messages
+  source_operation: openapi/maintainx-openapi-original.json#POST /conversations/{id}/messages
+  tag: Conversations
+- name: get_versions
+  description: GET /versions
+  source_operation: openapi/maintainx-openapi-original.json#GET /versions
+  tag: OpenAPI Documentation
+- name: create_locations
+  description: POST /locations
+  source_operation: openapi/maintainx-openapi-original.json#POST /locations
+  tag: Locations
+- name: get_locations
+  description: GET /locations
+  source_operation: openapi/maintainx-openapi-original.json#GET /locations
+  tag: Locations
+- name: get_locations
+  description: GET /locations/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /locations/{id}
+  tag: Locations
+- name: update_locations
+  description: PATCH /locations/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /locations/{id}
+  tag: Locations
+- name: delete_locations
+  description: DELETE /locations/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /locations/{id}
+  tag: Locations
+- name: put_locations_attachments
+  description: PUT /locations/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /locations/{id}/attachments/{filename}
+  tag: Locations
+- name: delete_locations_attachments
+  description: DELETE /locations/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /locations/{id}/attachments/{filename}
+  tag: Locations
+- name: put_locations_thumbnail
+  description: PUT /locations/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /locations/{id}/thumbnail/{filename}
+  tag: Locations
+- name: create_maintenanceplans
+  description: POST /maintenanceplans
+  source_operation: openapi/maintainx-openapi-original.json#POST /maintenanceplans
+  tag: Maintenance Plans
+- name: get_maintenanceplans
+  description: GET /maintenanceplans
+  source_operation: openapi/maintainx-openapi-original.json#GET /maintenanceplans
+  tag: Maintenance Plans
+- name: create_maintenanceplans_workorderblueprints
+  description: POST /maintenanceplans/workorderblueprints
+  source_operation: openapi/maintainx-openapi-original.json#POST /maintenanceplans/workorderblueprints
+  tag: Maintenance Plans
+- name: get_maintenanceplans
+  description: GET /maintenanceplans/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /maintenanceplans/{id}
+  tag: Maintenance Plans
+- name: update_maintenanceplans
+  description: PATCH /maintenanceplans/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /maintenanceplans/{id}
+  tag: Maintenance Plans
+- name: delete_maintenanceplans
+  description: DELETE /maintenanceplans/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /maintenanceplans/{id}
+  tag: Maintenance Plans
+- name: create_meterreadings
+  description: POST /meterreadings
+  source_operation: openapi/maintainx-openapi-original.json#POST /meterreadings
+  tag: Meter Readings
+- name: create_meters
+  description: POST /meters
+  source_operation: openapi/maintainx-openapi-original.json#POST /meters
+  tag: Meters
+- name: get_meters
+  description: GET /meters
+  source_operation: openapi/maintainx-openapi-original.json#GET /meters
+  tag: Meters
+- name: get_meters
+  description: GET /meters/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /meters/{id}
+  tag: Meters
+- name: update_meters
+  description: PATCH /meters/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /meters/{id}
+  tag: Meters
+- name: delete_meters
+  description: DELETE /meters/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /meters/{id}
+  tag: Meters
+- name: create_meters_readings
+  description: POST /meters/{meterId}/readings
+  source_operation: openapi/maintainx-openapi-original.json#POST /meters/{meterId}/readings
+  tag: Meters
+- name: create_metertriggers
+  description: POST /metertriggers
+  source_operation: openapi/maintainx-openapi-original.json#POST /metertriggers
+  tag: Meter Triggers
+- name: get_metertriggers
+  description: GET /metertriggers
+  source_operation: openapi/maintainx-openapi-original.json#GET /metertriggers
+  tag: Meter Triggers
+- name: get_metertriggers
+  description: GET /metertriggers/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /metertriggers/{id}
+  tag: Meter Triggers
+- name: update_metertriggers
+  description: PATCH /metertriggers/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /metertriggers/{id}
+  tag: Meter Triggers
+- name: delete_metertriggers
+  description: DELETE /metertriggers/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /metertriggers/{id}
+  tag: Meter Triggers
+- name: put_metertriggers_thumbnail
+  description: PUT /metertriggers/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /metertriggers/{id}/thumbnail/{filename}
+  tag: Meter Triggers
+- name: update_metertriggers_workordertemplates
+  description: PATCH /metertriggers/{id}/workordertemplates
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /metertriggers/{id}/workordertemplates
+  tag: Meter Triggers
+- name: put_metertriggers_workordertemplates_attachments
+  description: PUT /metertriggers/{id}/workordertemplates/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /metertriggers/{id}/workordertemplates/attachments/{filename}
+  tag: Meter Triggers
+- name: delete_metertriggers_workordertemplates_attachments
+  description: DELETE /metertriggers/{id}/workordertemplates/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /metertriggers/{id}/workordertemplates/attachments/{filename}
+  tag: Meter Triggers
+- name: get_manufacturers
+  description: GET /manufacturers
+  source_operation: openapi/maintainx-openapi-original.json#GET /manufacturers
+  tag: Manufacturers
+- name: create_manufacturers
+  description: POST /manufacturers
+  source_operation: openapi/maintainx-openapi-original.json#POST /manufacturers
+  tag: Manufacturers
+- name: get_manufacturers
+  description: GET /manufacturers/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /manufacturers/{id}
+  tag: Manufacturers
+- name: get_models
+  description: GET /models
+  source_operation: openapi/maintainx-openapi-original.json#GET /models
+  tag: Manufacturers
+- name: create_models
+  description: POST /models
+  source_operation: openapi/maintainx-openapi-original.json#POST /models
+  tag: Manufacturers
+- name: get_models
+  description: GET /models/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /models/{id}
+  tag: Manufacturers
+- name: get_organizations
+  description: GET /organizations
+  source_operation: openapi/maintainx-openapi-original.json#GET /organizations
+  tag: Organizations
+- name: create_parts
+  description: POST /parts
+  source_operation: openapi/maintainx-openapi-original.json#POST /parts
+  tag: Parts
+- name: get_parts
+  description: GET /parts
+  source_operation: openapi/maintainx-openapi-original.json#GET /parts
+  tag: Parts
+- name: get_parts
+  description: GET /parts/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /parts/{id}
+  tag: Parts
+- name: update_parts
+  description: PATCH /parts/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /parts/{id}
+  tag: Parts
+- name: delete_parts
+  description: DELETE /parts/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /parts/{id}
+  tag: Parts
+- name: put_parts_attachments
+  description: PUT /parts/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /parts/{id}/attachments/{filename}
+  tag: Parts
+- name: delete_parts_attachments
+  description: DELETE /parts/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /parts/{id}/attachments/{filename}
+  tag: Parts
+- name: put_parts_thumbnail
+  description: PUT /parts/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /parts/{id}/thumbnail/{filename}
+  tag: Parts
+- name: create_parttransferrequests
+  description: POST /parttransferrequests
+  source_operation: openapi/maintainx-openapi-original.json#POST /parttransferrequests
+  tag: Part Transfer Requests
+- name: get_parttransferrequests
+  description: GET /parttransferrequests
+  source_operation: openapi/maintainx-openapi-original.json#GET /parttransferrequests
+  tag: Part Transfer Requests
+- name: get_parttransferrequests
+  description: GET /parttransferrequests/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /parttransferrequests/{id}
+  tag: Part Transfer Requests
+- name: update_parttransferrequests
+  description: PATCH /parttransferrequests/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /parttransferrequests/{id}
+  tag: Part Transfer Requests
+- name: create_purchaseorders
+  description: POST /purchaseorders
+  source_operation: openapi/maintainx-openapi-original.json#POST /purchaseorders
+  tag: Purchase Orders
+- name: get_purchaseorders
+  description: GET /purchaseorders
+  source_operation: openapi/maintainx-openapi-original.json#GET /purchaseorders
+  tag: Purchase Orders
+- name: get_purchaseorders
+  description: GET /purchaseorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /purchaseorders/{id}
+  tag: Purchase Orders
+- name: update_purchaseorders
+  description: PATCH /purchaseorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /purchaseorders/{id}
+  tag: Purchase Orders
+- name: delete_purchaseorders
+  description: DELETE /purchaseorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /purchaseorders/{id}
+  tag: Purchase Orders
+- name: put_purchaseorders_attachments
+  description: PUT /purchaseorders/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /purchaseorders/{id}/attachments/{filename}
+  tag: Purchase Orders
+- name: delete_purchaseorders_attachments
+  description: DELETE /purchaseorders/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /purchaseorders/{id}/attachments/{filename}
+  tag: Purchase Orders
+- name: create_purchaseorders_comments
+  description: POST /purchaseorders/{id}/comments
+  source_operation: openapi/maintainx-openapi-original.json#POST /purchaseorders/{id}/comments
+  tag: Purchase Orders
+- name: create_purchaseorders_emails
+  description: POST /purchaseorders/{id}/emails
+  source_operation: openapi/maintainx-openapi-original.json#POST /purchaseorders/{id}/emails
+  tag: Purchase Orders
+- name: update_purchaseorders_fulfillment
+  description: PATCH /purchaseorders/{id}/fulfillment
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /purchaseorders/{id}/fulfillment
+  tag: Purchase Orders
+- name: update_purchaseorders_status
+  description: PATCH /purchaseorders/{id}/status
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /purchaseorders/{id}/status
+  tag: Purchase Orders
+- name: put_purchaseorders_thumbnail
+  description: PUT /purchaseorders/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /purchaseorders/{id}/thumbnail/{filename}
+  tag: Purchase Orders
+- name: create_proceduretemplates
+  description: POST /proceduretemplates
+  source_operation: openapi/maintainx-openapi-original.json#POST /proceduretemplates
+  tag: Procedure Templates
+- name: get_proceduretemplates
+  description: GET /proceduretemplates
+  source_operation: openapi/maintainx-openapi-original.json#GET /proceduretemplates
+  tag: Procedure Templates
+- name: get_proceduretemplates
+  description: GET /proceduretemplates/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /proceduretemplates/{id}
+  tag: Procedure Templates
+- name: update_proceduretemplates
+  description: PATCH /proceduretemplates/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /proceduretemplates/{id}
+  tag: Procedure Templates
+- name: delete_proceduretemplates
+  description: DELETE /proceduretemplates/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /proceduretemplates/{id}
+  tag: Procedure Templates
+- name: update_proceduretemplaterows
+  description: PATCH /proceduretemplaterows/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /proceduretemplaterows/{id}
+  tag: Procedure Template Rows
+- name: delete_proceduretemplaterows
+  description: DELETE /proceduretemplaterows/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /proceduretemplaterows/{id}
+  tag: Procedure Template Rows
+- name: delete_proceduretemplaterows_attachments
+  description: DELETE /proceduretemplaterows/{id}/attachments
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /proceduretemplaterows/{id}/attachments
+  tag: Procedure Template Rows
+- name: put_proceduretemplaterows_attachments
+  description: PUT /proceduretemplaterows/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /proceduretemplaterows/{id}/attachments/{filename}
+  tag: Procedure Template Rows
+- name: create_subscriptions
+  description: POST /subscriptions
+  source_operation: openapi/maintainx-openapi-original.json#POST /subscriptions
+  tag: Subscriptions & Webhooks
+- name: get_subscriptions
+  description: GET /subscriptions/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /subscriptions/{id}
+  tag: Subscriptions & Webhooks
+- name: update_subscriptions
+  description: PATCH /subscriptions/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /subscriptions/{id}
+  tag: Subscriptions & Webhooks
+- name: delete_subscriptions
+  description: DELETE /subscriptions/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /subscriptions/{id}
+  tag: Subscriptions & Webhooks
+- name: get_subscriptions_secret
+  description: GET /subscriptions/{id}/secret
+  source_operation: openapi/maintainx-openapi-original.json#GET /subscriptions/{id}/secret
+  tag: Subscriptions & Webhooks
+- name: create_teams
+  description: POST /teams
+  source_operation: openapi/maintainx-openapi-original.json#POST /teams
+  tag: Teams
+- name: get_teams
+  description: GET /teams
+  source_operation: openapi/maintainx-openapi-original.json#GET /teams
+  tag: Teams
+- name: get_teams
+  description: GET /teams/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /teams/{id}
+  tag: Teams
+- name: update_teams
+  description: PATCH /teams/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /teams/{id}
+  tag: Teams
+- name: delete_teams
+  description: DELETE /teams/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /teams/{id}
+  tag: Teams
+- name: create_teams_members
+  description: POST /teams/{id}/members
+  source_operation: openapi/maintainx-openapi-original.json#POST /teams/{id}/members
+  tag: Teams
+- name: get_teams_members
+  description: GET /teams/{id}/members
+  source_operation: openapi/maintainx-openapi-original.json#GET /teams/{id}/members
+  tag: Teams
+- name: update_teams_members
+  description: PATCH /teams/{teamId}/members/{userId}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /teams/{teamId}/members/{userId}
+  tag: Teams
+- name: delete_teams_members
+  description: DELETE /teams/{teamId}/members/{userId}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /teams/{teamId}/members/{userId}
+  tag: Teams
+- name: create_users
+  description: POST /users
+  source_operation: openapi/maintainx-openapi-original.json#POST /users
+  tag: Users
+- name: get_users
+  description: GET /users
+  source_operation: openapi/maintainx-openapi-original.json#GET /users
+  tag: Users
+- name: get_users
+  description: GET /users/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /users/{id}
+  tag: Users
+- name: update_users
+  description: PATCH /users/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /users/{id}
+  tag: Users
+- name: delete_users
+  description: DELETE /users/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /users/{id}
+  tag: Users
+- name: create_users_messages
+  description: POST /users/{id}/messages
+  source_operation: openapi/maintainx-openapi-original.json#POST /users/{id}/messages
+  tag: Users
+- name: create_vendors
+  description: POST /vendors
+  source_operation: openapi/maintainx-openapi-original.json#POST /vendors
+  tag: Vendors
+- name: get_vendors
+  description: GET /vendors
+  source_operation: openapi/maintainx-openapi-original.json#GET /vendors
+  tag: Vendors
+- name: get_vendors
+  description: GET /vendors/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /vendors/{id}
+  tag: Vendors
+- name: update_vendors
+  description: PATCH /vendors/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /vendors/{id}
+  tag: Vendors
+- name: delete_vendors
+  description: DELETE /vendors/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /vendors/{id}
+  tag: Vendors
+- name: put_vendors_attachments
+  description: PUT /vendors/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /vendors/{id}/attachments/{filename}
+  tag: Vendors
+- name: delete_vendors_attachments
+  description: DELETE /vendors/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /vendors/{id}/attachments/{filename}
+  tag: Vendors
+- name: create_vendors_contacts
+  description: POST /vendors/{id}/contacts
+  source_operation: openapi/maintainx-openapi-original.json#POST /vendors/{id}/contacts
+  tag: Vendors
+- name: get_vendors_contacts
+  description: GET /vendors/{id}/contacts
+  source_operation: openapi/maintainx-openapi-original.json#GET /vendors/{id}/contacts
+  tag: Vendors
+- name: get_vendors_contacts
+  description: GET /vendors/{id}/contacts/{contactId}
+  source_operation: openapi/maintainx-openapi-original.json#GET /vendors/{id}/contacts/{contactId}
+  tag: Vendors
+- name: update_vendors_contacts
+  description: PATCH /vendors/{id}/contacts/{contactId}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /vendors/{id}/contacts/{contactId}
+  tag: Vendors
+- name: delete_vendors_contacts
+  description: DELETE /vendors/{id}/contacts/{contactId}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /vendors/{id}/contacts/{contactId}
+  tag: Vendors
+- name: put_vendors_thumbnail
+  description: PUT /vendors/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /vendors/{id}/thumbnail/{filename}
+  tag: Vendors
+- name: create_workorders
+  description: POST /workorders
+  source_operation: openapi/maintainx-openapi-original.json#POST /workorders
+  tag: Work Orders
+- name: get_workorders
+  description: GET /workorders
+  source_operation: openapi/maintainx-openapi-original.json#GET /workorders
+  tag: Work Orders
+- name: get_workorders
+  description: GET /workorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /workorders/{id}
+  tag: Work Orders
+- name: update_workorders
+  description: PATCH /workorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /workorders/{id}
+  tag: Work Orders
+- name: delete_workorders
+  description: DELETE /workorders/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workorders/{id}
+  tag: Work Orders
+- name: put_workorders_attachments
+  description: PUT /workorders/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /workorders/{id}/attachments/{filename}
+  tag: Work Orders
+- name: delete_workorders_attachments
+  description: DELETE /workorders/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workorders/{id}/attachments/{filename}
+  tag: Work Orders
+- name: create_workorders_comments
+  description: POST /workorders/{id}/comments
+  source_operation: openapi/maintainx-openapi-original.json#POST /workorders/{id}/comments
+  tag: Work Orders
+- name: get_workorders_comments
+  description: GET /workorders/{id}/comments
+  source_operation: openapi/maintainx-openapi-original.json#GET /workorders/{id}/comments
+  tag: Work Orders
+- name: create_workorders_costs
+  description: POST /workorders/{id}/costs
+  source_operation: openapi/maintainx-openapi-original.json#POST /workorders/{id}/costs
+  tag: Work Orders
+- name: get_workorders_costs
+  description: GET /workorders/{id}/costs
+  source_operation: openapi/maintainx-openapi-original.json#GET /workorders/{id}/costs
+  tag: Work Orders
+- name: create_workorders_emails
+  description: POST /workorders/{id}/emails
+  source_operation: openapi/maintainx-openapi-original.json#POST /workorders/{id}/emails
+  tag: Work Orders
+- name: update_workorders_partStatus
+  description: PATCH /workorders/{id}/partStatus
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /workorders/{id}/partStatus
+  tag: Work Orders
+- name: delete_workorders_procedure
+  description: DELETE /workorders/{id}/procedure
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workorders/{id}/procedure
+  tag: Work Orders
+- name: delete_workorders_procedure_fields_attachment
+  description: DELETE /workorders/{id}/procedure/fields/{index}/attachment
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workorders/{id}/procedure/fields/{index}/attachment
+  tag: Work Orders
+- name: put_workorders_procedure_fields_attachment
+  description: PUT /workorders/{id}/procedure/fields/{index}/attachment/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /workorders/{id}/procedure/fields/{index}/attachment/{filename}
+  tag: Work Orders
+- name: update_workorders_status
+  description: PATCH /workorders/{id}/status
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /workorders/{id}/status
+  tag: Work Orders
+- name: get_workorders_subworkorders
+  description: GET /workorders/{id}/subworkorders
+  source_operation: openapi/maintainx-openapi-original.json#GET /workorders/{id}/subworkorders
+  tag: Work Orders
+- name: put_workorders_thumbnail
+  description: PUT /workorders/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /workorders/{id}/thumbnail/{filename}
+  tag: Work Orders
+- name: create_workPermits_sign
+  description: POST /workPermits/{id}/sign
+  source_operation: openapi/maintainx-openapi-original.json#POST /workPermits/{id}/sign
+  tag: Work Permits
+- name: create_workrequests
+  description: POST /workrequests
+  source_operation: openapi/maintainx-openapi-original.json#POST /workrequests
+  tag: Work Requests
+- name: get_workrequests
+  description: GET /workrequests
+  source_operation: openapi/maintainx-openapi-original.json#GET /workrequests
+  tag: Work Requests
+- name: get_workrequests
+  description: GET /workrequests/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /workrequests/{id}
+  tag: Work Requests
+- name: delete_workrequests
+  description: DELETE /workrequests/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workrequests/{id}
+  tag: Work Requests
+- name: update_workrequests
+  description: PATCH /workrequests/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /workrequests/{id}
+  tag: Work Requests
+- name: put_workrequests_attachments
+  description: PUT /workrequests/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /workrequests/{id}/attachments/{filename}
+  tag: Work Requests
+- name: delete_workrequests_attachments
+  description: DELETE /workrequests/{id}/attachments/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workrequests/{id}/attachments/{filename}
+  tag: Work Requests
+- name: put_workrequests_thumbnail
+  description: PUT /workrequests/{id}/thumbnail/{filename}
+  source_operation: openapi/maintainx-openapi-original.json#PUT /workrequests/{id}/thumbnail/{filename}
+  tag: Work Requests
+- name: create_customfields
+  description: POST /customfields/{entity}
+  source_operation: openapi/maintainx-openapi-original.json#POST /customfields/{entity}
+  tag: Custom Fields
+- name: get_customfields
+  description: GET /customfields/{entity}
+  source_operation: openapi/maintainx-openapi-original.json#GET /customfields/{entity}
+  tag: Custom Fields
+- name: update_customfields
+  description: PATCH /customfields/{entity}/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /customfields/{entity}/{id}
+  tag: Custom Fields
+- name: delete_customfields
+  description: DELETE /customfields/{entity}/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /customfields/{entity}/{id}
+  tag: Custom Fields
+- name: get_rootcauseanalysisreports
+  description: GET /rootcauseanalysisreports
+  source_operation: openapi/maintainx-openapi-original.json#GET /rootcauseanalysisreports
+  tag: Root Cause Analysis Reports
+- name: get_rootcauseanalysisreports
+  description: GET /rootcauseanalysisreports/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /rootcauseanalysisreports/{id}
+  tag: Root Cause Analysis Reports
+- name: create_workrequestportals
+  description: POST /workrequestportals
+  source_operation: openapi/maintainx-openapi-original.json#POST /workrequestportals
+  tag: Work Request Portals
+- name: get_workrequestportals
+  description: GET /workrequestportals
+  source_operation: openapi/maintainx-openapi-original.json#GET /workrequestportals
+  tag: Work Request Portals
+- name: get_workrequestportals
+  description: GET /workrequestportals/{id}
+  source_operation: openapi/maintainx-openapi-original.json#GET /workrequestportals/{id}
+  tag: Work Request Portals
+- name: update_workrequestportals
+  description: PATCH /workrequestportals/{id}
+  source_operation: openapi/maintainx-openapi-original.json#PATCH /workrequestportals/{id}
+  tag: Work Request Portals
+- name: delete_workrequestportals
+  description: DELETE /workrequestportals/{id}
+  source_operation: openapi/maintainx-openapi-original.json#DELETE /workrequestportals/{id}
+  tag: Work Request Portals

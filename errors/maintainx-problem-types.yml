@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/maintainx-openapi-original.json (4xx/5xx responses)
+format: custom
+description: MaintainX returns JSON errors with a top-level "error" (single message) or "errors" (array)
+  field depending on the endpoint. Not RFC 9457. 429 responses accompany the X-Rate-Limit-* headers.
+envelope:
+  single: '{ "error": "message" }'
+  multiple: '{ "errors": [ ... ] }'
+problems:
+- status: 400
+  title: Bad Request
+  envelope_field: errors
+  content_type: application/json
+  sample_descriptions:
+  - Bad arguments.
+  - Bad request
+  - Could not update the work order
+- status: 401
+  title: Unauthorized
+  envelope_field: null
+  content_type: null
+  sample_descriptions: []
+- status: 403
+  title: Forbidden
+  envelope_field: errors
+  content_type: application/json
+  sample_descriptions:
+  - Cannot edit Auth Type
+  - Failed to create the Purchase Order
+  - Failed to create the custom field
+- status: 404
+  title: Not Found
+  envelope_field: error
+  content_type: application/json
+  sample_descriptions:
+  - Cannot find the parent resource
+  - Could not find the specified Asset.
+  - Could not find the specified Attachment.
+- status: 413
+  title: Payload Too Large
+  envelope_field: error
+  content_type: application/json
+  sample_descriptions:
+  - Payload too large
+- status: 429
+  title: Too Many Requests
+  envelope_field: error
+  content_type: application/json
+  sample_descriptions:
+  - Too many requests. Please retry in 10 seconds
+  - You have exceeded the rate limit for manual meter readings
+- status: 500
+  title: Internal Server Error
+  envelope_field: error
+  content_type: application/json
+  sample_descriptions:
+  - Internal server error.
+- status: 502
+  title: Bad Gateway
+  envelope_field: error
+  content_type: application/json
+  sample_descriptions:
+  - The creation of the resource failed on the upstream service.

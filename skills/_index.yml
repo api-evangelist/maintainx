@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/maintainx-openapi-original.json + repo conventions/errors/rate-limits artifacts
+note: >-
+  Operations are grounded by METHOD+path (verified against the spec). The source OpenAPI
+  declares no operationIds, so skills cite method/path rather than ids.
+skills:
+  - file: maintainx-create-work-order.md
+    name: Create and track a MaintainX work order
+    api: openapi/maintainx-openapi-original.json
+    operations:
+      - POST /workorders
+      - GET /workorders/{id}
+      - GET /workorders
+      - POST /workorders/{id}/comments
+      - GET /assets/{id}
+  - file: maintainx-subscribe-webhooks.md
+    name: Subscribe to MaintainX webhooks and verify payloads
+    api: openapi/maintainx-openapi-original.json
+    operations:
+      - POST /subscriptions
+      - GET /subscriptions/{id}
+      - GET /subscriptions/{id}/secret
+      - PATCH /subscriptions/{id}
+      - DELETE /subscriptions/{id}

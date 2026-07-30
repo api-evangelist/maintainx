@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/maintainx-openapi-original.json
+summary:
+  types:
+  - http
+schemes:
+- name: Bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    <p>Authenticate by adding the following HTTP header to your requests:</p>
+    <pre>Authorization: bearer {{token}}</pre>
+    <p>The <code>token</code> can be generated in your MaintainX account. Go to <a href="https://app.getmaintainx.com/settings/integrations/apiKeys">"Settings &gt; Integrations &gt; API Keys"</a> to generate a key for your user.</p>
+  sources:
+  - openapi/maintainx-openapi-original.json

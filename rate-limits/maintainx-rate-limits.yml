@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: searched
+source: https://api.getmaintainx.com/v1/docs (Rate Limiting section of the MaintainX REST API v1 reference)
+description: >-
+  MaintainX enforces per-user and per-organization request quotas and returns three
+  rate-limit headers on every response (X-Rate-Limit-Limit, X-Rate-Limit-Remaining,
+  X-Rate-Limit-Reset). When X-Rate-Limit-Remaining reaches 0 further requests receive
+  429 Too Many Requests. Meter-reading endpoints carry their own tighter limits.
+headers:
+  limit: X-Rate-Limit-Limit
+  remaining: X-Rate-Limit-Remaining
+  reset: X-Rate-Limit-Reset
+responseCodes:
+  throttled: 429
+rate_limits:
+  - name: user-across-organizations
+    limit_count: 100
+    period: 60 seconds
+    scope: A single user across all of their organizations
+  - name: user-single-organization
+    limit_count: 100
+    period: 60 seconds
+    scope: A single user on a single organization
+  - name: organization-all-users
+    limit_count: 500
+    period: 60 seconds
+    scope: All users within one organization
+  - name: meter-readings-batch
+    limit_count: 100
+    period: 60 seconds
+    scope: Automated and IoT meter readings on the /meterreadings endpoint
+  - name: meter-readings-single
+    limit_count: 1
+    period: 10 seconds
+    scope: Automated and IoT meter readings on /meter/{meterId}/readings (not recommended)
+  - name: manual-meter-readings
+    limit_count: 10
+    period: 24 hours
+    scope: Manual meter readings across all endpoints
+guidance: >-
+  Read X-Rate-Limit-Remaining and, when it reaches 0, wait X-Rate-Limit-Reset seconds
+  (plus a small buffer) before sending again. Always still handle a 429 for concurrency
+  edge cases.

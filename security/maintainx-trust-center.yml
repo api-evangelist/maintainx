@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://trust.getmaintainx.com + https://www.getmaintainx.com/security
+probe: false
+url: https://trust.getmaintainx.com
+description: >-
+  MaintainX publishes a Trust Center and a security page listing named certifications.
+  (The automated probe did not trip its keyword threshold on the SPA-rendered Trust Center,
+  so this was captured by directly reading the published security page.)
+certifications:
+  - SOC 2 Type II
+  - ISO/IEC 27001:2022
+  - GDPR
+certification_detail:
+  soc2:
+    type: SOC 2 Type II
+    scope: Security, Availability, Processing Integrity, Confidentiality, and Privacy
+  iso27001:
+    version: '2022'
+    certifier: Insight Assurance
+    scope: MaintainX platform and Montreal office
+  gdpr:
+    status: GDPR ready
+evidence:
+  - source: https://www.getmaintainx.com/security
+    keywords: [soc 2 type ii, iso 27001, gdpr]
+  - source: https://trust.getmaintainx.com
+    keywords: [trust center]

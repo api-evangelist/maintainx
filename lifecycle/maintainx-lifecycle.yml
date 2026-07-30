@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://api.getmaintainx.com/v1/docs + https://status.getmaintainx.com +
+  openapi/maintainx-openapi-original.json
+description: >-
+  Lifecycle posture for the MaintainX REST API v1: URI-path versioning, a live status page,
+  and a GET /versions endpoint. No public deprecation-policy or SLA document was found.
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.getmaintainx.com/v1
+  version_endpoint: GET /versions
+status_page: https://status.getmaintainx.com
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation/sunset policy located as of 2026-07.
+sla:
+  url: null
+  note: No public SLA/uptime-target document located; enterprise SLAs are likely contractual.
+deprecated_operations: []

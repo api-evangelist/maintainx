@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://community.getmaintainx.com/product-updates +
+  https://www.getmaintainx.com/category/maintainx-news-and-product-updates
+  (monthly "What's New at MaintainX" posts)
+description: >-
+  MaintainX publishes product changes through a monthly "What's New at MaintainX" blog
+  series and a Product Updates board in its Community. There is no separate, dated
+  developer/API changelog; API-affecting changes surface within these product updates.
+  Recent window captured below.
+scheme: monthly-product-updates
+current_version: v1
+changelog_urls:
+  community: https://community.getmaintainx.com/product-updates
+  blog: https://www.getmaintainx.com/category/maintainx-news-and-product-updates
+entries:
+  - date: '2026-03'
+    title: 'What''s New at MaintainX: March 2026'
+    breaking: false
+    highlights:
+      - Admins can self-import Users and Locations directly via CSV or Excel file.
+    url: https://www.getmaintainx.com/blog/whats-new-at-maintainx-march-2026
+  - date: '2025-11'
+    title: 'What''s New at MaintainX: November 2025'
+    breaking: false
+    highlights:
+      - Work Order Suggestions surface proactive recommendations to technicians and managers.
+    url: https://www.getmaintainx.com/blog/whats-new-at-maintainx-november-2025
+  - date: '2025-07'
+    title: 'What''s New at MaintainX: July 2025'
+    breaking: false
+    highlights:
+      - External Dashboards generate read-only links to custom dashboards.
+    url: https://www.getmaintainx.com/blog/whats-new-at-maintainx-july-2025

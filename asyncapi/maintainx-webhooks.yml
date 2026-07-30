@@ -1,0 +1,165 @@
+generated: '2026-07-20'
+method: searched
+source: 'https://api.getmaintainx.com/v1/docs (Subscriptions & Webhooks) + openapi/maintainx-openapi-original.json
+  #/paths/~1subscriptions'
+spec_type: Webhooks
+description: MaintainX delivers real-time events via user-configured webhook subscriptions. Subscriptions
+  are managed in the web app (Settings > Integrations > Webhooks) or programmatically through the REST
+  API /subscriptions endpoints. When a subscribed event occurs MaintainX sends an HTTP POST to the configured
+  URL. Each subscription has a signing secret retrievable at GET /subscriptions/{id}/secret for payload
+  verification.
+delivery:
+  transport: HTTP POST
+  signing: HMAC signing secret via GET /subscriptions/{id}/secret
+  some_events_support_filters: true
+management_operations:
+- op: POST /subscriptions
+  summary: Create a webhook subscription for one event type
+- op: GET /subscriptions/{id}
+  summary: Retrieve a subscription
+- op: PATCH /subscriptions/{id}
+  summary: Update a subscription
+- op: DELETE /subscriptions/{id}
+  summary: Delete a subscription
+- op: GET /subscriptions/{id}/secret
+  summary: Retrieve the signing secret for payload verification
+event_count: 46
+events:
+- event: API_TOKEN_CREATED
+  title: API Token Created
+  filters: false
+- event: API_TOKEN_REVOKED
+  title: API Token Revoked
+  filters: false
+- event: ASSET_STATUS_CHANGE
+  title: Asset Status Change
+  filters: true
+- event: CONNECTOR_TOKEN_REVOKED
+  title: Connector Token Revoked
+  filters: false
+- event: DATA_EXPORT_INITIATED
+  title: Data Export Initiated
+  filters: false
+- event: INVITE_LINK_ARCHIVED
+  title: Invite Link Archived
+  filters: false
+- event: INVITE_LINK_CREATED
+  title: Invite Link Created
+  filters: false
+- event: INVITE_LINK_UPDATED
+  title: Invite Link Updated
+  filters: false
+- event: METER_TRIGGER_STATE_CHANGE
+  title: Meter Trigger Status Change
+  filters: true
+- event: NEW_ASSET
+  title: New Asset
+  filters: false
+- event: NEW_CATEGORY_ON_WORK_ORDER
+  title: New Category on Work Order
+  filters: true
+- event: NEW_COMMENT_ON_WORK_ORDER
+  title: New Comment on Work Order
+  filters: false
+- event: NEW_LOCATION
+  title: New Location
+  filters: false
+- event: NEW_PART
+  title: New Part
+  filters: false
+- event: NEW_PURCHASE_ORDER
+  title: New Purchase Order
+  filters: false
+- event: NEW_WORK_REQUEST
+  title: New Request
+  filters: false
+- event: NEW_SLASH_COMMAND
+  title: New Slash Command
+  filters: true
+- event: NEW_VENDOR
+  title: New Vendor
+  filters: false
+- event: NEW_WORK_ORDER
+  title: New Work Order
+  filters: false
+- event: PART_CHANGE
+  title: Part Change
+  filters: true
+- event: PART_DELETE
+  title: Part Delete
+  filters: false
+- event: PART_QUANTITY_CHANGE
+  title: Part Quantity Changed
+  filters: false
+- event: PART_TRANSFER
+  title: Part Transfer
+  filters: false
+- event: PURCHASE_ORDER_CHANGE
+  title: Purchase Order Change
+  filters: true
+- event: PURCHASE_ORDER_STATUS_CHANGE
+  title: Purchase Order Status Change
+  filters: true
+- event: ROLE_ARCHIVED
+  title: Role Archived
+  filters: false
+- event: ROLE_CREATED
+  title: Role Created
+  filters: false
+- event: ROLE_UPDATED
+  title: Role Updated
+  filters: false
+- event: SSO_CONFIG_CHANGED
+  title: SSO Configuration Changed
+  filters: false
+- event: USER_ACTIVATED
+  title: User Activated
+  filters: false
+- event: USER_INVITED
+  title: User Invited
+  filters: false
+- event: USER_LOGIN_FAILURE
+  title: User Login Failure
+  filters: false
+- event: USER_LOGIN_SUCCESS
+  title: User Login Success
+  filters: false
+- event: USER_LOGOUT
+  title: User Logout
+  filters: false
+- event: USER_PERMISSIONS_CHANGED
+  title: User Permissions Changed
+  filters: false
+- event: USER_REMOVED
+  title: User Removed
+  filters: false
+- event: USER_ROLE_CHANGED
+  title: User Role Changed
+  filters: false
+- event: USER_SESSION_REVOKED
+  title: User Session Revoked
+  filters: false
+- event: WEBHOOK_ARCHIVED
+  title: Webhook Archived
+  filters: false
+- event: WEBHOOK_CREATED
+  title: Webhook Created
+  filters: false
+- event: WORK_ORDER_CHANGE
+  title: Work Order Change
+  filters: true
+- event: WORK_ORDER_DELETE
+  title: Work Order Delete
+  filters: false
+- event: WORK_ORDER_OVERDUE
+  title: Work Order Overdue
+  filters: false
+- event: WORK_ORDER_PART_STATUS_CHANGE
+  title: Work Order Part Status Change
+  filters: true
+- event: WORK_ORDER_STATUS_CHANGE
+  title: Work Order Status Change
+  filters: true
+- event: WORK_REQUEST_STATUS_CHANGE
+  title: Work Request Status Change
+  filters: true

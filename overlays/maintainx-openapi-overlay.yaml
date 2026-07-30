@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for MaintainX REST API v1
+  version: 1.0.0
+extends: openapi/maintainx-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-notes: >-
+        Rich, real OpenAPI (97 paths, 169 operations) with documented rate limits,
+        cursor pagination, change-polling filters, and 46 webhook event types. Gaps for a
+        follow-up with the provider: operationIds are absent on every operation, and
+        components.schemas is empty (all schemas inlined) which prevents schema reuse scoring.
+      x-apievangelist-auth: Bearer JWT (API key from Settings > Integrations)
+      x-apievangelist-webhooks: asyncapi/maintainx-webhooks.yml
+      x-apievangelist-conventions: conventions/maintainx-conventions.yml
+  - target: $.info
+    update:
+      x-agentic-access: agentic-access/maintainx-agentic-access.yml

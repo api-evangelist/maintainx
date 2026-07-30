@@ -1,0 +1,208 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/maintainx-openapi-original.json
+note: Derived from path structure and id-reference parameters. The source spec inlines all schemas (components.schemas
+  is empty), so relationships come from nested resource paths and *Id parameters rather than $ref graphs.
+entities:
+- assetcriticalities
+- assetcustomstatuses
+- assets
+- assetstatuses
+- categories
+- conversations
+- customfields
+- locations
+- maintenanceplans
+- manufacturers
+- meterreadings
+- meters
+- metertriggers
+- models
+- organizations
+- parts
+- parttransferrequests
+- proceduretemplaterows
+- proceduretemplates
+- purchaseorders
+- rootcauseanalysisreports
+- subscriptions
+- teams
+- users
+- vendors
+- versions
+- workPermits
+- workorders
+- workrequestportals
+- workrequests
+id_reference_fields:
+- field: contactId
+  occurrences: 3
+- field: assetId
+  occurrences: 2
+- field: teamId
+  occurrences: 2
+- field: userId
+  occurrences: 2
+- field: locationId
+  occurrences: 1
+- field: meterId
+  occurrences: 1
+- field: useSequentialId
+  occurrences: 1
+relationships:
+- from: assets
+  to: attachments
+  type: has_many
+  via: id
+- from: assets
+  to: thumbnail
+  type: has_many
+  via: id
+- from: assets
+  to: status
+  type: has_many
+  via: assetId
+- from: conversations
+  to: members
+  type: has_many
+  via: id
+- from: conversations
+  to: messages
+  type: has_many
+  via: id
+- from: locations
+  to: attachments
+  type: has_many
+  via: id
+- from: locations
+  to: thumbnail
+  type: has_many
+  via: id
+- from: meters
+  to: readings
+  type: has_many
+  via: meterId
+- from: metertriggers
+  to: thumbnail
+  type: has_many
+  via: id
+- from: metertriggers
+  to: workordertemplates
+  type: has_many
+  via: id
+- from: parts
+  to: attachments
+  type: has_many
+  via: id
+- from: parts
+  to: thumbnail
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: attachments
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: comments
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: emails
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: fulfillment
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: status
+  type: has_many
+  via: id
+- from: purchaseorders
+  to: thumbnail
+  type: has_many
+  via: id
+- from: proceduretemplaterows
+  to: attachments
+  type: has_many
+  via: id
+- from: subscriptions
+  to: secret
+  type: has_many
+  via: id
+- from: teams
+  to: members
+  type: has_many
+  via: id
+- from: teams
+  to: members
+  type: has_many
+  via: teamId
+- from: users
+  to: messages
+  type: has_many
+  via: id
+- from: vendors
+  to: attachments
+  type: has_many
+  via: id
+- from: vendors
+  to: contacts
+  type: has_many
+  via: id
+- from: vendors
+  to: thumbnail
+  type: has_many
+  via: id
+- from: workorders
+  to: attachments
+  type: has_many
+  via: id
+- from: workorders
+  to: comments
+  type: has_many
+  via: id
+- from: workorders
+  to: costs
+  type: has_many
+  via: id
+- from: workorders
+  to: emails
+  type: has_many
+  via: id
+- from: workorders
+  to: partStatus
+  type: has_many
+  via: id
+- from: workorders
+  to: procedure
+  type: has_many
+  via: id
+- from: fields
+  to: attachment
+  type: has_many
+  via: index
+- from: workorders
+  to: status
+  type: has_many
+  via: id
+- from: workorders
+  to: subworkorders
+  type: has_many
+  via: id
+- from: workorders
+  to: thumbnail
+  type: has_many
+  via: id
+- from: workPermits
+  to: sign
+  type: has_many
+  via: id
+- from: workrequests
+  to: attachments
+  type: has_many
+  via: id
+- from: workrequests
+  to: thumbnail
+  type: has_many
+  via: id
