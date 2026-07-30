@@ -1,28 +1,769 @@
 aid: maintainx
 name: MaintainX
-description: 'MaintainX is a company surfaced as a portfolio company of bain-capital-ventures, bessemer-venture-partners
-  and added to the API Evangelist network as a stub for enrichment. Sector: physical-ai. This profile
-  is a lead awaiting the enrichment pipeline.'
+description: >-
+  MaintainX is a mobile-first computerized maintenance management system (CMMS) and enterprise
+  asset management (EAM) platform for the industrial and frontline workforce. Teams use it to
+  manage work orders, work requests, assets, parts inventory, purchase orders, meters, preventive
+  maintenance plans, procedures, inspections, and vendors. The MaintainX REST API v1
+  (https://api.getmaintainx.com/v1) exposes all of these entities programmatically with Bearer
+  (JWT) API-key authentication, cursor pagination, timestamp-based change polling, documented
+  rate limits, and 46 webhook event types for real-time integration. Backed by Bain Capital
+  Ventures and Bessemer Venture Partners.
 url: https://raw.githubusercontent.com/api-evangelist/maintainx/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - bain-capital-ventures
 - bessemer-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: has-public-api
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
+image: https://cdn.prod.website-files.com/65ae6673d2c6ecb99ee249d1/682cc13bc85b61fe2f91f274_Website%20Open%20Graph%20Image%20(1).webp
 tags:
 - Company
 - Physical Ai
-apis: []
+- Maintenance
+- CMMS
+- Asset Management
+- Work Orders
+- Field Service
+- Manufacturing
+- Preventive Maintenance
+- IoT
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: maintainx:maintainx-asset-criticalities-api
+  name: MaintainX Asset Criticalities API
+  description: Operations on Asset Criticalities
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Asset Criticalities
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-asset-criticalities-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-asset-custom-statuses-api
+  name: MaintainX Asset Custom Statuses API
+  description: Operations on Asset Custom Statuses
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Asset Custom Statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-asset-custom-statuses-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-asset-statuses-api
+  name: MaintainX Asset Statuses API
+  description: Operations on Asset Statuses
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Asset Statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-asset-statuses-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-assets-api
+  name: MaintainX Assets API
+  description: Operations on Assets
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-assets-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-categories-api
+  name: MaintainX Categories API
+  description: Operations on Categories
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-categories-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-conversations-api
+  name: MaintainX Conversations API
+  description: Operations on Conversations
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-custom-fields-api
+  name: MaintainX Custom Fields API
+  description: Operations on Custom Fields
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-locations-api
+  name: MaintainX Locations API
+  description: Operations on Locations
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-locations-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-maintenance-plans-api
+  name: MaintainX Maintenance Plans API
+  description: Operations on Preventive Maintenance Plans
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Maintenance Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-maintenance-plans-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-manufacturers-api
+  name: MaintainX Manufacturers API
+  description: Operations on Manufacturers and Models
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Manufacturers
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-manufacturers-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-meter-readings-api
+  name: MaintainX Meter Readings API
+  description: Operations on Meter Readings
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Meter Readings
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-meter-readings-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-meter-triggers-api
+  name: MaintainX Meter Triggers API
+  description: Operations on Meter Triggers
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Meter Triggers
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-meter-triggers-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-meters-api
+  name: MaintainX Meters API
+  description: Operations on Meters
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Meters
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-meters-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-openapi-documentation-api
+  name: MaintainX OpenAPI Documentation API
+  description: OpenAPI Specification Documentation
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - OpenAPI Documentation
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-openapi-documentation-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-organizations-api
+  name: MaintainX Organizations API
+  description: Operations on Organizations
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-part-transfer-requests-api
+  name: MaintainX Part Transfer Requests API
+  description: Operations on Part Transfer Requests
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Part Transfer Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-part-transfer-requests-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-parts-api
+  name: MaintainX Parts API
+  description: Operations on Parts
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Parts
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-parts-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-procedure-template-rows-api
+  name: MaintainX Procedure Template Rows API
+  description: Operations on Procedure Template Rows
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Procedure Template Rows
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-procedure-template-rows-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-procedure-templates-api
+  name: MaintainX Procedure Templates API
+  description: Operations on Procedure Templates
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Procedure Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-procedure-templates-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-purchase-orders-api
+  name: MaintainX Purchase Orders API
+  description: Operations on Purchase Orders
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Purchase Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-purchase-orders-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-root-cause-analysis-reports-api
+  name: MaintainX Root Cause Analysis Reports API
+  description: Operations on Root Cause Analysis Reports
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Root Cause Analysis Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-root-cause-analysis-reports-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-subscriptions-webhooks-api
+  name: MaintainX Subscriptions & Webhooks API
+  description: >-
+    <h1>Webhooks in MaintainX</h1>
+
+
+    <h2>What are Webhooks?</h2>
+
+    <p>Webhooks are HTTP callbacks that allow different systems to communicate with each other in real-time.
+    They're like automated messengers that deliver information when something happens, rather than requiring
+    you to ask for it.</p>
+
+
+    <p>In the context of MaintainX, webhooks are a way for our system to automatically notify your application
+    when specific events occur in your account. Instead of your application repeatedly checking our API
+    for updates (a process known as "polling"), webhooks allow you to receive real-time notifications
+    about important events like:</p>
+
+    <ul>
+      <li>Work order status changes</li>
+      <li>New work orders being created</li>
+      <li>Asset updates</li>
+      <li>And more...</li>
+    </ul>
+
+
+    <p>When an event occurs, MaintainX sends an HTTP POST request to the endpoint you specify. The request
+    contains details about the event. It allows your application to react immediately to changes in MaintainX.</p>
+
+
+    <h2>Set Up Webhooks</h2>
+
+    <p>You can configure webhooks the following ways:</p>
+
+
+    <h3>From the MaintainX Web Application</h3>
+
+    <p>For a quick setup, you can configure webhooks in the MaintainX web application:</p>
+
+    <ol>
+      <li>From the sidebar, select <code>Settings > Integrations</code>. Then, on the Integrations page,
+    select <code>Webhooks</code></li>
+      <li>Click <b>+ New Webhook</b></li>
+      <li>Configure a webhook endpoint and select the events you want to receive</li>
+      <li>Save the configuration</li>
+    </ol>
+
+
+    <h3>Via the REST API</h3>
+
+    <p>You can configure webhooks using our REST API if you want to integrate with MaintainX in a programmatic
+    way. The API allows you to:</p>
+
+    <ul>
+      <li>Create new webhook subscriptions.</li>
+      <li>Update webhook configurations.</li>
+      <li>Delete webhook subscriptions.</li>
+      <li>Retrieve webhook secrets.</li>
+    </ul>
+
+
+    <div class="warning-box">
+      <strong>⚠️ Warning</strong>
+
+      Webhooks that don't get a successful response from your application over long periods of time might
+    be deleted. A webhook call will timeout after 10 seconds.
+      When a webhook is deleted, we send an email to the address linked to the user account that made
+    the request.
+    </div>
+
+
+    <h2>Security and Verification</h2>
+
+    <p>To verify that webhook requests come from MaintainX and haven't been tampered with, we include
+    security signatures in each webhook request. This section explains how to verify these signatures.</p>
+
+
+    <h3>Verify Webhook Signatures</h3>
+
+    <p>All webhook HTTP requests sent by MaintainX include two headers containing a timestamp and an HMAC
+    signature that must be validated by your application:</p>
+
+    <ul>
+      <li><code>x-maintainx-webhook-body-signature</code></li>
+      <li><code>x-maintainx-webhook-uri-signature</code></li>
+    </ul>
+
+
+    <div class="note-box">
+      <strong>ℹ️ Note</strong>
+      <p>When creating a webhook, you'll receive a secret that should be securely stored on your end.
+    This secret is essential for signature verification and can also be accessed later through the MaintainX
+    interface if needed.</p>
+    </div>
+
+
+    <p>The timestamp is prefixed by <code>t=</code>. Each signature is prefixed by a scheme version. Scheme
+    versions start with <code>v</code>, followed by an integer. The only valid live signature version
+    is <code>v1</code>.</p>
+
+
+    <pre>x-maintainx-webhook-body-signature: t=<b>&lt;timestamp&gt;</b>,v1=<b>&lt;signature&gt;</b></pre>
+
+
+    <h3>Signature Verification Process</h3>
+
+    <p>MaintainX generates signatures using a hash-based message authentication code (HMAC) with SHA-256.
+    Here are the steps to verify a webhook signature:</p>
+
+
+    <ol>
+      <li><b>Extract the timestamp and signatures from the header</b>
+        <ol>
+          <li>Split the header, using the <code>,</code> character as the separator, to get a list of
+    elements.</li>
+          <li>Split each element, using the <code>=</code> character as the separator, to get a prefix
+    and value pair.
+          The value for the prefix <code>t</code> corresponds to the timestamp, and <code>v1</code> corresponds
+    to the signature.
+          You can discard all other elements.</li>
+        </ol>
+      </li>
+
+      <li><b>To prepare the signed payload string, concatenate the following:</b>
+        <ol>
+          <li>The timestamp (as a string)</li>
+          <li>The character <code>.</code></li>
+          <li>The actual JSON payload (that is, the request body, or the full URI)</li>
+        </ol>
+        <pre><b>&lt;timestamp&gt;</b>.<b>&lt;stringified payload&gt;</b></pre>
+      </li>
+
+      <li><b>Determine the expected signature</b>
+        <ol>
+          <li>Retrieve the secret for your endpoint. Visit [https://app.getmaintainx.com/settings/integrations](https://app.getmaintainx.com/settings/integrations),
+    find the endpoint you want, and select <b>Copy secret</b>.</li>
+          <li>Compute an HMAC with the SHA256 hash function.</li>
+          <li>Use the endpoint's signing secret as the key.</li>
+          <li>Use the <code>signed_payload</code> string as the message.</li>
+        </ol>
+        <pre>crypto.createHmac("sha256", secret).update('<b>&lt;timestamp&gt;</b>.<b>&lt;stringified payload&gt;</b>',
+    "utf8").digest("hex")</pre>
+      </li>
+
+      <li><b>Compare the signatures</b>
+        <ol>
+          <li>Compare the signature in the header to the expected signature.</li>
+          <li>For an equality match, compute the difference between the current timestamp and the received
+    timestamp.</li>
+          <li>Decide whether the difference is within your tolerance. We recommend a tolerance of 5 minutes
+    to allow for clock drift and processing delays. Webhooks with timestamps older than your tolerance
+    window should be rejected to prevent replay attacks.</li>
+        </ol>
+      </li>
+    </ol>
+
+
+    <h2>Best Practices</h2>
+
+    <ul>
+      <li>Always verify webhook signatures to ensure requests are genuine (see Security and Verification
+    section above).</li>
+      <li>Return a 2xx status code as quickly as possible to acknowledge receipt (our webhooks will timeout
+    after 10 seconds).</li>
+      <li>Process webhook events asynchronously after acknowledging receipt.</li>
+      <li>Implement proper error handling for failed webhook deliveries.</li>
+      <li>Implement retry logic in your application to handle temporary failures.</li>
+      <li>Implement idempotency in your webhook handler to prevent duplicate processing of the same event.</li>
+      <li>Set up monitoring for your webhook endpoint to detect failures.</li>
+      <li>Consider using a webhook testing tool during development to simulate events.</li>
+    </ul>
+
+
+    <h2>Limitations</h2>
+
+    <ul>
+      <li>Webhook URLs are currently limited to a maximum of 512 characters</li>
+    </ul>
+
+
+    <h2>Need Help?</h2>
+
+    <p>If you need help implementing webhooks or troubleshooting, contact our Support team from the MaintainX
+    web application. From the sidebar, select <strong>Support</strong>, then select <strong>Contact Support</strong>.</p>
+
+
+    <style>
+      .info-box {
+        padding: 10px 15px;
+        margin: 15px 0;
+        background-color: #eef9fc;
+        border-left: 4px solid #4bb3d4;
+        color: #193c47;
+        border-radius: 4px;
+      }
+    </style>
+
+
+    <style>
+      .note-box {
+        padding: 10px 15px;
+        margin: 15px 0;
+        background-color: #fdfdfe;
+        border-left: 4px solid #d4d5d8;
+        color: #474748;
+        border-radius: 4px;
+      }
+    </style>
+
+
+    <style>
+      .tip-box {
+        padding: 10px 15px;
+        margin: 15px 0;
+        background-color: #e6f5e6;
+        border-left: 4px solid #009400;
+        color: #013100;
+        border-radius: 4px;
+      }
+    </style>
+
+
+    <style>
+      .warning-box {
+        padding: 10px 15px;
+        margin: 15px 0;
+        background-color: #fff8e6;
+        border-left: 4px solid #e6a700;
+        color: #4d3800;
+        border-radius: 4px;
+      }
+    </style>
+
+
+    <style>
+      .danger-box {
+        padding: 10px 15px;
+        margin: 15px 0;
+        background-color: #ffebec;
+        border-left: 4px solid #e13238;
+        color: #4b1013;
+        border-radius: 4px;
+      }
+    </style>
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Subscriptions & Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-subscriptions-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-teams-api
+  name: MaintainX Teams API
+  description: Operations on Teams
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-teams-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-users-api
+  name: MaintainX Users API
+  description: Operations on Users
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-users-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-vendors-api
+  name: MaintainX Vendors API
+  description: Operations on Vendors
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-work-orders-api
+  name: MaintainX Work Orders API
+  description: Operations on Work Orders
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Work Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-work-orders-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-work-permits-api
+  name: MaintainX Work Permits API
+  description: Operations for Work Permits
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Work Permits
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-work-permits-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-work-request-portals-api
+  name: MaintainX Work Request Portals API
+  description: Operations on Work Request Portals
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Work Request Portals
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-work-request-portals-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-work-requests-api
+  name: MaintainX Work Requests API
+  description: Operations on Work Requests
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Work Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-work-requests-api-openapi.yml
+  - type: Documentation
+    url: https://api.getmaintainx.com/v1/docs
+  - type: APIReference
+    url: https://api.getmaintainx.com/v1/docs
 common:
 - type: Website
   url: https://www.getmaintainx.com/
+- type: DeveloperPortal
+  url: https://api.getmaintainx.com/v1/docs
+- type: Documentation
+  url: https://api.getmaintainx.com/v1/docs
+- type: APIReference
+  url: https://api.getmaintainx.com/v1/docs
+- type: GettingStarted
+  url: https://api.getmaintainx.com/v1/docs
+- type: Support
+  url: https://help.getmaintainx.com
+- type: Blog
+  url: https://www.getmaintainx.com/blog
+- type: GitHubOrganization
+  url: https://github.com/maintainx
+- type: Pricing
+  url: https://www.getmaintainx.com/pricing
+- type: SignUp
+  url: https://app.getmaintainx.com/signup
+- type: Login
+  url: https://app.getmaintainx.com/login
+- type: TermsOfService
+  url: https://www.getmaintainx.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.getmaintainx.com/privacy-policy
+- type: StatusPage
+  url: https://status.getmaintainx.com
+- type: ChangeLog
+  url: changelog/maintainx-changelog.yml
+- type: Security
+  url: https://www.getmaintainx.com/security
+- type: TrustCenter
+  url: https://trust.getmaintainx.com
+- type: Compliance
+  url: https://www.getmaintainx.com/security
+- type: LLMsTxt
+  url: llms/maintainx-llms.txt
+- type: RateLimits
+  url: rate-limits/maintainx-rate-limits.yml
+- type: Webhooks
+  url: asyncapi/maintainx-webhooks.yml
+- type: MCPServer
+  url: mcp/maintainx-mcp.yml
+- type: Conventions
+  url: conventions/maintainx-conventions.yml
+- type: ErrorCatalog
+  url: errors/maintainx-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/maintainx-lifecycle.yml
+- type: Conformance
+  url: conformance/maintainx-conformance.yml
+- type: DataModel
+  url: data-model/maintainx-data-model.yml
+- type: Overlay
+  url: overlays/maintainx-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/maintainx-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/maintainx-agentic-access.yml
+- type: Authentication
+  url: authentication/maintainx-authentication.yml
