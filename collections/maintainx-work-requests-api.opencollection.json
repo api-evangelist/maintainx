@@ -1,0 +1,283 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Work Requests API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List work requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/workrequests",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assets",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locations",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "priorities",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Endpoint used to list work request resources"
+        },
+        {
+          "info": {
+            "name": "Create work request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/workrequests",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create work request"
+        },
+        {
+          "info": {
+            "name": "Get work request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the workRequest"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get work request"
+        },
+        {
+          "info": {
+            "name": "Update work request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the work request"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update work request"
+        },
+        {
+          "info": {
+            "name": "Delete workRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the workRequest"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Delete workRequest"
+        },
+        {
+          "info": {
+            "name": "Update work request attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id/attachments/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the work request."
+              },
+              {
+                "name": "filename",
+                "value": "datasheet.pdf",
+                "type": "path",
+                "description": "Name of the attachment, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Update work request attachment"
+        },
+        {
+          "info": {
+            "name": "Remove work request attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id/attachments/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the work request."
+              },
+              {
+                "name": "filename",
+                "value": "attachment.xls",
+                "type": "path",
+                "description": "Name of the attachment, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Remove work request attachment"
+        },
+        {
+          "info": {
+            "name": "Update work request's thumbnail",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getmaintainx.com/v1/workrequests/:id/thumbnail/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the work request."
+              },
+              {
+                "name": "filename",
+                "value": "motor.png",
+                "type": "path",
+                "description": "Name of the work request thumbnail, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Update work request's thumbnail"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

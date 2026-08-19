@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Manufacturers API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manufacturers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List manufacturers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/manufacturers",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              },
+              {
+                "name": "x-organization-ids",
+                "value": "1,2,3"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Endpoint used to list manufacturer resources"
+        },
+        {
+          "info": {
+            "name": "Create new manufacturer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/manufacturers",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new manufacturer"
+        },
+        {
+          "info": {
+            "name": "Get manufacturer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/manufacturers/:id",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the manufacturer"
+              }
+            ]
+          },
+          "docs": "Get manufacturer"
+        },
+        {
+          "info": {
+            "name": "List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/models",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              },
+              {
+                "name": "x-organization-ids",
+                "value": "1,2,3"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Endpoint used to list model resources"
+        },
+        {
+          "info": {
+            "name": "Create new model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/models",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new model"
+        },
+        {
+          "info": {
+            "name": "Get model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/models/:id",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the model"
+              }
+            ]
+          },
+          "docs": "Get model"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

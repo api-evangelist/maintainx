@@ -1,0 +1,3036 @@
+{
+  "item": [
+    {
+      "id": "8b8f9c6f-7e03-42dc-94b3-2cb649259e00",
+      "name": "Assets",
+      "description": {
+        "content": "Operations on Assets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "544b6a9c-83f9-4b27-9f45-9c1fd0a3488d",
+          "name": "Create new asset",
+          "request": {
+            "name": "Create new asset",
+            "description": {},
+            "url": {
+              "path": [
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"criticalityId\": \"<integer>\",\n  \"parentId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"teamIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"assetTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"vendorIds\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"serialNumber\": \"<string>\",\n  \"depreciation\": {\n    \"id\": \"<number>\",\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"<dateTime>\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"<dateTime>\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": \"<decimal>\",\n    \"yearsDepreciated\": \"<decimal>\",\n    \"createdAt\": \"<dateTime>\",\n    \"archivedAt\": \"<dateTime>\"\n  },\n  \"manufacturer\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"model\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fb000cc-ffca-4981-b6aa-3efdcc8dcbec",
+              "name": "Successfully created asset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 963\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57307e64-55c2-422a-8209-c3a16538e771",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4aff46f4-e8d5-4e07-8d55-0a19c2b5998e",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2443ba00-11a8-4b8e-95b1-e784deab1b86",
+          "name": "List assets",
+          "request": {
+            "name": "List assets",
+            "description": {
+              "content": "Endpoint used to list asset resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "manufacturer",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "manufacturer",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt[gte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt[lte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt[gte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt[lte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customFieldName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customFieldName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                "key": "x-organization-ids",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75295fec-8828-4804-8718-822ac6991efc",
+              "name": "Successfully fetched Assets list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assets\": [\n    {\n      \"id\": 963,\n      \"name\": \"Forklift\",\n      \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n      \"parentId\": 852,\n      \"criticalityId\": 150,\n      \"locationId\": 852,\n      \"serialNumber\": \"000123ABC\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 851,\n      \"organizationId\": 1,\n      \"barcode\": \"BWFPBNRHAW54CG\",\n      \"teamIds\": [\n        123,\n        456\n      ],\n      \"assetTypes\": [\n        \"manual\",\n        \"tool\"\n      ],\n      \"extraFields\": {\n        \"My Custom Field\": \"000000000\"\n      },\n      \"vendorIds\": [\n        1,\n        1\n      ],\n      \"depreciation\": {\n        \"id\": 42,\n        \"accumulatedDepreciation\": 3357.298974613618,\n        \"annualDepreciation\": 6291.612558665217,\n        \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n        \"currentBookValue\": 7338.677066048076,\n        \"purchasePrice\": 6601.403107714856,\n        \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n        \"salvageValue\": 1835.7088120367093,\n        \"usefulLifeYears\": 10,\n        \"yearsDepreciated\": 5,\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n      },\n      \"status\": {\n        \"id\": 42,\n        \"status\": \"OFFLINE\",\n        \"downtimeType\": \"PLANNED\",\n        \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"description\": \"Overheated - needs servicing.\",\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"customStatus\": {\n          \"label\": \"Decommissioned\",\n          \"id\": 4585.797611045642,\n          \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n          \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"deletedAt\": \"2022-01-01T12:34:56.123Z\"\n        }\n      },\n      \"manufacturer\": \"Manufacturer\",\n      \"model\": \"Model\"\n    },\n    {\n      \"id\": 963,\n      \"name\": \"Forklift\",\n      \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n      \"parentId\": 852,\n      \"criticalityId\": 150,\n      \"locationId\": 852,\n      \"serialNumber\": \"000123ABC\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 851,\n      \"organizationId\": 1,\n      \"barcode\": \"BWFPBNRHAW54CG\",\n      \"teamIds\": [\n        123,\n        456\n      ],\n      \"assetTypes\": [\n        \"manual\",\n        \"tool\"\n      ],\n      \"extraFields\": {\n        \"My Custom Field\": \"000000000\"\n      },\n      \"vendorIds\": [\n        1,\n        1\n      ],\n      \"depreciation\": {\n        \"id\": 42,\n        \"accumulatedDepreciation\": 4635.930598768991,\n        \"annualDepreciation\": 4825.698708840284,\n        \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n        \"currentBookValue\": 9036.457881221942,\n        \"purchasePrice\": 4592.5277986331,\n        \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n        \"salvageValue\": 4092.512871155013,\n        \"usefulLifeYears\": 10,\n        \"yearsDepreciated\": 5,\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n      },\n      \"status\": {\n        \"id\": 42,\n        \"status\": \"OFFLINE\",\n        \"downtimeType\": \"PLANNED\",\n        \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"description\": \"Overheated - needs servicing.\",\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"customStatus\": {\n          \"label\": \"Decommissioned\",\n          \"id\": 376.80168179993643,\n          \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n          \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"deletedAt\": \"2022-01-01T12:34:56.123Z\"\n        }\n      },\n      \"manufacturer\": \"Manufacturer\",\n      \"model\": \"Model\"\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c894a783-fb2c-4d1b-9494-50cab5805354",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70958681-a4bf-4541-a30c-bce1447f8138",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "manufacturer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99663859-b0e9-4dfd-8c3e-ffb015cfe7d3",
+          "name": "Get asset",
+          "request": {
+            "name": "Get asset",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3d1d02b-f50c-4e0b-9fcd-95fc72b47705",
+              "name": "Successfully retrieved asset's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"asset\": {\n    \"id\": 963,\n    \"name\": \"Forklift\",\n    \"globalUuid\": \"e2eb31cb-dd28-495a-92dd-6a435514f5ae\",\n    \"currentOwnerId\": 1,\n    \"barcode\": \"BWFPBNRHAW54CG\",\n    \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n    \"criticalityId\": 150,\n    \"teamIds\": [\n      123,\n      456\n    ],\n    \"assetTypes\": [\n      \"manual\",\n      \"tool\"\n    ],\n    \"parentId\": 852,\n    \"childrenIds\": [\n      321,\n      987\n    ],\n    \"locationId\": 852,\n    \"serialNumber\": \"000123ABC\",\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"extraFields\": {\n      \"My Custom Field\": \"000000000\"\n    },\n    \"vendorIds\": [\n      1,\n      1\n    ],\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"deletedAt\": \"1994-12-02T20:26:39.137Z\",\n    \"creatorId\": 851,\n    \"depreciation\": {\n      \"id\": 42,\n      \"accumulatedDepreciation\": 8918.06813923906,\n      \"annualDepreciation\": 9742.551486996543,\n      \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n      \"currentBookValue\": 112.14921097264963,\n      \"purchasePrice\": 7111.030719828913,\n      \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n      \"salvageValue\": 1530.1612698721656,\n      \"usefulLifeYears\": 10,\n      \"yearsDepreciated\": 5,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n    },\n    \"manufacturer\": \"Manufacturer\",\n    \"model\": \"Model\",\n    \"status\": {\n      \"id\": 42,\n      \"status\": \"OFFLINE\",\n      \"downtimeType\": \"PLANNED\",\n      \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"description\": \"Overheated - needs servicing.\",\n      \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n      \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"customStatus\": {\n        \"label\": \"Decommissioned\",\n        \"id\": 564.4698271739157,\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"downtimeType\": \"UNPLANNED\"\n      },\n      \"customStatusId\": 53\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aaf899e6-061d-4344-83f1-49b9c70346b6",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "681d5da4-e5eb-422b-9c38-1f37e5d74bd8",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9dd78da-6d53-4948-a979-64514d389479",
+              "name": "Could not find the specified asset or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b2c49e7-904e-489b-872a-e86c4abe4e6a",
+          "name": "Update asset",
+          "request": {
+            "name": "Update asset",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"criticalityId\": \"<integer>\",\n  \"parentId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"teamIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"assetTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"vendorIds\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"serialNumber\": \"<string>\",\n  \"depreciation\": {\n    \"id\": \"<number>\",\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"<dateTime>\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"<dateTime>\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": \"<decimal>\",\n    \"yearsDepreciated\": \"<decimal>\",\n    \"createdAt\": \"<dateTime>\",\n    \"archivedAt\": \"<dateTime>\"\n  },\n  \"manufacturer\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"model\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ae6fc1e-f71b-4159-a32a-898b997fb3b5",
+              "name": "Successfully edited asset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"asset\": {\n    \"id\": 963,\n    \"name\": \"Forklift\",\n    \"globalUuid\": \"e2eb31cb-dd28-495a-92dd-6a435514f5ae\",\n    \"currentOwnerId\": 1,\n    \"barcode\": \"BWFPBNRHAW54CG\",\n    \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n    \"criticalityId\": 150,\n    \"teamIds\": [\n      123,\n      456\n    ],\n    \"assetTypes\": [\n      \"manual\",\n      \"tool\"\n    ],\n    \"parentId\": 852,\n    \"childrenIds\": [\n      321,\n      987\n    ],\n    \"locationId\": 852,\n    \"serialNumber\": \"000123ABC\",\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"extraFields\": {\n      \"My Custom Field\": \"000000000\"\n    },\n    \"vendorIds\": [\n      1,\n      1\n    ],\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"deletedAt\": \"2018-12-13T13:54:07.973Z\",\n    \"creatorId\": 851,\n    \"depreciation\": {\n      \"id\": 42,\n      \"accumulatedDepreciation\": 1928.978298609151,\n      \"annualDepreciation\": 4843.136664623825,\n      \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n      \"currentBookValue\": 1698.1941403835988,\n      \"purchasePrice\": 1867.6398610314793,\n      \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n      \"salvageValue\": 8289.367891600685,\n      \"usefulLifeYears\": 10,\n      \"yearsDepreciated\": 5,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n    },\n    \"manufacturer\": \"Manufacturer\",\n    \"model\": \"Model\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c240b1c-8ed6-4c60-93f4-ca493a6d12c9",
+              "name": "Failed to edit the asset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"parentId is not valid\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5d2c190-7348-42b4-b056-daf1555dc9b6",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "458968fa-4e97-48cd-8d6a-c8d9408b0cc7",
+              "name": "Could not find the specified asset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Forklift\",\n  \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n  \"barcode\": \"BWFPBNRHAW54CG\",\n  \"criticalityId\": 150,\n  \"parentId\": 852,\n  \"locationId\": 852,\n  \"teamIds\": [\n    123,\n    456\n  ],\n  \"assetTypes\": [\n    \"manual\",\n    \"tool\"\n  ],\n  \"extraFields\": {\n    \"My Custom Field\": \"000000000\"\n  },\n  \"vendorIds\": [\n    1,\n    1\n  ],\n  \"serialNumber\": \"000123ABC\",\n  \"depreciation\": {\n    \"id\": 42,\n    \"accumulatedDepreciation\": \"<decimal>\",\n    \"annualDepreciation\": \"<decimal>\",\n    \"depreciationStartDate\": \"2022-01-01T00:00:00.000Z\",\n    \"currentBookValue\": \"<decimal>\",\n    \"purchasePrice\": \"<decimal>\",\n    \"purchaseDate\": \"2022-01-01T00:00:00.000Z\",\n    \"salvageValue\": \"<decimal>\",\n    \"usefulLifeYears\": 10,\n    \"yearsDepreciated\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  },\n  \"manufacturer\": {\n    \"id\": 123,\n    \"name\": \"ACME Corporation\"\n  },\n  \"model\": {\n    \"id\": 456,\n    \"name\": \"X-2000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"asset Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2803a844-0a25-42c6-b9f5-f2534746cf45",
+          "name": "Delete asset",
+          "request": {
+            "name": "Delete asset",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4912d18b-0b76-4ebc-a01d-11c513b2cec9",
+              "name": "Successfully deleted the asset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "089b595a-876f-4540-a070-6275f440fb18",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b4960d0-2835-4d1d-941d-36864bd12d46",
+              "name": "Could not find the specified asset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"asset Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b36da7a4-4e3b-41e7-a209-fea598408efa",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b622747-a867-4221-8349-92173f711f7b",
+          "name": "Update asset attachment",
+          "request": {
+            "name": "Update asset attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/xml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "609c3c80-08fb-496f-90bf-45f77ec2456e",
+              "name": "Successfully updated asset's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "266f0c77-bf4b-4cad-b7e1-41719cba6dd5",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cfa2b7b-28de-4caf-9d1e-4b52a098bb58",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e11dfbd9-abde-42c1-933a-9479c10f3f15",
+              "name": "Could not find the specified asset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"asset Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56691787-2772-4fe3-bef3-dfb0e612cd33",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab09f1ce-5134-4398-9767-aa05b66a706f",
+          "name": "Remove asset attachment",
+          "request": {
+            "name": "Remove asset attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc5d2ddf-2811-4965-929f-a0ea410d86b0",
+              "name": "Successfully removed asset's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7fbc4861-707a-476b-a1a0-a378d7dbc911",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "388b08d6-6948-4a5f-8dfe-9ca011faafe4",
+              "name": "Could not find the specified Attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22d94aba-7476-4ba6-9800-273bcfbbb9f9",
+          "name": "Update asset's thumbnail",
+          "request": {
+            "name": "Update asset's thumbnail",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":id",
+                "thumbnail",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the asset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the asset thumbnail, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>"
+            }
+          },
+          "response": [
+            {
+              "id": "1c635ecc-6660-4966-b77e-5896f12b9647",
+              "name": "Successfully updated asset's thumbnail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the asset thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10502b98-5195-4e33-9f83-f44b5bb79dea",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the asset thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You cannot edit this entity.\",\n      \"fieldPath\": \"organizationId\",\n      \"fieldValue\": \"1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f50e0113-5fd9-4616-b02a-bc0bb23f80ce",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the asset thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb119c93-d25a-42bb-a479-4dca917f76ea",
+              "name": "Could not find the specified Asset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the asset thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Asset Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc0c1056-743b-4233-b7fd-6f5d952d600a",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the asset thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cfa10d6-90c6-41c5-891d-58ff29cf87de",
+          "name": "Create a new asset status",
+          "request": {
+            "name": "Create a new asset status",
+            "description": {},
+            "url": {
+              "path": [
+                "assets",
+                ":assetId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "assetId",
+                  "description": "(Required) ID of the asset"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"customStatusId\": \"<number>\",\n  \"downtimeType\": \"<string>\",\n  \"startedAt\": \"<dateTime>\",\n  \"endedAt\": \"<dateTime>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ca7ca9f-57ef-4bb6-9db3-ff063c83ecf0",
+              "name": "Successfully set a new asset status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":assetId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "assetId",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"OFFLINE\",\n  \"customStatusId\": 53,\n  \"downtimeType\": \"PLANNED\",\n  \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"description\": \"Overheated - needs servicing.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assetStatus\": {\n    \"id\": 42,\n    \"status\": \"OFFLINE\",\n    \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n    \"downtimeType\": \"PLANNED\",\n    \"customStatusId\": 53,\n    \"updatedAt\": \"2022-01-01T12:34:56.123Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f3c763e-23c0-4cd3-b23b-27efe3d0051f",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":assetId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "assetId",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"OFFLINE\",\n  \"customStatusId\": 53,\n  \"downtimeType\": \"PLANNED\",\n  \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"description\": \"Overheated - needs servicing.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc84d24b-4152-4c3d-a044-c3cf52dc5811",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":assetId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "assetId",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"OFFLINE\",\n  \"customStatusId\": 53,\n  \"downtimeType\": \"PLANNED\",\n  \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"description\": \"Overheated - needs servicing.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9145e610-b0bd-46b2-b833-297cd37eae6a",
+              "name": "Could not find the specified asset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":assetId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "assetId",
+                      "description": "(Required) ID of the asset"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"OFFLINE\",\n  \"customStatusId\": 53,\n  \"downtimeType\": \"PLANNED\",\n  \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n  \"description\": \"Overheated - needs servicing.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"asset Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "65d8dad0-c399-4941-9f4f-99729b352c65",
+    "name": "MaintainX Asset Criticalities Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Locations API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/locations",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              },
+              {
+                "name": "x-organization-ids",
+                "value": "1,2,3"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "customFieldName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Endpoint used to list location resources"
+        },
+        {
+          "info": {
+            "name": "Create new location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/locations",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new location"
+        },
+        {
+          "info": {
+            "name": "Get location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location"
+              }
+            ]
+          },
+          "docs": "Get location"
+        },
+        {
+          "info": {
+            "name": "Update location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.getmaintainx.com/v1/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update location"
+        },
+        {
+          "info": {
+            "name": "Delete location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getmaintainx.com/v1/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Delete location"
+        },
+        {
+          "info": {
+            "name": "Update location attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getmaintainx.com/v1/locations/:id/attachments/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location."
+              },
+              {
+                "name": "filename",
+                "value": "datasheet.pdf",
+                "type": "path",
+                "description": "Name of the attachment, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Update location attachment"
+        },
+        {
+          "info": {
+            "name": "Remove location attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getmaintainx.com/v1/locations/:id/attachments/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location."
+              },
+              {
+                "name": "filename",
+                "value": "attachment.xls",
+                "type": "path",
+                "description": "Name of the attachment, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Remove location attachment"
+        },
+        {
+          "info": {
+            "name": "Update location's thumbnail",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getmaintainx.com/v1/locations/:id/thumbnail/:filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the location."
+              },
+              {
+                "name": "filename",
+                "value": "motor.png",
+                "type": "path",
+                "description": "Name of the location thumbnail, including the extension."
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Update location's thumbnail"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

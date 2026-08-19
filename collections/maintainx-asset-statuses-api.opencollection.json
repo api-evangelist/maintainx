@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Asset Statuses API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Asset Statuses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List asset statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/assetstatuses",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Endpoint used to list assetStatuses resources"
+        },
+        {
+          "info": {
+            "name": "Update asset status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.getmaintainx.com/v1/assetstatuses/:id",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "5678",
+                "type": "path",
+                "description": "ID of the asset status"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update asset status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

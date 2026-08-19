@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Custom Fields API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getmaintainx.com/v1/customfields/:entity",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "entity",
+                "value": "assets",
+                "type": "path",
+                "description": "Type of entity"
+              }
+            ]
+          },
+          "docs": "List custom fields"
+        },
+        {
+          "info": {
+            "name": "Create custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/customfields/:entity",
+            "headers": [
+              {
+                "name": "x-organization-id",
+                "value": "1"
+              }
+            ],
+            "params": [
+              {
+                "name": "entity",
+                "value": "assets",
+                "type": "path",
+                "description": "Type of entity"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create custom field"
+        },
+        {
+          "info": {
+            "name": "Edit custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.getmaintainx.com/v1/customfields/:entity/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the custom field"
+              },
+              {
+                "name": "entity",
+                "value": "assets",
+                "type": "path",
+                "description": "Type of entity"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit custom field"
+        },
+        {
+          "info": {
+            "name": "Delete custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getmaintainx.com/v1/customfields/:entity/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "ID of the custom field"
+              },
+              {
+                "name": "entity",
+                "value": "assets",
+                "type": "path",
+                "description": "Type of entity"
+              },
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ]
+          },
+          "docs": "Delete custom field"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

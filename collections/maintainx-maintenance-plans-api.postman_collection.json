@@ -1,0 +1,1577 @@
+{
+  "item": [
+    {
+      "id": "cfbb1a47-46eb-454e-836a-f27dd16b5780",
+      "name": "Maintenance Plans",
+      "description": {
+        "content": "Operations on Preventive Maintenance Plans",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f104e9a7-fbbf-4f0b-b13d-d856d453fdfb",
+          "name": "Create a maintenance plan",
+          "request": {
+            "name": "Create a maintenance plan",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenanceplans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"workOrderBlueprintId\": \"<number>\",\n  \"planningHorizon\": {\n    \"value\": \"<number>\",\n    \"unit\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"workOrderStartDatePadding\": \"<number>\",\n  \"workOrderStartDateOffset\": {\n    \"value\": \"<number>\",\n    \"unit\": \"<string>\"\n  },\n  \"planAssets\": [\n    {\n      \"assetId\": \"<number>\"\n    },\n    {\n      \"assetId\": \"<number>\"\n    }\n  ],\n  \"intervals\": [\n    {\n      \"interval\": \"<number>\",\n      \"workOrderBlueprintId\": \"<number>\"\n    },\n    {\n      \"interval\": \"<number>\",\n      \"workOrderBlueprintId\": \"<number>\"\n    }\n  ],\n  \"nextCycleOccurrence\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf9ba20b-c918-49b8-90be-9745ad2a4dd8",
+              "name": "Successfully created the maintenance plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"workOrderBlueprintId\": 10,\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"intervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    }\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "865befec-6ad1-445a-b038-8e2adb810fd2",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"workOrderBlueprintId\": 10,\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"intervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    }\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6b5cdf8-7e6b-435e-a07d-14dbd52f754b",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"workOrderBlueprintId\": 10,\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"intervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50\n    }\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "707edabe-b03a-49f8-a694-dbf3069c4f3e",
+          "name": "List maintenance plans",
+          "request": {
+            "name": "List maintenance plans",
+            "description": {
+              "content": "Endpoint used to list maintenance plan resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "maintenanceplans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00c183d5-7f7a-4252-b83b-67a5ff74cd94",
+              "name": "Successfully fetched Maintenance Plans list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"maintenancePlans\": [\n    {\n      \"id\": 1,\n      \"name\": \"Weekly Conveyor Belt Inspection\",\n      \"organizationId\": 42,\n      \"startDate\": \"2022-01-01T00:00:00.000Z\",\n      \"workOrderStartDatePadding\": 48,\n      \"workOrderStartDateOffset\": {\n        \"value\": 2,\n        \"unit\": \"DAY\"\n      },\n      \"workOrderStartDateFixedDay\": 5,\n      \"blueprintEstimatedTime\": 60,\n      \"triggerType\": \"CALENDAR\",\n      \"intervalStrategy\": \"FIXED\",\n      \"recurrence\": {\n        \"type\": \"DAILY\"\n      },\n      \"planningHorizon\": {\n        \"value\": 3,\n        \"unit\": \"WEEK\"\n      },\n      \"workOrderBlueprintId\": 10,\n      \"assets\": [\n        {\n          \"id\": 1,\n          \"assetId\": 100\n        },\n        {\n          \"id\": 1,\n          \"assetId\": 100\n        }\n      ],\n      \"intervals\": [\n        {\n          \"id\": 1,\n          \"interval\": 3,\n          \"workOrderBlueprintId\": 50\n        },\n        {\n          \"id\": 1,\n          \"interval\": 3,\n          \"workOrderBlueprintId\": 50\n        }\n      ],\n      \"nextCycleOccurrence\": 2,\n      \"nextScheduledWorkOrderDueDate\": \"2022-01-01T00:00:00.000Z\",\n      \"lastPlannedDueDate\": \"2022-01-01T00:00:00.000Z\",\n      \"nextWorkOrderGenerationAt\": \"2022-01-01T00:00:00.000Z\",\n      \"lastWorkOrderGeneratedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 5,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Weekly Conveyor Belt Inspection\",\n      \"organizationId\": 42,\n      \"startDate\": \"2022-01-01T00:00:00.000Z\",\n      \"workOrderStartDatePadding\": 48,\n      \"workOrderStartDateOffset\": {\n        \"value\": 2,\n        \"unit\": \"DAY\"\n      },\n      \"workOrderStartDateFixedDay\": 5,\n      \"blueprintEstimatedTime\": 60,\n      \"triggerType\": \"CALENDAR\",\n      \"intervalStrategy\": \"FIXED\",\n      \"recurrence\": {\n        \"type\": \"DAILY\"\n      },\n      \"planningHorizon\": {\n        \"value\": 3,\n        \"unit\": \"WEEK\"\n      },\n      \"workOrderBlueprintId\": 10,\n      \"assets\": [\n        {\n          \"id\": 1,\n          \"assetId\": 100\n        },\n        {\n          \"id\": 1,\n          \"assetId\": 100\n        }\n      ],\n      \"intervals\": [\n        {\n          \"id\": 1,\n          \"interval\": 3,\n          \"workOrderBlueprintId\": 50\n        },\n        {\n          \"id\": 1,\n          \"interval\": 3,\n          \"workOrderBlueprintId\": 50\n        }\n      ],\n      \"nextCycleOccurrence\": 2,\n      \"nextScheduledWorkOrderDueDate\": \"2022-01-01T00:00:00.000Z\",\n      \"lastPlannedDueDate\": \"2022-01-01T00:00:00.000Z\",\n      \"nextWorkOrderGenerationAt\": \"2022-01-01T00:00:00.000Z\",\n      \"lastWorkOrderGeneratedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 5,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce81616b-dbbb-4e89-abe6-fe5ee0fc460f",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29a7fe76-c185-49df-94ad-b32e6cff8e7b",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29d779ad-a57c-4f62-870d-48f3d3eb0535",
+          "name": "Create a maintenance plan work order blueprint",
+          "request": {
+            "name": "Create a maintenance plan work order blueprint",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenanceplans",
+                "workorderblueprints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedTime\": \"<integer>\",\n  \"procedureBlueprintIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"teamIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"priority\": \"<string>\",\n  \"partsUsed\": [\n    {\n      \"partId\": \"<integer>\",\n      \"quantityUsed\": \"<integer>\"\n    },\n    {\n      \"partId\": \"<integer>\",\n      \"quantityUsed\": \"<integer>\"\n    }\n  ],\n  \"tagIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"vendorIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"customFieldValues\": [\n    {\n      \"workOrderFieldId\": \"<integer>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"workOrderFieldId\": \"<integer>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2162ba5-ae9c-453e-b3ee-728f40177e4c",
+              "name": "Successfully created the work order blueprint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    "workorderblueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Weekly Inspection\",\n  \"description\": \"Inspect the conveyor belt for wear and tear.\",\n  \"estimatedTime\": 3600,\n  \"procedureBlueprintIds\": [\n    1,\n    2\n  ],\n  \"userIds\": [\n    1,\n    2\n  ],\n  \"teamIds\": [\n    3,\n    4\n  ],\n  \"priority\": \"MEDIUM\",\n  \"partsUsed\": [\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    },\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    }\n  ],\n  \"tagIds\": [\n    5,\n    6\n  ],\n  \"vendorIds\": [\n    7,\n    8\n  ],\n  \"customFieldValues\": [\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    },\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b83fd931-02fa-451d-949e-5e963591cdc5",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    "workorderblueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Weekly Inspection\",\n  \"description\": \"Inspect the conveyor belt for wear and tear.\",\n  \"estimatedTime\": 3600,\n  \"procedureBlueprintIds\": [\n    1,\n    2\n  ],\n  \"userIds\": [\n    1,\n    2\n  ],\n  \"teamIds\": [\n    3,\n    4\n  ],\n  \"priority\": \"MEDIUM\",\n  \"partsUsed\": [\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    },\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    }\n  ],\n  \"tagIds\": [\n    5,\n    6\n  ],\n  \"vendorIds\": [\n    7,\n    8\n  ],\n  \"customFieldValues\": [\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    },\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f4057b0-8aa0-40aa-a530-6c9dd578c69b",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    "workorderblueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Weekly Inspection\",\n  \"description\": \"Inspect the conveyor belt for wear and tear.\",\n  \"estimatedTime\": 3600,\n  \"procedureBlueprintIds\": [\n    1,\n    2\n  ],\n  \"userIds\": [\n    1,\n    2\n  ],\n  \"teamIds\": [\n    3,\n    4\n  ],\n  \"priority\": \"MEDIUM\",\n  \"partsUsed\": [\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    },\n    {\n      \"partId\": 10,\n      \"quantityUsed\": 2\n    }\n  ],\n  \"tagIds\": [\n    5,\n    6\n  ],\n  \"vendorIds\": [\n    7,\n    8\n  ],\n  \"customFieldValues\": [\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    },\n    {\n      \"workOrderFieldId\": 100,\n      \"value\": \"high\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e1cf5f1-31aa-4a0d-9b77-6e93897c73e7",
+          "name": "Get maintenance plan",
+          "request": {
+            "name": "Get maintenance plan",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenanceplans",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the maintenancePlan"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d43fc59c-400d-4d77-9708-edb27c3ac74c",
+              "name": "Successfully retrieved maintenancePlan's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenancePlan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"maintenancePlan\": {\n    \"id\": 1,\n    \"name\": \"Weekly Conveyor Belt Inspection\",\n    \"organizationId\": 42,\n    \"startDate\": \"2022-01-01T00:00:00.000Z\",\n    \"workOrderStartDatePadding\": 48,\n    \"workOrderStartDateOffset\": {\n      \"value\": 2,\n      \"unit\": \"DAY\"\n    },\n    \"workOrderStartDateFixedDay\": 5,\n    \"blueprintEstimatedTime\": 60,\n    \"triggerType\": \"CALENDAR\",\n    \"intervalStrategy\": \"FIXED\",\n    \"recurrence\": {\n      \"type\": \"DAILY\"\n    },\n    \"planningHorizon\": {\n      \"value\": 3,\n      \"unit\": \"WEEK\"\n    },\n    \"workOrderBlueprintId\": 10,\n    \"assets\": [\n      {\n        \"id\": 1,\n        \"assetId\": 100\n      },\n      {\n        \"id\": 1,\n        \"assetId\": 100\n      }\n    ],\n    \"intervals\": [\n      {\n        \"id\": 1,\n        \"interval\": 3,\n        \"workOrderBlueprintId\": 50\n      },\n      {\n        \"id\": 1,\n        \"interval\": 3,\n        \"workOrderBlueprintId\": 50\n      }\n    ],\n    \"nextCycleOccurrence\": 2,\n    \"nextScheduledWorkOrderDueDate\": \"2022-01-01T00:00:00.000Z\",\n    \"lastPlannedDueDate\": \"2022-01-01T00:00:00.000Z\",\n    \"nextWorkOrderGenerationAt\": \"2022-01-01T00:00:00.000Z\",\n    \"lastWorkOrderGeneratedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"creatorId\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a3c857b-c396-468c-b9e4-02f49efe9b44",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenancePlan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5acf743-85ad-4ba6-be34-9646b0844617",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenancePlan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0873b809-e676-4767-bb86-3acde74dc33f",
+              "name": "Could not find the specified maintenancePlan or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenancePlan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8352559e-e98a-434b-9826-e802de5c382b",
+          "name": "Update a maintenance plan",
+          "request": {
+            "name": "Update a maintenance plan",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenanceplans",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the maintenance plan"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"workOrderBlueprintId\": \"<number>\",\n  \"workOrderStartDatePadding\": \"<number>\",\n  \"workOrderStartDateOffset\": {\n    \"value\": \"<number>\",\n    \"unit\": \"<string>\"\n  },\n  \"planningHorizon\": {\n    \"value\": \"<number>\",\n    \"unit\": \"<string>\"\n  },\n  \"nextWorkOrderToGenerateDueDate\": \"<dateTime>\",\n  \"addedPlanAssets\": [\n    {\n      \"assetId\": \"<number>\"\n    },\n    {\n      \"assetId\": \"<number>\"\n    }\n  ],\n  \"removedPlanAssetIds\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"addedUpdatedIntervals\": [\n    {\n      \"interval\": \"<number>\",\n      \"workOrderBlueprintId\": \"<number>\",\n      \"id\": \"<number>\"\n    },\n    {\n      \"interval\": \"<number>\",\n      \"workOrderBlueprintId\": \"<number>\",\n      \"id\": \"<number>\"\n    }\n  ],\n  \"removedIntervalIds\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"nextCycleOccurrence\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "748beb30-d59e-42d4-a342-7d6c1cc3abbc",
+              "name": "Successfully updated the maintenance plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderBlueprintId\": 10,\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"nextWorkOrderToGenerateDueDate\": \"2022-01-01T00:00:00.000Z\",\n  \"addedPlanAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"removedPlanAssetIds\": [\n    1,\n    2\n  ],\n  \"addedUpdatedIntervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    }\n  ],\n  \"removedIntervalIds\": [\n    1,\n    2\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"maintenancePlan\": {\n    \"id\": 1,\n    \"name\": \"Weekly Conveyor Belt Inspection\",\n    \"organizationId\": 42,\n    \"startDate\": \"2022-01-01T00:00:00.000Z\",\n    \"workOrderStartDatePadding\": 48,\n    \"workOrderStartDateOffset\": {\n      \"value\": 2,\n      \"unit\": \"DAY\"\n    },\n    \"workOrderStartDateFixedDay\": 5,\n    \"blueprintEstimatedTime\": 60,\n    \"triggerType\": \"CALENDAR\",\n    \"intervalStrategy\": \"FIXED\",\n    \"recurrence\": {\n      \"type\": \"DAILY\"\n    },\n    \"planningHorizon\": {\n      \"value\": 3,\n      \"unit\": \"WEEK\"\n    },\n    \"workOrderBlueprintId\": 10,\n    \"assets\": [\n      {\n        \"id\": 1,\n        \"assetId\": 100\n      },\n      {\n        \"id\": 1,\n        \"assetId\": 100\n      }\n    ],\n    \"intervals\": [\n      {\n        \"id\": 1,\n        \"interval\": 3,\n        \"workOrderBlueprintId\": 50\n      },\n      {\n        \"id\": 1,\n        \"interval\": 3,\n        \"workOrderBlueprintId\": 50\n      }\n    ],\n    \"nextCycleOccurrence\": 2,\n    \"nextScheduledWorkOrderDueDate\": \"2022-01-01T00:00:00.000Z\",\n    \"lastPlannedDueDate\": \"2022-01-01T00:00:00.000Z\",\n    \"nextWorkOrderGenerationAt\": \"2022-01-01T00:00:00.000Z\",\n    \"lastWorkOrderGeneratedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"creatorId\": 5,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abaf250f-36f6-44e0-9d44-3a1c8340832a",
+              "name": "Failed to update the maintenance plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderBlueprintId\": 10,\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"nextWorkOrderToGenerateDueDate\": \"2022-01-01T00:00:00.000Z\",\n  \"addedPlanAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"removedPlanAssetIds\": [\n    1,\n    2\n  ],\n  \"addedUpdatedIntervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    }\n  ],\n  \"removedIntervalIds\": [\n    1,\n    2\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Bad request\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a1473c3-3e4f-4269-a924-37ed8e290c58",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderBlueprintId\": 10,\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"nextWorkOrderToGenerateDueDate\": \"2022-01-01T00:00:00.000Z\",\n  \"addedPlanAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"removedPlanAssetIds\": [\n    1,\n    2\n  ],\n  \"addedUpdatedIntervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    }\n  ],\n  \"removedIntervalIds\": [\n    1,\n    2\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7e05045-300d-4911-b796-3cddd456473f",
+              "name": "Could not find the specified maintenance plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekly Conveyor Belt Inspection\",\n  \"recurrence\": {\n    \"type\": \"<string>\"\n  },\n  \"startDate\": \"2022-01-01T00:00:00.000Z\",\n  \"workOrderBlueprintId\": 10,\n  \"workOrderStartDatePadding\": 48,\n  \"workOrderStartDateOffset\": {\n    \"value\": 2,\n    \"unit\": \"DAY\"\n  },\n  \"planningHorizon\": {\n    \"value\": 3,\n    \"unit\": \"WEEK\"\n  },\n  \"nextWorkOrderToGenerateDueDate\": \"2022-01-01T00:00:00.000Z\",\n  \"addedPlanAssets\": [\n    {\n      \"assetId\": 100\n    },\n    {\n      \"assetId\": 100\n    }\n  ],\n  \"removedPlanAssetIds\": [\n    1,\n    2\n  ],\n  \"addedUpdatedIntervals\": [\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    },\n    {\n      \"interval\": 3,\n      \"workOrderBlueprintId\": 50,\n      \"id\": 1\n    }\n  ],\n  \"removedIntervalIds\": [\n    1,\n    2\n  ],\n  \"nextCycleOccurrence\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"maintenance plan Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bca94df5-2ded-4aa5-be49-425b3b79f700",
+          "name": "Delete maintenance plan",
+          "request": {
+            "name": "Delete maintenance plan",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenanceplans",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the maintenance plan"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c40a8a4-1d64-4000-a483-553fbed64918",
+              "name": "Successfully deleted the maintenancePlan",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d6e9828b-b468-412c-92c1-460bc10e452c",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2984954d-c856-4084-8b73-0f7d9bb50900",
+              "name": "Could not find the specified maintenancePlan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"maintenancePlan Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5931221a-2222-4409-9175-878dc4fce32f",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenanceplans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the maintenance plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b1fb495f-49db-491b-b3bf-f8253dd633a8",
+    "name": "MaintainX Asset Criticalities Maintenance Plans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

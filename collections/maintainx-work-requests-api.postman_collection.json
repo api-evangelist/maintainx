@@ -1,0 +1,2656 @@
+{
+  "item": [
+    {
+      "id": "53e01f63-23fe-4c2d-94f3-e1b0ace4b771",
+      "name": "Work Requests",
+      "description": {
+        "content": "Operations on Work Requests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bcdfc8ec-9548-4e1c-923b-c9f316c8dc8e",
+          "name": "Create work request",
+          "request": {
+            "name": "Create work request",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<string>\",\n  \"assetId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"extraFields\": {\n    \"key_0\": \"<string>\"\n  },\n  \"approverTeamId\": \"<integer>\",\n  \"creatorContactInfo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b6fceaa-6197-4467-889d-3c5b5e43118f",
+              "name": "Successfully created work request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 963\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "684fa039-e812-4d45-b683-c1408ef0c859",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ca4425e-e0c6-446f-84ac-5397625b41ab",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55823afb-7ebe-478d-b463-f51e703f9465",
+          "name": "List work requests",
+          "request": {
+            "name": "List work requests",
+            "description": {
+              "content": "Endpoint used to list work request resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assets",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assets",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locations",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locations",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "priorities",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "priorities",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ee14a82-2585-44b1-989c-e046fbd96c3c",
+              "name": "Successfully fetched Work Requests list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workRequests\": [\n    {\n      \"id\": 963,\n      \"priority\": \"MEDIUM\",\n      \"title\": \"Forklift Preventive Maintenance Form\",\n      \"requestStatus\": \"PENDING\",\n      \"attachments\": [\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        }\n      ],\n      \"thumbnail\": {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n      \"assetId\": 843,\n      \"locationId\": 852,\n      \"workOrderId\": 254,\n      \"sendEmailNotification\": true,\n      \"extraFields\": {\n        \"Request Type\": \"Water Leak\"\n      },\n      \"approverTeamId\": 254,\n      \"creatorContactInfo\": {\n        \"type\": \"EMAIL\",\n        \"value\": \"james@example.com\"\n      },\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"asset\": {\n        \"id\": 963,\n        \"name\": \"Forklift\",\n        \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n        \"parentId\": 852,\n        \"criticalityId\": 150,\n        \"locationId\": 852,\n        \"serialNumber\": \"000123ABC\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 851\n      },\n      \"location\": {\n        \"id\": 963,\n        \"name\": \"Warehouses\",\n        \"description\": \"The warehouse where we store the forklifts\",\n        \"address\": \"1090 main street, Franklin\",\n        \"parentId\": 852,\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\"\n      },\n      \"workOrder\": {\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"status\": \"ON_HOLD\",\n        \"title\": \"string\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 8372,\n        \"id\": 6519,\n        \"sequentialId\": 7821,\n        \"organizationId\": 4120.705011356387,\n        \"assetId\": 42,\n        \"attachments\": [\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          },\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          }\n        ],\n        \"categories\": [\n          \"Cleaning\",\n          \"Cleaning\"\n        ],\n        \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"completerId\": 9291,\n        \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"description\": \"A work order sample description\",\n        \"dueDateIsFullDay\": false,\n        \"dueDate\": \"2022-01-01T00:00:00.000Z\",\n        \"estimatedTime\": 3600,\n        \"externalData\": {\n          \"popularErpSolutionId\": \"asd732da\"\n        },\n        \"isParent\": false,\n        \"lastMessageSentAt\": \"2022-01-01T00:00:00.000Z\",\n        \"startDate\": \"2022-01-01T00:00:00.000Z\",\n        \"locationId\": 611,\n        \"nextId\": 8404,\n        \"parentId\": 1611,\n        \"partsAvailability\": \"PARTS_AVAILABLE_BUT_OVERCOMMITTED\",\n        \"partStatus\": \"ISSUED\",\n        \"previousId\": 8140,\n        \"priority\": \"MEDIUM\",\n        \"recurrenceInfo\": {\n          \"type\": \"DAILY\",\n          \"automationMeterTrigger\": {\n            \"automationTriggerInput\": {\n              \"meterId\": 3304,\n              \"conditions\": [\n                {\n                  \"operator\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"operator\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            },\n            \"lastTriggerValue\": 1962.15863440659,\n            \"newDueDateOffsetSeconds\": 86400\n          }\n        },\n        \"requesterId\": 542,\n        \"thumbnail\": {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        \"type\": null,\n        \"extraFields\": {\n          \"Estimated Time Allotted\": \"24 Hours\"\n        },\n        \"vendorIds\": [\n          1,\n          1\n        ],\n        \"assigneeIds\": [\n          7828,\n          6251\n        ],\n        \"teamIds\": [\n          5668,\n          6138\n        ],\n        \"procedure\": {\n          \"title\": \"Control dashboard audit\",\n          \"fields\": [\n            {\n              \"id\": 1234,\n              \"label\": \"Number of green lights\",\n              \"required\": true,\n              \"type\": \"NUMBER\",\n              \"value\": {\n                \"text\": \"12\",\n                \"attachment\": {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                \"attachments\": [\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  },\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  }\n                ],\n                \"notes\": {\n                  \"text\": \"1 light bulb is burned out.\"\n                },\n                \"hasAttachments\": false\n              },\n              \"parentId\": 1233,\n              \"procedureTemplateId\": 1234,\n              \"procedureTemplateFieldId\": 5678,\n              \"description\": \"Number of green lights\",\n              \"maxScore\": 2,\n              \"score\": 1,\n              \"meter\": {\n                \"id\": 123,\n                \"name\": \"string\"\n              },\n              \"assignees\": {\n                \"userIds\": [\n                  1455.6309651325716,\n                  8615.439671076778\n                ],\n                \"teamIds\": [\n                  5470.771721784718,\n                  3721.0469468909714\n                ]\n              },\n              \"isDateAndTime\": false\n            },\n            {\n              \"id\": 1234,\n              \"label\": \"Number of green lights\",\n              \"required\": false,\n              \"type\": \"NUMBER\",\n              \"value\": {\n                \"text\": \"12\",\n                \"attachment\": {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                \"attachments\": [\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  },\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  }\n                ],\n                \"notes\": {\n                  \"text\": \"1 light bulb is burned out.\"\n                },\n                \"hasAttachments\": true\n              },\n              \"parentId\": 1233,\n              \"procedureTemplateId\": 1234,\n              \"procedureTemplateFieldId\": 5678,\n              \"description\": \"Number of green lights\",\n              \"maxScore\": 2,\n              \"score\": 1,\n              \"meter\": {\n                \"id\": 123,\n                \"name\": \"string\"\n              },\n              \"assignees\": {\n                \"userIds\": [\n                  9746.604959168631,\n                  8437.590042890653\n                ],\n                \"teamIds\": [\n                  8937.521574485143,\n                  818.2672953200109\n                ]\n              },\n              \"isDateAndTime\": false\n            }\n          ],\n          \"id\": 1234,\n          \"templateIds\": [\n            1234,\n            1235\n          ],\n          \"maxScore\": 2,\n          \"score\": 1\n        },\n        \"progress\": {\n          \"openCount\": 1,\n          \"inProgressCount\": 1,\n          \"onHoldCount\": 1,\n          \"doneCount\": 1\n        },\n        \"workOrderSummary\": {\n          \"content\": \"Replaced the motor bearings and aligned the shaft.\",\n          \"summary\": \"Motor bearing replacement and shaft alignment completed.\",\n          \"authorId\": 963\n        }\n      }\n    },\n    {\n      \"id\": 963,\n      \"priority\": \"MEDIUM\",\n      \"title\": \"Forklift Preventive Maintenance Form\",\n      \"requestStatus\": \"PENDING\",\n      \"attachments\": [\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        }\n      ],\n      \"thumbnail\": {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n      \"assetId\": 843,\n      \"locationId\": 852,\n      \"workOrderId\": 254,\n      \"sendEmailNotification\": true,\n      \"extraFields\": {\n        \"Request Type\": \"Water Leak\"\n      },\n      \"approverTeamId\": 254,\n      \"creatorContactInfo\": {\n        \"type\": \"EMAIL\",\n        \"value\": \"james@example.com\"\n      },\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"asset\": {\n        \"id\": 963,\n        \"name\": \"Forklift\",\n        \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n        \"parentId\": 852,\n        \"criticalityId\": 150,\n        \"locationId\": 852,\n        \"serialNumber\": \"000123ABC\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 851\n      },\n      \"location\": {\n        \"id\": 963,\n        \"name\": \"Warehouses\",\n        \"description\": \"The warehouse where we store the forklifts\",\n        \"address\": \"1090 main street, Franklin\",\n        \"parentId\": 852,\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\"\n      },\n      \"workOrder\": {\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"status\": \"IN_PROGRESS\",\n        \"title\": \"string\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 7395,\n        \"id\": 9712,\n        \"sequentialId\": 2435,\n        \"organizationId\": 1313.498425970082,\n        \"assetId\": 42,\n        \"attachments\": [\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          },\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          }\n        ],\n        \"categories\": [\n          \"Cleaning\",\n          \"Cleaning\"\n        ],\n        \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"completerId\": 6219,\n        \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"description\": \"A work order sample description\",\n        \"dueDateIsFullDay\": true,\n        \"dueDate\": \"2022-01-01T00:00:00.000Z\",\n        \"estimatedTime\": 3600,\n        \"externalData\": {\n          \"popularErpSolutionId\": \"asd732da\"\n        },\n        \"isParent\": false,\n        \"lastMessageSentAt\": \"2022-01-01T00:00:00.000Z\",\n        \"startDate\": \"2022-01-01T00:00:00.000Z\",\n        \"locationId\": 611,\n        \"nextId\": 7088,\n        \"parentId\": 3062,\n        \"partsAvailability\": \"PARTS_AVAILABLE_BUT_OVERCOMMITTED\",\n        \"partStatus\": \"KITTED\",\n        \"previousId\": 7482,\n        \"priority\": \"MEDIUM\",\n        \"recurrenceInfo\": {\n          \"type\": \"DAILY\",\n          \"automationMeterTrigger\": {\n            \"automationTriggerInput\": {\n              \"meterId\": 7586,\n              \"conditions\": [\n                {\n                  \"operator\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"operator\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            },\n            \"lastTriggerValue\": 9619.46897966464,\n            \"newDueDateOffsetSeconds\": 86400\n          }\n        },\n        \"requesterId\": 8594,\n        \"thumbnail\": {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        \"type\": null,\n        \"extraFields\": {\n          \"Estimated Time Allotted\": \"24 Hours\"\n        },\n        \"vendorIds\": [\n          1,\n          1\n        ],\n        \"assigneeIds\": [\n          3807,\n          4348\n        ],\n        \"teamIds\": [\n          4376,\n          5308\n        ],\n        \"procedure\": {\n          \"title\": \"Control dashboard audit\",\n          \"fields\": [\n            {\n              \"id\": 1234,\n              \"label\": \"Number of green lights\",\n              \"required\": false,\n              \"type\": \"NUMBER\",\n              \"value\": {\n                \"text\": \"12\",\n                \"attachment\": {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                \"attachments\": [\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  },\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  }\n                ],\n                \"notes\": {\n                  \"text\": \"1 light bulb is burned out.\"\n                },\n                \"hasAttachments\": false\n              },\n              \"parentId\": 1233,\n              \"procedureTemplateId\": 1234,\n              \"procedureTemplateFieldId\": 5678,\n              \"description\": \"Number of green lights\",\n              \"maxScore\": 2,\n              \"score\": 1,\n              \"meter\": {\n                \"id\": 123,\n                \"name\": \"string\"\n              },\n              \"assignees\": {\n                \"userIds\": [\n                  7940.439454956661,\n                  3365.0048400949427\n                ],\n                \"teamIds\": [\n                  7116.558515371079,\n                  6815.388002071445\n                ]\n              },\n              \"isDateAndTime\": false\n            },\n            {\n              \"id\": 1234,\n              \"label\": \"Number of green lights\",\n              \"required\": false,\n              \"type\": \"NUMBER\",\n              \"value\": {\n                \"text\": \"12\",\n                \"attachment\": {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                \"attachments\": [\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  },\n                  {\n                    \"id\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"mimeType\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"fileName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"url\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"createdAt\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"width\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"height\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  }\n                ],\n                \"notes\": {\n                  \"text\": \"1 light bulb is burned out.\"\n                },\n                \"hasAttachments\": true\n              },\n              \"parentId\": 1233,\n              \"procedureTemplateId\": 1234,\n              \"procedureTemplateFieldId\": 5678,\n              \"description\": \"Number of green lights\",\n              \"maxScore\": 2,\n              \"score\": 1,\n              \"meter\": {\n                \"id\": 123,\n                \"name\": \"string\"\n              },\n              \"assignees\": {\n                \"userIds\": [\n                  3216.2835182514227,\n                  1204.2415819807827\n                ],\n                \"teamIds\": [\n                  8979.461785070791,\n                  3706.7222987043237\n                ]\n              },\n              \"isDateAndTime\": false\n            }\n          ],\n          \"id\": 1234,\n          \"templateIds\": [\n            1234,\n            1235\n          ],\n          \"maxScore\": 2,\n          \"score\": 1\n        },\n        \"progress\": {\n          \"openCount\": 1,\n          \"inProgressCount\": 1,\n          \"onHoldCount\": 1,\n          \"doneCount\": 1\n        },\n        \"workOrderSummary\": {\n          \"content\": \"Replaced the motor bearings and aligned the shaft.\",\n          \"summary\": \"Motor bearing replacement and shaft alignment completed.\",\n          \"authorId\": 963\n        }\n      }\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17e8c7c4-7a30-45da-a44f-e13b8b917acd",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5544119f-099e-4e96-8d38-9644302edae8",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "priorities",
+                      "value": "MEDIUM"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e096cdca-58a1-4951-b206-093934386b44",
+          "name": "Get work request",
+          "request": {
+            "name": "Get work request",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the workRequest"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d861f23-2252-44aa-87dc-3870a360d757",
+              "name": "Successfully retrieved workRequest's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workRequest\": {\n    \"id\": 963,\n    \"priority\": \"MEDIUM\",\n    \"title\": \"Forklift Preventive Maintenance Form\",\n    \"requestStatus\": \"PENDING\",\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n    \"assetId\": 843,\n    \"locationId\": 852,\n    \"workOrderId\": 254,\n    \"sendEmailNotification\": true,\n    \"extraFields\": {\n      \"Request Type\": \"Water Leak\"\n    },\n    \"approverTeamId\": 254,\n    \"creatorContactInfo\": {\n      \"type\": \"EMAIL\",\n      \"value\": \"james@example.com\"\n    },\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"asset\": {\n      \"id\": 963,\n      \"name\": \"Forklift\",\n      \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n      \"parentId\": 852,\n      \"criticalityId\": 150,\n      \"locationId\": 852,\n      \"serialNumber\": \"000123ABC\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 851\n    },\n    \"location\": {\n      \"id\": 963,\n      \"name\": \"Warehouses\",\n      \"description\": \"The warehouse where we store the forklifts\",\n      \"address\": \"1090 main street, Franklin\",\n      \"parentId\": 852,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\"\n    },\n    \"workOrder\": {\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"status\": \"CANCELED\",\n      \"title\": \"string\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 1806,\n      \"id\": 8334,\n      \"sequentialId\": 7051,\n      \"organizationId\": 2770.2038425915766,\n      \"assetId\": 42,\n      \"attachments\": [\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        }\n      ],\n      \"categories\": [\n        \"Cleaning\",\n        \"Cleaning\"\n      ],\n      \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"completerId\": 604,\n      \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"description\": \"A work order sample description\",\n      \"dueDateIsFullDay\": false,\n      \"dueDate\": \"2022-01-01T00:00:00.000Z\",\n      \"estimatedTime\": 3600,\n      \"externalData\": {\n        \"popularErpSolutionId\": \"asd732da\"\n      },\n      \"isParent\": false,\n      \"lastMessageSentAt\": \"2022-01-01T00:00:00.000Z\",\n      \"startDate\": \"2022-01-01T00:00:00.000Z\",\n      \"locationId\": 611,\n      \"nextId\": 8525,\n      \"parentId\": 1964,\n      \"partsAvailability\": \"PARTS_AVAILABLE\",\n      \"partStatus\": \"ISSUED\",\n      \"previousId\": 3561,\n      \"priority\": \"MEDIUM\",\n      \"recurrenceInfo\": {\n        \"type\": \"DAILY\",\n        \"automationMeterTrigger\": {\n          \"automationTriggerInput\": {\n            \"meterId\": 6359,\n            \"conditions\": [\n              {\n                \"operator\": \"increasedBy\",\n                \"value\": 4712.279645563817\n              },\n              {\n                \"operator\": \"decreasedBy\",\n                \"value\": 3521.8054382303776\n              }\n            ]\n          },\n          \"lastTriggerValue\": 6847.708230979677,\n          \"newDueDateOffsetSeconds\": 86400\n        }\n      },\n      \"requesterId\": 2928,\n      \"thumbnail\": {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      \"type\": null,\n      \"extraFields\": {\n        \"Estimated Time Allotted\": \"24 Hours\"\n      },\n      \"vendorIds\": [\n        1,\n        1\n      ],\n      \"assigneeIds\": [\n        5537,\n        4002\n      ],\n      \"teamIds\": [\n        5382,\n        7252\n      ],\n      \"procedure\": {\n        \"title\": \"Control dashboard audit\",\n        \"fields\": [\n          {\n            \"id\": 1234,\n            \"label\": \"Number of green lights\",\n            \"required\": true,\n            \"type\": \"NUMBER\",\n            \"value\": {\n              \"text\": \"12\",\n              \"attachment\": {\n                \"id\": 12345,\n                \"mimeType\": \"image/png\",\n                \"fileName\": \"image.png\",\n                \"url\": \"http://example.com/image.png\",\n                \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                \"width\": 220,\n                \"height\": 100\n              },\n              \"attachments\": [\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                }\n              ],\n              \"notes\": {\n                \"text\": \"1 light bulb is burned out.\"\n              },\n              \"hasAttachments\": true\n            },\n            \"parentId\": 1233,\n            \"procedureTemplateId\": 1234,\n            \"procedureTemplateFieldId\": 5678,\n            \"description\": \"Number of green lights\",\n            \"maxScore\": 2,\n            \"score\": 1,\n            \"meter\": {\n              \"id\": 123,\n              \"name\": \"string\"\n            },\n            \"assignees\": {\n              \"userIds\": [\n                8351.925055928816,\n                1738.8925928752096\n              ],\n              \"teamIds\": [\n                2418.010594886232,\n                7218.761302387531\n              ]\n            },\n            \"isDateAndTime\": false\n          },\n          {\n            \"id\": 1234,\n            \"label\": \"Number of green lights\",\n            \"required\": false,\n            \"type\": \"NUMBER\",\n            \"value\": {\n              \"text\": \"12\",\n              \"attachment\": {\n                \"id\": 12345,\n                \"mimeType\": \"image/png\",\n                \"fileName\": \"image.png\",\n                \"url\": \"http://example.com/image.png\",\n                \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                \"width\": 220,\n                \"height\": 100\n              },\n              \"attachments\": [\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                }\n              ],\n              \"notes\": {\n                \"text\": \"1 light bulb is burned out.\"\n              },\n              \"hasAttachments\": true\n            },\n            \"parentId\": 1233,\n            \"procedureTemplateId\": 1234,\n            \"procedureTemplateFieldId\": 5678,\n            \"description\": \"Number of green lights\",\n            \"maxScore\": 2,\n            \"score\": 1,\n            \"meter\": {\n              \"id\": 123,\n              \"name\": \"string\"\n            },\n            \"assignees\": {\n              \"userIds\": [\n                7465.433541208113,\n                7345.529436176328\n              ],\n              \"teamIds\": [\n                5915.736489581591,\n                4941.2550115155\n              ]\n            },\n            \"isDateAndTime\": false\n          }\n        ],\n        \"id\": 1234,\n        \"templateIds\": [\n          1234,\n          1235\n        ],\n        \"maxScore\": 2,\n        \"score\": 1\n      },\n      \"progress\": {\n        \"openCount\": 1,\n        \"inProgressCount\": 1,\n        \"onHoldCount\": 1,\n        \"doneCount\": 1\n      },\n      \"workOrderSummary\": {\n        \"content\": \"Replaced the motor bearings and aligned the shaft.\",\n        \"summary\": \"Motor bearing replacement and shaft alignment completed.\",\n        \"authorId\": 963\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d53e43a8-a9a3-4fd8-bed5-ccea1ceef2ca",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b985f833-0213-405e-8c56-8df7113055e2",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d715b455-b06f-4025-81ef-7f9c99e81864",
+              "name": "Could not find the specified workRequest or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e510319-8655-4757-a31e-ef424ceca060",
+          "name": "Delete workRequest",
+          "request": {
+            "name": "Delete workRequest",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the workRequest"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d87d023-586f-4678-9d62-4d4c5895e0cb",
+              "name": "Successfully deleted the workRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "10773131-dba0-44ba-ab76-45fc5029b47e",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b3889dc6-e7d2-4590-a7ee-f3a0e134cd9d",
+              "name": "Could not find the specified workRequest.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"workRequest Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47108a97-6a4c-406b-bdc0-d3c6153890ea",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the workRequest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8783ef77-fdec-49da-9bd3-c5ddbde3854e",
+          "name": "Update work request",
+          "request": {
+            "name": "Update work request",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<string>\",\n  \"assetId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"approverTeamId\": \"<integer>\",\n  \"creatorContactInfo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f3c5be6-9175-4b7e-8b55-119d1fa181c0",
+              "name": "Successfully edited work request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workRequest\": {\n    \"id\": 963,\n    \"title\": \"Forklift Preventive Maintenance Form\",\n    \"priority\": \"MEDIUM\",\n    \"requestStatus\": \"PENDING\",\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n    \"assetId\": 843,\n    \"locationId\": 852,\n    \"workOrderId\": 254,\n    \"sendEmailNotification\": true,\n    \"extraFields\": {\n      \"Request Type\": \"Water Leak\"\n    },\n    \"approverTeamId\": 254,\n    \"creatorContactInfo\": {\n      \"type\": \"EMAIL\",\n      \"value\": \"james@example.com\"\n    },\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "557e6fe4-86c9-42d1-9451-58ca09196c60",
+              "name": "Failed to edit the work request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"parentId is not valid\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d68e538a-9846-44a9-857c-dc8a68691a3a",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa516889-d4f5-4387-9a61-f87662f08c36",
+              "name": "Could not find the specified work request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Forklift Preventive Maintenance Form\",\n  \"description\": \"A forklift that needs to be reviewed for any potential problems\",\n  \"priority\": \"MEDIUM\",\n  \"assetId\": 843,\n  \"locationId\": 852,\n  \"extraFields\": {\n    \"Request Type\": \"Water Leak\"\n  },\n  \"approverTeamId\": 254,\n  \"creatorContactInfo\": \"james@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"work request Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49e27ce3-44ec-4caf-9e9c-decd6979c73a",
+          "name": "Update work request attachment",
+          "request": {
+            "name": "Update work request attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/xml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c512def7-8043-487d-80c2-3c8b7caa92c1",
+              "name": "Successfully updated work request's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c7d1766-90e4-41de-b9a8-cabafeeedb8d",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dea8e160-abef-41c4-b69a-c6d4c6bfde96",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e89abc09-7d5c-4127-9c5f-20d54bb5fca8",
+              "name": "Could not find the specified work request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"work request Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea8354aa-a1b8-45a9-abe8-306f8bf44ae0",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8d4a7a9-e5a0-4824-b832-d42ffd51b3e0",
+          "name": "Remove work request attachment",
+          "request": {
+            "name": "Remove work request attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9029bd64-aace-4cd6-a3e8-42b97141073a",
+              "name": "Successfully removed work request's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a4005ce9-c243-41e7-973c-7a54e2d5dfd4",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb6be5dd-7a2f-47ac-837a-fc8232f89f42",
+              "name": "Could not find the specified Attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a36deac9-0cd4-443d-9e6d-21b58edc0d8e",
+          "name": "Update work request's thumbnail",
+          "request": {
+            "name": "Update work request's thumbnail",
+            "description": {},
+            "url": {
+              "path": [
+                "workrequests",
+                ":id",
+                "thumbnail",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the work request thumbnail, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>"
+            }
+          },
+          "response": [
+            {
+              "id": "0099be6b-3498-4007-8a1b-870e21ee22be",
+              "name": "Successfully updated work request's thumbnail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the work request thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c72eaea-15e4-4771-8dcf-de0f9ff6bc4a",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the work request thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You cannot edit this entity.\",\n      \"fieldPath\": \"organizationId\",\n      \"fieldValue\": \"1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "703cd5ac-8216-4518-8f34-ebccf5b4ef48",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the work request thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c06ae7af-106a-45dd-84be-7ddde799e171",
+              "name": "Could not find the specified Work Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the work request thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Work Request Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c88ec016-2580-40eb-ac3c-2c5766d8ce36",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workrequests",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the work request thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "416fdbaf-3688-4928-a337-a73a0d0d729c",
+    "name": "MaintainX Asset Criticalities Work Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2827 @@
+{
+  "item": [
+    {
+      "id": "7002bcf1-f587-477e-b6c6-9efbe1f8bba0",
+      "name": "Meter Triggers",
+      "description": {
+        "content": "Operations on Meter Triggers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed5ef782-ec16-4f50-84f3-964d554caeaf",
+          "name": "Create meter trigger",
+          "request": {
+            "name": "Create meter trigger",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"name\": \"<string>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  },\n  \"workOrderTemplate\": {\n    \"procedureTemplateId\": \"<integer>\",\n    \"saveProcedureAsTemplate\": \"<boolean>\",\n    \"title\": \"<string>\",\n    \"data\": {\n      \"assetId\": \"<integer>\",\n      \"assigneeIds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"description\": \"<string>\",\n      \"dueDate\": {\n        \"type\": \"<string>\",\n        \"offset\": \"<number>\"\n      },\n      \"locationId\": \"<integer>\",\n      \"partsUsed\": [\n        {\n          \"partId\": \"<integer>\",\n          \"quantityUsed\": \"<integer>\",\n          \"locationId\": \"<integer>\",\n          \"copyOnRecurring\": \"Default\"\n        },\n        {\n          \"partId\": \"<integer>\",\n          \"quantityUsed\": \"<integer>\",\n          \"locationId\": \"<integer>\",\n          \"copyOnRecurring\": \"Default\"\n        }\n      ],\n      \"priority\": \"<string>\",\n      \"procedure\": {\n        \"title\": \"<string>\",\n        \"fields\": [\n          {\n            \"type\": \"<string>\",\n            \"label\": \"<string>\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"<string>\",\n                \"label\": \"<string>\"\n              },\n              {\n                \"link\": \"<string>\",\n                \"label\": \"<string>\"\n              }\n            ],\n            \"meterId\": \"<number>\",\n            \"isDateAndTime\": false,\n            \"index\": \"<number>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"label\": \"<string>\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"<string>\",\n                \"label\": \"<string>\"\n              },\n              {\n                \"link\": \"<string>\",\n                \"label\": \"<string>\"\n              }\n            ],\n            \"meterId\": \"<number>\",\n            \"isDateAndTime\": false,\n            \"index\": \"<number>\"\n          }\n        ],\n        \"id\": \"<number>\"\n      },\n      \"tagsIds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"teamIds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"title\": \"<string>\",\n      \"vendorIds\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e6cae18-42dd-4ae6-921f-bf4aa22ffcdf",
+              "name": "Successfully created the meter trigger",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"name\": \"<string>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  },\n  \"workOrderTemplate\": {\n    \"procedureTemplateId\": \"<integer>\",\n    \"saveProcedureAsTemplate\": \"<boolean>\",\n    \"title\": \"<string>\",\n    \"data\": {\n      \"assetId\": \"<integer>\",\n      \"assigneeIds\": [\n        1,\n        1\n      ],\n      \"description\": \"A work order sample description\",\n      \"dueDate\": {\n        \"type\": \"<string>\",\n        \"offset\": \"<number>\"\n      },\n      \"locationId\": \"<integer>\",\n      \"partsUsed\": [\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        },\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        }\n      ],\n      \"priority\": \"MEDIUM\",\n      \"procedure\": {\n        \"title\": \"Control dashboard audit\",\n        \"fields\": [\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          },\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          }\n        ],\n        \"id\": 1234\n      },\n      \"tagsIds\": [\n        1,\n        1\n      ],\n      \"teamIds\": [\n        1,\n        1\n      ],\n      \"title\": \"<string>\",\n      \"vendorIds\": [\n        1,\n        1\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a3de95a-0d06-4f45-9246-0185e13d2c82",
+              "name": "Failed to create the meter trigger",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"name\": \"<string>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  },\n  \"workOrderTemplate\": {\n    \"procedureTemplateId\": \"<integer>\",\n    \"saveProcedureAsTemplate\": \"<boolean>\",\n    \"title\": \"<string>\",\n    \"data\": {\n      \"assetId\": \"<integer>\",\n      \"assigneeIds\": [\n        1,\n        1\n      ],\n      \"description\": \"A work order sample description\",\n      \"dueDate\": {\n        \"type\": \"<string>\",\n        \"offset\": \"<number>\"\n      },\n      \"locationId\": \"<integer>\",\n      \"partsUsed\": [\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        },\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        }\n      ],\n      \"priority\": \"MEDIUM\",\n      \"procedure\": {\n        \"title\": \"Control dashboard audit\",\n        \"fields\": [\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          },\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          }\n        ],\n        \"id\": 1234\n      },\n      \"tagsIds\": [\n        1,\n        1\n      ],\n      \"teamIds\": [\n        1,\n        1\n      ],\n      \"title\": \"<string>\",\n      \"vendorIds\": [\n        1,\n        1\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Unexpected error\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fda84127-40f0-439f-b4f0-ec1865a34ab5",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"name\": \"<string>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  },\n  \"workOrderTemplate\": {\n    \"procedureTemplateId\": \"<integer>\",\n    \"saveProcedureAsTemplate\": \"<boolean>\",\n    \"title\": \"<string>\",\n    \"data\": {\n      \"assetId\": \"<integer>\",\n      \"assigneeIds\": [\n        1,\n        1\n      ],\n      \"description\": \"A work order sample description\",\n      \"dueDate\": {\n        \"type\": \"<string>\",\n        \"offset\": \"<number>\"\n      },\n      \"locationId\": \"<integer>\",\n      \"partsUsed\": [\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        },\n        {\n          \"partId\": 963,\n          \"quantityUsed\": 120,\n          \"locationId\": 852,\n          \"copyOnRecurring\": \"Default\"\n        }\n      ],\n      \"priority\": \"MEDIUM\",\n      \"procedure\": {\n        \"title\": \"Control dashboard audit\",\n        \"fields\": [\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          },\n          {\n            \"type\": \"INSPECTION_CHECK\",\n            \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n            \"description\": \"<string>\",\n            \"choices\": [\n              \"Partially\",\n              \"Partially\"\n            ],\n            \"urls\": [\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              },\n              {\n                \"link\": \"www.getmaintainx.com\",\n                \"label\": \"MaintainX Website\"\n              }\n            ],\n            \"meterId\": 1,\n            \"isDateAndTime\": false,\n            \"index\": 1\n          }\n        ],\n        \"id\": 1234\n      },\n      \"tagsIds\": [\n        1,\n        1\n      ],\n      \"teamIds\": [\n        1,\n        1\n      ],\n      \"title\": \"<string>\",\n      \"vendorIds\": [\n        1,\n        1\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28750e8b-f510-41a1-a7f3-334fcd4df194",
+          "name": "List meter triggers",
+          "request": {
+            "name": "List meter triggers",
+            "description": {
+              "content": "Endpoint used to list meter trigger resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metertriggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "meters",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "meters",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2132fa32-baaa-44b3-aa06-affc4560d958",
+              "name": "Successfully fetched Meter Triggers list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meterTriggers\": [\n    {\n      \"id\": 963,\n      \"name\": \"Thermometer #4\",\n      \"meterId\": 53\n    },\n    {\n      \"id\": 963,\n      \"name\": \"Thermometer #4\",\n      \"meterId\": 53\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbdcd63c-8ebb-460e-910e-522e7e82cd7c",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e48df3e-6857-4f20-961f-93780b66be14",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "meters",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1ee0161-b1d7-48d1-8df3-350f60ca099d",
+          "name": "Get meter trigger",
+          "request": {
+            "name": "Get meter trigger",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the meterTrigger"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3b6e616-fe62-4823-b900-841f202d7be6",
+              "name": "Successfully retrieved meterTrigger's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meterTrigger\": {\n    \"id\": 7495,\n    \"meterId\": 9007,\n    \"organizationId\": 4410,\n    \"amount\": 4840.47285846199,\n    \"condition\": \"IS_LESS\",\n    \"createdAt\": \"1997-04-26T00:04:23.688Z\",\n    \"creatorId\": 9966,\n    \"dataPoints\": {\n      \"numerator\": 9199,\n      \"denominator\": 1723\n    },\n    \"deletedAt\": \"1948-03-11T21:08:24.362Z\",\n    \"description\": \"string\",\n    \"minDateForProcessing\": \"1999-09-20T07:06:02.107Z\",\n    \"name\": \"string\",\n    \"nextTriggerValue\": 4145.265871526617,\n    \"period\": 9506,\n    \"state\": \"STABLE\",\n    \"updatedAt\": \"1965-09-01T17:04:12.871Z\",\n    \"workOrderTemplateId\": 186,\n    \"workOrderTemplate\": {\n      \"id\": 5463,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 1831,\n      \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"organizationId\": 9167,\n      \"procedureTemplateId\": 4237,\n      \"title\": \"string\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"data\": {\n        \"assetId\": 971,\n        \"assigneeIds\": [\n          1,\n          1\n        ],\n        \"attachmentIds\": [\n          1,\n          1\n        ],\n        \"description\": \"A work order sample description\",\n        \"dueDate\": {\n          \"type\": \"OFFSET\",\n          \"offset\": 8208.622991681785\n        },\n        \"locationId\": 5144,\n        \"partsUsed\": [\n          {\n            \"id\": 963,\n            \"name\": \"Locknut - 1/8\",\n            \"description\": \"\",\n            \"area\": \"tool room\",\n            \"unitCost\": 120,\n            \"availableQuantity\": 10,\n            \"minimumQuantity\": 5,\n            \"barcode\": \"bWFpbnRhaW54Cg==\",\n            \"quantityUsed\": 120,\n            \"copyOnRecurring\": \"Default\",\n            \"locationId\": 852,\n            \"extraFields\": {\n              \"key_0\": \"string\"\n            }\n          },\n          {\n            \"id\": 963,\n            \"name\": \"Locknut - 1/8\",\n            \"description\": \"\",\n            \"area\": \"tool room\",\n            \"unitCost\": 120,\n            \"availableQuantity\": 10,\n            \"minimumQuantity\": 5,\n            \"barcode\": \"bWFpbnRhaW54Cg==\",\n            \"quantityUsed\": 120,\n            \"copyOnRecurring\": \"Default\",\n            \"locationId\": 852,\n            \"extraFields\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          }\n        ],\n        \"priority\": \"MEDIUM\",\n        \"procedure\": {\n          \"title\": \"Control dashboard audit\",\n          \"fields\": [\n            {\n              \"id\": 1,\n              \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n              \"type\": \"INSPECTION_CHECK\",\n              \"description\": \"string\",\n              \"choices\": [\n                \"Partially\",\n                \"Partially\"\n              ],\n              \"meterId\": 6439.165749269945,\n              \"isDateAndTime\": false,\n              \"attachmentId\": 1,\n              \"attachments\": [\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                }\n              ],\n              \"urls\": [\n                {\n                  \"link\": \"www.getmaintainx.com\",\n                  \"label\": \"MaintainX Website\"\n                },\n                {\n                  \"link\": \"www.getmaintainx.com\",\n                  \"label\": \"MaintainX Website\"\n                }\n              ]\n            },\n            {\n              \"id\": 1,\n              \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n              \"type\": \"INSPECTION_CHECK\",\n              \"description\": \"string\",\n              \"choices\": [\n                \"Partially\",\n                \"Partially\"\n              ],\n              \"meterId\": 3569.396002256765,\n              \"isDateAndTime\": false,\n              \"attachmentId\": 1,\n              \"attachments\": [\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                },\n                {\n                  \"id\": 12345,\n                  \"mimeType\": \"image/png\",\n                  \"fileName\": \"image.png\",\n                  \"url\": \"http://example.com/image.png\",\n                  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n                  \"width\": 220,\n                  \"height\": 100\n                }\n              ],\n              \"urls\": [\n                {\n                  \"link\": \"www.getmaintainx.com\",\n                  \"label\": \"MaintainX Website\"\n                },\n                {\n                  \"link\": \"www.getmaintainx.com\",\n                  \"label\": \"MaintainX Website\"\n                }\n              ]\n            }\n          ]\n        },\n        \"tagsIds\": [\n          1,\n          1\n        ],\n        \"teamIds\": [\n          1,\n          1\n        ],\n        \"thumbnailId\": 4456,\n        \"title\": \"string\",\n        \"vendorIds\": [\n          1,\n          1\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bce0156-c14d-4c95-ae67-0fa43456fae4",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dafb443-43b6-4aa7-93d5-0e1d8b74946d",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d238d558-ee28-465d-997e-4e854676719f",
+              "name": "Could not find the specified meterTrigger or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f92911cd-7dd1-41f0-9905-e75a0b85e9f6",
+          "name": "Update meter trigger",
+          "request": {
+            "name": "Update meter trigger",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work order template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4113eb48-5adb-4c09-9238-dd19735b904f",
+              "name": "Successfully updated the meter trigger",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb0a6c6e-525a-4eda-90f5-f2e87bd05909",
+              "name": "Failed to create the meter trigger",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Unexpected error\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "347e4bbf-e362-4c57-bc6e-c51b519b58a7",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eada7a75-737f-4e82-a699-e80c0625507c",
+              "name": "Could not find the specified meter trigger.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meterTrigger\": {\n    \"meterId\": \"<integer>\",\n    \"workOrderTemplateId\": \"<integer>\",\n    \"amount\": \"<number>\",\n    \"condition\": \"<string>\",\n    \"dataPoints\": {\n      \"numerator\": \"<integer>\",\n      \"denominator\": \"<integer>\"\n    },\n    \"description\": \"<string>\",\n    \"minDateForProcessing\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"nextTriggerValue\": \"<number>\",\n    \"period\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"meter trigger Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75a7b6df-f127-410a-ab3c-f37cf3b6402e",
+          "name": "Delete meterTrigger",
+          "request": {
+            "name": "Delete meterTrigger",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the meterTrigger"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac1482f4-a4e5-4f25-a06f-feb61cd098fa",
+              "name": "Successfully deleted the meterTrigger",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "538e70c7-8e22-4f58-9e7a-a684ffe8e01c",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c856e782-1747-4246-872f-077c4e0744e0",
+              "name": "Could not find the specified meterTrigger.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"meterTrigger Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbc95f10-d0d1-4cb2-b124-94a4504cccbf",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meterTrigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15292558-9d97-426b-9087-84e4f2748214",
+          "name": "Update meter trigger's work order template's thumbnail",
+          "request": {
+            "name": "Update meter trigger's work order template's thumbnail",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id",
+                "thumbnail",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the meter trigger's work order template."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>"
+            }
+          },
+          "response": [
+            {
+              "id": "b8f5ab8e-e9bd-4aca-8f44-11f1e1645035",
+              "name": "Successfully updated meter trigger's work order template's thumbnail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "314bb15c-e682-48df-af63-99de41a52b84",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You cannot edit this entity.\",\n      \"fieldPath\": \"organizationId\",\n      \"fieldValue\": \"1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "396adc5f-fce9-4f5c-a0cc-b789c4645364",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b24bf20a-552c-4785-a5d5-ed37299e4094",
+              "name": "Could not find the specified Meter Trigger's Work Order Template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Meter Trigger's Work Order Template Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5d81ea7-5046-468e-b1d2-fca8fddf597e",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the meter trigger's work order template thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f095c221-789a-4871-bd54-a7bb6c053235",
+          "name": "Update Meter Trigger's Work Order Template",
+          "request": {
+            "name": "Update Meter Trigger's Work Order Template",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id",
+                "workordertemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the work order template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"procedureTemplateId\": \"<integer>\",\n  \"saveProcedureAsTemplate\": \"<boolean>\",\n  \"title\": \"<string>\",\n  \"data\": {\n    \"assetId\": \"<integer>\",\n    \"assigneeIds\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"description\": \"<string>\",\n    \"dueDate\": {\n      \"type\": \"<string>\",\n      \"offset\": \"<number>\"\n    },\n    \"locationId\": \"<integer>\",\n    \"partsUsed\": [\n      {\n        \"partId\": \"<integer>\",\n        \"quantityUsed\": \"<integer>\",\n        \"locationId\": \"<integer>\",\n        \"copyOnRecurring\": \"Default\"\n      },\n      {\n        \"partId\": \"<integer>\",\n        \"quantityUsed\": \"<integer>\",\n        \"locationId\": \"<integer>\",\n        \"copyOnRecurring\": \"Default\"\n      }\n    ],\n    \"priority\": \"<string>\",\n    \"procedure\": {\n      \"title\": \"<string>\",\n      \"fields\": [\n        {\n          \"type\": \"<string>\",\n          \"label\": \"<string>\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"<string>\",\n              \"label\": \"<string>\"\n            },\n            {\n              \"link\": \"<string>\",\n              \"label\": \"<string>\"\n            }\n          ],\n          \"meterId\": \"<number>\",\n          \"isDateAndTime\": false,\n          \"index\": \"<number>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"label\": \"<string>\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"<string>\",\n              \"label\": \"<string>\"\n            },\n            {\n              \"link\": \"<string>\",\n              \"label\": \"<string>\"\n            }\n          ],\n          \"meterId\": \"<number>\",\n          \"isDateAndTime\": false,\n          \"index\": \"<number>\"\n        }\n      ],\n      \"id\": \"<number>\"\n    },\n    \"tagsIds\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"teamIds\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"title\": \"<string>\",\n    \"vendorIds\": [\n      \"<number>\",\n      \"<number>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af0b0464-6c2a-4977-8e6a-98e1cbc5cecd",
+              "name": "Successfully edited the procedure template",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"procedureTemplateId\": \"<integer>\",\n  \"saveProcedureAsTemplate\": \"<boolean>\",\n  \"title\": \"<string>\",\n  \"data\": {\n    \"assetId\": \"<integer>\",\n    \"assigneeIds\": [\n      1,\n      1\n    ],\n    \"description\": \"A work order sample description\",\n    \"dueDate\": {\n      \"type\": \"<string>\",\n      \"offset\": \"<number>\"\n    },\n    \"locationId\": \"<integer>\",\n    \"partsUsed\": [\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      },\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      }\n    ],\n    \"priority\": \"MEDIUM\",\n    \"procedure\": {\n      \"title\": \"Control dashboard audit\",\n      \"fields\": [\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        },\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        }\n      ],\n      \"id\": 1234\n    },\n    \"tagsIds\": [\n      1,\n      1\n    ],\n    \"teamIds\": [\n      1,\n      1\n    ],\n    \"title\": \"<string>\",\n    \"vendorIds\": [\n      1,\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b6daf2cf-6091-4eb2-b881-367a54b2437b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"procedureTemplateId\": \"<integer>\",\n  \"saveProcedureAsTemplate\": \"<boolean>\",\n  \"title\": \"<string>\",\n  \"data\": {\n    \"assetId\": \"<integer>\",\n    \"assigneeIds\": [\n      1,\n      1\n    ],\n    \"description\": \"A work order sample description\",\n    \"dueDate\": {\n      \"type\": \"<string>\",\n      \"offset\": \"<number>\"\n    },\n    \"locationId\": \"<integer>\",\n    \"partsUsed\": [\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      },\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      }\n    ],\n    \"priority\": \"MEDIUM\",\n    \"procedure\": {\n      \"title\": \"Control dashboard audit\",\n      \"fields\": [\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        },\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        }\n      ],\n      \"id\": 1234\n    },\n    \"tagsIds\": [\n      1,\n      1\n    ],\n    \"teamIds\": [\n      1,\n      1\n    ],\n    \"title\": \"<string>\",\n    \"vendorIds\": [\n      1,\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Bad request\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b78605a-4be8-447b-9b6b-827d4d360f14",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"procedureTemplateId\": \"<integer>\",\n  \"saveProcedureAsTemplate\": \"<boolean>\",\n  \"title\": \"<string>\",\n  \"data\": {\n    \"assetId\": \"<integer>\",\n    \"assigneeIds\": [\n      1,\n      1\n    ],\n    \"description\": \"A work order sample description\",\n    \"dueDate\": {\n      \"type\": \"<string>\",\n      \"offset\": \"<number>\"\n    },\n    \"locationId\": \"<integer>\",\n    \"partsUsed\": [\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      },\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      }\n    ],\n    \"priority\": \"MEDIUM\",\n    \"procedure\": {\n      \"title\": \"Control dashboard audit\",\n      \"fields\": [\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        },\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        }\n      ],\n      \"id\": 1234\n    },\n    \"tagsIds\": [\n      1,\n      1\n    ],\n    \"teamIds\": [\n      1,\n      1\n    ],\n    \"title\": \"<string>\",\n    \"vendorIds\": [\n      1,\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec9baeb6-cdf8-4ecd-b337-aa8990b0be14",
+              "name": "Could not find the specified work order template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the work order template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"procedureTemplateId\": \"<integer>\",\n  \"saveProcedureAsTemplate\": \"<boolean>\",\n  \"title\": \"<string>\",\n  \"data\": {\n    \"assetId\": \"<integer>\",\n    \"assigneeIds\": [\n      1,\n      1\n    ],\n    \"description\": \"A work order sample description\",\n    \"dueDate\": {\n      \"type\": \"<string>\",\n      \"offset\": \"<number>\"\n    },\n    \"locationId\": \"<integer>\",\n    \"partsUsed\": [\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      },\n      {\n        \"partId\": 963,\n        \"quantityUsed\": 120,\n        \"locationId\": 852,\n        \"copyOnRecurring\": \"Default\"\n      }\n    ],\n    \"priority\": \"MEDIUM\",\n    \"procedure\": {\n      \"title\": \"Control dashboard audit\",\n      \"fields\": [\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        },\n        {\n          \"type\": \"INSPECTION_CHECK\",\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"description\": \"<string>\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ],\n          \"meterId\": 1,\n          \"isDateAndTime\": false,\n          \"index\": 1\n        }\n      ],\n      \"id\": 1234\n    },\n    \"tagsIds\": [\n      1,\n      1\n    ],\n    \"teamIds\": [\n      1,\n      1\n    ],\n    \"title\": \"<string>\",\n    \"vendorIds\": [\n      1,\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"work order template Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f36a9031-d6c2-4d38-8cc0-3dd1f202ce2e",
+          "name": "Update meter trigger's work order template attachment",
+          "request": {
+            "name": "Update meter trigger's work order template attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id",
+                "workordertemplates",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the meter trigger's work order template."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/xml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43bcb597-361c-4e69-8de2-d970a285ae69",
+              "name": "Successfully updated meter trigger's work order template's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8ef47e2-321c-4325-ad6a-757eb235f4c8",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "040a303b-e136-49e6-b6fd-00a220d8dca9",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa1e5601-877f-455f-a1e6-9ab9ff955ebe",
+              "name": "Could not find the specified meter trigger's work order template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"meter trigger's work order template Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3062faa-7d23-4f16-a831-f2f6a9e9b73f",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e87fc28-4af1-4d97-8041-dace8ba3e8be",
+          "name": "Remove meter trigger's work order template attachment",
+          "request": {
+            "name": "Remove meter trigger's work order template attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "metertriggers",
+                ":id",
+                "workordertemplates",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the meter trigger's work order template."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdd449d4-bc7d-4646-9f62-63e84e7af94e",
+              "name": "Successfully removed meter trigger's work order template's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d436462-81df-4167-ab13-e35626a3b25b",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8473692b-d8d2-4570-864d-192149089b7f",
+              "name": "Could not find the specified Attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metertriggers",
+                    ":id",
+                    "workordertemplates",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the meter trigger's work order template."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f108dad4-ce8d-4107-990a-46dcf49b2b5b",
+    "name": "MaintainX Asset Criticalities Meter Triggers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

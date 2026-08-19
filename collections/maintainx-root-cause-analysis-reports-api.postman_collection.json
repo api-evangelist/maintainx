@@ -1,0 +1,742 @@
+{
+  "item": [
+    {
+      "id": "f78d65e0-f529-4e0b-924e-c68a9bdb14f3",
+      "name": "Root Cause Analysis Reports",
+      "description": {
+        "content": "Operations on Root Cause Analysis Reports",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de2f2e53-c61b-49ab-b7c1-0b774faad694",
+          "name": "List root cause analysis reports",
+          "request": {
+            "name": "List root cause analysis reports",
+            "description": {
+              "content": "Endpoint used to list root cause analysis report resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rootcauseanalysisreports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "assets",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assets",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "creators",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "creators",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "archived",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAfter",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdBefore",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2425dfca-01a0-4037-9793-7f11c412d28b",
+              "name": "Successfully fetched Root Cause Analysis Reports list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rootCauseAnalysisReports\": [\n    {\n      \"id\": 4242,\n      \"status\": \"DRAFT\",\n      \"mainAssetId\": 963,\n      \"mainAssetStatusId\": 8123,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentStartedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentEndedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentDuration\": 86400,\n      \"repairTime\": 7200,\n      \"notes\": {\n        \"text\": \"Loose coupling caused the conveyor to skip.\"\n      },\n      \"creatorId\": 23494,\n      \"updaterId\": 23494,\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"relatedAssetIds\": [\n        150,\n        5771\n      ],\n      \"workOrderIds\": [\n        212,\n        4863\n      ],\n      \"organizationId\": 1,\n      \"mainAsset\": {\n        \"id\": 963,\n        \"name\": \"Forklift\",\n        \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n        \"parentId\": 852,\n        \"criticalityId\": 150,\n        \"locationId\": 852,\n        \"serialNumber\": \"000123ABC\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 851\n      },\n      \"mainAssetStatus\": {\n        \"id\": 42,\n        \"customStatus\": {\n          \"label\": \"Decommissioned\",\n          \"id\": 5603.249166603432,\n          \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n          \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"downtimeType\": \"PLANNED\"\n        },\n        \"customStatusId\": 53,\n        \"status\": \"OFFLINE\",\n        \"downtimeType\": \"PLANNED\",\n        \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"description\": \"Overheated - needs servicing.\",\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\"\n      },\n      \"problems\": [\n        {\n          \"id\": 7311,\n          \"category\": {\n            \"id\": 902,\n            \"label\": \"Mechanical Failure\"\n          },\n          \"stepOptions\": [\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"PROBLEM_TYPE\"\n            },\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"FAILURE\"\n            }\n          ],\n          \"notes\": {\n            \"text\": \"Loose coupling caused the conveyor to skip.\"\n          }\n        },\n        {\n          \"id\": 7311,\n          \"category\": {\n            \"id\": 902,\n            \"label\": \"Mechanical Failure\"\n          },\n          \"stepOptions\": [\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"FAILURE\"\n            },\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"CAUSE\"\n            }\n          ],\n          \"notes\": {\n            \"text\": \"Loose coupling caused the conveyor to skip.\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": 4242,\n      \"status\": \"DRAFT\",\n      \"mainAssetId\": 963,\n      \"mainAssetStatusId\": 8123,\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentStartedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentEndedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"incidentDuration\": 86400,\n      \"repairTime\": 7200,\n      \"notes\": {\n        \"text\": \"Loose coupling caused the conveyor to skip.\"\n      },\n      \"creatorId\": 23494,\n      \"updaterId\": 23494,\n      \"archivedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"relatedAssetIds\": [\n        9938,\n        6845\n      ],\n      \"workOrderIds\": [\n        3012,\n        1651\n      ],\n      \"organizationId\": 1,\n      \"mainAsset\": {\n        \"id\": 963,\n        \"name\": \"Forklift\",\n        \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n        \"parentId\": 852,\n        \"criticalityId\": 150,\n        \"locationId\": 852,\n        \"serialNumber\": \"000123ABC\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n        \"creatorId\": 851\n      },\n      \"mainAssetStatus\": {\n        \"id\": 42,\n        \"customStatus\": {\n          \"label\": \"Decommissioned\",\n          \"id\": 1727.7109925219725,\n          \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n          \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n          \"downtimeType\": \"UNPLANNED\"\n        },\n        \"customStatusId\": 53,\n        \"status\": \"OFFLINE\",\n        \"downtimeType\": \"PLANNED\",\n        \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"description\": \"Overheated - needs servicing.\",\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\"\n      },\n      \"problems\": [\n        {\n          \"id\": 7311,\n          \"category\": {\n            \"id\": 902,\n            \"label\": \"Mechanical Failure\"\n          },\n          \"stepOptions\": [\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"ACTION\"\n            },\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"ACTION\"\n            }\n          ],\n          \"notes\": {\n            \"text\": \"Loose coupling caused the conveyor to skip.\"\n          }\n        },\n        {\n          \"id\": 7311,\n          \"category\": {\n            \"id\": 902,\n            \"label\": \"Mechanical Failure\"\n          },\n          \"stepOptions\": [\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"ACTION\"\n            },\n            {\n              \"id\": 5018,\n              \"label\": \"Worn bearings\",\n              \"stepType\": \"ACTION\"\n            }\n          ],\n          \"notes\": {\n            \"text\": \"Loose coupling caused the conveyor to skip.\"\n          }\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4942f26-147d-4c26-bc13-f3173e185ab7",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab2ace4e-358c-4041-909e-e274ce2edee2",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assets",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creators",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e68db5d4-23f8-471e-a997-c675a0336e4d",
+          "name": "Get root cause analysis report",
+          "request": {
+            "name": "Get root cause analysis report",
+            "description": {},
+            "url": {
+              "path": [
+                "rootcauseanalysisreports",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the rootCauseAnalysisReport"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed419c0d-79dc-4feb-b13f-d064b3dd420d",
+              "name": "Successfully retrieved rootCauseAnalysisReport's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the rootCauseAnalysisReport"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rootCauseAnalysisReport\": {\n    \"id\": 4242,\n    \"status\": \"DONE\",\n    \"mainAssetId\": 963,\n    \"mainAssetStatusId\": 8123,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"completedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"incidentStartedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"incidentEndedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"incidentDuration\": 86400,\n    \"repairTime\": 7200,\n    \"notes\": {\n      \"text\": \"Loose coupling caused the conveyor to skip.\"\n    },\n    \"creatorId\": 23494,\n    \"updaterId\": 23494,\n    \"archivedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"relatedAssetIds\": [\n      8437,\n      863\n    ],\n    \"workOrderIds\": [\n      4040,\n      7591\n    ],\n    \"organizationId\": 1,\n    \"mainAsset\": {\n      \"id\": 963,\n      \"name\": \"Forklift\",\n      \"description\": \"Forklift that is used to to move heavy equipments around the warehouse\",\n      \"parentId\": 852,\n      \"criticalityId\": 150,\n      \"locationId\": 852,\n      \"serialNumber\": \"000123ABC\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"creatorId\": 851\n    },\n    \"mainAssetStatus\": {\n      \"id\": 42,\n      \"customStatus\": {\n        \"label\": \"Decommissioned\",\n        \"id\": 5964.460538635065,\n        \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n        \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"deletedAt\": \"2022-01-01T12:34:56.123Z\",\n        \"downtimeType\": \"PLANNED\"\n      },\n      \"customStatusId\": 53,\n      \"status\": \"OFFLINE\",\n      \"downtimeType\": \"PLANNED\",\n      \"startedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"endedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"description\": \"Overheated - needs servicing.\",\n      \"createdAt\": \"2022-01-01T12:34:56.123Z\",\n      \"updatedAt\": \"2022-01-01T12:34:56.123Z\",\n      \"deletedAt\": \"2022-01-01T12:34:56.123Z\"\n    },\n    \"problems\": [\n      {\n        \"id\": 7311,\n        \"category\": {\n          \"id\": 902,\n          \"label\": \"Mechanical Failure\"\n        },\n        \"stepOptions\": [\n          {\n            \"id\": 5018,\n            \"label\": \"Worn bearings\",\n            \"stepType\": \"CAUSE\"\n          },\n          {\n            \"id\": 5018,\n            \"label\": \"Worn bearings\",\n            \"stepType\": \"CAUSE\"\n          }\n        ],\n        \"notes\": {\n          \"text\": \"Loose coupling caused the conveyor to skip.\"\n        }\n      },\n      {\n        \"id\": 7311,\n        \"category\": {\n          \"id\": 902,\n          \"label\": \"Mechanical Failure\"\n        },\n        \"stepOptions\": [\n          {\n            \"id\": 5018,\n            \"label\": \"Worn bearings\",\n            \"stepType\": \"FAILURE\"\n          },\n          {\n            \"id\": 5018,\n            \"label\": \"Worn bearings\",\n            \"stepType\": \"ACTION\"\n          }\n        ],\n        \"notes\": {\n          \"text\": \"Loose coupling caused the conveyor to skip.\"\n        }\n      }\n    ],\n    \"workOrders\": [\n      {\n        \"key_0\": 9261.940003602242,\n        \"key_1\": 4519\n      },\n      {\n        \"key_0\": 6463.3011386140115\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7128f41c-6d1e-4da4-aa2e-5f4e0c3dd8e4",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the rootCauseAnalysisReport"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d60874c7-21db-4a6c-8ffd-71c3f12bf2ec",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the rootCauseAnalysisReport"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91296a88-98d7-4e20-9043-cc8cd3c0230a",
+              "name": "Could not find the specified rootCauseAnalysisReport or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rootcauseanalysisreports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the rootCauseAnalysisReport"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "03e317bd-0427-4f7c-83ed-a2f0a1500dff",
+    "name": "MaintainX Asset Criticalities Root Cause Analysis Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

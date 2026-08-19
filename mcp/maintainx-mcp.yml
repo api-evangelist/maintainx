@@ -2,8 +2,8 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/maintainx-openapi-original.json
-note: No official MaintainX MCP server found (2026-07). Candidate tool list derived one-per-operation from the OpenAPI. Operations
-  are referenced by METHOD+path because the source spec declares no operationIds.
+note: No official MaintainX MCP server found (2026-07). Candidate tool list derived one-per-operation
+  from the OpenAPI. Operations are referenced by METHOD+path because the source spec declares no operationIds.
 server:
   name: maintainx
   transport: http
@@ -686,3 +686,9 @@ tools:
   description: DELETE /workrequestportals/{id}
   source_operation: openapi/maintainx-openapi-original.json#DELETE /workrequestportals/{id}
   tag: Work Request Portals
+deployment:
+  mode: none
+  verified: derived
+  tools: 169
+  checked: '2026-08-12'
+  source: catalog MCP census

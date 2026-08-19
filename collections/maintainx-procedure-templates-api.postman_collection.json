@@ -1,0 +1,1410 @@
+{
+  "item": [
+    {
+      "id": "67a598bb-beeb-4cc1-a482-9293b8cb7b91",
+      "name": "Procedure Templates",
+      "description": {
+        "content": "Operations on Procedure Templates",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb1084e9-fd28-4ac7-9bf7-a9092be2aee6",
+          "name": "Create procedure template",
+          "request": {
+            "name": "Create procedure template",
+            "description": {},
+            "url": {
+              "path": [
+                "proceduretemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"<string>\",\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"meterId\": \"<number>\",\n      \"isDateAndTime\": false,\n      \"index\": \"<number>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"meterId\": \"<number>\",\n      \"isDateAndTime\": false,\n      \"index\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3981fea2-5d05-47a3-99e5-a127b20c9862",
+              "name": "Successfully created the custom fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Ladder Inspection Checklist\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"fields\": [\n    {\n      \"id\": 1,\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"type\": \"INSPECTION_CHECK\",\n      \"description\": \"string\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"meterId\": 5194.815285837722,\n      \"isDateAndTime\": false,\n      \"attachmentId\": 1,\n      \"attachments\": [\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        }\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"type\": \"INSPECTION_CHECK\",\n      \"description\": \"string\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"meterId\": 4368.9368014330885,\n      \"isDateAndTime\": false,\n      \"attachmentId\": 1,\n      \"attachments\": [\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        },\n        {\n          \"id\": 12345,\n          \"mimeType\": \"image/png\",\n          \"fileName\": \"image.png\",\n          \"url\": \"http://example.com/image.png\",\n          \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n          \"width\": 220,\n          \"height\": 100\n        }\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97739975-cd0f-4d66-9ab0-f4d8e9c22fc0",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Ladder Inspection Checklist\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "644836b2-1f95-464b-b2e6-266e6e84867d",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Ladder Inspection Checklist\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9d9dac7-4d2a-417c-a479-d13bd1fd2f5d",
+          "name": "List procedure templates",
+          "request": {
+            "name": "List procedure templates",
+            "description": {
+              "content": "Endpoint used to list procedure template resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "proceduretemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d85685f-fe87-4061-ba9b-cb45b04c37b9",
+              "name": "Successfully fetched Procedure Templates list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"procedureTemplates\": [\n    {\n      \"id\": 1731.4613916821863,\n      \"title\": \"string\",\n      \"rows\": [\n        {\n          \"id\": 1,\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"type\": \"INSPECTION_CHECK\",\n          \"description\": \"string\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"meterId\": 6788.283670563406,\n          \"isDateAndTime\": false,\n          \"attachmentId\": 1,\n          \"attachments\": [\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            },\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            }\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ]\n        },\n        {\n          \"id\": 1,\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"type\": \"INSPECTION_CHECK\",\n          \"description\": \"string\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"meterId\": 339.3443253752737,\n          \"isDateAndTime\": false,\n          \"attachmentId\": 1,\n          \"attachments\": [\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            },\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            }\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": 4464.283991255286,\n      \"title\": \"string\",\n      \"rows\": [\n        {\n          \"id\": 1,\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"type\": \"INSPECTION_CHECK\",\n          \"description\": \"string\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"meterId\": 5994.814003810237,\n          \"isDateAndTime\": false,\n          \"attachmentId\": 1,\n          \"attachments\": [\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            },\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            }\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ]\n        },\n        {\n          \"id\": 1,\n          \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n          \"type\": \"INSPECTION_CHECK\",\n          \"description\": \"string\",\n          \"choices\": [\n            \"Partially\",\n            \"Partially\"\n          ],\n          \"meterId\": 86.37834193422012,\n          \"isDateAndTime\": false,\n          \"attachmentId\": 1,\n          \"attachments\": [\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            },\n            {\n              \"id\": 12345,\n              \"mimeType\": \"image/png\",\n              \"fileName\": \"image.png\",\n              \"url\": \"http://example.com/image.png\",\n              \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n              \"width\": 220,\n              \"height\": 100\n            }\n          ],\n          \"urls\": [\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            },\n            {\n              \"link\": \"www.getmaintainx.com\",\n              \"label\": \"MaintainX Website\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e761f263-66cc-428b-ad07-27b950371f71",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80e621c9-0675-4ce2-ba63-c744e7bc8802",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53d9b13f-41f3-4a0c-a2aa-0f78cc11024d",
+          "name": "Get procedure template",
+          "request": {
+            "name": "Get procedure template",
+            "description": {},
+            "url": {
+              "path": [
+                "proceduretemplates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the procedureTemplate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59bfdbf0-82f0-49b4-a2d9-d72ef9aabae6",
+              "name": "Successfully retrieved procedureTemplate's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedureTemplate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"procedureTemplate\": {\n    \"id\": 5013.233083464957,\n    \"title\": \"string\",\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"rows\": [\n      {\n        \"id\": 1,\n        \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n        \"type\": \"INSPECTION_CHECK\",\n        \"description\": \"string\",\n        \"choices\": [\n          \"Partially\",\n          \"Partially\"\n        ],\n        \"meterId\": 7947.362009710408,\n        \"isDateAndTime\": false,\n        \"attachmentId\": 1,\n        \"attachments\": [\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          },\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          }\n        ],\n        \"urls\": [\n          {\n            \"link\": \"www.getmaintainx.com\",\n            \"label\": \"MaintainX Website\"\n          },\n          {\n            \"link\": \"www.getmaintainx.com\",\n            \"label\": \"MaintainX Website\"\n          }\n        ]\n      },\n      {\n        \"id\": 1,\n        \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n        \"type\": \"INSPECTION_CHECK\",\n        \"description\": \"string\",\n        \"choices\": [\n          \"Partially\",\n          \"Partially\"\n        ],\n        \"meterId\": 8015.521242811547,\n        \"isDateAndTime\": false,\n        \"attachmentId\": 1,\n        \"attachments\": [\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          },\n          {\n            \"id\": 12345,\n            \"mimeType\": \"image/png\",\n            \"fileName\": \"image.png\",\n            \"url\": \"http://example.com/image.png\",\n            \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n            \"width\": 220,\n            \"height\": 100\n          }\n        ],\n        \"urls\": [\n          {\n            \"link\": \"www.getmaintainx.com\",\n            \"label\": \"MaintainX Website\"\n          },\n          {\n            \"link\": \"www.getmaintainx.com\",\n            \"label\": \"MaintainX Website\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee1b41e0-e60b-4722-a74d-92f45963285e",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedureTemplate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e32c6c51-8890-4ca0-bd96-52b2292d0dd6",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedureTemplate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7451d22e-da01-4b0b-a952-7927898bc3d2",
+              "name": "Could not find the specified procedureTemplate or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedureTemplate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5c03a6c-8433-4f1f-adf9-9d287dd1488f",
+          "name": "Update Procedure Template",
+          "request": {
+            "name": "Update Procedure Template",
+            "description": {},
+            "url": {
+              "path": [
+                "proceduretemplates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the procedure template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"<string>\",\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"meterId\": \"<number>\",\n      \"isDateAndTime\": false,\n      \"index\": \"<number>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"link\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"meterId\": \"<number>\",\n      \"isDateAndTime\": false,\n      \"index\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "793e0fa5-3979-45fb-9b17-9dd4a90af2f6",
+              "name": "Successfully edited the procedure template",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44f62dac-371a-4857-b188-4f1ed0bd4f4a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Bad request\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b1be3cc-9514-432b-9e1f-5a49f739f1ea",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24bf67e1-2cc7-4a2c-9f38-491d29cdda1e",
+              "name": "Could not find the specified procedure template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    },\n    {\n      \"type\": \"INSPECTION_CHECK\",\n      \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n      \"description\": \"<string>\",\n      \"choices\": [\n        \"Partially\",\n        \"Partially\"\n      ],\n      \"urls\": [\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        },\n        {\n          \"link\": \"www.getmaintainx.com\",\n          \"label\": \"MaintainX Website\"\n        }\n      ],\n      \"meterId\": 1,\n      \"isDateAndTime\": false,\n      \"index\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"procedure template Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90f20020-4803-495d-bb63-54a812a3363f",
+          "name": "Delete procedure Template",
+          "request": {
+            "name": "Delete procedure Template",
+            "description": {},
+            "url": {
+              "path": [
+                "proceduretemplates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the procedure Template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e119f36b-d7da-4f77-90f8-2b057ae744eb",
+              "name": "Successfully deleted the procedureTemplate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure Template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e3c048b-08d8-4d01-873c-6332ad31c0d7",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure Template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3085c986-10ef-4c16-97da-c7fef1a27c56",
+              "name": "Could not find the specified procedureTemplate.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure Template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"procedureTemplate Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8044a53-26fe-4a30-94de-f74ab0538c2a",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proceduretemplates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the procedure Template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6d2db624-8a9d-41ec-a1b5-d456dc3a4cd2",
+    "name": "MaintainX Asset Criticalities Procedure Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}

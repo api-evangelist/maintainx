@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MaintainX Asset Criticalities Meter Readings API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meter Readings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch create new meter readings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getmaintainx.com/v1/meterreadings",
+            "params": [
+              {
+                "name": "skipWebhook",
+                "value": "",
+                "type": "query",
+                "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "We strongly recommend using this endpoint to create meter readings since it is more efficient.\n      <h3>Rate Limits</h3>\n      <li>For Automated and IoT meter readings: 100 requests / 60 seconds</li>\n      <li>For Manual meter readings: 10 requests / 24 hours</li>\n      "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

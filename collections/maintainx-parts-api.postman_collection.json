@@ -1,0 +1,2633 @@
+{
+  "item": [
+    {
+      "id": "18b97d16-718b-491b-a3bc-d3338baad191",
+      "name": "Parts",
+      "description": {
+        "content": "Operations on Parts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f6248ce9-915e-4196-8675-798a9575cc8e",
+          "name": "Create new part",
+          "request": {
+            "name": "Create new part",
+            "description": {},
+            "url": {
+              "path": [
+                "parts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"area\": \"<string>\",\n  \"unitCost\": \"<integer>\",\n  \"availableQuantity\": \"<integer>\",\n  \"minimumQuantity\": \"<integer>\",\n  \"barcode\": \"<string>\",\n  \"locationId\": \"<integer>\",\n  \"locations\": [\n    {\n      \"locationId\": \"<integer>\",\n      \"availableQuantity\": \"<integer>\",\n      \"minimumQuantity\": \"<integer>\",\n      \"maximumQuantity\": \"<integer>\",\n      \"area\": \"<string>\"\n    },\n    {\n      \"locationId\": \"<integer>\",\n      \"availableQuantity\": \"<integer>\",\n      \"minimumQuantity\": \"<integer>\",\n      \"maximumQuantity\": \"<integer>\",\n      \"area\": \"<string>\"\n    }\n  ],\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"teamIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"<string>\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"<string>\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": \"<integer>\",\n    \"reserved\": \"<integer>\",\n    \"staged\": \"<integer>\"\n  },\n  \"assignedQuantity\": \"<integer>\",\n  \"vendorIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e31acbb4-7100-4d58-8a7d-658639f0b6e9",
+              "name": "Successfully created part",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"locations\": [\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    },\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    }\n  ],\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123456\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5033e10d-d46e-4a7e-adda-88e12ba18296",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"locations\": [\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    },\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    }\n  ],\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3d701ea-1a83-47af-9113-172726adaf58",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"locations\": [\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    },\n    {\n      \"locationId\": 852,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"maximumQuantity\": 100,\n      \"area\": \"tool room\"\n    }\n  ],\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a34356ef-d253-4218-8a94-a5904e591a27",
+          "name": "List parts",
+          "request": {
+            "name": "List parts",
+            "description": {
+              "content": "Endpoint used to list part resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "partNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "partNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt[gte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt[lte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt[gte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt[lte]",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customFieldName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customFieldName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                "key": "x-organization-ids",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93699632-a42f-4a8c-b4a8-35afbbc184f4",
+              "name": "Successfully fetched Parts list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"parts\": [\n    {\n      \"id\": 123456,\n      \"name\": \"Locknut - 1/8\",\n      \"description\": \"\",\n      \"barcode\": \"bWFpbnRhaW54Cg==\",\n      \"locationId\": 852,\n      \"locations\": [\n        {\n          \"locationId\": 852,\n          \"availableQuantity\": 10,\n          \"minimumQuantity\": 5,\n          \"maximumQuantity\": 100,\n          \"area\": \"tool room\",\n          \"reservedQuantity\": 10,\n          \"committedQuantities\": {\n            \"kitted\": 5,\n            \"reserved\": 3,\n            \"staged\": 2\n          },\n          \"assignedQuantity\": 5\n        },\n        {\n          \"locationId\": 852,\n          \"availableQuantity\": 10,\n          \"minimumQuantity\": 5,\n          \"maximumQuantity\": 100,\n          \"area\": \"tool room\",\n          \"reservedQuantity\": 10,\n          \"committedQuantities\": {\n            \"kitted\": 5,\n            \"reserved\": 3,\n            \"staged\": 2\n          },\n          \"assignedQuantity\": 5\n        }\n      ],\n      \"area\": \"tool room\",\n      \"unitCost\": 120,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"orderedQuantity\": 15,\n      \"reservedQuantity\": 3,\n      \"partTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"inStockQuantity\": 10,\n      \"committedQuantities\": {\n        \"kitted\": 5,\n        \"reserved\": 3,\n        \"staged\": 2\n      },\n      \"assignedQuantity\": 10,\n      \"maximumQuantity\": 100,\n      \"organizationId\": 1,\n      \"extraFields\": {\n        \"Part Number\": \"000000000\"\n      },\n      \"vendors\": [\n        {\n          \"vendorId\": 2682,\n          \"partNumber\": \"XC230\"\n        },\n        {\n          \"vendorId\": 2784,\n          \"partNumber\": \"XC230\"\n        }\n      ]\n    },\n    {\n      \"id\": 123456,\n      \"name\": \"Locknut - 1/8\",\n      \"description\": \"\",\n      \"barcode\": \"bWFpbnRhaW54Cg==\",\n      \"locationId\": 852,\n      \"locations\": [\n        {\n          \"locationId\": 852,\n          \"availableQuantity\": 10,\n          \"minimumQuantity\": 5,\n          \"maximumQuantity\": 100,\n          \"area\": \"tool room\",\n          \"reservedQuantity\": 10,\n          \"committedQuantities\": {\n            \"kitted\": 5,\n            \"reserved\": 3,\n            \"staged\": 2\n          },\n          \"assignedQuantity\": 5\n        },\n        {\n          \"locationId\": 852,\n          \"availableQuantity\": 10,\n          \"minimumQuantity\": 5,\n          \"maximumQuantity\": 100,\n          \"area\": \"tool room\",\n          \"reservedQuantity\": 10,\n          \"committedQuantities\": {\n            \"kitted\": 5,\n            \"reserved\": 3,\n            \"staged\": 2\n          },\n          \"assignedQuantity\": 5\n        }\n      ],\n      \"area\": \"tool room\",\n      \"unitCost\": 120,\n      \"availableQuantity\": 10,\n      \"minimumQuantity\": 5,\n      \"orderedQuantity\": 15,\n      \"reservedQuantity\": 3,\n      \"partTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n      \"inStockQuantity\": 10,\n      \"committedQuantities\": {\n        \"kitted\": 5,\n        \"reserved\": 3,\n        \"staged\": 2\n      },\n      \"assignedQuantity\": 10,\n      \"maximumQuantity\": 100,\n      \"organizationId\": 1,\n      \"extraFields\": {\n        \"Part Number\": \"000000000\"\n      },\n      \"vendors\": [\n        {\n          \"vendorId\": 9023,\n          \"partNumber\": \"XC230\"\n        },\n        {\n          \"vendorId\": 3550,\n          \"partNumber\": \"XC230\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29de4e58-a0f0-4915-ba06-74c14a1815be",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a8dd3b-a83e-48aa-b979-a7fe2149ce38",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2024-01-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAt[lte]",
+                      "value": "2024-12-31T23:59:59.999Z"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customFieldName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "1,2,3"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21c84549-9824-469d-9ce9-d6bde7eb2ab7",
+          "name": "Get part",
+          "request": {
+            "name": "Get part",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c87734c3-d617-48e6-b40f-8ff23416a6d2",
+              "name": "Successfully retrieved part's information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"part\": {\n    \"id\": 123456,\n    \"name\": \"Locknut - 1/8\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"description\": \"\",\n    \"area\": \"tool room\",\n    \"unitCost\": 120,\n    \"availableQuantity\": 10,\n    \"inStockQuantity\": 10,\n    \"minimumQuantity\": 5,\n    \"barcode\": \"bWFpbnRhaW54Cg==\",\n    \"locationId\": 852,\n    \"locations\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\",\n        \"reservedQuantity\": 10,\n        \"committedQuantities\": {\n          \"kitted\": 5,\n          \"reserved\": 3,\n          \"staged\": 2\n        },\n        \"assignedQuantity\": 5\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\",\n        \"reservedQuantity\": 10,\n        \"committedQuantities\": {\n          \"kitted\": 5,\n          \"reserved\": 3,\n          \"staged\": 2\n        },\n        \"assignedQuantity\": 5\n      }\n    ],\n    \"partTypes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"assetIds\": [\n      12,\n      4561\n    ],\n    \"teamIds\": [\n      1,\n      4\n    ],\n    \"extraFields\": {\n      \"Part Number\": \"000000000\"\n    },\n    \"vendors\": [\n      {\n        \"vendorId\": 558,\n        \"partNumber\": \"XC230\"\n      },\n      {\n        \"vendorId\": 580,\n        \"partNumber\": \"XC230\"\n      }\n    ],\n    \"orderedQuantity\": 15,\n    \"reservedQuantity\": 3,\n    \"committedQuantities\": {\n      \"kitted\": 5,\n      \"reserved\": 3,\n      \"staged\": 2\n    },\n    \"assignedQuantity\": 10,\n    \"maximumQuantity\": 100,\n    \"vendorIds\": [\n      23,\n      56\n    ],\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"deletedAt\": \"2022-01-01T00:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfe7935f-8e5d-4639-be49-c5ab0717d662",
+              "name": "Error with query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3803f19-c7ea-4f8e-bf1e-90f3f675c5a7",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65b17ba7-54a6-4675-bff2-9e4fb6160d7d",
+              "name": "Could not find the specified part or the user cannot access it.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6cc6c13-4ea5-41e6-be69-66b796a7ba7b",
+          "name": "Update part",
+          "request": {
+            "name": "Update part",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"area\": \"<string>\",\n  \"unitCost\": \"<integer>\",\n  \"availableQuantity\": \"<integer>\",\n  \"minimumQuantity\": \"<integer>\",\n  \"barcode\": \"<string>\",\n  \"locationId\": \"<integer>\",\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"teamIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"<string>\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"<string>\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": \"<integer>\",\n    \"reserved\": \"<integer>\",\n    \"staged\": \"<integer>\"\n  },\n  \"assignedQuantity\": \"<integer>\",\n  \"vendorIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"deletedAt\": \"<dateTime>\",\n  \"locations\": {\n    \"addedUpdated\": [\n      {\n        \"locationId\": \"<integer>\",\n        \"availableQuantity\": \"<integer>\",\n        \"minimumQuantity\": \"<integer>\",\n        \"maximumQuantity\": \"<integer>\",\n        \"area\": \"<string>\"\n      },\n      {\n        \"locationId\": \"<integer>\",\n        \"availableQuantity\": \"<integer>\",\n        \"minimumQuantity\": \"<integer>\",\n        \"maximumQuantity\": \"<integer>\",\n        \"area\": \"<string>\"\n      }\n    ],\n    \"removedLocationIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79aede68-eda0-490d-802e-35e2d161a433",
+              "name": "Successfully edited part",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ],\n  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"locations\": {\n    \"addedUpdated\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      }\n    ],\n    \"removedLocationIds\": [\n      742,\n      514\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"part\": {\n    \"id\": 123456,\n    \"name\": \"Locknut - 1/8\",\n    \"description\": \"\",\n    \"area\": \"tool room\",\n    \"unitCost\": 120,\n    \"availableQuantity\": 10,\n    \"inStockQuantity\": 10,\n    \"minimumQuantity\": 5,\n    \"barcode\": \"bWFpbnRhaW54Cg==\",\n    \"locationId\": 852,\n    \"locations\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\",\n        \"reservedQuantity\": 10,\n        \"committedQuantities\": {\n          \"kitted\": 5,\n          \"reserved\": 3,\n          \"staged\": 2\n        },\n        \"assignedQuantity\": 5\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\",\n        \"reservedQuantity\": 10,\n        \"committedQuantities\": {\n          \"kitted\": 5,\n          \"reserved\": 3,\n          \"staged\": 2\n        },\n        \"assignedQuantity\": 5\n      }\n    ],\n    \"partTypes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"assetIds\": [\n      12,\n      4561\n    ],\n    \"teamIds\": [\n      1,\n      4\n    ],\n    \"extraFields\": {\n      \"Part Number\": \"000000000\"\n    },\n    \"vendors\": [\n      {\n        \"vendorId\": 6368,\n        \"partNumber\": \"XC230\"\n      },\n      {\n        \"vendorId\": 5851,\n        \"partNumber\": \"XC230\"\n      }\n    ],\n    \"orderedQuantity\": 15,\n    \"reservedQuantity\": 3,\n    \"committedQuantities\": {\n      \"kitted\": 5,\n      \"reserved\": 3,\n      \"staged\": 2\n    },\n    \"assignedQuantity\": 10,\n    \"maximumQuantity\": 100,\n    \"vendorIds\": [\n      23,\n      56\n    ],\n    \"thumbnail\": {\n      \"id\": 12345,\n      \"mimeType\": \"image/png\",\n      \"fileName\": \"image.png\",\n      \"url\": \"http://example.com/image.png\",\n      \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n      \"width\": 220,\n      \"height\": 100\n    },\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n    \"deletedAt\": \"2022-01-01T00:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c1fdf59-2818-4022-b9f9-5f15071b97a4",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ],\n  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"locations\": {\n    \"addedUpdated\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      }\n    ],\n    \"removedLocationIds\": [\n      742,\n      514\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79245449-5e42-4474-9c42-c17f5b6a43ab",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ],\n  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"locations\": {\n    \"addedUpdated\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      }\n    ],\n    \"removedLocationIds\": [\n      742,\n      514\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e5dabb4-3606-4342-a629-21356fb3b3aa",
+              "name": "Could not find the specified part.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Locknut - 1/8\",\n  \"description\": \"\",\n  \"area\": \"tool room\",\n  \"unitCost\": 120,\n  \"availableQuantity\": 10,\n  \"minimumQuantity\": 5,\n  \"barcode\": \"bWFpbnRhaW54Cg==\",\n  \"locationId\": 852,\n  \"partTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assetIds\": [\n    12,\n    4561\n  ],\n  \"teamIds\": [\n    1,\n    4\n  ],\n  \"extraFields\": {\n    \"Part Number\": \"000000000\"\n  },\n  \"vendors\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"partNumber\": \"XC230\"\n    }\n  ],\n  \"committedQuantities\": {\n    \"kitted\": 5,\n    \"reserved\": 3,\n    \"staged\": 2\n  },\n  \"assignedQuantity\": 10,\n  \"vendorIds\": [\n    23,\n    56\n  ],\n  \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"deletedAt\": \"2022-01-01T00:00:00.000Z\",\n  \"locations\": {\n    \"addedUpdated\": [\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      },\n      {\n        \"locationId\": 852,\n        \"availableQuantity\": 10,\n        \"minimumQuantity\": 5,\n        \"maximumQuantity\": 100,\n        \"area\": \"tool room\"\n      }\n    ],\n    \"removedLocationIds\": [\n      742,\n      514\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"part Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25fdc2c6-a218-4c92-9540-b76cfd967ddb",
+          "name": "Delete part",
+          "request": {
+            "name": "Delete part",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea0a7573-80b2-4bb7-9587-3362617006a6",
+              "name": "Successfully deleted the part",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "54a2fe1d-e3fc-4830-8da6-58e56e906698",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac4893bb-7fc3-40dc-adba-f891b4184292",
+              "name": "Could not find the specified part.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"part Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b1e899e-adf3-4f0e-8a88-febbd6b225f8",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Internal server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a00f6147-7fc2-4718-b324-ce05b0747f68",
+          "name": "Update part attachment",
+          "request": {
+            "name": "Update part attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/xml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa617eff-e007-4704-9c2c-f225b241f9d8",
+              "name": "Successfully updated part's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85854046-6304-44d5-b5a3-76e126bffdc2",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7ff34a3-db5c-4bc9-87fe-9a61cd7dfef6",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "982c88c7-b3bf-46f0-9144-979ed535513d",
+              "name": "Could not find the specified part.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"part Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4026b0ab-db1c-46f3-a463-cf861fc72413",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd3d73b5-4cab-4873-a341-3fbe582f59b4",
+          "name": "Remove part attachment",
+          "request": {
+            "name": "Remove part attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id",
+                "attachments",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the attachment, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9201115c-19f6-43c0-89b3-e7a19f058345",
+              "name": "Successfully removed part's attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ac519ec-50c0-4e19-8a83-94892aacdba2",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "45ca5ffc-bf14-4c4a-823a-9f270dd5ffdb",
+              "name": "Could not find the specified Attachment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "attachments",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the attachment, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd682bcd-9a86-48bb-823b-8edb43a6072e",
+          "name": "Update part's thumbnail",
+          "request": {
+            "name": "Update part's thumbnail",
+            "description": {},
+            "url": {
+              "path": [
+                "parts",
+                ":id",
+                "thumbnail",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipWebhook",
+                  "value": "<boolean>",
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the part."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) Name of the part thumbnail, including the extension."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>"
+            }
+          },
+          "response": [
+            {
+              "id": "5ceb3fff-54ae-433b-a2de-5bd906e8b567",
+              "name": "Successfully updated part's thumbnail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the part thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e5bc6f7-0061-4e1c-8e73-82bcf5d4206a",
+              "name": "Bad arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the part thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You cannot edit this entity.\",\n      \"fieldPath\": \"organizationId\",\n      \"fieldValue\": \"1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ced54e58-314d-4d11-8181-fc9e6f51f11d",
+              "name": "Invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the part thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e36023f5-6738-4ebf-8bcf-2c007a5a3516",
+              "name": "Could not find the specified Part.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the part thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Part Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d114cb40-df78-41a3-a3ce-ae932294ddb6",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parts",
+                    ":id",
+                    "thumbnail",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the part."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) Name of the part thumbnail, including the extension."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>"
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getmaintainx.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d6e193ad-2aef-450a-8985-480e38a6fd66",
+    "name": "MaintainX Asset Criticalities Parts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+      "type": "text/plain"
+    }
+  }
+}
