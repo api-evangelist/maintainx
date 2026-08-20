@@ -40,6 +40,17 @@ x-enrichment:
 image: https://cdn.prod.website-files.com/65ae6673d2c6ecb99ee249d1/682cc13bc85b61fe2f91f274_Website%20Open%20Graph%20Image%20(1).webp
 tags:
 - Company
+- Physical AI
+- Maintenance
+- CMMS
+- Asset Management
+- Work Orders
+- Field Service
+- Manufacturing
+- Preventive Maintenance
+- IoT
+tags_raw:
+- Company
 - Physical Ai
 - Maintenance
 - CMMS
@@ -257,6 +268,8 @@ apis:
   humanURL: https://api.getmaintainx.com/v1/docs
   baseURL: https://api.getmaintainx.com/v1
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -610,6 +623,8 @@ apis:
   humanURL: https://api.getmaintainx.com/v1/docs
   baseURL: https://api.getmaintainx.com/v1
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -624,6 +639,8 @@ apis:
   humanURL: https://api.getmaintainx.com/v1/docs
   baseURL: https://api.getmaintainx.com/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
