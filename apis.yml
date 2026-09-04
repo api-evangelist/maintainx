@@ -31,15 +31,17 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Unknown
+  confidence: low
   source:
   - authentication
-  generated: '2026-07-22'
+  - rate-limits
+  - security
+  generated: '2026-09-03'
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
@@ -732,6 +734,9 @@ apis:
   - type: APIReference
     url: https://api.getmaintainx.com/v1/docs
 common:
+- type: CapabilityMap
+  url: capabilities/maintainx-capability-edges.yml
+  name: MaintainX Business Capability Map
 - type: Website
   url: https://www.getmaintainx.com/
 - type: DeveloperPortal
@@ -774,8 +779,9 @@ common:
   url: rate-limits/maintainx-rate-limits.yml
 - type: Webhooks
   url: asyncapi/maintainx-webhooks.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/maintainx-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: Conventions
   url: conventions/maintainx-conventions.yml
 - type: ErrorCatalog
