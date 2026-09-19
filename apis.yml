@@ -184,6 +184,8 @@ apis:
   humanURL: https://api.getmaintainx.com/v1/docs
   baseURL: https://api.getmaintainx.com/v1
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -212,6 +214,8 @@ apis:
   humanURL: https://api.getmaintainx.com/v1/docs
   baseURL: https://api.getmaintainx.com/v1
   tags:
+  - Manufacturer
+  tags_raw:
   - Manufacturers
   properties:
   - type: OpenAPI
