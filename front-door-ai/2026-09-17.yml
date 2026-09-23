@@ -1,0 +1,26 @@
+# Front Door AI Index — maintainx — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: maintainx
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.getmaintainx.com
+  final_host: www.getmaintainx.com
+  ownership: own
+  owner: maintainx
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 18
+  host_score: 18
+  density: 18.85
+  words: 955
+  tiers:
+    agentic: 0
+    core: 18
+    model: 0
+  ambiguous: 2
+  top_terms:
+    AI: 18
+    predictive: 2
