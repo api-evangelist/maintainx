@@ -1,0 +1,36 @@
+slug: maintainx
+provider: MaintainX
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Purchase Orders
+  spec_file: maintainx-purchase-orders-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.95
+  evidence: POST /purchaseorders  postPurchaseorders  Create new purchase order; PATCH /purchaseorders/{id}/status  Update
+    purchase order status; PATCH /purchaseorders/{id}/fulfillment  Fulfill purchase order
+  reason: Full purchase-order lifecycle — creation, status transitions, fulfilment, emailing the PO to
+    the vendor. This is unambiguously purchase order management within procurement.
+- tag: Vendors
+  spec_file: maintainx-vendors-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: POST /vendors  postVendors  Create new vendor; GET /vendors/{id}/contacts  getVendorsByIdContacts  List
+    contacts
+  reason: Maintains the vendor/supplier register and vendor contact records used by the maintenance organisation
+    for parts and services. Supplier Management at L1 is supported; the operations are plain master-record
+    CRUD and do not name onboarding, performance or risk, so no L2 is asserted.
