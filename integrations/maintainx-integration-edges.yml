@@ -1,0 +1,23 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- samsara/integrations/samsara-integration-edges.yml
+source:
+- samsara/integrations/samsara-integration-edges.yml
+edges:
+- partner_name: Samsara (own)
+  partner: samsara
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.samsara.com/resources/marketplace/maintainx
+  mirror_of: samsara/integrations/samsara-integration-edges.yml
+  apps:
+  - MaintainX
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
