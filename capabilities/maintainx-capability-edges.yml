@@ -13,7 +13,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 10
+edge_count: 18
 edges:
 - tag: Purchase Orders
   spec_file: maintainx-purchase-orders-api-openapi.yml
@@ -30,11 +30,31 @@ edges:
   capability_id: BC-5070.20
   capability_id_l1: BC-5070
   capability_name: Asset Register & Information
+  confidence: 0.9
+  evidence: POST /assets — 'Create new asset'; GET /assets — 'List assets'; PATCH /assets/{id} — 'Update
+    asset'
+  reason: Full CRUD over asset records in an enterprise asset management platform; this is the asset register
+    and information base.
+- tag: Work Orders
+  spec_file: maintainx-work-orders-api-openapi.yml
+  capability_id: BC-1030.50
+  capability_id_l1: BC-1030
+  capability_name: Maintenance Work Order Management
+  confidence: 0.9
+  evidence: POST /workorders  Create new work order; GET /workorders/{id}/costs  Get costs information
+  reason: Vendor is a CMMS/EAM for maintenance; the work order entity here is the maintenance work order
+    with full lifecycle (create, update, status, costs, attachments), matching Maintenance Work Order
+    Management rather than manufacturing production work orders.
+- tag: Asset Criticalities
+  spec_file: maintainx-asset-criticalities-api-openapi.yml
+  capability_id: BC-1040.30
+  capability_id_l1: BC-1040
+  capability_name: Asset Risk & Criticality Management
   confidence: 0.85
-  evidence: POST /assets 'Create new asset', PATCH /assets/{id} 'Update asset', PUT /assets/{id}/attachments/{filename}
-    'Update asset attachment'
-  reason: Full CRUD over asset records including attachments and thumbnails in an enterprise asset management
-    platform — this is maintenance of the trusted asset register and its information base.
+  evidence: GET /assetcriticalities  getAssetcriticalities  List asset criticalities; GET /assetcriticalities/{id}  Get
+    asset criticality
+  reason: MaintainX is an EAM/CMMS; these operations expose asset criticality classifications used to
+    prioritise maintenance — a direct match to Asset Risk & Criticality Management.
 - tag: Maintenance Plans
   spec_file: maintainx-maintenance-plans-api-openapi.yml
   capability_id: BC-1030.20
@@ -45,27 +65,16 @@ edges:
     Create a maintenance plan work order blueprint
   reason: Vendor states it manages 'preventive maintenance plans'; these operations create plans that
     spawn work order blueprints, i.e. PM plan definition and scheduling.
-- tag: Work Orders
-  spec_file: maintainx-work-orders-api-openapi.yml
-  capability_id: BC-1030.50
-  capability_id_l1: BC-1030
-  capability_name: Maintenance Work Order Management
-  confidence: 0.85
-  evidence: 'POST /workorders  Create new work order; POST /workorders/{id}/costs  Create new cost on
-    a work order; vendor: "computerized maintenance management system (CMMS)"'
-  reason: For a CMMS the work order is the maintenance work order — creation, update, cost capture and
-    closure — which is Maintenance Work Order Management. Slight residual ambiguity with generic Work
-    Order Management in a production (MES) sense, but the vendor description settles it on maintenance.
-- tag: Asset Criticalities
-  spec_file: maintainx-asset-criticalities-api-openapi.yml
-  capability_id: BC-1040.30
+- tag: Assets
+  spec_file: maintainx-assets-api-openapi.yml
+  capability_id: BC-1040.40
   capability_id_l1: BC-1040
-  capability_name: Asset Risk & Criticality Management
+  capability_name: Asset Information Management
   confidence: 0.8
-  evidence: GET /assetcriticalities "List asset criticalities"; GET /assetcriticalities/{id} "Get asset
-    criticality"
-  reason: EAM/CMMS platform exposing asset criticality classifications used to prioritise maintenance
-    — directly Asset Risk & Criticality Management; read-only reference nature is the only slight caveat.
+  evidence: POST /assets  Create new asset; PATCH /assets/{id}  Update asset; PUT /assets/{id}/attachments/{filename}  Update
+    asset attachment
+  reason: Full lifecycle CRUD over asset records plus attachments and thumbnails in an EAM platform —
+    asset master data and technical documentation, i.e. Asset Information Management.
 - tag: Parts
   spec_file: maintainx-parts-api-openapi.yml
   capability_id: BC-1030.60
@@ -75,6 +84,68 @@ edges:
   evidence: POST /parts Create new part ... vendor manages 'parts inventory'
   reason: Parts master and stock records within a CMMS are MRO spare parts stocking and use; not a sales
     catalogue.
+- tag: Root Cause Analysis Reports
+  spec_file: maintainx-root-cause-analysis-reports-api-openapi.yml
+  capability_id: BC-1030.70
+  capability_id_l1: BC-1030
+  capability_name: Equipment Reliability Management
+  confidence: 0.8
+  evidence: GET /rootcauseanalysisreports  List root cause analysis reports
+  reason: Root cause analysis reports in a CMMS/EAM are equipment failure investigations, which is precisely
+    reliability engineering / failure analysis. Read-only endpoints only, so some ambiguity remains about
+    scope, but no other candidate fits better.
+- tag: Work Orders
+  spec_file: maintainx-work-orders-api-openapi.yml
+  capability_id: BC-5090
+  capability_id_l1: BC-5090
+  capability_name: Infrastructure Maintenance Management
+  confidence: 0.8
+  evidence: POST /workorders Create new work order; POST /workorders/{id}/costs Create new cost on a work
+    order
+  reason: Core CMMS work-order lifecycle on assets — creation, update, costing and completion — which
+    is execution of maintenance work; evidence does not single out one sub-capability (planning vs execution
+    vs records).
+- tag: Maintenance Plans
+  spec_file: maintainx-maintenance-plans-api-openapi.yml
+  capability_id: BC-5090.10
+  capability_id_l1: BC-5090
+  capability_name: Maintenance Planning & Scheduling
+  confidence: 0.78
+  evidence: POST /maintenanceplans — 'Create a maintenance plan'; POST /maintenanceplans/workorderblueprints
+    — 'Create a maintenance plan work order blueprint'
+  reason: Preventive maintenance plans that template and schedule recurring work orders in a CMMS, which
+    is maintenance planning and scheduling. Some ambiguity with maintenance strategy (BC-5070.40) since
+    plans also encode intervention policy.
+- tag: Meter Triggers
+  spec_file: maintainx-meter-triggers-api-openapi.yml
+  capability_id: BC-1030
+  capability_id_l1: BC-1030
+  capability_name: Plant Maintenance Management
+  confidence: 0.75
+  evidence: POST /metertriggers 'Create meter trigger'; PATCH /metertriggers/{id}/workordertemplates 'Update
+    Meter Trigger's Work Order Template'
+  reason: Meter thresholds that automatically raise maintenance work orders — plainly plant maintenance
+    automation, but ambiguous between preventive (usage-based PM) and predictive/condition-based sub-capabilities,
+    so L1 only.
+- tag: Work Requests
+  spec_file: maintainx-work-requests-api-openapi.yml
+  capability_id: BC-5090
+  capability_id_l1: BC-5090
+  capability_name: Infrastructure Maintenance Management
+  confidence: 0.75
+  evidence: POST /workrequests Create work request; GET /workrequests List work requests
+  reason: Requests for maintenance work on assets (with photos/attachments) that feed work orders — maintenance
+    management, though the evidence does not clearly distinguish reactive-fault from planned intake.
+- tag: Asset Criticalities
+  spec_file: maintainx-asset-criticalities-api-openapi.yml
+  capability_id: BC-5070.50
+  capability_id_l1: BC-5070
+  capability_name: Asset Risk & Criticality
+  confidence: 0.72
+  evidence: GET /assetcriticalities — 'List asset criticalities'
+  reason: CMMS/EAM vendor exposing asset criticality classifications, which is the data underpinning asset
+    risk and criticality assessment. Read-only reference lookup so confidence is moderate rather than
+    high.
 - tag: Part Transfer Requests
   spec_file: maintainx-part-transfer-requests-api-openapi.yml
   capability_id: BC-1030.60
@@ -94,23 +165,33 @@ edges:
   reason: Vendor records with contact sub-resources are supplier master data for the maintenance/parts
     supply base, placing it under Supplier Management. The operations show registration and record-keeping
     only — no scorecards, risk or sourcing events — so no sub-capability is asserted.
+- tag: Asset Custom Statuses
+  spec_file: maintainx-asset-custom-statuses-api-openapi.yml
+  capability_id: BC-1040
+  capability_id_l1: BC-1040
+  capability_name: Physical Asset Management
+  confidence: 0.7
+  evidence: POST /assetcustomstatuses  Create new asset custom status type; PATCH /assetcustomstatuses/{id}  Update
+    asset custom status
+  reason: Configuration of custom status types for assets in an EAM platform — asset master/reference
+    data within Physical Asset Management. Too configuration-oriented to pin a specific L2 confidently.
+- tag: Asset Statuses
+  spec_file: maintainx-asset-statuses-api-openapi.yml
+  capability_id: BC-1040
+  capability_id_l1: BC-1040
+  capability_name: Physical Asset Management
+  confidence: 0.7
+  evidence: GET /assetstatuses  List asset statuses; PATCH /assetstatuses/{id}  Update asset status
+  reason: Tracking and updating the operational status of assets in a CMMS/EAM — Physical Asset Management
+    at L1; ambiguous between asset information and availability/performance sub-capabilities.
 - tag: Meter Triggers
   spec_file: maintainx-meter-triggers-api-openapi.yml
-  capability_id: BC-1030.40
-  capability_id_l1: BC-1030
-  capability_name: Predictive Maintenance Management
-  confidence: 0.7
-  evidence: POST /metertriggers Create meter trigger ... PATCH /metertriggers/{id}/workordertemplates
-    Update Meter Trigger's Work Order Template
-  reason: Meter-threshold triggers that raise maintenance work orders are condition-based maintenance
-    automation on equipment.
-- tag: Work Requests
-  spec_file: maintainx-work-requests-api-openapi.yml
-  capability_id: BC-5090
+  capability_id: BC-5090.10
   capability_id_l1: BC-5090
-  capability_name: Infrastructure Maintenance Management
+  capability_name: Maintenance Planning & Scheduling
   confidence: 0.7
-  evidence: POST /workrequests  Create work request; GET /workrequests  List work requests
-  reason: Work requests are the intake of maintenance demand (faults, defects, requests) that precedes
-    work orders in this CMMS, placing them in infrastructure maintenance management. Evidence does not
-    distinguish reactive from planned, so L1 only.
+  evidence: POST /metertriggers  Create meter trigger; PATCH /metertriggers/{id}/workordertemplates  Update
+    Meter Trigger's Work Order Template
+  reason: Meter triggers bind a meter threshold to a work order template so maintenance work is generated
+    and scheduled automatically — usage-based maintenance planning and scheduling. Could arguably sit
+    under maintenance strategy, hence not 0.9.
