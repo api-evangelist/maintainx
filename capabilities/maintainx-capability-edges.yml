@@ -3,6 +3,8 @@ provider: MaintainX
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
+- Infrastructure
+- Manufacturing & Industrial
 - Software & Technology
 min_confidence: 0.7
 capability_model:
@@ -11,7 +13,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 2
+edge_count: 10
 edges:
 - tag: Purchase Orders
   spec_file: maintainx-purchase-orders-api-openapi.yml
@@ -23,14 +25,92 @@ edges:
     purchase order status; PATCH /purchaseorders/{id}/fulfillment  Fulfill purchase order
   reason: Full purchase-order lifecycle — creation, status transitions, fulfilment, emailing the PO to
     the vendor. This is unambiguously purchase order management within procurement.
+- tag: Assets
+  spec_file: maintainx-assets-api-openapi.yml
+  capability_id: BC-5070.20
+  capability_id_l1: BC-5070
+  capability_name: Asset Register & Information
+  confidence: 0.85
+  evidence: POST /assets 'Create new asset', PATCH /assets/{id} 'Update asset', PUT /assets/{id}/attachments/{filename}
+    'Update asset attachment'
+  reason: Full CRUD over asset records including attachments and thumbnails in an enterprise asset management
+    platform — this is maintenance of the trusted asset register and its information base.
+- tag: Maintenance Plans
+  spec_file: maintainx-maintenance-plans-api-openapi.yml
+  capability_id: BC-1030.20
+  capability_id_l1: BC-1030
+  capability_name: Preventive Maintenance Management
+  confidence: 0.85
+  evidence: POST /maintenanceplans Create a maintenance plan ... POST /maintenanceplans/workorderblueprints
+    Create a maintenance plan work order blueprint
+  reason: Vendor states it manages 'preventive maintenance plans'; these operations create plans that
+    spawn work order blueprints, i.e. PM plan definition and scheduling.
+- tag: Work Orders
+  spec_file: maintainx-work-orders-api-openapi.yml
+  capability_id: BC-1030.50
+  capability_id_l1: BC-1030
+  capability_name: Maintenance Work Order Management
+  confidence: 0.85
+  evidence: 'POST /workorders  Create new work order; POST /workorders/{id}/costs  Create new cost on
+    a work order; vendor: "computerized maintenance management system (CMMS)"'
+  reason: For a CMMS the work order is the maintenance work order — creation, update, cost capture and
+    closure — which is Maintenance Work Order Management. Slight residual ambiguity with generic Work
+    Order Management in a production (MES) sense, but the vendor description settles it on maintenance.
+- tag: Asset Criticalities
+  spec_file: maintainx-asset-criticalities-api-openapi.yml
+  capability_id: BC-1040.30
+  capability_id_l1: BC-1040
+  capability_name: Asset Risk & Criticality Management
+  confidence: 0.8
+  evidence: GET /assetcriticalities "List asset criticalities"; GET /assetcriticalities/{id} "Get asset
+    criticality"
+  reason: EAM/CMMS platform exposing asset criticality classifications used to prioritise maintenance
+    — directly Asset Risk & Criticality Management; read-only reference nature is the only slight caveat.
+- tag: Parts
+  spec_file: maintainx-parts-api-openapi.yml
+  capability_id: BC-1030.60
+  capability_id_l1: BC-1030
+  capability_name: Maintenance Spare Parts Inventory Management
+  confidence: 0.8
+  evidence: POST /parts Create new part ... vendor manages 'parts inventory'
+  reason: Parts master and stock records within a CMMS are MRO spare parts stocking and use; not a sales
+    catalogue.
+- tag: Part Transfer Requests
+  spec_file: maintainx-part-transfer-requests-api-openapi.yml
+  capability_id: BC-1030.60
+  capability_id_l1: BC-1030
+  capability_name: Maintenance Spare Parts Inventory Management
+  confidence: 0.72
+  evidence: POST /parttransferrequests Create a part transfer request
+  reason: Requests to move spare parts between stocking locations in a maintenance system — MRO spare
+    parts inventory movement.
 - tag: Vendors
   spec_file: maintainx-vendors-api-openapi.yml
   capability_id: BC-510
   capability_id_l1: BC-510
   capability_name: Supplier Management
+  confidence: 0.72
+  evidence: POST /vendors  Create new vendor; POST /vendors/{id}/contacts  Create new contact
+  reason: Vendor records with contact sub-resources are supplier master data for the maintenance/parts
+    supply base, placing it under Supplier Management. The operations show registration and record-keeping
+    only — no scorecards, risk or sourcing events — so no sub-capability is asserted.
+- tag: Meter Triggers
+  spec_file: maintainx-meter-triggers-api-openapi.yml
+  capability_id: BC-1030.40
+  capability_id_l1: BC-1030
+  capability_name: Predictive Maintenance Management
   confidence: 0.7
-  evidence: POST /vendors  postVendors  Create new vendor; GET /vendors/{id}/contacts  getVendorsByIdContacts  List
-    contacts
-  reason: Maintains the vendor/supplier register and vendor contact records used by the maintenance organisation
-    for parts and services. Supplier Management at L1 is supported; the operations are plain master-record
-    CRUD and do not name onboarding, performance or risk, so no L2 is asserted.
+  evidence: POST /metertriggers Create meter trigger ... PATCH /metertriggers/{id}/workordertemplates
+    Update Meter Trigger's Work Order Template
+  reason: Meter-threshold triggers that raise maintenance work orders are condition-based maintenance
+    automation on equipment.
+- tag: Work Requests
+  spec_file: maintainx-work-requests-api-openapi.yml
+  capability_id: BC-5090
+  capability_id_l1: BC-5090
+  capability_name: Infrastructure Maintenance Management
+  confidence: 0.7
+  evidence: POST /workrequests  Create work request; GET /workrequests  List work requests
+  reason: Work requests are the intake of maintenance demand (faults, defects, requests) that precedes
+    work orders in this CMMS, placing them in infrastructure maintenance management. Evidence does not
+    distinguish reactive from planned, so L1 only.
