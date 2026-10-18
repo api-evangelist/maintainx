@@ -90,5 +90,5 @@
     - connectors/applications/maintainx
     vendor_link: https://www.getmaintainx.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
