@@ -1,0 +1,208 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Asset Criticalities API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Asset Criticalities
+  description: Operations on Asset Criticalities
+  x-traitTag: false
+paths:
+  /assetcriticalities:
+    get:
+      summary: List asset criticalities
+      description: Endpoint used to list asset criticality resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Asset Criticalities returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: label
+        schema:
+          type: string
+          description: Will only show asset importances that match the label
+        in: query
+      - name: level
+        schema:
+          type: integer
+          description: Will only show asset importances that match the level
+        in: query
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Asset Criticalities list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assetCriticalities
+                properties:
+                  assetCriticalities:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - label
+                      - level
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                        label:
+                          type: string
+                          description: The label of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                          example: Normal
+                        level:
+                          type: integer
+                          description: The level of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                          example: 3
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Asset Criticalities.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Asset Criticalities.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Asset Criticalities
+      operationId: getAssetcriticalities
+      x-operation-id-source: derived
+  /assetcriticalities/{id}:
+    get:
+      summary: Get asset criticality
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the assetCriticality
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved assetCriticality's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assetCriticality
+                properties:
+                  assetCriticality:
+                    type: object
+                    required:
+                    - id
+                    - label
+                    - level
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                      label:
+                        type: string
+                        description: The label of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                        example: Normal
+                      level:
+                        type: integer
+                        description: The level of the criticality. <a href='https://help.getmaintainx.com/about-assets#criticality' target='_blank'>Learn more</a>
+                        example: 3
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified assetCriticality or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Asset Criticalities
+      operationId: getAssetcriticalitiesById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

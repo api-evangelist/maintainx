@@ -1,0 +1,1044 @@
+openapi: 3.2.0
+info:
+  description: 'REST API V1
+
+
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
+
+
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
+
+
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
+
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
+  version: '1'
+  title: MaintainX Rotation Schedules API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX, an Autodesk company
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Rotation Schedules
+  description: Operations on Rotation Schedules (custom work rotations)
+  x-traitTag: false
+paths:
+  /rotationschedules:
+    get:
+      summary: List rotation schedules
+      description: Endpoint used to list rotation schedule resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Rotation Schedules returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Rotation Schedules list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - rotationSchedules
+                - nextCursor
+                - nextPageUrl
+                properties:
+                  rotationSchedules:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - organizationId
+                      - name
+                      - startDate
+                      - days
+                      - isDefault
+                      - assignedUsersCount
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: 'Global ID of the rotation schedule. `0` is an alias addressing the organization''s current default rotation: its saved default when it has one, otherwise the virtual default it gets until it saves one of its own. Responses always carry the canonical id, so a request against `0` can come back with a different `id`.'
+                        organizationId:
+                          type: integer
+                          example: 1
+                          description: ID of the organization that owns this resource
+                        name:
+                          type: string
+                          minLength: 1
+                          maxLength: 255
+                          example: Team A - 4 on / 3 off
+                        startDate:
+                          type: string
+                          format: date-time
+                          example: '2022-01-01T00:00:00.000Z'
+                          description: First day of the rotation (ISO 8601 UTC datetime, RFC 3339 date-time format). The pattern in `days` repeats from this date.
+                        days:
+                          type: array
+                          minItems: 1
+                          maxItems: 30
+                          description: The repeating pattern, one entry per day of the cycle, ordered by `dayIndex`.
+                          items:
+                            type: object
+                            required:
+                            - dayIndex
+                            - dayType
+                            - seconds
+                            properties:
+                              dayIndex:
+                                type: integer
+                                minimum: 0
+                                example: 0
+                                description: Position of the day in the rotation, starting at 0 on `startDate`
+                              dayType:
+                                type: string
+                                enum:
+                                - WORKING
+                                - NON_WORKING
+                                example: WORKING
+                              seconds:
+                                type: integer
+                                minimum: 0
+                                maximum: 86400
+                                example: 28800
+                                description: Seconds worked on that day. Always 0 for a `NON_WORKING` day.
+                        isDefault:
+                          type: boolean
+                          example: false
+                          description: Whether this is the organization's default rotation, applied to every user without a rotation of their own.
+                        sourceTemplatePattern:
+                          type:
+                          - string
+                          - 'null'
+                          example: pitman
+                          description: Template pattern used to create this rotation in the UI, if one was selected
+                        assignedUsersCount:
+                          type: integer
+                          example: 3
+                          description: Number of users on this rotation. For the default rotation, every schedulable user not on a rotation of their own. The users themselves are at `GET /rotationschedules/{id}/assignedusers`.
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: '2022-01-01T00:00:00.000Z'
+                        updatedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          example: '2022-01-01T00:00:00.000Z'
+                        archivedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          example: '2022-01-01T00:00:00.000Z'
+                          description: When the rotation schedule was archived, or `null` while it is active
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Rotation Schedules.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Rotation Schedules.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Rotation Schedules
+      operationId: getRotationschedules
+      x-operation-id-source: derived
+    post:
+      summary: Create rotation schedule
+      description: Creates a custom work rotation. Assigning users removes them from any rotation they are currently assigned to. A rotation can only be created as the default in an organization with no saved default.
+      requestBody:
+        description: Rotation schedule to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - startDate
+              - days
+              - userIds
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 255
+                  example: Team A - 4 on / 3 off
+                startDate:
+                  type: string
+                  format: date-time
+                  example: '2022-01-01T00:00:00.000Z'
+                  description: First day of the rotation (ISO 8601 UTC datetime, RFC 3339 date-time format). The pattern in `days` repeats from this date. The value is converted to UTC before storage, send in UTC `T00:00:00.000Z` to pin an exact day.
+                days:
+                  type: array
+                  minItems: 1
+                  maxItems: 30
+                  description: The repeating pattern, one entry per day of the cycle, ordered by `dayIndex`.
+                  items:
+                    type: object
+                    required:
+                    - dayIndex
+                    - dayType
+                    - seconds
+                    properties:
+                      dayIndex:
+                        type: integer
+                        minimum: 0
+                        example: 0
+                        description: Position of the day in the rotation, starting at 0 on `startDate`
+                      dayType:
+                        type: string
+                        enum:
+                        - WORKING
+                        - NON_WORKING
+                        example: WORKING
+                      seconds:
+                        type: integer
+                        minimum: 0
+                        maximum: 86400
+                        example: 28800
+                        description: Seconds worked on that day. Always 0 for a `NON_WORKING` day.
+                userIds:
+                  type: array
+                  maxItems: 100
+                  items:
+                    type: integer
+                  example:
+                  - 123
+                  - 456
+                  description: Users to assign to this rotation. Each user is removed from whatever rotation they are currently on.
+                isDefault:
+                  type: boolean
+                  example: false
+                  description: Whether this is the organization's default rotation, applied to every user without a rotation of their own. This can only be true when the organization has no saved default and is using its virtual default.
+                  default: false
+      responses:
+        '201':
+          description: Successfully created rotation schedule
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 963
+                    description: 'Global ID of the rotation schedule. `0` is an alias addressing the organization''s current default rotation: its saved default when it has one, otherwise the virtual default it gets until it saves one of its own. Responses always carry the canonical id, so a request against `0` can come back with a different `id`.'
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: The caller cannot create rotation schedules
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You do not have permission to create rotation schedules
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified route.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: route Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Rotation Schedules
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postRotationschedules
+      x-operation-id-source: derived
+  /rotationschedules/{id}:
+    get:
+      summary: Get rotation schedule
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the rotationSchedule
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved rotationSchedule's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - rotationSchedule
+                properties:
+                  rotationSchedule:
+                    type: object
+                    required:
+                    - id
+                    - organizationId
+                    - name
+                    - startDate
+                    - days
+                    - isDefault
+                    - assignedUsersCount
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: 'Global ID of the rotation schedule. `0` is an alias addressing the organization''s current default rotation: its saved default when it has one, otherwise the virtual default it gets until it saves one of its own. Responses always carry the canonical id, so a request against `0` can come back with a different `id`.'
+                      organizationId:
+                        type: integer
+                        example: 1
+                        description: ID of the organization that owns this resource
+                      name:
+                        type: string
+                        minLength: 1
+                        maxLength: 255
+                        example: Team A - 4 on / 3 off
+                      startDate:
+                        type: string
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: First day of the rotation (ISO 8601 UTC datetime, RFC 3339 date-time format). The pattern in `days` repeats from this date.
+                      days:
+                        type: array
+                        minItems: 1
+                        maxItems: 30
+                        description: The repeating pattern, one entry per day of the cycle, ordered by `dayIndex`.
+                        items:
+                          type: object
+                          required:
+                          - dayIndex
+                          - dayType
+                          - seconds
+                          properties:
+                            dayIndex:
+                              type: integer
+                              minimum: 0
+                              example: 0
+                              description: Position of the day in the rotation, starting at 0 on `startDate`
+                            dayType:
+                              type: string
+                              enum:
+                              - WORKING
+                              - NON_WORKING
+                              example: WORKING
+                            seconds:
+                              type: integer
+                              minimum: 0
+                              maximum: 86400
+                              example: 28800
+                              description: Seconds worked on that day. Always 0 for a `NON_WORKING` day.
+                      isDefault:
+                        type: boolean
+                        example: false
+                        description: Whether this is the organization's default rotation, applied to every user without a rotation of their own.
+                      sourceTemplatePattern:
+                        type:
+                        - string
+                        - 'null'
+                        example: pitman
+                        description: Template pattern used to create this rotation in the UI, if one was selected
+                      assignedUsersCount:
+                        type: integer
+                        example: 3
+                        description: Number of users on this rotation. For the default rotation, every schedulable user not on a rotation of their own. The users themselves are at `GET /rotationschedules/{id}/assignedusers`.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                      archivedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: When the rotation schedule was archived, or `null` while it is active
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified rotationSchedule or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Rotation Schedules
+      operationId: getRotationschedulesById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete rotation schedule
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the rotationSchedule
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the rotationSchedule
+        '400':
+          description: The default rotation cannot be deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: The default rotation cannot be deleted
+                    fieldPath: id
+                    fieldValue: 963
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: The caller cannot delete this rotation schedule
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You do not have permission to delete this rotation schedule
+                    fieldPath: id
+                    fieldValue: 963
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified rotationSchedule.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: rotationSchedule Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      description: 'Deletes a rotation schedule and unassigns every user currently assigned to it. This is a soft delete: the rotation stops being returned by the read endpoints and cannot be restored through the REST API. Deleting an already deleted rotation is a no-op. The default rotation cannot be deleted.'
+      tags:
+      - Rotation Schedules
+      operationId: deleteRotationschedulesById
+      x-operation-id-source: derived
+    patch:
+      summary: Update rotation schedule
+      description: Updates a custom work rotation and, optionally, who is assigned to it. Changing `days` or `startDate` re-bases the cycle for every user currently assigned to the rotation. Adding users unassigns them from whatever rotation they are currently on, and removing them returns them to the organization default rotation. `isDefault` and `sourceTemplatePattern` are fixed at creation and cannot be changed here. The organization is resolved from `{id}`, so no `x-organization-id` header is required.
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the rotation schedule
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: 'Fields to change on the rotation schedule. Every field is optional: a body that omits a field leaves it as it is, and a body that changes nothing is a no-op that still returns 200. `isDefault` and `sourceTemplatePattern` are fixed at creation and are rejected rather than ignored if sent.'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 255
+                  example: Team A - 4 on / 3 off
+                startDate:
+                  type: string
+                  format: date-time
+                  example: '2022-01-01T00:00:00.000Z'
+                  description: First day of the rotation (ISO 8601 UTC datetime, RFC 3339 date-time format). The pattern in `days` repeats from this date. The value is converted to UTC before storage, send in UTC `T00:00:00.000Z` to pin an exact day. Moving this re-bases the cycle for every user currently assigned to the rotation.
+                days:
+                  type: array
+                  minItems: 1
+                  maxItems: 30
+                  description: The repeating pattern, one entry per day of the cycle, ordered by `dayIndex`. Replaces the cycle in full rather than merging per entry, so send every day you want to keep. Changing it re-bases the cycle for every user currently assigned to the rotation.
+                  items:
+                    type: object
+                    required:
+                    - dayIndex
+                    - dayType
+                    - seconds
+                    properties:
+                      dayIndex:
+                        type: integer
+                        minimum: 0
+                        example: 0
+                        description: Position of the day in the rotation, starting at 0 on `startDate`
+                      dayType:
+                        type: string
+                        enum:
+                        - WORKING
+                        - NON_WORKING
+                        example: WORKING
+                      seconds:
+                        type: integer
+                        minimum: 0
+                        maximum: 86400
+                        example: 28800
+                        description: Seconds worked on that day. Always 0 for a `NON_WORKING` day.
+                users:
+                  type: object
+                  description: Assignment changes to apply alongside the field updates. Each list is de-duplicated, capped at 100 entries per request, and sending the same user id in both is rejected.
+                  properties:
+                    addedIds:
+                      type: array
+                      maxItems: 100
+                      items:
+                        type: integer
+                      example:
+                      - 123
+                      - 456
+                      description: Users to assign to this rotation. Each user is removed from whatever rotation they are currently on. A user already on this rotation is a no-op.
+                    removedIds:
+                      type: array
+                      maxItems: 100
+                      items:
+                        type: integer
+                      example:
+                      - 789
+                      description: Users to unassign from this rotation, returning them to the organization default rotation. Ids that are not currently assigned to this rotation are ignored, so this can never unassign a user from a different rotation.
+      responses:
+        '200':
+          description: Successfully updated rotation schedule
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - rotationSchedule
+                properties:
+                  rotationSchedule:
+                    type: object
+                    required:
+                    - id
+                    - organizationId
+                    - name
+                    - startDate
+                    - days
+                    - isDefault
+                    - assignedUsersCount
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: 'Global ID of the rotation schedule. `0` is an alias addressing the organization''s current default rotation: its saved default when it has one, otherwise the virtual default it gets until it saves one of its own. Responses always carry the canonical id, so a request against `0` can come back with a different `id`.'
+                      organizationId:
+                        type: integer
+                        example: 1
+                        description: ID of the organization that owns this resource
+                      name:
+                        type: string
+                        minLength: 1
+                        maxLength: 255
+                        example: Team A - 4 on / 3 off
+                      startDate:
+                        type: string
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: First day of the rotation (ISO 8601 UTC datetime, RFC 3339 date-time format). The pattern in `days` repeats from this date.
+                      days:
+                        type: array
+                        minItems: 1
+                        maxItems: 30
+                        description: The repeating pattern, one entry per day of the cycle, ordered by `dayIndex`.
+                        items:
+                          type: object
+                          required:
+                          - dayIndex
+                          - dayType
+                          - seconds
+                          properties:
+                            dayIndex:
+                              type: integer
+                              minimum: 0
+                              example: 0
+                              description: Position of the day in the rotation, starting at 0 on `startDate`
+                            dayType:
+                              type: string
+                              enum:
+                              - WORKING
+                              - NON_WORKING
+                              example: WORKING
+                            seconds:
+                              type: integer
+                              minimum: 0
+                              maximum: 86400
+                              example: 28800
+                              description: Seconds worked on that day. Always 0 for a `NON_WORKING` day.
+                      isDefault:
+                        type: boolean
+                        example: false
+                        description: Whether this is the organization's default rotation, applied to every user without a rotation of their own.
+                      sourceTemplatePattern:
+                        type:
+                        - string
+                        - 'null'
+                        example: pitman
+                        description: Template pattern used to create this rotation in the UI, if one was selected
+                      assignedUsersCount:
+                        type: integer
+                        example: 3
+                        description: Number of users on this rotation. For the default rotation, every schedulable user not on a rotation of their own. The users themselves are at `GET /rotationschedules/{id}/assignedusers`.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                      archivedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: When the rotation schedule was archived, or `null` while it is active
+        '400':
+          description: Failed to update the rotation schedule
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Rotation schedule data is invalid
+                    fieldPath: name
+                    fieldValue: ''
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: The caller cannot edit this rotation schedule
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You do not have permission to edit this rotation schedule
+                    fieldPath: id
+                    fieldValue: 963
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified rotation schedule.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: rotation schedule Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Rotation Schedules
+      operationId: patchRotationschedulesById
+      x-operation-id-source: derived
+  /rotationschedules/{id}/assignedusers:
+    get:
+      summary: List rotation schedule assigned users
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Assigned Users returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the rotation schedule
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Assigned Users list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assignedusers
+                - nextCursor
+                - nextPageUrl
+                properties:
+                  assignedusers:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - firstName
+                      - lastName
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the user
+                        firstName:
+                          type: string
+                          example: John
+                        lastName:
+                          type: string
+                          example: Doe
+                        email:
+                          type:
+                          - string
+                          - 'null'
+                          example: user@example.com
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Assigned Users.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Assigned Users.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Cannot find the parent resource
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+      tags:
+      - Rotation Schedules
+      operationId: getRotationschedulesByIdAssignedusers
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

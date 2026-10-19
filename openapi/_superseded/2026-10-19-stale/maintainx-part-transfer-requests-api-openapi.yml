@@ -1,0 +1,727 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Part Transfer Requests API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Part Transfer Requests
+  description: Operations on Part Transfer Requests
+  x-traitTag: false
+paths:
+  /parttransferrequests:
+    post:
+      summary: Create a part transfer request
+      requestBody:
+        description: PartTransferRequest to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - quantityRequested
+              - sourcePartId
+              - destinationPartId
+              properties:
+                quantityRequested:
+                  type: integer
+                  example: 3
+                  description: Quantity of parts requested for transfer.
+                sourcePartId:
+                  type: integer
+                  format: integer
+                  description: ID of the part that belongs to the organization receiving the request. (Sending stocks)
+                  example: 843
+                destinationPartId:
+                  type: integer
+                  format: integer
+                  description: ID of the part that belongs to the organization performing the request. (Receiving stocks)
+                  example: 852
+                requestMessage:
+                  type:
+                  - string
+                  - 'null'
+                  example: Would you please send us five ball screws for our cnc machine?
+                  description: Message to give context surrounding the part transfer request.
+      responses:
+        '201':
+          description: Successfully created part transfer request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 963
+                    description: Global ID of the part transfer request.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified Part.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Part Not Found
+      tags:
+      - Part Transfer Requests
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      operationId: postParttransferrequests
+      x-operation-id-source: derived
+    get:
+      summary: List part transfer requests
+      description: Endpoint used to list part transfer request resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Part Transfer Requests returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: statuses
+        schema:
+          type: array
+          title: status filters
+          description: 'To filter by multiple status: `status=APPROVED&status=DECLINED`'
+          items:
+            type: string
+            enum:
+            - APPROVED
+            - CANCELED
+            - COMPLETED
+            - DECLINED
+            - PENDING
+        in: query
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Part Transfer Requests list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - partTransferRequests
+                properties:
+                  partTransferRequests:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - destinationOrganizationId
+                      - sourceOrganizationId
+                      - sourcePartId
+                      - destinationPartId
+                      - quantityRequested
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the part transfer request.
+                        quantityReceived:
+                          type:
+                          - integer
+                          - 'null'
+                          example: 2
+                          description: Quantity of parts received.
+                        quantityRequested:
+                          type: integer
+                          example: 3
+                          description: Quantity of parts requested for transfer.
+                        quantityTransferred:
+                          type:
+                          - integer
+                          - 'null'
+                          example: 2
+                          description: Quantity of parts transferred.
+                        requestMessage:
+                          type:
+                          - string
+                          - 'null'
+                          example: Would you please send us five ball screws for our cnc machine?
+                          description: Message to give context surrounding the part transfer request.
+                        responseMessage:
+                          type:
+                          - string
+                          - 'null'
+                          example: Sorry, we do not have enough extra ball screws to share them with you.
+                          description: Message to give context surrounding the transfer of the part transfer request.
+                        status:
+                          type: string
+                          enum:
+                          - APPROVED
+                          - CANCELED
+                          - COMPLETED
+                          - DECLINED
+                          - PENDING
+                          description: Status of the part transfer request.
+                          example: PENDING
+                        sourcePartId:
+                          type: integer
+                          format: integer
+                          description: ID of the part that belongs to the organization receiving the request. (Sending stocks)
+                          example: 843
+                        destinationPartId:
+                          type: integer
+                          format: integer
+                          description: ID of the part that belongs to the organization performing the request. (Receiving stocks)
+                          example: 852
+                        transferrerId:
+                          type:
+                          - integer
+                          - 'null'
+                          format: integer
+                          description: ID of the user performing the transfer. (Sending stocks)
+                          example: 102
+                        requesterId:
+                          type: integer
+                          format: integer
+                          description: ID of the user performing the request. (Requesting/receiving stocks)
+                          example: 201
+                        destinationOrganizationId:
+                          type: integer
+                          format: integer
+                          description: ID of the organization performing the request. (Requesting/receiving stocks)
+                          example: 1001
+                        sourceOrganizationId:
+                          type: integer
+                          format: integer
+                          description: ID of the organization receiving the request. (Sending stocks)
+                          example: 1002
+                        sourceLocationId:
+                          type: integer
+                          format: integer
+                          description: ID of the location in the organization from which parts were transferred. (Sending stocks)
+                          example: 852
+                        destinationLocations:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - quantity
+                            properties:
+                              locationId:
+                                type: integer
+                                format: integer
+                                description: ID of the location in the organization where the part is being received. (Receiving stocks)
+                                example: 917
+                              quantity:
+                                type: integer
+                                format: integer
+                                description: Quantity of parts received.
+                                example: 2
+                          description: Locations into which the transferred parts were received. (Receiving stocks)
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Part Transfer Requests.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Part Transfer Requests.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Part Transfer Requests
+      operationId: getParttransferrequests
+      x-operation-id-source: derived
+  /parttransferrequests/{id}:
+    get:
+      summary: Get part transfer request
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the partTransferRequest
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved partTransferRequest's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - partTransferRequest
+                properties:
+                  partTransferRequest:
+                    type: object
+                    required:
+                    - id
+                    - destinationOrganizationId
+                    - sourceOrganizationId
+                    - sourcePartId
+                    - destinationPartId
+                    - quantityRequested
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the part transfer request.
+                      quantityReceived:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 2
+                        description: Quantity of parts received.
+                      quantityRequested:
+                        type: integer
+                        example: 3
+                        description: Quantity of parts requested for transfer.
+                      quantityTransferred:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 2
+                        description: Quantity of parts transferred.
+                      requestMessage:
+                        type:
+                        - string
+                        - 'null'
+                        example: Would you please send us five ball screws for our cnc machine?
+                        description: Message to give context surrounding the part transfer request.
+                      responseMessage:
+                        type:
+                        - string
+                        - 'null'
+                        example: Sorry, we do not have enough extra ball screws to share them with you.
+                        description: Message to give context surrounding the transfer of the part transfer request.
+                      status:
+                        type: string
+                        enum:
+                        - APPROVED
+                        - CANCELED
+                        - COMPLETED
+                        - DECLINED
+                        - PENDING
+                        description: Status of the part transfer request.
+                        example: PENDING
+                      sourcePartId:
+                        type: integer
+                        format: integer
+                        description: ID of the part that belongs to the organization receiving the request. (Sending stocks)
+                        example: 843
+                      destinationPartId:
+                        type: integer
+                        format: integer
+                        description: ID of the part that belongs to the organization performing the request. (Receiving stocks)
+                        example: 852
+                      transferrerId:
+                        type:
+                        - integer
+                        - 'null'
+                        format: integer
+                        description: ID of the user performing the transfer. (Sending stocks)
+                        example: 102
+                      requesterId:
+                        type: integer
+                        format: integer
+                        description: ID of the user performing the request. (Requesting/receiving stocks)
+                        example: 201
+                      destinationOrganizationId:
+                        type: integer
+                        format: integer
+                        description: ID of the organization performing the request. (Requesting/receiving stocks)
+                        example: 1001
+                      sourceOrganizationId:
+                        type: integer
+                        format: integer
+                        description: ID of the organization receiving the request. (Sending stocks)
+                        example: 1002
+                      sourceLocationId:
+                        type: integer
+                        format: integer
+                        description: ID of the location in the organization from which parts were transferred. (Sending stocks)
+                        example: 852
+                      destinationLocations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - quantity
+                          properties:
+                            locationId:
+                              type: integer
+                              format: integer
+                              description: ID of the location in the organization where the part is being received. (Receiving stocks)
+                              example: 917
+                            quantity:
+                              type: integer
+                              format: integer
+                              description: Quantity of parts received.
+                              example: 2
+                        description: Locations into which the transferred parts were received. (Receiving stocks)
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified partTransferRequest or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Part Transfer Requests
+      operationId: getParttransferrequestsById
+      x-operation-id-source: derived
+    patch:
+      summary: Update part transfer request
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the part transfer request
+        example: '4242'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '200':
+          description: Successfully updated part transfer request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - partTransferRequest
+                properties:
+                  partTransferRequest:
+                    type: object
+                    required:
+                    - id
+                    - destinationOrganizationId
+                    - sourceOrganizationId
+                    - sourcePartId
+                    - destinationPartId
+                    - quantityRequested
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the part transfer request.
+                      quantityReceived:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 2
+                        description: Quantity of parts received.
+                      quantityRequested:
+                        type: integer
+                        example: 3
+                        description: Quantity of parts requested for transfer.
+                      quantityTransferred:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 2
+                        description: Quantity of parts transferred.
+                      requestMessage:
+                        type:
+                        - string
+                        - 'null'
+                        example: Would you please send us five ball screws for our cnc machine?
+                        description: Message to give context surrounding the part transfer request.
+                      responseMessage:
+                        type:
+                        - string
+                        - 'null'
+                        example: Sorry, we do not have enough extra ball screws to share them with you.
+                        description: Message to give context surrounding the transfer of the part transfer request.
+                      status:
+                        type: string
+                        enum:
+                        - APPROVED
+                        - CANCELED
+                        - COMPLETED
+                        - DECLINED
+                        - PENDING
+                        description: Status of the part transfer request.
+                        example: PENDING
+                      sourcePartId:
+                        type: integer
+                        format: integer
+                        description: ID of the part that belongs to the organization receiving the request. (Sending stocks)
+                        example: 843
+                      destinationPartId:
+                        type: integer
+                        format: integer
+                        description: ID of the part that belongs to the organization performing the request. (Receiving stocks)
+                        example: 852
+                      transferrerId:
+                        type:
+                        - integer
+                        - 'null'
+                        format: integer
+                        description: ID of the user performing the transfer. (Sending stocks)
+                        example: 102
+                      requesterId:
+                        type: integer
+                        format: integer
+                        description: ID of the user performing the request. (Requesting/receiving stocks)
+                        example: 201
+                      destinationOrganizationId:
+                        type: integer
+                        format: integer
+                        description: ID of the organization performing the request. (Requesting/receiving stocks)
+                        example: 1001
+                      sourceOrganizationId:
+                        type: integer
+                        format: integer
+                        description: ID of the organization receiving the request. (Sending stocks)
+                        example: 1002
+                      sourceLocationId:
+                        type: integer
+                        format: integer
+                        description: ID of the location in the organization from which parts were transferred. (Sending stocks)
+                        example: 852
+                      destinationLocations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - quantity
+                          properties:
+                            locationId:
+                              type: integer
+                              format: integer
+                              description: ID of the location in the organization where the part is being received. (Receiving stocks)
+                              example: 917
+                            quantity:
+                              type: integer
+                              format: integer
+                              description: Quantity of parts received.
+                              example: 2
+                        description: Locations into which the transferred parts were received. (Receiving stocks)
+        '400':
+          description: Failed to edit the part transfer request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: status is not valid
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified partTransferRequest.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: partTransferRequest Not Found
+      requestBody:
+        description: Part transfer request to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - APPROVED
+                  - CANCELED
+                  - COMPLETED
+                  - DECLINED
+                  - PENDING
+                  description: Status of the part transfer request.
+                  example: PENDING
+                responseMessage:
+                  type:
+                  - string
+                  - 'null'
+                  example: Sorry, we do not have enough extra ball screws to share them with you.
+                  description: Message to give context surrounding the transfer of the part transfer request.
+                sourceLocationId:
+                  type: integer
+                  format: integer
+                  description: ID of the location in the organization from which parts were transferred. (Sending stocks)
+                  example: 852
+                destinationLocations:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - quantity
+                    properties:
+                      locationId:
+                        type: integer
+                        format: integer
+                        description: ID of the location in the organization where the part is being received. (Receiving stocks)
+                        example: 917
+                      quantity:
+                        type: integer
+                        format: integer
+                        description: Quantity of parts received.
+                        example: 2
+                  description: Locations into which the transferred parts were received. (Receiving stocks)
+                quantity:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 42
+                  description: Quantity to update for the relevant status.
+      tags:
+      - Part Transfer Requests
+      operationId: patchParttransferrequestsById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

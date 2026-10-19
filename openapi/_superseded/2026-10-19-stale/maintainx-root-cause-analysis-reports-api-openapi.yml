@@ -1,0 +1,993 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Root Cause Analysis Reports API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Root Cause Analysis Reports
+  description: Operations on Root Cause Analysis Reports
+  x-traitTag: false
+paths:
+  /rootcauseanalysisreports:
+    get:
+      summary: List root cause analysis reports
+      description: Endpoint used to list root cause analysis report resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Root Cause Analysis Reports returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: assets
+        schema:
+          type: array
+          title: asset ID filters
+          description: 'To filter by multiple asset IDs: `assets=630&assets=634`'
+          items:
+            type: integer
+        in: query
+      - name: statuses
+        schema:
+          type: array
+          title: statuses filters
+          description: 'To filter by multiple statuses: `statuses=DRAFT&statuses=DONE`'
+          items:
+            type: string
+            enum:
+            - DONE
+            - DRAFT
+            description: Status of the Root Cause Analysis report
+        in: query
+      - name: creators
+        schema:
+          type: array
+          title: creator ID filters
+          description: 'To filter by multiple creator IDs: `creators=23494&creators=79808`'
+          items:
+            type: integer
+        in: query
+      - name: archived
+        schema:
+          type: boolean
+          title: archived
+          description: When true, return only archived reports. Defaults to false.
+        in: query
+      - name: createdAfter
+        schema:
+          type: string
+          format: date-time
+          title: createdAfter
+          description: Return reports whose `createdAt` is at or after this ISO 8601 date-time (UTC).
+        in: query
+      - name: createdBefore
+        schema:
+          type: string
+          format: date-time
+          title: createdBefore
+          description: Return reports whose `createdAt` is at or before this ISO 8601 date-time (UTC).
+        in: query
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=main_asset&expand=main_asset_status`'
+          type: array
+          items:
+            type: string
+            enum:
+            - main_asset
+            - main_asset_status
+            - problems
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Root Cause Analysis Reports list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - rootCauseAnalysisReports
+                properties:
+                  rootCauseAnalysisReports:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - status
+                      - mainAssetId
+                      - mainAssetStatusId
+                      - createdAt
+                      - updatedAt
+                      - completedAt
+                      - incidentStartedAt
+                      - incidentEndedAt
+                      - incidentDuration
+                      - repairTime
+                      - notes
+                      - creatorId
+                      - updaterId
+                      - archivedAt
+                      - relatedAssetIds
+                      - workOrderIds
+                      properties:
+                        id:
+                          type: integer
+                          description: Global ID of the Root Cause Analysis report.
+                          example: 4242
+                        organizationId:
+                          type: integer
+                          example: 1
+                          description: ID of the organization that owns this resource
+                        status:
+                          type: string
+                          enum:
+                          - DONE
+                          - DRAFT
+                          description: Status of the Root Cause Analysis report
+                        mainAssetId:
+                          type: integer
+                          description: ID of the asset the Root Cause Analysis report is primarily about.
+                          example: 963
+                        mainAssetStatusId:
+                          type:
+                          - integer
+                          - 'null'
+                          description: ID of the asset status that was active on the main asset when the report was created. Null when no status was captured or the status has since been deleted.
+                          example: 8123
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: Creation date of the report.
+                          example: '2022-01-01T00:00:00.000Z'
+                        updatedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: Last update date of the report. Null for reports that have not been edited.
+                          example: '2022-01-01T00:00:00.000Z'
+                        completedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: Date the report was marked as completed (status transitioned to DONE).
+                          example: '2022-01-01T00:00:00.000Z'
+                        incidentStartedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: Date and time the incident the report covers started.
+                          example: '2022-01-01T00:00:00.000Z'
+                        incidentEndedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: Date and time the incident the report covers ended.
+                          example: '2022-01-01T00:00:00.000Z'
+                        incidentDuration:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Duration of the incident in seconds. Null when either incident date is missing.
+                          example: 86400
+                        repairTime:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Repair time in seconds.
+                          example: 7200
+                        notes:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - text
+                          properties:
+                            text:
+                              type: string
+                              description: Plain-text representation of the notes.
+                              example: Loose coupling caused the conveyor to skip.
+                          description: Optional free-text notes for the report.
+                        creatorId:
+                          type: integer
+                          description: ID of the user that created the report.
+                          example: 23494
+                        updaterId:
+                          type:
+                          - integer
+                          - 'null'
+                          description: ID of the user that last updated the report. Null for reports that have not been edited.
+                          example: 23494
+                        archivedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: Date the report was archived. Null when the report is active.
+                          example: '2022-01-01T00:00:00.000Z'
+                        relatedAssetIds:
+                          type: array
+                          description: IDs of additional assets linked to this report. Excludes the main asset (see `mainAssetId`).
+                          items:
+                            type: integer
+                        workOrderIds:
+                          type: array
+                          description: IDs of work orders linked to this report.
+                          items:
+                            type: integer
+                        mainAsset:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - name
+                          - description
+                          - parentId
+                          - criticalityId
+                          - locationId
+                          - serialNumber
+                          - createdAt
+                          - updatedAt
+                          - creatorId
+                          description: Asset linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              example: 963
+                              description: Global ID of the asset
+                            name:
+                              type: string
+                              example: Forklift
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: Forklift that is used to to move heavy equipments around the warehouse
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the parent asset
+                            criticalityId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 150
+                              description: ID of the criticality of the asset
+                            locationId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the location where the asset is located
+                            serialNumber:
+                              type:
+                              - string
+                              - 'null'
+                              description: Serial number of the asset
+                              example: 000123ABC
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                            creatorId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 851
+                              description: ID of the asset creator
+                        mainAssetStatus:
+                          type:
+                          - object
+                          - 'null'
+                          description: Asset status that was active on the main asset when the report was created. (expand with query parameter)
+                          properties:
+                            id:
+                              type: number
+                              example: 42
+                              description: Global ID of the asset status.
+                            customStatus:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - label
+                              properties:
+                                id:
+                                  type: number
+                                  example: Global ID of the custom asset status.
+                                label:
+                                  type: string
+                                  example: Decommissioned
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                  description: Date & time at which the asset custom status was created.
+                                  example: '2022-01-01T12:34:56.123Z'
+                                updatedAt:
+                                  type: string
+                                  format: date-time
+                                  description: Date & time at which the asset custom status was last updated.
+                                  example: '2022-01-01T12:34:56.123Z'
+                                deletedAt:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: Date at which the asset custom status was deleted.
+                                  format: date-time
+                                  example: '2022-01-01T12:34:56.123Z'
+                                downtimeType:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  example: null
+                                  enum:
+                                  - PLANNED
+                                  - UNPLANNED
+                                  deprecated: true
+                                  description: Downtime type on asset custom statuses will always return null. Use downtime type on asset status instead.
+                              description: Custom status assigned to asset.
+                            customStatusId:
+                              type:
+                              - number
+                              - 'null'
+                              description: Id of the custom status assigned to asset.
+                              example: 53
+                            status:
+                              type: string
+                              example: OFFLINE
+                              description: Asset status value.
+                              enum:
+                              - IGNORE
+                              - OFFLINE
+                              - ONLINE
+                            downtimeType:
+                              type:
+                              - string
+                              - 'null'
+                              example: PLANNED
+                              enum:
+                              - PLANNED
+                              - UNPLANNED
+                            startedAt:
+                              type: string
+                              format: date-time
+                              example: '2022-01-01T12:34:56.123Z'
+                              description: Asset status effective start date.
+                            endedAt:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              example: '2022-01-01T12:34:56.123Z'
+                              description: Asset status effective end date.
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: Overheated - needs servicing.
+                            createdAt:
+                              type: string
+                              format: date-time
+                              example: '2022-01-01T12:34:56.123Z'
+                              readOnly: true
+                              description: Date & time at which the asset status was created.
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              example: '2022-01-01T12:34:56.123Z'
+                              readOnly: true
+                              description: Date & time at which the asset status was last updated.
+                            deletedAt:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              example: '2022-01-01T12:34:56.123Z'
+                              readOnly: true
+                              description: Date & time at which the asset status was deleted.
+                        problems:
+                          type: array
+                          description: Problems documented in this report. (expand with query parameter)
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - category
+                            - stepOptions
+                            - notes
+                            properties:
+                              id:
+                                type: integer
+                                description: Global ID of the Root Cause Analysis problem.
+                                example: 7311
+                              category:
+                                type:
+                                - object
+                                - 'null'
+                                required:
+                                - id
+                                - label
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Global ID of the Root Cause Analysis category.
+                                    example: 902
+                                  label:
+                                    type: string
+                                    description: Label of the category.
+                                    example: Mechanical Failure
+                              stepOptions:
+                                type: array
+                                description: Step options selected for this problem.
+                                items:
+                                  type: object
+                                  required:
+                                  - id
+                                  - label
+                                  - stepType
+                                  properties:
+                                    id:
+                                      type: integer
+                                      description: Global ID of the Root Cause Analysis step option.
+                                      example: 5018
+                                    label:
+                                      type: string
+                                      description: Label of the step option.
+                                      example: Worn bearings
+                                    stepType:
+                                      type: string
+                                      enum:
+                                      - ACTION
+                                      - CAUSE
+                                      - FAILURE
+                                      - PROBLEM_TYPE
+                                      description: Step type of the Root Cause Analysis step option
+                              notes:
+                                type:
+                                - object
+                                - 'null'
+                                required:
+                                - text
+                                properties:
+                                  text:
+                                    type: string
+                                    description: Plain-text representation of the notes.
+                                    example: Loose coupling caused the conveyor to skip.
+                                description: Optional free-text notes for the problem.
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Root Cause Analysis Reports.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Root Cause Analysis Reports.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Root Cause Analysis Reports
+      operationId: getRootcauseanalysisreports
+      x-operation-id-source: derived
+  /rootcauseanalysisreports/{id}:
+    get:
+      summary: Get root cause analysis report
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the rootCauseAnalysisReport
+        example: '1'
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=main_asset&expand=main_asset_status`'
+          type: array
+          items:
+            type: string
+            enum:
+            - main_asset
+            - main_asset_status
+            - problems
+            - work_orders
+      responses:
+        '200':
+          description: Successfully retrieved rootCauseAnalysisReport's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - rootCauseAnalysisReport
+                properties:
+                  rootCauseAnalysisReport:
+                    type: object
+                    required:
+                    - id
+                    - status
+                    - mainAssetId
+                    - mainAssetStatusId
+                    - createdAt
+                    - updatedAt
+                    - completedAt
+                    - incidentStartedAt
+                    - incidentEndedAt
+                    - incidentDuration
+                    - repairTime
+                    - notes
+                    - creatorId
+                    - updaterId
+                    - archivedAt
+                    - relatedAssetIds
+                    - workOrderIds
+                    properties:
+                      id:
+                        type: integer
+                        description: Global ID of the Root Cause Analysis report.
+                        example: 4242
+                      organizationId:
+                        type: integer
+                        example: 1
+                        description: ID of the organization that owns this resource
+                      status:
+                        type: string
+                        enum:
+                        - DONE
+                        - DRAFT
+                        description: Status of the Root Cause Analysis report
+                      mainAssetId:
+                        type: integer
+                        description: ID of the asset the Root Cause Analysis report is primarily about.
+                        example: 963
+                      mainAssetStatusId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: ID of the asset status that was active on the main asset when the report was created. Null when no status was captured or the status has since been deleted.
+                        example: 8123
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Creation date of the report.
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Last update date of the report. Null for reports that have not been edited.
+                        example: '2022-01-01T00:00:00.000Z'
+                      completedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date the report was marked as completed (status transitioned to DONE).
+                        example: '2022-01-01T00:00:00.000Z'
+                      incidentStartedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date and time the incident the report covers started.
+                        example: '2022-01-01T00:00:00.000Z'
+                      incidentEndedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date and time the incident the report covers ended.
+                        example: '2022-01-01T00:00:00.000Z'
+                      incidentDuration:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Duration of the incident in seconds. Null when either incident date is missing.
+                        example: 86400
+                      repairTime:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Repair time in seconds.
+                        example: 7200
+                      notes:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - text
+                        properties:
+                          text:
+                            type: string
+                            description: Plain-text representation of the notes.
+                            example: Loose coupling caused the conveyor to skip.
+                        description: Optional free-text notes for the report.
+                      creatorId:
+                        type: integer
+                        description: ID of the user that created the report.
+                        example: 23494
+                      updaterId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: ID of the user that last updated the report. Null for reports that have not been edited.
+                        example: 23494
+                      archivedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date the report was archived. Null when the report is active.
+                        example: '2022-01-01T00:00:00.000Z'
+                      relatedAssetIds:
+                        type: array
+                        description: IDs of additional assets linked to this report. Excludes the main asset (see `mainAssetId`).
+                        items:
+                          type: integer
+                      workOrderIds:
+                        type: array
+                        description: IDs of work orders linked to this report.
+                        items:
+                          type: integer
+                      mainAsset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        - description
+                        - parentId
+                        - criticalityId
+                        - locationId
+                        - serialNumber
+                        - createdAt
+                        - updatedAt
+                        - creatorId
+                        description: Asset linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the asset
+                          name:
+                            type: string
+                            example: Forklift
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Forklift that is used to to move heavy equipments around the warehouse
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent asset
+                          criticalityId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 150
+                            description: ID of the criticality of the asset
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the location where the asset is located
+                          serialNumber:
+                            type:
+                            - string
+                            - 'null'
+                            description: Serial number of the asset
+                            example: 000123ABC
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 851
+                            description: ID of the asset creator
+                      mainAssetStatus:
+                        type:
+                        - object
+                        - 'null'
+                        description: Asset status that was active on the main asset when the report was created. (expand with query parameter)
+                        properties:
+                          id:
+                            type: number
+                            example: 42
+                            description: Global ID of the asset status.
+                          customStatus:
+                            type:
+                            - object
+                            - 'null'
+                            required:
+                            - label
+                            properties:
+                              id:
+                                type: number
+                                example: Global ID of the custom asset status.
+                              label:
+                                type: string
+                                example: Decommissioned
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the asset custom status was created.
+                                example: '2022-01-01T12:34:56.123Z'
+                              updatedAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the asset custom status was last updated.
+                                example: '2022-01-01T12:34:56.123Z'
+                              deletedAt:
+                                type:
+                                - string
+                                - 'null'
+                                description: Date at which the asset custom status was deleted.
+                                format: date-time
+                                example: '2022-01-01T12:34:56.123Z'
+                              downtimeType:
+                                type:
+                                - string
+                                - 'null'
+                                example: null
+                                enum:
+                                - PLANNED
+                                - UNPLANNED
+                                deprecated: true
+                                description: Downtime type on asset custom statuses will always return null. Use downtime type on asset status instead.
+                            description: Custom status assigned to asset.
+                          customStatusId:
+                            type:
+                            - number
+                            - 'null'
+                            description: Id of the custom status assigned to asset.
+                            example: 53
+                          status:
+                            type: string
+                            example: OFFLINE
+                            description: Asset status value.
+                            enum:
+                            - IGNORE
+                            - OFFLINE
+                            - ONLINE
+                          downtimeType:
+                            type:
+                            - string
+                            - 'null'
+                            example: PLANNED
+                            enum:
+                            - PLANNED
+                            - UNPLANNED
+                          startedAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            description: Asset status effective start date.
+                          endedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            description: Asset status effective end date.
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Overheated - needs servicing.
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was created.
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was last updated.
+                          deletedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was deleted.
+                      problems:
+                        type: array
+                        description: Problems documented in this report. (expand with query parameter)
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - category
+                          - stepOptions
+                          - notes
+                          properties:
+                            id:
+                              type: integer
+                              description: Global ID of the Root Cause Analysis problem.
+                              example: 7311
+                            category:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - label
+                              properties:
+                                id:
+                                  type: integer
+                                  description: Global ID of the Root Cause Analysis category.
+                                  example: 902
+                                label:
+                                  type: string
+                                  description: Label of the category.
+                                  example: Mechanical Failure
+                            stepOptions:
+                              type: array
+                              description: Step options selected for this problem.
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - label
+                                - stepType
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Global ID of the Root Cause Analysis step option.
+                                    example: 5018
+                                  label:
+                                    type: string
+                                    description: Label of the step option.
+                                    example: Worn bearings
+                                  stepType:
+                                    type: string
+                                    enum:
+                                    - ACTION
+                                    - CAUSE
+                                    - FAILURE
+                                    - PROBLEM_TYPE
+                                    description: Step type of the Root Cause Analysis step option
+                            notes:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - text
+                              properties:
+                                text:
+                                  type: string
+                                  description: Plain-text representation of the notes.
+                                  example: Loose coupling caused the conveyor to skip.
+                              description: Optional free-text notes for the problem.
+                      workOrders:
+                        type: array
+                        description: Full work order objects linked to this report. Only available on the single-report endpoint. (expand with query parameter)
+                        items:
+                          type: object
+                          additionalProperties: true
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified rootCauseAnalysisReport or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Root Cause Analysis Reports
+      operationId: getRootcauseanalysisreportsById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

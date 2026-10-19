@@ -1,0 +1,676 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Work Request Portals API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Work Request Portals
+  description: Operations on Work Request Portals
+  x-traitTag: false
+paths:
+  /workrequestportals:
+    post:
+      summary: Create new work request portal
+      requestBody:
+        description: Portal to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - title
+              properties:
+                title:
+                  type: string
+                  example: Shipping Portal
+                  description: Title of the portal
+                welcomeText:
+                  type:
+                  - string
+                  - 'null'
+                  example: Use this portal for all request related to our shipping activities
+                  description: Description text describing the portal
+                descriptionPlaceholder:
+                  type:
+                  - string
+                  - 'null'
+                  example: Describe your request
+                  description: Placeholder text for the description field
+                contactInformation:
+                  type:
+                  - string
+                  - 'null'
+                  example: Jimmy@example.com
+                  description: Contact of the person creating the portal (email or phone number)
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the location where the portal is located
+                assetId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the asset related to the portal
+                emailOnly:
+                  type:
+                  - boolean
+                  - 'null'
+                  example: true
+                  description: Allow request creation with email only to contact the requester
+                sendEmailNotification:
+                  type:
+                  - boolean
+                  - 'null'
+                  example: true
+                  description: Send email notifications to the portal requesters with status updates on their requests
+      responses:
+        '201':
+          description: Successfully created portal
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 963
+                    description: Global ID of the portal
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: You are forbidden to perform the requested action, to access this resource or the feature is disabled by your administrator
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Forbidden
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+      tags:
+      - Work Request Portals
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postWorkrequestportals
+      x-operation-id-source: derived
+    get:
+      summary: List work request portals
+      description: Endpoint used to list work request portal resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Work Request Portals returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Work Request Portals list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequestPortals
+                properties:
+                  workRequestPortals:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - title
+                      - portalUrl
+                      - welcomeText
+                      - descriptionPlaceholder
+                      - contactInformation
+                      - assetId
+                      - locationId
+                      - emailOnly
+                      - sendEmailNotification
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the portal
+                        title:
+                          type: string
+                          example: Shipping Portal
+                          description: Title of the portal
+                        portalUrl:
+                          type: string
+                          example: https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993
+                          description: Url to access the portal
+                        welcomeText:
+                          type:
+                          - string
+                          - 'null'
+                          example: Use this portal for all request related to our shipping activities
+                          description: Description text describing the portal
+                        descriptionPlaceholder:
+                          type:
+                          - string
+                          - 'null'
+                          example: Describe your request
+                          description: Placeholder text for the description field
+                        contactInformation:
+                          type:
+                          - string
+                          - 'null'
+                          example: Jimmy@example.com
+                          description: Contact of the person creating the portal (email or phone number)
+                        assetId:
+                          type:
+                          - integer
+                          - 'null'
+                          example: 852
+                          description: ID of the asset related to the portal
+                        locationId:
+                          type:
+                          - integer
+                          - 'null'
+                          example: 852
+                          description: ID of the location where the portal is located
+                        emailOnly:
+                          type:
+                          - boolean
+                          - 'null'
+                          example: true
+                          description: Allow request creation with email only to contact the requester
+                        sendEmailNotification:
+                          type:
+                          - boolean
+                          - 'null'
+                          example: true
+                          description: Send email notifications to the portal requesters with status updates on their requests
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Work Request Portals.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Work Request Portals.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Work Request Portals
+      operationId: getWorkrequestportals
+      x-operation-id-source: derived
+  /workrequestportals/{id}:
+    get:
+      summary: Get work request portal
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the workRequestPortal
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved workRequestPortal's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequestPortal
+                properties:
+                  workRequestPortal:
+                    type: object
+                    required:
+                    - id
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the portal
+                      title:
+                        type: string
+                        example: Shipping Portal
+                        description: Title of the portal
+                      welcomeText:
+                        type:
+                        - string
+                        - 'null'
+                        example: Use this portal for all request related to our shipping activities
+                        description: Description text describing the portal
+                      descriptionPlaceholder:
+                        type:
+                        - string
+                        - 'null'
+                        example: Describe your request
+                        description: Placeholder text for the description field
+                      contactInformation:
+                        type:
+                        - string
+                        - 'null'
+                        example: Jimmy@example.com
+                        description: Contact of the person creating the portal (email or phone number)
+                      portalUrl:
+                        type: string
+                        example: https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993
+                        description: Url to access the portal
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the location where the portal is located
+                      assetId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the asset related to the portal
+                      emailOnly:
+                        type:
+                        - boolean
+                        - 'null'
+                        example: true
+                        description: Allow request creation with email only to contact the requester
+                      sendEmailNotification:
+                        type:
+                        - boolean
+                        - 'null'
+                        example: true
+                        description: Send email notifications to the portal requesters with status updates on their requests
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequestPortal or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Work Request Portals
+      operationId: getWorkrequestportalsById
+      x-operation-id-source: derived
+    patch:
+      summary: Update work request portal
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the work request portal
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Work request portal to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Shipping Portal
+                  description: Title of the portal
+                welcomeText:
+                  type:
+                  - string
+                  - 'null'
+                  example: Use this portal for all request related to our shipping activities
+                  description: Description text describing the portal
+                descriptionPlaceholder:
+                  type:
+                  - string
+                  - 'null'
+                  example: Describe your request
+                  description: Placeholder text for the description field
+                contactInformation:
+                  type:
+                  - string
+                  - 'null'
+                  example: Jimmy@example.com
+                  description: Contact of the person creating the portal (email or phone number)
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the location where the portal is located
+                assetId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the asset related to the portal
+                emailOnly:
+                  type:
+                  - boolean
+                  - 'null'
+                  example: true
+                  description: Allow request creation with email only to contact the requester
+                sendEmailNotification:
+                  type:
+                  - boolean
+                  - 'null'
+                  example: true
+                  description: Send email notifications to the portal requesters with status updates on their requests
+      responses:
+        '200':
+          description: Successfully edited work request portal
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequestPortal
+                properties:
+                  workRequestPortal:
+                    type: object
+                    required:
+                    - id
+                    - title
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the portal
+                      title:
+                        type: string
+                        example: Shipping Portal
+                        description: Title of the portal
+                      welcomeText:
+                        type:
+                        - string
+                        - 'null'
+                        example: Use this portal for all request related to our shipping activities
+                        description: Description text describing the portal
+                      descriptionPlaceholder:
+                        type:
+                        - string
+                        - 'null'
+                        example: Describe your request
+                        description: Placeholder text for the description field
+                      contactInformation:
+                        type:
+                        - string
+                        - 'null'
+                        example: Jimmy@example.com
+                        description: Contact of the person creating the portal (email or phone number)
+                      portalUrl:
+                        type: string
+                        example: https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993
+                        description: Url to access the portal
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the location where the portal is located
+                      assetId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the asset related to the portal
+                      emailOnly:
+                        type:
+                        - boolean
+                        - 'null'
+                        example: true
+                        description: Allow request creation with email only to contact the requester
+                      sendEmailNotification:
+                        type:
+                        - boolean
+                        - 'null'
+                        example: true
+                        description: Send email notifications to the portal requesters with status updates on their requests
+        '400':
+          description: Failed to edit the work request portal
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: parentId is not valid
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified work request portal.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: work request portal Not Found
+      tags:
+      - Work Request Portals
+      operationId: patchWorkrequestportalsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete work request portal
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the workRequestPortal
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the workRequestPortal
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequestPortal.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: workRequestPortal Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Work Request Portals
+      operationId: deleteWorkrequestportalsById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,1862 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Maintenance Plans API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Maintenance Plans
+  description: Operations on Preventive Maintenance Plans
+  x-traitTag: false
+paths:
+  /maintenanceplans:
+    post:
+      summary: Create a maintenance plan
+      requestBody:
+        description: The maintenance plan to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - recurrence
+              - workOrderBlueprintId
+              - planningHorizon
+              properties:
+                name:
+                  type: string
+                  description: Name of the maintenance plan.
+                  example: Weekly Conveyor Belt Inspection
+                recurrence:
+                  type: object
+                  example:
+                    type: WEEKLY
+                    interval: 2
+                    days:
+                    - MONDAY
+                    - WEDNESDAY
+                    - FRIDAY
+                  oneOf:
+                  - type: object
+                    title: Daily
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: DAILY
+                        enum:
+                        - DAILY
+                  - type: object
+                    title: Weekly
+                    required:
+                    - type
+                    - interval
+                    - days
+                    properties:
+                      type:
+                        type: string
+                        pattern: WEEKLY
+                        enum:
+                        - WEEKLY
+                      interval:
+                        type: integer
+                        description: Number of weeks between occurrences
+                        minimum: 1
+                        default: 1
+                      days:
+                        type: array
+                        description: Days of the week the event will occur
+                        items:
+                          type: string
+                          enum:
+                          - MONDAY
+                          - TUESDAY
+                          - WEDNESDAY
+                          - THURSDAY
+                          - FRIDAY
+                          - SATURDAY
+                          - SUNDAY
+                  - type: object
+                    title: Monthly
+                    required:
+                    - type
+                    - interval
+                    - day
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY
+                        enum:
+                        - MONTHLY
+                      interval:
+                        type: integer
+                        description: Number of months between occurrences
+                        minimum: 1
+                        default: 1
+                      day:
+                        type: integer
+                        description: Day of the month the event will occur
+                        minimum: 1
+                        maximum: 31
+                  - type: object
+                    title: Yearly
+                    required:
+                    - type
+                    - interval
+                    properties:
+                      type:
+                        type: string
+                        pattern: YEARLY
+                        enum:
+                        - YEARLY
+                      interval:
+                        type: integer
+                        description: Number of years between occurrences
+                        minimum: 1
+                        default: 1
+                  description: The recurrence schedule configuration.
+                startDate:
+                  type: string
+                  format: date-time
+                  description: The first due date for generated work orders.
+                  example: '2022-01-01T00:00:00.000Z'
+                workOrderBlueprintId:
+                  type: number
+                  description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                  example: 10
+                workOrderStartDatePadding:
+                  type: number
+                  deprecated: true
+                  description: 'Hours between the start date and due date of generated work orders. Deprecated: use workOrderStartDateOffset instead.'
+                  example: 48
+                workOrderStartDateOffset:
+                  type: object
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: number
+                      description: 'The numeric value of the offset between the work order start date and the due date. Must be >= 1. Per-unit caps: HOUR <= 8760, DAY <= 365, WEEK <= 52.'
+                      example: 2
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the work order start date offset.
+                      example: DAY
+                  description: Offset between the work order start date and the due date, expressed as a (value, unit) pair.
+                planningHorizon:
+                  type: object
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: number
+                      description: The numeric value of the planning horizon.
+                      example: 3
+                    unit:
+                      type: string
+                      enum:
+                      - DAY
+                      - WEEK
+                      - MONTH
+                      - YEAR
+                      description: The unit of the planning horizon.
+                      example: WEEK
+                  description: How far ahead to generate work orders.
+                planAssets:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - assetId
+                    properties:
+                      assetId:
+                        type: number
+                        description: ID of the asset.
+                        example: 100
+                  description: Assets to associate with this plan.
+                intervals:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - interval
+                    - workOrderBlueprintId
+                    properties:
+                      interval:
+                        type: number
+                        description: The cycle number at which this interval's blueprint is used.
+                        example: 3
+                      workOrderBlueprintId:
+                        type: number
+                        description: ID of the maintenance plan work order blueprint for this cycle. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                        example: 50
+                  description: Multi-cycle intervals with different blueprints per cycle.
+                nextCycleOccurrence:
+                  type: number
+                  description: Which cycle in the multi-cycle sequence comes next.
+                  example: 2
+      responses:
+        '201':
+          description: Successfully created the maintenance plan.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                    description: ID of the created maintenance plan.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Maintenance Plans
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postMaintenanceplans
+      x-operation-id-source: derived
+    get:
+      summary: List maintenance plans
+      description: Endpoint used to list maintenance plan resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Maintenance Plans returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Maintenance Plans list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - maintenancePlans
+                properties:
+                  maintenancePlans:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - organizationId
+                      - startDate
+                      - workOrderStartDatePadding
+                      - workOrderStartDateOffset
+                      - workOrderStartDateFixedDay
+                      - blueprintEstimatedTime
+                      - triggerType
+                      - intervalStrategy
+                      - recurrence
+                      - planningHorizon
+                      - workOrderBlueprintId
+                      - assets
+                      - intervals
+                      - nextCycleOccurrence
+                      - nextScheduledWorkOrderDueDate
+                      - lastPlannedDueDate
+                      - nextWorkOrderGenerationAt
+                      - lastWorkOrderGeneratedAt
+                      - creatorId
+                      - createdAt
+                      - updatedAt
+                      - archivedAt
+                      properties:
+                        id:
+                          type: number
+                          description: Unique ID of the maintenance plan.
+                          example: 1
+                        name:
+                          type: string
+                          description: Name of the maintenance plan.
+                          example: Weekly Conveyor Belt Inspection
+                        organizationId:
+                          type: number
+                          description: ID of the organization this plan belongs to.
+                          example: 42
+                        startDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: The first due date for generated work orders.
+                          example: '2022-01-01T00:00:00.000Z'
+                        workOrderStartDatePadding:
+                          type:
+                          - number
+                          - 'null'
+                          deprecated: true
+                          description: 'Hours between the start date and due date of generated work orders. Deprecated: use workOrderStartDateOffset instead.'
+                          example: 48
+                        workOrderStartDateOffset:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - value
+                          - unit
+                          properties:
+                            value:
+                              type: number
+                              description: 'The numeric value of the offset between the work order start date and the due date. Must be >= 1. Per-unit caps: HOUR <= 8760, DAY <= 365, WEEK <= 52.'
+                              example: 2
+                            unit:
+                              type: string
+                              enum:
+                              - HOUR
+                              - DAY
+                              - WEEK
+                              description: The unit of the work order start date offset.
+                              example: DAY
+                          description: Offset between the work order start date and the due date, expressed as a (value, unit) pair.
+                        workOrderStartDateFixedDay:
+                          type:
+                          - number
+                          - 'null'
+                          description: Day of month for fixed-day work order start dates. Null means the plan uses relative offset behavior.
+                          example: 5
+                        blueprintEstimatedTime:
+                          type:
+                          - number
+                          - 'null'
+                          description: Estimated time (in minutes) from the work order blueprint.
+                          example: 60
+                        triggerType:
+                          type: string
+                          enum:
+                          - CALENDAR
+                          - METER
+                          - CALENDAR_OR_METER
+                          description: What triggers work order generation.
+                          example: CALENDAR
+                        intervalStrategy:
+                          type: string
+                          enum:
+                          - FIXED
+                          - FLOATING
+                          description: The interval strategy for the schedule.
+                          example: FIXED
+                        recurrence:
+                          type: object
+                          example:
+                            type: WEEKLY
+                            interval: 2
+                            days:
+                            - MONDAY
+                            - WEDNESDAY
+                            - FRIDAY
+                          oneOf:
+                          - type: object
+                            title: Daily
+                            required:
+                            - type
+                            properties:
+                              type:
+                                type: string
+                                pattern: DAILY
+                                enum:
+                                - DAILY
+                          - type: object
+                            title: Weekly
+                            required:
+                            - type
+                            - interval
+                            - days
+                            properties:
+                              type:
+                                type: string
+                                pattern: WEEKLY
+                                enum:
+                                - WEEKLY
+                              interval:
+                                type: integer
+                                description: Number of weeks between occurrences
+                                minimum: 1
+                                default: 1
+                              days:
+                                type: array
+                                description: Days of the week the event will occur
+                                items:
+                                  type: string
+                                  enum:
+                                  - MONDAY
+                                  - TUESDAY
+                                  - WEDNESDAY
+                                  - THURSDAY
+                                  - FRIDAY
+                                  - SATURDAY
+                                  - SUNDAY
+                          - type: object
+                            title: Monthly
+                            required:
+                            - type
+                            - interval
+                            - day
+                            properties:
+                              type:
+                                type: string
+                                pattern: MONTHLY
+                                enum:
+                                - MONTHLY
+                              interval:
+                                type: integer
+                                description: Number of months between occurrences
+                                minimum: 1
+                                default: 1
+                              day:
+                                type: integer
+                                description: Day of the month the event will occur
+                                minimum: 1
+                                maximum: 31
+                          - type: object
+                            title: Yearly
+                            required:
+                            - type
+                            - interval
+                            properties:
+                              type:
+                                type: string
+                                pattern: YEARLY
+                                enum:
+                                - YEARLY
+                              interval:
+                                type: integer
+                                description: Number of years between occurrences
+                                minimum: 1
+                                default: 1
+                          description: The recurrence schedule configuration.
+                        planningHorizon:
+                          type: object
+                          required:
+                          - value
+                          - unit
+                          properties:
+                            value:
+                              type: number
+                              description: The numeric value of the planning horizon.
+                              example: 3
+                            unit:
+                              type: string
+                              enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                              description: The unit of the planning horizon.
+                              example: WEEK
+                          description: How far ahead to generate work orders.
+                        workOrderBlueprintId:
+                          type: number
+                          description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                          example: 10
+                        assets:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - assetId
+                            properties:
+                              id:
+                                type: number
+                                description: ID of the plan-asset association.
+                                example: 1
+                              assetId:
+                                type: number
+                                description: ID of the asset.
+                                example: 100
+                          description: Assets associated with this maintenance plan.
+                        intervals:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - interval
+                            - workOrderBlueprintId
+                            properties:
+                              id:
+                                type: number
+                                description: ID of the interval.
+                                example: 1
+                              interval:
+                                type: number
+                                description: The cycle number at which this interval's blueprint is used.
+                                example: 3
+                              workOrderBlueprintId:
+                                type: number
+                                description: ID of the maintenance plan work order blueprint for this cycle. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                                example: 50
+                          description: Multi-cycle intervals. Each interval specifies a cycle number and a different work order blueprint.
+                        nextCycleOccurrence:
+                          type:
+                          - number
+                          - 'null'
+                          description: Which cycle in the multi-cycle sequence comes next.
+                          example: 2
+                        nextScheduledWorkOrderDueDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: The computed due date for the next work order to be generated.
+                          example: '2022-01-01T00:00:00.000Z'
+                        lastPlannedDueDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: The due date of the most recently planned work order.
+                          example: '2022-01-01T00:00:00.000Z'
+                        nextWorkOrderGenerationAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: When the next batch of work orders will be generated.
+                          example: '2022-01-01T00:00:00.000Z'
+                        lastWorkOrderGeneratedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: When work orders were last generated for this plan.
+                          example: '2022-01-01T00:00:00.000Z'
+                        creatorId:
+                          type: number
+                          description: ID of the user who created this plan.
+                          example: 5
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: When this plan was created.
+                          example: '2022-01-01T00:00:00.000Z'
+                        updatedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: When this plan was last updated.
+                          example: '2022-01-01T00:00:00.000Z'
+                        archivedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: When this plan was archived, or null if active.
+                          example: '2022-01-01T00:00:00.000Z'
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Maintenance Plans.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Maintenance Plans.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Maintenance Plans
+      operationId: getMaintenanceplans
+      x-operation-id-source: derived
+  /maintenanceplans/workorderblueprints:
+    post:
+      summary: Create a maintenance plan work order blueprint
+      requestBody:
+        description: The work order blueprint to create with a maintenance plan target.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - title
+              properties:
+                title:
+                  type: string
+                  description: Title of the work order blueprint.
+                  example: Weekly Inspection
+                description:
+                  type: string
+                  description: Description of the work order blueprint.
+                  example: Inspect the conveyor belt for wear and tear.
+                estimatedTime:
+                  type: integer
+                  description: Estimated time in seconds to complete the work order.
+                  example: 3600
+                procedureBlueprintIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of procedure blueprints to attach to the work order blueprint.
+                  example:
+                  - 1
+                  - 2
+                userIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of users to assign to work orders generated from this blueprint.
+                  example:
+                  - 1
+                  - 2
+                teamIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of teams to assign to work orders generated from this blueprint.
+                  example:
+                  - 3
+                  - 4
+                priority:
+                  type: string
+                  example: MEDIUM
+                  enum:
+                  - NONE
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                  description: Priority of work orders generated from this blueprint.
+                partsUsed:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - partId
+                    - quantityUsed
+                    properties:
+                      partId:
+                        type: integer
+                        description: ID of the part used.
+                        example: 10
+                      quantityUsed:
+                        type: integer
+                        description: Quantity of the part used.
+                        example: 2
+                  description: Parts used by work orders generated from this blueprint.
+                tagIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of tags (categories) to associate with the work order blueprint.
+                  example:
+                  - 5
+                  - 6
+                vendorIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of vendors to associate with the work order blueprint.
+                  example:
+                  - 7
+                  - 8
+                customFieldValues:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - workOrderFieldId
+                    - value
+                    properties:
+                      workOrderFieldId:
+                        type: integer
+                        description: ID of the work order custom field.
+                        example: 100
+                      value:
+                        type: string
+                        description: Value of the custom field.
+                        example: high
+                  description: Custom field values for work orders generated from this blueprint.
+      responses:
+        '201':
+          description: Successfully created the work order blueprint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                    description: ID of the created work order blueprint.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Maintenance Plans
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postMaintenanceplansWorkorderblueprints
+      x-operation-id-source: derived
+  /maintenanceplans/{id}:
+    get:
+      summary: Get maintenance plan
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the maintenancePlan
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved maintenancePlan's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - maintenancePlan
+                properties:
+                  maintenancePlan:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - organizationId
+                    - startDate
+                    - workOrderStartDatePadding
+                    - workOrderStartDateOffset
+                    - workOrderStartDateFixedDay
+                    - blueprintEstimatedTime
+                    - triggerType
+                    - intervalStrategy
+                    - recurrence
+                    - planningHorizon
+                    - workOrderBlueprintId
+                    - assets
+                    - intervals
+                    - nextCycleOccurrence
+                    - nextScheduledWorkOrderDueDate
+                    - lastPlannedDueDate
+                    - nextWorkOrderGenerationAt
+                    - lastWorkOrderGeneratedAt
+                    - creatorId
+                    - createdAt
+                    - updatedAt
+                    - archivedAt
+                    properties:
+                      id:
+                        type: number
+                        description: Unique ID of the maintenance plan.
+                        example: 1
+                      name:
+                        type: string
+                        description: Name of the maintenance plan.
+                        example: Weekly Conveyor Belt Inspection
+                      organizationId:
+                        type: number
+                        description: ID of the organization this plan belongs to.
+                        example: 42
+                      startDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The first due date for generated work orders.
+                        example: '2022-01-01T00:00:00.000Z'
+                      workOrderStartDatePadding:
+                        type:
+                        - number
+                        - 'null'
+                        deprecated: true
+                        description: 'Hours between the start date and due date of generated work orders. Deprecated: use workOrderStartDateOffset instead.'
+                        example: 48
+                      workOrderStartDateOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: number
+                            description: 'The numeric value of the offset between the work order start date and the due date. Must be >= 1. Per-unit caps: HOUR <= 8760, DAY <= 365, WEEK <= 52.'
+                            example: 2
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the work order start date offset.
+                            example: DAY
+                        description: Offset between the work order start date and the due date, expressed as a (value, unit) pair.
+                      workOrderStartDateFixedDay:
+                        type:
+                        - number
+                        - 'null'
+                        description: Day of month for fixed-day work order start dates. Null means the plan uses relative offset behavior.
+                        example: 5
+                      blueprintEstimatedTime:
+                        type:
+                        - number
+                        - 'null'
+                        description: Estimated time (in minutes) from the work order blueprint.
+                        example: 60
+                      triggerType:
+                        type: string
+                        enum:
+                        - CALENDAR
+                        - METER
+                        - CALENDAR_OR_METER
+                        description: What triggers work order generation.
+                        example: CALENDAR
+                      intervalStrategy:
+                        type: string
+                        enum:
+                        - FIXED
+                        - FLOATING
+                        description: The interval strategy for the schedule.
+                        example: FIXED
+                      recurrence:
+                        type: object
+                        example:
+                          type: WEEKLY
+                          interval: 2
+                          days:
+                          - MONDAY
+                          - WEDNESDAY
+                          - FRIDAY
+                        oneOf:
+                        - type: object
+                          title: Daily
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: DAILY
+                              enum:
+                              - DAILY
+                        - type: object
+                          title: Weekly
+                          required:
+                          - type
+                          - interval
+                          - days
+                          properties:
+                            type:
+                              type: string
+                              pattern: WEEKLY
+                              enum:
+                              - WEEKLY
+                            interval:
+                              type: integer
+                              description: Number of weeks between occurrences
+                              minimum: 1
+                              default: 1
+                            days:
+                              type: array
+                              description: Days of the week the event will occur
+                              items:
+                                type: string
+                                enum:
+                                - MONDAY
+                                - TUESDAY
+                                - WEDNESDAY
+                                - THURSDAY
+                                - FRIDAY
+                                - SATURDAY
+                                - SUNDAY
+                        - type: object
+                          title: Monthly
+                          required:
+                          - type
+                          - interval
+                          - day
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY
+                              enum:
+                              - MONTHLY
+                            interval:
+                              type: integer
+                              description: Number of months between occurrences
+                              minimum: 1
+                              default: 1
+                            day:
+                              type: integer
+                              description: Day of the month the event will occur
+                              minimum: 1
+                              maximum: 31
+                        - type: object
+                          title: Yearly
+                          required:
+                          - type
+                          - interval
+                          properties:
+                            type:
+                              type: string
+                              pattern: YEARLY
+                              enum:
+                              - YEARLY
+                            interval:
+                              type: integer
+                              description: Number of years between occurrences
+                              minimum: 1
+                              default: 1
+                        description: The recurrence schedule configuration.
+                      planningHorizon:
+                        type: object
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: number
+                            description: The numeric value of the planning horizon.
+                            example: 3
+                          unit:
+                            type: string
+                            enum:
+                            - DAY
+                            - WEEK
+                            - MONTH
+                            - YEAR
+                            description: The unit of the planning horizon.
+                            example: WEEK
+                        description: How far ahead to generate work orders.
+                      workOrderBlueprintId:
+                        type: number
+                        description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                        example: 10
+                      assets:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - assetId
+                          properties:
+                            id:
+                              type: number
+                              description: ID of the plan-asset association.
+                              example: 1
+                            assetId:
+                              type: number
+                              description: ID of the asset.
+                              example: 100
+                        description: Assets associated with this maintenance plan.
+                      intervals:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - interval
+                          - workOrderBlueprintId
+                          properties:
+                            id:
+                              type: number
+                              description: ID of the interval.
+                              example: 1
+                            interval:
+                              type: number
+                              description: The cycle number at which this interval's blueprint is used.
+                              example: 3
+                            workOrderBlueprintId:
+                              type: number
+                              description: ID of the maintenance plan work order blueprint for this cycle. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                              example: 50
+                        description: Multi-cycle intervals. Each interval specifies a cycle number and a different work order blueprint.
+                      nextCycleOccurrence:
+                        type:
+                        - number
+                        - 'null'
+                        description: Which cycle in the multi-cycle sequence comes next.
+                        example: 2
+                      nextScheduledWorkOrderDueDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The computed due date for the next work order to be generated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      lastPlannedDueDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The due date of the most recently planned work order.
+                        example: '2022-01-01T00:00:00.000Z'
+                      nextWorkOrderGenerationAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When the next batch of work orders will be generated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      lastWorkOrderGeneratedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When work orders were last generated for this plan.
+                        example: '2022-01-01T00:00:00.000Z'
+                      creatorId:
+                        type: number
+                        description: ID of the user who created this plan.
+                        example: 5
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: When this plan was created.
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When this plan was last updated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      archivedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When this plan was archived, or null if active.
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified maintenancePlan or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Maintenance Plans
+      operationId: getMaintenanceplansById
+      x-operation-id-source: derived
+    patch:
+      summary: Update a maintenance plan
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the maintenance plan
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Fields to update on the maintenance plan.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the maintenance plan.
+                  example: Weekly Conveyor Belt Inspection
+                recurrence:
+                  type: object
+                  example:
+                    type: WEEKLY
+                    interval: 2
+                    days:
+                    - MONDAY
+                    - WEDNESDAY
+                    - FRIDAY
+                  oneOf:
+                  - type: object
+                    title: Daily
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: DAILY
+                        enum:
+                        - DAILY
+                  - type: object
+                    title: Weekly
+                    required:
+                    - type
+                    - interval
+                    - days
+                    properties:
+                      type:
+                        type: string
+                        pattern: WEEKLY
+                        enum:
+                        - WEEKLY
+                      interval:
+                        type: integer
+                        description: Number of weeks between occurrences
+                        minimum: 1
+                        default: 1
+                      days:
+                        type: array
+                        description: Days of the week the event will occur
+                        items:
+                          type: string
+                          enum:
+                          - MONDAY
+                          - TUESDAY
+                          - WEDNESDAY
+                          - THURSDAY
+                          - FRIDAY
+                          - SATURDAY
+                          - SUNDAY
+                  - type: object
+                    title: Monthly
+                    required:
+                    - type
+                    - interval
+                    - day
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY
+                        enum:
+                        - MONTHLY
+                      interval:
+                        type: integer
+                        description: Number of months between occurrences
+                        minimum: 1
+                        default: 1
+                      day:
+                        type: integer
+                        description: Day of the month the event will occur
+                        minimum: 1
+                        maximum: 31
+                  - type: object
+                    title: Yearly
+                    required:
+                    - type
+                    - interval
+                    properties:
+                      type:
+                        type: string
+                        pattern: YEARLY
+                        enum:
+                        - YEARLY
+                      interval:
+                        type: integer
+                        description: Number of years between occurrences
+                        minimum: 1
+                        default: 1
+                  description: The recurrence schedule configuration.
+                startDate:
+                  type: string
+                  format: date-time
+                  description: The first due date for generated work orders.
+                  example: '2022-01-01T00:00:00.000Z'
+                workOrderBlueprintId:
+                  type: number
+                  description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                  example: 10
+                workOrderStartDatePadding:
+                  type: number
+                  deprecated: true
+                  description: 'Hours between the start date and due date of generated work orders. Deprecated: use workOrderStartDateOffset instead.'
+                  example: 48
+                workOrderStartDateOffset:
+                  type: object
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: number
+                      description: 'The numeric value of the offset between the work order start date and the due date. Must be >= 1. Per-unit caps: HOUR <= 8760, DAY <= 365, WEEK <= 52.'
+                      example: 2
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the work order start date offset.
+                      example: DAY
+                  description: Offset between the work order start date and the due date, expressed as a (value, unit) pair.
+                planningHorizon:
+                  type: object
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: number
+                      description: The numeric value of the planning horizon.
+                      example: 3
+                    unit:
+                      type: string
+                      enum:
+                      - DAY
+                      - WEEK
+                      - MONTH
+                      - YEAR
+                      description: The unit of the planning horizon.
+                      example: WEEK
+                  description: How far ahead to generate work orders.
+                nextWorkOrderToGenerateDueDate:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: Override the due date of the next work order to be generated.
+                  example: '2022-01-01T00:00:00.000Z'
+                addedPlanAssets:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - assetId
+                    properties:
+                      assetId:
+                        type: number
+                        description: ID of the asset.
+                        example: 100
+                  description: Assets to add to this plan.
+                removedPlanAssetIds:
+                  type: array
+                  items:
+                    type: number
+                  description: IDs of plan-asset associations to remove.
+                  example:
+                  - 1
+                  - 2
+                addedUpdatedIntervals:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - interval
+                    - workOrderBlueprintId
+                    properties:
+                      id:
+                        type: number
+                        description: ID of an existing interval to update. Omit to create a new one.
+                        example: 1
+                      interval:
+                        type: number
+                        description: The cycle number at which this interval's blueprint is used.
+                        example: 3
+                      workOrderBlueprintId:
+                        type: number
+                        description: ID of the maintenance plan work order blueprint for this cycle. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                        example: 50
+                  description: Intervals to add or update.
+                removedIntervalIds:
+                  type: array
+                  items:
+                    type: number
+                  description: IDs of intervals to remove.
+                  example:
+                  - 1
+                  - 2
+                nextCycleOccurrence:
+                  type:
+                  - number
+                  - 'null'
+                  description: Which cycle in the multi-cycle sequence comes next.
+                  example: 2
+      responses:
+        '200':
+          description: Successfully updated the maintenance plan.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - maintenancePlan
+                properties:
+                  maintenancePlan:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - organizationId
+                    - startDate
+                    - workOrderStartDatePadding
+                    - workOrderStartDateOffset
+                    - workOrderStartDateFixedDay
+                    - blueprintEstimatedTime
+                    - triggerType
+                    - intervalStrategy
+                    - recurrence
+                    - planningHorizon
+                    - workOrderBlueprintId
+                    - assets
+                    - intervals
+                    - nextCycleOccurrence
+                    - nextScheduledWorkOrderDueDate
+                    - lastPlannedDueDate
+                    - nextWorkOrderGenerationAt
+                    - lastWorkOrderGeneratedAt
+                    - creatorId
+                    - createdAt
+                    - updatedAt
+                    - archivedAt
+                    properties:
+                      id:
+                        type: number
+                        description: Unique ID of the maintenance plan.
+                        example: 1
+                      name:
+                        type: string
+                        description: Name of the maintenance plan.
+                        example: Weekly Conveyor Belt Inspection
+                      organizationId:
+                        type: number
+                        description: ID of the organization this plan belongs to.
+                        example: 42
+                      startDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The first due date for generated work orders.
+                        example: '2022-01-01T00:00:00.000Z'
+                      workOrderStartDatePadding:
+                        type:
+                        - number
+                        - 'null'
+                        deprecated: true
+                        description: 'Hours between the start date and due date of generated work orders. Deprecated: use workOrderStartDateOffset instead.'
+                        example: 48
+                      workOrderStartDateOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: number
+                            description: 'The numeric value of the offset between the work order start date and the due date. Must be >= 1. Per-unit caps: HOUR <= 8760, DAY <= 365, WEEK <= 52.'
+                            example: 2
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the work order start date offset.
+                            example: DAY
+                        description: Offset between the work order start date and the due date, expressed as a (value, unit) pair.
+                      workOrderStartDateFixedDay:
+                        type:
+                        - number
+                        - 'null'
+                        description: Day of month for fixed-day work order start dates. Null means the plan uses relative offset behavior.
+                        example: 5
+                      blueprintEstimatedTime:
+                        type:
+                        - number
+                        - 'null'
+                        description: Estimated time (in minutes) from the work order blueprint.
+                        example: 60
+                      triggerType:
+                        type: string
+                        enum:
+                        - CALENDAR
+                        - METER
+                        - CALENDAR_OR_METER
+                        description: What triggers work order generation.
+                        example: CALENDAR
+                      intervalStrategy:
+                        type: string
+                        enum:
+                        - FIXED
+                        - FLOATING
+                        description: The interval strategy for the schedule.
+                        example: FIXED
+                      recurrence:
+                        type: object
+                        example:
+                          type: WEEKLY
+                          interval: 2
+                          days:
+                          - MONDAY
+                          - WEDNESDAY
+                          - FRIDAY
+                        oneOf:
+                        - type: object
+                          title: Daily
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: DAILY
+                              enum:
+                              - DAILY
+                        - type: object
+                          title: Weekly
+                          required:
+                          - type
+                          - interval
+                          - days
+                          properties:
+                            type:
+                              type: string
+                              pattern: WEEKLY
+                              enum:
+                              - WEEKLY
+                            interval:
+                              type: integer
+                              description: Number of weeks between occurrences
+                              minimum: 1
+                              default: 1
+                            days:
+                              type: array
+                              description: Days of the week the event will occur
+                              items:
+                                type: string
+                                enum:
+                                - MONDAY
+                                - TUESDAY
+                                - WEDNESDAY
+                                - THURSDAY
+                                - FRIDAY
+                                - SATURDAY
+                                - SUNDAY
+                        - type: object
+                          title: Monthly
+                          required:
+                          - type
+                          - interval
+                          - day
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY
+                              enum:
+                              - MONTHLY
+                            interval:
+                              type: integer
+                              description: Number of months between occurrences
+                              minimum: 1
+                              default: 1
+                            day:
+                              type: integer
+                              description: Day of the month the event will occur
+                              minimum: 1
+                              maximum: 31
+                        - type: object
+                          title: Yearly
+                          required:
+                          - type
+                          - interval
+                          properties:
+                            type:
+                              type: string
+                              pattern: YEARLY
+                              enum:
+                              - YEARLY
+                            interval:
+                              type: integer
+                              description: Number of years between occurrences
+                              minimum: 1
+                              default: 1
+                        description: The recurrence schedule configuration.
+                      planningHorizon:
+                        type: object
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: number
+                            description: The numeric value of the planning horizon.
+                            example: 3
+                          unit:
+                            type: string
+                            enum:
+                            - DAY
+                            - WEEK
+                            - MONTH
+                            - YEAR
+                            description: The unit of the planning horizon.
+                            example: WEEK
+                        description: How far ahead to generate work orders.
+                      workOrderBlueprintId:
+                        type: number
+                        description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                        example: 10
+                      assets:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - assetId
+                          properties:
+                            id:
+                              type: number
+                              description: ID of the plan-asset association.
+                              example: 1
+                            assetId:
+                              type: number
+                              description: ID of the asset.
+                              example: 100
+                        description: Assets associated with this maintenance plan.
+                      intervals:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - interval
+                          - workOrderBlueprintId
+                          properties:
+                            id:
+                              type: number
+                              description: ID of the interval.
+                              example: 1
+                            interval:
+                              type: number
+                              description: The cycle number at which this interval's blueprint is used.
+                              example: 3
+                            workOrderBlueprintId:
+                              type: number
+                              description: ID of the maintenance plan work order blueprint for this cycle. These can be created through the /maintenanceplans/workorderblueprints endpoint.
+                              example: 50
+                        description: Multi-cycle intervals. Each interval specifies a cycle number and a different work order blueprint.
+                      nextCycleOccurrence:
+                        type:
+                        - number
+                        - 'null'
+                        description: Which cycle in the multi-cycle sequence comes next.
+                        example: 2
+                      nextScheduledWorkOrderDueDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The computed due date for the next work order to be generated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      lastPlannedDueDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: The due date of the most recently planned work order.
+                        example: '2022-01-01T00:00:00.000Z'
+                      nextWorkOrderGenerationAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When the next batch of work orders will be generated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      lastWorkOrderGeneratedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When work orders were last generated for this plan.
+                        example: '2022-01-01T00:00:00.000Z'
+                      creatorId:
+                        type: number
+                        description: ID of the user who created this plan.
+                        example: 5
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: When this plan was created.
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When this plan was last updated.
+                        example: '2022-01-01T00:00:00.000Z'
+                      archivedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: When this plan was archived, or null if active.
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: Failed to update the maintenance plan.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Bad request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified maintenance plan.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: maintenance plan Not Found
+      tags:
+      - Maintenance Plans
+      operationId: patchMaintenanceplansById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete maintenance plan
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the maintenance plan
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the maintenancePlan
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified maintenancePlan.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: maintenancePlan Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Maintenance Plans
+      operationId: deleteMaintenanceplansById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Meters API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -220,7 +245,7 @@ paths:
                         default: 1
                 unit:
                   type: string
-                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>PSIG</code></li><li><code>BarG</code></li><li><code>kPa</code></li><li><code>MPa</code></li><li><code>GPM</code></li><li><code>LPM</code></li><li><code>CubicMetersPerHour</code></li><li><code>CubicMetersPerSecond</code></li><li><code>MGD</code></li><li><code>BPD</code></li><li><code>CFM</code></li><li><code>ACFM</code></li><li><code>SCFM</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
                   example: Celsius
                 assetId:
                   type:
@@ -373,6 +398,8 @@ paths:
                 type: object
                 required:
                 - meters
+                - nextCursor
+                - nextPageUrl
                 properties:
                   meters:
                     type: array
@@ -393,7 +420,7 @@ paths:
                           description: Name of the meters
                         unit:
                           type: string
-                          description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                          description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>PSIG</code></li><li><code>BarG</code></li><li><code>kPa</code></li><li><code>MPa</code></li><li><code>GPM</code></li><li><code>LPM</code></li><li><code>CubicMetersPerHour</code></li><li><code>CubicMetersPerSecond</code></li><li><code>MGD</code></li><li><code>BPD</code></li><li><code>CFM</code></li><li><code>ACFM</code></li><li><code>SCFM</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
                           example: Celsius
                         measurementType:
                           type: string
@@ -834,7 +861,7 @@ paths:
                               default: 1
                       unit:
                         type: string
-                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>PSIG</code></li><li><code>BarG</code></li><li><code>kPa</code></li><li><code>MPa</code></li><li><code>GPM</code></li><li><code>LPM</code></li><li><code>CubicMetersPerHour</code></li><li><code>CubicMetersPerSecond</code></li><li><code>MGD</code></li><li><code>BPD</code></li><li><code>CFM</code></li><li><code>ACFM</code></li><li><code>SCFM</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
                         example: Celsius
                       createdAt:
                         type: string
@@ -1229,7 +1256,7 @@ paths:
                         default: 1
                 unit:
                   type: string
-                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>PSIG</code></li><li><code>BarG</code></li><li><code>kPa</code></li><li><code>MPa</code></li><li><code>GPM</code></li><li><code>LPM</code></li><li><code>CubicMetersPerHour</code></li><li><code>CubicMetersPerSecond</code></li><li><code>MGD</code></li><li><code>BPD</code></li><li><code>CFM</code></li><li><code>ACFM</code></li><li><code>SCFM</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
                   example: Celsius
       responses:
         '200':
@@ -1450,7 +1477,7 @@ paths:
                               default: 1
                       unit:
                         type: string
-                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>PSIG</code></li><li><code>BarG</code></li><li><code>kPa</code></li><li><code>MPa</code></li><li><code>GPM</code></li><li><code>LPM</code></li><li><code>CubicMetersPerHour</code></li><li><code>CubicMetersPerSecond</code></li><li><code>MGD</code></li><li><code>BPD</code></li><li><code>CFM</code></li><li><code>ACFM</code></li><li><code>SCFM</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
                         example: Celsius
                       createdAt:
                         type: string
@@ -1533,133 +1560,6 @@ paths:
       tags:
       - Meters
       operationId: deleteMetersById
-      x-operation-id-source: derived
-  /meters/{meterId}/readings:
-    post:
-      summary: Create new meter reading
-      description: 'We strongly recommend using the batch create endpoint POST /meterreadings to create meter readings since it is more efficient and allows you to send more readings at once without consuming as much rate limit as this endpoint.
-
-
-        Rate Limits
-
-
-        For Automated and IoT meter readings: 1 request / 10 seconds
-
-
-        For Manual meter readings: 10 requests / 24 hours'
-      deprecated: true
-      parameters:
-      - schema:
-          type: integer
-        name: meterId
-        in: path
-        required: true
-        description: ID of the meter
-        example: '123'
-      - schema:
-          type: boolean
-        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
-        name: skipWebhook
-        in: query
-        required: false
-      requestBody:
-        description: Meter Reading to create
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - readingValue
-              properties:
-                readingValue:
-                  type: number
-                  description: The reading value given by the meter.
-                  example: 120
-                readingDate:
-                  type:
-                  - string
-                  - 'null'
-                  example: '2020-07-22T14:01:00Z'
-                  description: Reading date when the meter was read. This date can be set in the past, but cannot go further than 3 days for IoT meters.
-      responses:
-        '201':
-          description: Successfully created reading
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - id
-                - readingValue
-                properties:
-                  id:
-                    type: string
-                    example: 963
-                    description: 'Global ID of the reading.
-
-                      IoT meters will produce IDs with the format ''{meterId}-{uuid}'', while manual meters will produce numbered IDs.'
-                  createdAt:
-                    type: string
-                    example: '2022-01-01T00:00:00.000Z'
-                    description: Reading creation or processing date.
-                  readingDate:
-                    type:
-                    - string
-                    - 'null'
-                    example: '2020-07-22T14:01:00Z'
-                    description: Reading date when the meter was read. This date can be set in the past, but cannot go further than 3 days for IoT meters.
-                  readingValue:
-                    type: number
-                    description: The reading value given by the meter.
-                    example: 120
-        '400':
-          description: Failed to create the reading
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - errors
-                example:
-                  errors:
-                  - error: errors with request
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                      - error
-                      properties:
-                        error:
-                          type: string
-                        fieldPath:
-                          type:
-                          - string
-                          - 'null'
-                        fieldValue:
-                          oneOf:
-                          - type: string
-                          - type: number
-                          - type: boolean
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '429':
-          description: Too many requests. Please retry in 10 seconds
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - error
-                properties:
-                  error:
-                    type: string
-                    example: Too many requests. Please retry in 10 seconds
-      tags:
-      - Meters
-      operationId: postMetersByMeterIdReadings
       x-operation-id-source: derived
 components:
   responses:

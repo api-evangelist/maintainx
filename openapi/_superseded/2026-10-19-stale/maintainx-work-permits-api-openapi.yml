@@ -1,0 +1,184 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Work Permits API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Work Permits
+  description: Operations for Work Permits
+  x-traitTag: false
+paths:
+  /workPermits/{id}/sign:
+    post:
+      summary: Sign a work permit
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the id
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Sign a work permit
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - externalLinkUuid
+              - signerName
+              properties:
+                externalLinkUuid:
+                  type: string
+                  example: 2042e4f1-751d-4314-be8a-36a44f32b659
+                  description: Global UUID of the External Link used to sign the Work Permit
+                signerName:
+                  type: string
+                  example: John Doe
+                  description: Name of the signer when using an External Link
+      responses:
+        '201':
+          description: Successfully signed work permit
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - workPermit
+                - workOrder
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  workPermit:
+                    type: object
+                    required:
+                    - id
+                    - status
+                    properties:
+                      id:
+                        type: integer
+                      status:
+                        type: string
+                  workOrder:
+                    type: object
+                    required:
+                    - id
+                    - blockedByWorkPermitReason
+                    properties:
+                      id:
+                        type: integer
+                      blockedByWorkPermitReason:
+                        type:
+                        - string
+                        - 'null'
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: You are forbidden to perform the requested action, to access this resource or the feature is disabled by your administrator
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Forbidden
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+      security: []
+      tags:
+      - Work Permits
+      operationId: postWorkPermitsByIdSign
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Meter Readings API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Meter Readings
+  description: Operations on Meter Readings
+  x-traitTag: false
+paths:
+  /meterreadings:
+    post:
+      summary: Batch create new meter readings
+      description: 'We strongly recommend using this endpoint to create meter readings since it is more efficient.
+
+
+        Rate Limits
+
+
+        For Automated and IoT meter readings: 100 requests / 60 seconds
+
+
+        For Manual meter readings: 10 requests / 24 hours'
+      requestBody:
+        description: Meter readings to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - meterId
+                - value
+                properties:
+                  meterId:
+                    type: number
+                    example: 53
+                    description: Global ID of the meter.
+                  value:
+                    type: number
+                    description: The reading value given by the meter.
+                    example: 120
+                  readingDate:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2022-01-01T00:00:00.000Z'
+                    description: Date at which the meter was read. This date can be set in the past, but cannot be further than 3 days for IoT meters.
+      responses:
+        '201':
+          description: Successfully created meter readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - meterId
+                  - value
+                  - createdAt
+                  properties:
+                    meterId:
+                      type: number
+                      example: 53
+                      description: Global ID of the meter.
+                    value:
+                      type: number
+                      description: The reading value given by the meter.
+                      example: 120
+                    createdAt:
+                      type: string
+                      example: '2022-01-01T00:00:00.000Z'
+                      description: Meter Reading creation/processing date.
+                    readingDate:
+                      type:
+                      - string
+                      - 'null'
+                      example: '2022-01-01T00:00:00.000Z'
+                      description: Date at which the meter was read. This date can be set in the past, but cannot be further than 3 days for IoT meters.
+        '400':
+          description: Error occurred trying to insert a meter reading
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Unexpected error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: You are forbidden to perform the requested action or to access this resource
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Forbidden
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified meter.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: meter Not Found
+        '429':
+          description: You have exceeded the rate limit for manual meter readings
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Too Many Requests. Manual meter readings are limited to 10 every 24h 00m 00s. For a higher recording frequency please use Meters of type IoT. Contact support@getmaintainx.com for help.
+      tags:
+      - Meter Readings
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      operationId: postMeterreadings
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

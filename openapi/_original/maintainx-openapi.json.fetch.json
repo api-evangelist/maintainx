@@ -1,0 +1,12 @@
+{
+ "url": "https://api.getmaintainx.com/v1/openapi.json?v=26.10.1451-310524",
+ "final": "https://api.getmaintainx.com/v1/openapi.json?v=26.10.1451-310524",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 1382536,
+ "sha256": "efc929174bffa468ce3f89762be11f3aca157c6c1a75592178492ac33ecac391",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

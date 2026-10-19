@@ -1,16 +1,52 @@
 openapi: 3.2.0
 info:
-  title: Maintainx Subscriptions & Webhooks API
+  description: 'REST API V1
+
+
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
+
+
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
+
+
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
+
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
+  title: MaintainX Subscriptions & Webhooks API
   contact:
     url: https://www.getmaintainx.com/
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
-  description: 'Operations tagged Subscriptions & Webhooks across 2 of this provider''s published API definitions: maintainx-openapi-original.json, maintainx-subscriptions-webhooks-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -18,10 +54,40 @@ security:
 - Bearer: []
 tags:
 - name: Subscriptions & Webhooks
-  description: 'Webhooks in MaintainX
+  description: 'This section is the technical reference for the MaintainX subscriptions and webhooks system. It provides detailed documentation for endpoints, payload schemas, event types, and delivery behavior.
 
 
-    What are Webhooks?'
+    For guides on how to set up and use webhooks, including:
+
+
+    How to register a webhook URL.
+
+
+    Choosing the right events to subscribe to.
+
+
+    Handling incoming payloads in your application
+
+
+    See the Webhooks guide in the MaintainX Help Center.
+
+
+    Every webhook payload includes an eventType field matching the event type of the subscription that triggered it, so you can discriminate which event produced a given delivery without relying on the destination URL.
+
+
+    What''s in this section:
+
+
+    Endpoint reference for subscriptions
+
+
+    Full event type catalog
+
+
+    Webhook payload structure and field definitions
+
+
+    Retry and delivery behavior'
   x-traitTag: false
 paths:
   /subscriptions:
@@ -114,6 +180,21 @@ paths:
                   url:
                     type: string
                     example: https://example.com
+              - title: Customer Change
+                type: object
+                required:
+                - type
+                - url
+                properties:
+                  type:
+                    type: string
+                    description: Type of event subscribed to
+                    enum:
+                    - CUSTOMER_CHANGE
+                    example: CUSTOMER_CHANGE
+                  url:
+                    type: string
+                    example: https://example.com
               - title: Data Export Initiated
                 type: object
                 required:
@@ -171,6 +252,21 @@ paths:
                     enum:
                     - INVITE_LINK_UPDATED
                     example: INVITE_LINK_UPDATED
+                  url:
+                    type: string
+                    example: https://example.com
+              - title: Location Change
+                type: object
+                required:
+                - type
+                - url
+                properties:
+                  type:
+                    type: string
+                    description: Type of event subscribed to
+                    enum:
+                    - LOCATION_CHANGE
+                    example: LOCATION_CHANGE
                   url:
                     type: string
                     example: https://example.com
@@ -272,6 +368,21 @@ paths:
                   url:
                     type: string
                     example: https://example.com
+              - title: New Customer
+                type: object
+                required:
+                - type
+                - url
+                properties:
+                  type:
+                    type: string
+                    description: Type of event subscribed to
+                    enum:
+                    - NEW_CUSTOMER
+                    example: NEW_CUSTOMER
+                  url:
+                    type: string
+                    example: https://example.com
               - title: New Location
                 type: object
                 required:
@@ -333,7 +444,7 @@ paths:
                         description: If true, the webhook will receive the Purchase Order data
                       includeOAuthTokensInPayload:
                         type: boolean
-                        description: 'If true, the webhook payload will include the OAuth tokens of the user whose action triggered the webhook. Warning: these tokens are sensitive and should only be included when the webhook is sent to a trusted source. Only available when OIDC login is enabled for the organization.'
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
               - title: New Request
                 type: object
                 required:
@@ -409,6 +520,9 @@ paths:
                       serializeEntity:
                         type: boolean
                         description: If true, the webhook will receive the Work Order data
+                      includeOAuthTokensInPayload:
+                        type: boolean
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
               - title: Part Change
                 type: object
                 required:
@@ -537,6 +651,9 @@ paths:
                       onlySerializeFilteredProperties:
                         type: boolean
                         description: If true and serializeEntity is also set to true, only the filtered properties will be returned on update.
+                      includeOAuthTokensInPayload:
+                        type: boolean
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
                   filters:
                     type: object
                     description: Possible filters.
@@ -586,6 +703,9 @@ paths:
                       omitSendToVendorPopup:
                         type: boolean
                         description: If true, if the state change was done from the UI, the UI will not prompt the user to send the purchase order to the vendor. It will be assumed that the webhook took care of it.
+                      includeOAuthTokensInPayload:
+                        type: boolean
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
                   filters:
                     type: object
                     description: Possible filters.
@@ -859,6 +979,9 @@ paths:
                       onlySerializeFilteredProperties:
                         type: boolean
                         description: If true and serializeEntity is also set to true, only the filtered properties will be returned on update.
+                      includeOAuthTokensInPayload:
+                        type: boolean
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
                   filters:
                     type: object
                     description: Possible filters.
@@ -874,6 +997,7 @@ paths:
                           - ASSIGNEES
                           - CATEGORIES
                           - COSTS
+                          - CUSTOMER
                           - DESCRIPTION
                           - DUE_DATE
                           - ESTIMATED_TIME
@@ -907,6 +1031,9 @@ paths:
                       serializeEntity:
                         type: boolean
                         description: If true, the webhook will receive the work order data
+                      includeOAuthTokensInPayload:
+                        type: boolean
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
               - title: Work Order Overdue
                 type: object
                 required:
@@ -985,7 +1112,7 @@ paths:
                         description: If true, the webhook will receive the work order data
                       includeOAuthTokensInPayload:
                         type: boolean
-                        description: 'If true, the webhook payload will include the OAuth tokens of the user whose action triggered the webhook. Warning: these tokens are sensitive and should only be included when the webhook is sent to a trusted source. Only available when OIDC login is enabled for the organization.'
+                        description: 'If true, the webhook request will carry the OAuth access token of the user whose action triggered the webhook in an `Authorization: Bearer <token>` header, so the delivery can be forwarded to an endpoint that expects that token. The token is never included in the body. Warning: this token can be sensitive and should only be sent to a trusted destination. Only available when OIDC login is enabled for the organization.'
                   filters:
                     type: object
                     description: Possible filters.
@@ -1136,9 +1263,6 @@ paths:
         example: '1'
       operationId: postSubscriptions
       x-operation-id-source: derived
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   /subscriptions/{id}:
     get:
       summary: Get subscription
@@ -1180,14 +1304,17 @@ paths:
                         - API_TOKEN_REVOKED
                         - ASSET_STATUS_CHANGE
                         - CONNECTOR_TOKEN_REVOKED
+                        - CUSTOMER_CHANGE
                         - DATA_EXPORT_INITIATED
                         - INVITE_LINK_ARCHIVED
                         - INVITE_LINK_CREATED
                         - INVITE_LINK_UPDATED
+                        - LOCATION_CHANGE
                         - METER_TRIGGER_STATE_CHANGE
                         - NEW_ASSET
                         - NEW_CATEGORY_ON_WORK_ORDER
                         - NEW_COMMENT_ON_WORK_ORDER
+                        - NEW_CUSTOMER
                         - NEW_LOCATION
                         - NEW_PART
                         - NEW_PURCHASE_ORDER
@@ -1301,14 +1428,17 @@ paths:
                   - API_TOKEN_REVOKED
                   - ASSET_STATUS_CHANGE
                   - CONNECTOR_TOKEN_REVOKED
+                  - CUSTOMER_CHANGE
                   - DATA_EXPORT_INITIATED
                   - INVITE_LINK_ARCHIVED
                   - INVITE_LINK_CREATED
                   - INVITE_LINK_UPDATED
+                  - LOCATION_CHANGE
                   - METER_TRIGGER_STATE_CHANGE
                   - NEW_ASSET
                   - NEW_CATEGORY_ON_WORK_ORDER
                   - NEW_COMMENT_ON_WORK_ORDER
+                  - NEW_CUSTOMER
                   - NEW_LOCATION
                   - NEW_PART
                   - NEW_PURCHASE_ORDER
@@ -1377,14 +1507,17 @@ paths:
                         - API_TOKEN_REVOKED
                         - ASSET_STATUS_CHANGE
                         - CONNECTOR_TOKEN_REVOKED
+                        - CUSTOMER_CHANGE
                         - DATA_EXPORT_INITIATED
                         - INVITE_LINK_ARCHIVED
                         - INVITE_LINK_CREATED
                         - INVITE_LINK_UPDATED
+                        - LOCATION_CHANGE
                         - METER_TRIGGER_STATE_CHANGE
                         - NEW_ASSET
                         - NEW_CATEGORY_ON_WORK_ORDER
                         - NEW_COMMENT_ON_WORK_ORDER
+                        - NEW_CUSTOMER
                         - NEW_LOCATION
                         - NEW_PART
                         - NEW_PURCHASE_ORDER
@@ -1581,9 +1714,6 @@ paths:
       - Subscriptions & Webhooks
       operationId: deleteSubscriptionsById
       x-operation-id-source: derived
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   /subscriptions/{id}/secret:
     get:
       summary: Get secret information
@@ -1625,9 +1755,6 @@ paths:
       - Subscriptions & Webhooks
       operationId: getSubscriptionsByIdSecret
       x-operation-id-source: derived
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
 webhooks:
   API_TOKEN_CREATED:
     post:
@@ -1642,10 +1769,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - API_TOKEN_CREATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: API_TOKEN_CREATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -1663,9 +1797,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   API_TOKEN_REVOKED:
     post:
       summary: API Token Revoked
@@ -1679,10 +1810,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - API_TOKEN_REVOKED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: API_TOKEN_REVOKED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -1700,9 +1838,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   ASSET_STATUS_CHANGE:
     post:
       summary: Asset Status Change
@@ -1716,12 +1851,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - assetId
               - orgId
               - oldStatus
               - newStatus
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - ASSET_STATUS_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: ASSET_STATUS_CHANGE
                 assetId:
                   type: number
                   description: Global ID of the asset
@@ -1975,9 +2117,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   CONNECTOR_TOKEN_REVOKED:
     post:
       summary: Connector Token Revoked
@@ -1991,10 +2130,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - CONNECTOR_TOKEN_REVOKED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: CONNECTOR_TOKEN_REVOKED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2012,9 +2158,63 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
+  CUSTOMER_CHANGE:
+    post:
+      summary: Customer Change
+      security: []
+      description: ''
+      tags:
+      - Subscriptions & Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - eventType
+              - customerId
+              - orgId
+              - occurredAt
+              - editCustomer
+              properties:
+                eventType:
+                  type: string
+                  enum:
+                  - CUSTOMER_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: CUSTOMER_CHANGE
+                customerId:
+                  type: number
+                  description: Global ID of the customer
+                  example: 123456
+                orgId:
+                  type: number
+                  description: Global ID of the organization
+                  example: 321
+                occurredAt:
+                  type: string
+                  format: date-time
+                  description: Date & time at which the trigger occurred
+                  example: '2022-01-01T00:00:00.000Z'
+                editCustomer:
+                  type: object
+                  description: Properties of the Customer
+                  required:
+                  - id
+                  - name
+                  properties:
+                    id:
+                      type: number
+                      description: Global ID of the customer
+                      example: 123456
+                    name:
+                      type: string
+                      description: Name of the customer
+                      example: Acme Manufacturing
+      operationId: CUSTOMER_CHANGE
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
   DATA_EXPORT_INITIATED:
     post:
       summary: Data Export Initiated
@@ -2028,11 +2228,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - exportType
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - DATA_EXPORT_INITIATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: DATA_EXPORT_INITIATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2053,9 +2260,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   INVITE_LINK_ARCHIVED:
     post:
       summary: Invite Link Archived
@@ -2069,11 +2273,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - inviteLinkId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - INVITE_LINK_ARCHIVED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: INVITE_LINK_ARCHIVED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2095,9 +2306,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   INVITE_LINK_CREATED:
     post:
       summary: Invite Link Created
@@ -2111,11 +2319,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - inviteLinkId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - INVITE_LINK_CREATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: INVITE_LINK_CREATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2137,9 +2352,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   INVITE_LINK_UPDATED:
     post:
       summary: Invite Link Updated
@@ -2153,11 +2365,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - inviteLinkId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - INVITE_LINK_UPDATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: INVITE_LINK_UPDATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2179,9 +2398,110 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
+  LOCATION_CHANGE:
+    post:
+      summary: Location Change
+      security: []
+      description: Fires when a location is updated, including name, address, parent, teams, vendors, custom fields, and other location properties.
+      tags:
+      - Subscriptions & Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - eventType
+              - locationId
+              - orgId
+              - occurredAt
+              - newLocation
+              properties:
+                eventType:
+                  type: string
+                  enum:
+                  - LOCATION_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: LOCATION_CHANGE
+                locationId:
+                  type: number
+                  description: Global ID of the Location
+                  example: 123456
+                locationExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the Location
+                  example: ext-location-001
+                orgId:
+                  type: number
+                  description: Global ID of the organization
+                  example: 321
+                occurredAt:
+                  type: string
+                  format: date-time
+                  description: Date & time at which the trigger occurred
+                  example: '2022-01-01T00:00:00.000Z'
+                newLocation:
+                  type: object
+                  required:
+                  - id
+                  - name
+                  description: Current properties of the updated Location
+                  properties:
+                    id:
+                      type: integer
+                      example: 963
+                      description: Global ID of the location
+                    name:
+                      type: string
+                      example: Warehouses
+                    address:
+                      type:
+                      - string
+                      - 'null'
+                      example: 1090 main street, Franklin
+                      description: Postal address of the location
+                    barcode:
+                      type:
+                      - string
+                      - 'null'
+                      example: BWFPBNRHAW54CG
+                      description: String encoded barcode
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                      example: The warehouse where we store the forklifts
+                    parentId:
+                      type:
+                      - integer
+                      - 'null'
+                      example: 852
+                      description: ID of the parent location
+                    teamIds:
+                      type: array
+                      description: Team IDs
+                      items:
+                        type: number
+                        example: 2
+                    extraFields:
+                      type: object
+                      description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                      additionalProperties:
+                        type: string
+                      example:
+                        Department: Electrical
+                    vendorIds:
+                      type: array
+                      description: Vendor IDs
+                      items:
+                        type: number
+                        example: 2
+      operationId: LOCATION_CHANGE
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
   METER_TRIGGER_STATE_CHANGE:
     post:
       summary: Meter Trigger Status Change
@@ -2195,6 +2515,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - meterTriggerId
               - meterId
               - orgId
@@ -2202,6 +2523,12 @@ webhooks:
               - newState
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - METER_TRIGGER_STATE_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: METER_TRIGGER_STATE_CHANGE
                 meterTriggerId:
                   type: number
                   description: Global ID of the meter trigger
@@ -2245,9 +2572,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_ASSET:
     post:
       summary: New Asset
@@ -2261,14 +2585,27 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - assetId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_ASSET
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_ASSET
                 assetId:
                   type: number
                   description: Global ID of the Asset
                   example: 123456
+                assetExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the Asset
+                  example: ext-asset-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2341,9 +2678,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_CATEGORY_ON_WORK_ORDER:
     post:
       summary: New Category on Work Order
@@ -2357,11 +2691,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - newCategories
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_CATEGORY_ON_WORK_ORDER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_CATEGORY_ON_WORK_ORDER
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -2370,6 +2711,19 @@ webhooks:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
+                customerId:
+                  type:
+                  - number
+                  - 'null'
+                  description: Global ID of the customer linked to the work order. Null when none.
+                  example: 456
                 newCategories:
                   type: array
                   description: Newly added categories on the work order
@@ -2400,9 +2754,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_COMMENT_ON_WORK_ORDER:
     post:
       summary: New Comment on Work Order
@@ -2416,12 +2767,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - workOrderId
               - type
               - comment
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_COMMENT_ON_WORK_ORDER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_COMMENT_ON_WORK_ORDER
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2430,6 +2788,13 @@ webhooks:
                   type: number
                   description: Global ID of the work order
                   example: 123456
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
                 occurredAt:
                   type: string
                   format: date-time
@@ -2448,9 +2813,63 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
+  NEW_CUSTOMER:
+    post:
+      summary: New Customer
+      security: []
+      description: ''
+      tags:
+      - Subscriptions & Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - eventType
+              - customerId
+              - orgId
+              - occurredAt
+              - newCustomer
+              properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_CUSTOMER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_CUSTOMER
+                customerId:
+                  type: number
+                  description: Global ID of the Customer
+                  example: 123456
+                orgId:
+                  type: number
+                  description: Global ID of the organization
+                  example: 321
+                occurredAt:
+                  type: string
+                  format: date-time
+                  description: Date & time at which the trigger occurred
+                  example: '2022-01-01T00:00:00.000Z'
+                newCustomer:
+                  type: object
+                  description: Properties of the Customer
+                  required:
+                  - id
+                  - name
+                  properties:
+                    id:
+                      type: number
+                      description: Global ID of the customer
+                      example: 123456
+                    name:
+                      type: string
+                      description: Name of the customer
+                      example: Acme Manufacturing
+      operationId: NEW_CUSTOMER
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
   NEW_LOCATION:
     post:
       summary: New Location
@@ -2464,14 +2883,27 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - locationId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_LOCATION
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_LOCATION
                 locationId:
                   type: number
                   description: Global ID of the Location
                   example: 123456
+                locationExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the Location
+                  example: ext-location-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2485,9 +2917,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_PART:
     post:
       summary: New Part
@@ -2501,14 +2930,27 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - partId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_PART
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_PART
                 partId:
                   type: number
                   description: Global ID of the Part
                   example: 123456
+                partExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the Part
+                  example: ext-part-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -2652,9 +3094,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_PURCHASE_ORDER:
     post:
       summary: New Purchase Order
@@ -2668,10 +3107,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - purchaseOrderId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_PURCHASE_ORDER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_PURCHASE_ORDER
                 purchaseOrderId:
                   type: number
                   description: Global ID of the Purchase Order
@@ -3089,9 +3535,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_SLASH_COMMAND:
     post:
       summary: New Slash Command
@@ -3105,6 +3548,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - user
               - parent
               - command
@@ -3113,6 +3557,12 @@ webhooks:
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_SLASH_COMMAND
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_SLASH_COMMAND
                 user:
                   type: object
                   required:
@@ -3168,9 +3618,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_VENDOR:
     post:
       summary: New Vendor
@@ -3184,10 +3631,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - vendorId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_VENDOR
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_VENDOR
                 vendorId:
                   type: number
                   description: Global ID of the Vendor
@@ -3205,9 +3659,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_WORK_ORDER:
     post:
       summary: New Work Order
@@ -3221,23 +3672,47 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_WORK_ORDER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_WORK_ORDER
                 workOrderId:
                   type: number
                   description: Global ID of the Work Order
                   example: 123456
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the Work Order
+                  example: ext-workorder-001
                 orgId:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                customerId:
+                  type:
+                  - number
+                  - 'null'
+                  description: Global ID of the customer linked to the work order. Null when none.
+                  example: 456
                 occurredAt:
                   type: string
                   format: date-time
                   description: Date & time at which the trigger occurred
                   example: '2022-01-01T00:00:00.000Z'
+                userId:
+                  type: number
+                  description: Integer ID of the user whose action triggered this webhook. Present whenever a real user triggered the event. Absent for system-initiated events such as automations, scheduled runs, or other actions performed by the system — treat the absence of `userId` as a system-initiated signal.
+                  example: 789
                 newWorkOrder:
                   type: object
                   description: Properties of the updated work order
@@ -3356,7 +3831,7 @@ webhooks:
                       - string
                       - 'null'
                       format: date-time
-                      description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                      description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                       example: '2022-01-01T00:00:00.000Z'
                     teamIds:
                       type: array
@@ -3376,9 +3851,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   NEW_WORK_REQUEST:
     post:
       summary: New Request
@@ -3392,14 +3864,28 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workRequestId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - NEW_WORK_REQUEST
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: NEW_WORK_REQUEST
                 workRequestId:
                   type: number
                   description: Global ID of the Request
                   example: 123456
+                workRequestExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the Request
+                  example: ext-workrequest-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -3413,9 +3899,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PART_CHANGE:
     post:
       summary: Part Change
@@ -3429,14 +3912,27 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - partId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PART_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PART_CHANGE
                 partId:
                   type: number
                   description: Global ID of the part
                   example: 123456
+                partExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the part
+                  example: ext-part-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -3586,9 +4082,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PART_DELETE:
     post:
       summary: Part Delete
@@ -3602,14 +4095,27 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - partId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PART_DELETE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PART_DELETE
                 partId:
                   type: number
                   description: Global ID of the part
                   example: 123456
+                partExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the part
+                  example: ext-part-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -3759,9 +4265,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PART_QUANTITY_CHANGE:
     post:
       summary: Part Quantity Changed
@@ -3775,16 +4278,29 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - partId
               - orgId
               - quantityDiff
               - locations
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PART_QUANTITY_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PART_QUANTITY_CHANGE
                 partId:
                   type: number
                   description: Global ID of the part
                   example: 123456
+                partExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID of the part
+                  example: ext-part-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -3849,9 +4365,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PART_TRANSFER:
     post:
       summary: Part Transfer
@@ -3875,6 +4388,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - triggeredFrom
               - userId
               - quantity
@@ -3882,6 +4396,12 @@ webhooks:
               - destinationData
               - triggeredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PART_TRANSFER
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PART_TRANSFER
                 triggeredFrom:
                   type: string
                   description: Origin of the part transfer
@@ -3914,6 +4434,12 @@ webhooks:
                       type: number
                       description: Global ID of the part from the source organization
                       example: 123456
+                    partExternalId:
+                      type:
+                      - string
+                      - 'null'
+                      description: External ID of the part from the source organization
+                      example: ext-part-001
                     partUnitCost:
                       type: number
                       description: Unit cost of the part
@@ -3937,6 +4463,12 @@ webhooks:
                       type: number
                       description: Global ID of the part from the destination organization
                       example: 123456
+                    partExternalId:
+                      type:
+                      - string
+                      - 'null'
+                      description: External ID of the part from the destination organization
+                      example: ext-part-001
                     orgId:
                       type: number
                       description: Global ID of the organization that is receiving the part
@@ -3964,9 +4496,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PURCHASE_ORDER_CHANGE:
     post:
       summary: Purchase Order Change
@@ -3980,10 +4509,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - purchaseOrderId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PURCHASE_ORDER_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PURCHASE_ORDER_CHANGE
                 purchaseOrderId:
                   type: number
                   description: Global ID of the purchase order
@@ -3997,6 +4533,10 @@ webhooks:
                   format: date-time
                   description: Date & time at which the trigger occurred
                   example: '2022-01-01T00:00:00.000Z'
+                userId:
+                  type: number
+                  description: Integer ID of the user whose action triggered this webhook. Present whenever a real user triggered the event. Absent for system-initiated events such as automations, scheduled runs, or other actions performed by the system — treat the absence of `userId` as a system-initiated signal.
+                  example: 789
                 newPurchaseOrder:
                   type: object
                   description: Properties of the updated purchase order
@@ -4432,9 +4972,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   PURCHASE_ORDER_STATUS_CHANGE:
     post:
       summary: Purchase Order Status Change
@@ -4448,12 +4985,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - purchaseOrderId
               - orgId
               - oldStatus
               - newStatus
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - PURCHASE_ORDER_STATUS_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: PURCHASE_ORDER_STATUS_CHANGE
                 purchaseOrderId:
                   type: number
                   description: Global ID of the purchase order
@@ -4495,6 +5039,10 @@ webhooks:
                   format: date-time
                   description: Date & time at which the trigger occurred
                   example: '2022-01-01T00:00:00.000Z'
+                userId:
+                  type: number
+                  description: Integer ID of the user whose action triggered this webhook. Present whenever a real user triggered the event. Absent for system-initiated events such as automations, scheduled runs, or other actions performed by the system — treat the absence of `userId` as a system-initiated signal.
+                  example: 789
                 purchaseOrder:
                   type: object
                   required:
@@ -4835,9 +5383,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   ROLE_ARCHIVED:
     post:
       summary: Role Archived
@@ -4851,12 +5396,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - roleId
               - roleName
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - ROLE_ARCHIVED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: ROLE_ARCHIVED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -4881,9 +5433,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   ROLE_CREATED:
     post:
       summary: Role Created
@@ -4897,12 +5446,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - roleId
               - roleName
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - ROLE_CREATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: ROLE_CREATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -4927,9 +5483,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   ROLE_UPDATED:
     post:
       summary: Role Updated
@@ -4943,12 +5496,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - roleId
               - roleName
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - ROLE_UPDATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: ROLE_UPDATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -4973,9 +5533,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   SSO_CONFIG_CHANGED:
     post:
       summary: SSO Configuration Changed
@@ -4989,11 +5546,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - configType
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - SSO_CONFIG_CHANGED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: SSO_CONFIG_CHANGED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5022,9 +5586,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_ACTIVATED:
     post:
       summary: User Activated
@@ -5038,11 +5599,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_ACTIVATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_ACTIVATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5064,9 +5632,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_INVITED:
     post:
       summary: User Invited
@@ -5080,6 +5645,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
@@ -5087,6 +5653,12 @@ webhooks:
               - creationMethod
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_INVITED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_INVITED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5114,9 +5686,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_LOGIN_FAILURE:
     post:
       summary: User Login Failure
@@ -5130,11 +5699,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - method
               - reason
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_LOGIN_FAILURE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_LOGIN_FAILURE
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5184,9 +5760,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_LOGIN_SUCCESS:
     post:
       summary: User Login Success
@@ -5200,11 +5773,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - userId
               - method
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_LOGIN_SUCCESS
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_LOGIN_SUCCESS
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5255,9 +5835,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_LOGOUT:
     post:
       summary: User Logout
@@ -5271,10 +5848,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - userId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_LOGOUT
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_LOGOUT
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5308,9 +5892,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_PERMISSIONS_CHANGED:
     post:
       summary: User Permissions Changed
@@ -5324,11 +5905,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_PERMISSIONS_CHANGED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_PERMISSIONS_CHANGED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5350,9 +5938,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_REMOVED:
     post:
       summary: User Removed
@@ -5366,11 +5951,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_REMOVED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_REMOVED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5392,9 +5984,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_ROLE_CHANGED:
     post:
       summary: User Role Changed
@@ -5408,6 +5997,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
@@ -5415,6 +6005,12 @@ webhooks:
               - newRole
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_ROLE_CHANGED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_ROLE_CHANGED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5442,9 +6038,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   USER_SESSION_REVOKED:
     post:
       summary: User Session Revoked
@@ -5458,11 +6051,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - targetUserId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - USER_SESSION_REVOKED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: USER_SESSION_REVOKED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5484,9 +6084,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WEBHOOK_ARCHIVED:
     post:
       summary: Webhook Archived
@@ -5500,11 +6097,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - webhookId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WEBHOOK_ARCHIVED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WEBHOOK_ARCHIVED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5526,9 +6130,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WEBHOOK_CREATED:
     post:
       summary: Webhook Created
@@ -5542,6 +6143,7 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - orgId
               - actorId
               - webhookId
@@ -5549,6 +6151,12 @@ webhooks:
               - url
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WEBHOOK_CREATED
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WEBHOOK_CREATED
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -5576,14 +6184,11 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_ORDER_CHANGE:
     post:
       summary: Work Order Change
       security: []
-      description: 'The only properties triggering the webhook when changed, are the following: ASSET, ASSIGNEES, CATEGORIES, COSTS, DESCRIPTION, DUE_DATE, ESTIMATED_TIME, EXTRA_FIELDS, LOCATION, PARTS, PRIORITY, START_DATE, TEAMS, TITLE, VENDORS'
+      description: 'The only properties triggering the webhook when changed, are the following: ASSET, ASSIGNEES, CATEGORIES, COSTS, CUSTOMER, DESCRIPTION, DUE_DATE, ESTIMATED_TIME, EXTRA_FIELDS, LOCATION, PARTS, PRIORITY, START_DATE, TEAMS, TITLE, VENDORS'
       tags:
       - Subscriptions & Webhooks
       requestBody:
@@ -5592,10 +6197,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_ORDER_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_ORDER_CHANGE
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -5604,11 +6216,28 @@ webhooks:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
+                customerId:
+                  type:
+                  - number
+                  - 'null'
+                  description: Global ID of the customer linked to the work order. Null when none.
+                  example: 456
                 occurredAt:
                   type: string
                   format: date-time
                   description: Date & time at which the trigger occurred
                   example: '2022-01-01T00:00:00.000Z'
+                userId:
+                  type: number
+                  description: Integer ID of the user whose action triggered this webhook. Present whenever a real user triggered the event. Absent for system-initiated events such as automations, scheduled runs, or other actions performed by the system — treat the absence of `userId` as a system-initiated signal.
+                  example: 789
                 newWorkOrder:
                   type: object
                   description: Properties of the updated work order
@@ -5727,7 +6356,7 @@ webhooks:
                       - string
                       - 'null'
                       format: date-time
-                      description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                      description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                       example: '2022-01-01T00:00:00.000Z'
                     teamIds:
                       type: array
@@ -5793,6 +6422,12 @@ webhooks:
                                 - integer
                                 - 'null'
                                 description: ID of the part used in this cost entry
+                    customerId:
+                      type:
+                      - number
+                      - 'null'
+                      description: Global ID of the customer linked to the work order. Null when none.
+                      example: 456
                 addedAssigneeIds:
                   type: array
                   description: User IDs that were added as assignees in this change (only present when assignees changed)
@@ -5817,9 +6452,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_ORDER_DELETE:
     post:
       summary: Work Order Delete
@@ -5833,10 +6465,17 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_ORDER_DELETE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_ORDER_DELETE
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -5845,11 +6484,22 @@ webhooks:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
                 occurredAt:
                   type: string
                   format: date-time
                   description: Date & time at which the work was deleted
                   example: '2022-01-01T00:00:00.000Z'
+                userId:
+                  type: number
+                  description: Integer ID of the user whose action triggered this webhook. Present whenever a real user triggered the event. Absent for system-initiated events such as automations, scheduled runs, or other actions performed by the system — treat the absence of `userId` as a system-initiated signal.
+                  example: 789
                 WorkOrder:
                   type: object
                   description: Properties of the updated work order
@@ -5968,7 +6618,7 @@ webhooks:
                       - string
                       - 'null'
                       format: date-time
-                      description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                      description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                       example: '2022-01-01T00:00:00.000Z'
                     teamIds:
                       type: array
@@ -5988,9 +6638,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_ORDER_OVERDUE:
     post:
       summary: Work Order Overdue
@@ -6004,11 +6651,18 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - dueDate
               - occurredAt
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_ORDER_OVERDUE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_ORDER_OVERDUE
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -6031,9 +6685,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_ORDER_PART_STATUS_CHANGE:
     post:
       summary: Work Order Part Status Change
@@ -6047,12 +6698,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - occurredAt
               - oldPartStatus
               - newPartStatus
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_ORDER_PART_STATUS_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_ORDER_PART_STATUS_CHANGE
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -6061,6 +6719,13 @@ webhooks:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
                 oldPartStatus:
                   title: Part Status
                   type: string
@@ -6208,7 +6873,7 @@ webhooks:
                       - string
                       - 'null'
                       format: date-time
-                      description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                      description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                       example: '2022-01-01T00:00:00.000Z'
                     teamIds:
                       type: array
@@ -6228,9 +6893,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_ORDER_STATUS_CHANGE:
     post:
       summary: Work Order Status Change
@@ -6244,12 +6906,19 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - workOrderId
               - orgId
               - occurredAt
               - oldStatus
               - newStatus
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_ORDER_STATUS_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_ORDER_STATUS_CHANGE
                 workOrderId:
                   type: number
                   description: Global ID of the work order
@@ -6258,6 +6927,19 @@ webhooks:
                   type: number
                   description: Global ID of the organization
                   example: 321
+                workOrderExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work order
+                  example: ext-workorder-001
+                customerId:
+                  type:
+                  - number
+                  - 'null'
+                  description: Global ID of the customer linked to the work order. Null when none.
+                  example: 456
                 oldStatus:
                   title: Status
                   type: string
@@ -6436,7 +7118,7 @@ webhooks:
                       - string
                       - 'null'
                       format: date-time
-                      description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                      description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                       example: '2022-01-01T00:00:00.000Z'
                     teamIds:
                       type: array
@@ -6456,9 +7138,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
   WORK_REQUEST_STATUS_CHANGE:
     post:
       summary: Work Request Status Change
@@ -6472,16 +7151,30 @@ webhooks:
             schema:
               type: object
               required:
+              - eventType
               - requestId
               - orgId
               - occurredAt
               - oldStatus
               - newStatus
               properties:
+                eventType:
+                  type: string
+                  enum:
+                  - WORK_REQUEST_STATUS_CHANGE
+                  description: Discriminates which event produced this payload. Matches the webhook subscription's type.
+                  example: WORK_REQUEST_STATUS_CHANGE
                 requestId:
                   type: number
                   description: Global ID of the work request
                   example: 123456
+                workRequestExternalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID of the work request
+                  example: ext-workrequest-001
                 orgId:
                   type: number
                   description: Global ID of the organization
@@ -6512,9 +7205,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully
-    servers:
-    - url: https://api.getmaintainx.com/v1
-      description: Endpoint
 components:
   responses:
     UnauthorizedError:
@@ -6525,6 +7215,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-x-refined-from:
-- maintainx-openapi-original.json
-- maintainx-subscriptions-webhooks-api-openapi.yml

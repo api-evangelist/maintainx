@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Assets API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -199,6 +224,12 @@ paths:
                       format: date-time
                       description: Date & time at which the asset depreciation was archived.
                       example: '2022-01-01T00:00:00.000Z'
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this asset, unique per organization.
+                  example: ext-asset-001
                 manufacturer:
                   type:
                   - object
@@ -281,6 +312,27 @@ paths:
                           - type: boolean
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict with existing asset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Assets
       parameters:
@@ -423,6 +475,8 @@ paths:
                 type: object
                 required:
                 - assets
+                - nextCursor
+                - nextPageUrl
                 properties:
                   assets:
                     type: array
@@ -496,6 +550,12 @@ paths:
                           type: integer
                           example: 1
                           description: ID of the organization that owns this resource
+                        externalId:
+                          type:
+                          - string
+                          - 'null'
+                          description: External ID for this asset, unique per organization.
+                          example: ext-asset-001
                         barcode:
                           type: string
                           example: BWFPBNRHAW54CG
@@ -741,6 +801,1537 @@ paths:
       tags:
       - Assets
       operationId: getAssets
+      x-operation-id-source: derived
+  /assets/external/{externalId}:
+    get:
+      summary: Get asset by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the asset
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved asset
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - asset
+                properties:
+                  asset:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the asset
+                      name:
+                        type: string
+                        example: Forklift
+                      globalUuid:
+                        type:
+                        - string
+                        - 'null'
+                        description: Global unique identifier of the asset used to identify assets as they are being transferred
+                        example: e2eb31cb-dd28-495a-92dd-6a435514f5ae
+                      currentOwnerId:
+                        type: number
+                        description: Organization id that currently has the active version of this asset
+                        example: 1
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: Forklift that is used to to move heavy equipments around the warehouse
+                      criticalityId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 150
+                        description: ID of the criticality of the asset
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        description: List of teams responsible for the asset
+                        example:
+                        - 123
+                        - 456
+                      assetTypes:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - manual
+                        - tool
+                        description: List of asset types
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent asset
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 321
+                        - 987
+                        description: IDs of the asset's children
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the location where the asset is located
+                      serialNumber:
+                        type:
+                        - string
+                        - 'null'
+                        description: Serial number of the asset
+                        example: 000123ABC
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the asset
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "My Custom Field")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          My Custom Field: '000000000'
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 1
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the asset was deleted
+                        format: date-time
+                      creatorId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 851
+                        description: ID of the asset creator
+                      depreciation:
+                        type:
+                        - object
+                        - 'null'
+                        description: Depreciation information of the asset
+                        properties:
+                          id:
+                            type: number
+                            example: 42
+                            description: Global ID of the asset depreciation.
+                          accumulatedDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Accumulated depreciation of the asset.
+                            format: decimal
+                            example: '5000.00'
+                          annualDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Annual depreciation of the asset.
+                            format: decimal
+                            example: '1000.00'
+                          depreciationStartDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date at which the asset depreciation started.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          currentBookValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Current book value of the asset.
+                            format: decimal
+                            example: '7500.00'
+                          purchasePrice:
+                            type:
+                            - number
+                            - 'null'
+                            description: Purchase price of the asset.
+                            format: decimal
+                            example: '12500.00'
+                          purchaseDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset was purchased.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          salvageValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Salvage value of the asset.
+                            format: decimal
+                            example: '2500.00'
+                          usefulLifeYears:
+                            type:
+                            - number
+                            - 'null'
+                            description: Useful life of the asset in years.
+                            format: decimal
+                            example: 10
+                          yearsDepreciated:
+                            type:
+                            - number
+                            - 'null'
+                            description: Years depreciated of the asset.
+                            format: decimal
+                            example: 5
+                          createdAt:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset depreciation was created.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          archivedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the asset depreciation was archived.
+                            example: '2022-01-01T00:00:00.000Z'
+                      manufacturer:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the manufacturer of the asset
+                        example: Manufacturer
+                      model:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the model of the asset
+                        example: Model
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this asset, unique per organization.
+                        example: ext-asset-001
+                      status:
+                        type:
+                        - object
+                        - 'null'
+                        description: Status information of the asset
+                        properties:
+                          id:
+                            type: number
+                            example: 42
+                            description: Global ID of the asset status.
+                          status:
+                            type: string
+                            example: OFFLINE
+                            description: Asset status value.
+                            enum:
+                            - IGNORE
+                            - OFFLINE
+                            - ONLINE
+                          downtimeType:
+                            type:
+                            - string
+                            - 'null'
+                            example: PLANNED
+                            enum:
+                            - PLANNED
+                            - UNPLANNED
+                          startedAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            description: Asset status effective start date.
+                          endedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            description: Asset status effective end date.
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Overheated - needs servicing.
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was created.
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was last updated.
+                          deletedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            example: '2022-01-01T12:34:56.123Z'
+                            readOnly: true
+                            description: Date & time at which the asset status was deleted.
+                          customStatus:
+                            type:
+                            - object
+                            - 'null'
+                            required:
+                            - label
+                            properties:
+                              id:
+                                type: number
+                                example: Global ID of the custom asset status.
+                              label:
+                                type: string
+                                example: Decommissioned
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the asset custom status was created.
+                                example: '2022-01-01T12:34:56.123Z'
+                              updatedAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the asset custom status was last updated.
+                                example: '2022-01-01T12:34:56.123Z'
+                              deletedAt:
+                                type:
+                                - string
+                                - 'null'
+                                description: Date at which the asset custom status was deleted.
+                                format: date-time
+                                example: '2022-01-01T12:34:56.123Z'
+                              downtimeType:
+                                type:
+                                - string
+                                - 'null'
+                                example: null
+                                enum:
+                                - PLANNED
+                                - UNPLANNED
+                                deprecated: true
+                                description: Downtime type on asset custom statuses will always return null. Use downtime type on asset status instead.
+                            description: Custom status assigned to asset.
+                          customStatusId:
+                            type:
+                            - number
+                            - 'null'
+                            deprecated: true
+                            description: Please use customStatus instead.
+                            example: 53
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified asset.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: asset Not Found
+      tags:
+      - Assets
+      operationId: getAssetsExternalByExternalId
+      x-operation-id-source: derived
+    patch:
+      summary: Create or update asset by external ID
+      description: Idempotent upsert keyed on the external ID in the path. If an asset has this external ID, it will be updated (and undeleted, if the asset was previously deleted). Otherwise, a new asset will be created with this external ID.
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the asset
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Asset to create or update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Forklift
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: Forklift that is used to to move heavy equipments around the warehouse
+                barcode:
+                  type:
+                  - string
+                  - 'null'
+                  example: BWFPBNRHAW54CG
+                  description: String encoded barcode
+                criticalityId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 150
+                  description: ID of the criticality of the asset
+                parentId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the parent asset
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the location where the asset is located
+                teamIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: List of teams responsible for the asset
+                  example:
+                  - 123
+                  - 456
+                assetTypes:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - manual
+                  - tool
+                  description: List of asset types
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "My Custom Field")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    My Custom Field: '000000000'
+                vendorIds:
+                  type: array
+                  description: Vendor IDs
+                  items:
+                    type: number
+                    example: 1
+                serialNumber:
+                  type:
+                  - string
+                  - 'null'
+                  description: Serial number of the asset
+                  example: 000123ABC
+                depreciation:
+                  type:
+                  - object
+                  - 'null'
+                  description: Depreciation information of the asset
+                  properties:
+                    id:
+                      type: number
+                      example: 42
+                      description: Global ID of the asset depreciation.
+                    accumulatedDepreciation:
+                      type:
+                      - number
+                      - 'null'
+                      description: Accumulated depreciation of the asset.
+                      format: decimal
+                      example: '5000.00'
+                    annualDepreciation:
+                      type:
+                      - number
+                      - 'null'
+                      description: Annual depreciation of the asset.
+                      format: decimal
+                      example: '1000.00'
+                    depreciationStartDate:
+                      type:
+                      - string
+                      - 'null'
+                      description: Date at which the asset depreciation started.
+                      format: date-time
+                      example: '2022-01-01T00:00:00.000Z'
+                    currentBookValue:
+                      type:
+                      - number
+                      - 'null'
+                      description: Current book value of the asset.
+                      format: decimal
+                      example: '7500.00'
+                    purchasePrice:
+                      type:
+                      - number
+                      - 'null'
+                      description: Purchase price of the asset.
+                      format: decimal
+                      example: '12500.00'
+                    purchaseDate:
+                      type:
+                      - string
+                      - 'null'
+                      description: Date & time at which the asset was purchased.
+                      format: date-time
+                      example: '2022-01-01T00:00:00.000Z'
+                    salvageValue:
+                      type:
+                      - number
+                      - 'null'
+                      description: Salvage value of the asset.
+                      format: decimal
+                      example: '2500.00'
+                    usefulLifeYears:
+                      type:
+                      - number
+                      - 'null'
+                      description: Useful life of the asset in years.
+                      format: decimal
+                      example: 10
+                    yearsDepreciated:
+                      type:
+                      - number
+                      - 'null'
+                      description: Years depreciated of the asset.
+                      format: decimal
+                      example: 5
+                    createdAt:
+                      type:
+                      - string
+                      - 'null'
+                      description: Date & time at which the asset depreciation was created.
+                      format: date-time
+                      example: '2022-01-01T00:00:00.000Z'
+                    archivedAt:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                      description: Date & time at which the asset depreciation was archived.
+                      example: '2022-01-01T00:00:00.000Z'
+                manufacturer:
+                  type:
+                  - object
+                  - 'null'
+                  description: Manufacturer information for the asset. Set to null to clear manufacturer and model.
+                  properties:
+                    id:
+                      type:
+                      - integer
+                      - 'null'
+                      description: ID of an existing manufacturer. If provided, the manufacturer must be either global or belong to your organization. If not provided, the manufacturer will be looked up by name.
+                      example: 123
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                      description: Name of the manufacturer. Required if id is not provided. When searching by name, the manufacturer must be either global or belong to your organization.
+                      example: ACME Corporation
+                model:
+                  type:
+                  - object
+                  - 'null'
+                  description: Model information for the asset. Set to null to clear model.
+                  properties:
+                    id:
+                      type:
+                      - integer
+                      - 'null'
+                      description: ID of an existing model. If provided, the model must be linked to the specified manufacturer and be either global or belong to your organization. If not provided, the model will be looked up by name.
+                      example: 456
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                      description: Name of the model. Required if id is not provided. When searching by name, the model must be linked to the specified manufacturer and be either global or belong to your organization.
+                      example: X-2000
+      responses:
+        '200':
+          description: Successfully updated asset
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - asset
+                properties:
+                  asset:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the asset
+                      name:
+                        type: string
+                        example: Forklift
+                      globalUuid:
+                        type:
+                        - string
+                        - 'null'
+                        description: Global unique identifier of the asset used to identify assets as they are being transferred
+                        example: e2eb31cb-dd28-495a-92dd-6a435514f5ae
+                      currentOwnerId:
+                        type: number
+                        description: Organization id that currently has the active version of this asset
+                        example: 1
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: Forklift that is used to to move heavy equipments around the warehouse
+                      criticalityId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 150
+                        description: ID of the criticality of the asset
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        description: List of teams responsible for the asset
+                        example:
+                        - 123
+                        - 456
+                      assetTypes:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - manual
+                        - tool
+                        description: List of asset types
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent asset
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 321
+                        - 987
+                        description: IDs of the asset's children
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the location where the asset is located
+                      serialNumber:
+                        type:
+                        - string
+                        - 'null'
+                        description: Serial number of the asset
+                        example: 000123ABC
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the asset
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "My Custom Field")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          My Custom Field: '000000000'
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 1
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the asset was deleted
+                        format: date-time
+                      creatorId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 851
+                        description: ID of the asset creator
+                      depreciation:
+                        type:
+                        - object
+                        - 'null'
+                        description: Depreciation information of the asset
+                        properties:
+                          id:
+                            type: number
+                            example: 42
+                            description: Global ID of the asset depreciation.
+                          accumulatedDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Accumulated depreciation of the asset.
+                            format: decimal
+                            example: '5000.00'
+                          annualDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Annual depreciation of the asset.
+                            format: decimal
+                            example: '1000.00'
+                          depreciationStartDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date at which the asset depreciation started.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          currentBookValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Current book value of the asset.
+                            format: decimal
+                            example: '7500.00'
+                          purchasePrice:
+                            type:
+                            - number
+                            - 'null'
+                            description: Purchase price of the asset.
+                            format: decimal
+                            example: '12500.00'
+                          purchaseDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset was purchased.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          salvageValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Salvage value of the asset.
+                            format: decimal
+                            example: '2500.00'
+                          usefulLifeYears:
+                            type:
+                            - number
+                            - 'null'
+                            description: Useful life of the asset in years.
+                            format: decimal
+                            example: 10
+                          yearsDepreciated:
+                            type:
+                            - number
+                            - 'null'
+                            description: Years depreciated of the asset.
+                            format: decimal
+                            example: 5
+                          createdAt:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset depreciation was created.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          archivedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the asset depreciation was archived.
+                            example: '2022-01-01T00:00:00.000Z'
+                      manufacturer:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the manufacturer of the asset
+                        example: Manufacturer
+                      model:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the model of the asset
+                        example: Model
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this asset, unique per organization.
+                        example: ext-asset-001
+        '201':
+          description: Successfully created asset
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - asset
+                properties:
+                  asset:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the asset
+                      name:
+                        type: string
+                        example: Forklift
+                      globalUuid:
+                        type:
+                        - string
+                        - 'null'
+                        description: Global unique identifier of the asset used to identify assets as they are being transferred
+                        example: e2eb31cb-dd28-495a-92dd-6a435514f5ae
+                      currentOwnerId:
+                        type: number
+                        description: Organization id that currently has the active version of this asset
+                        example: 1
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: Forklift that is used to to move heavy equipments around the warehouse
+                      criticalityId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 150
+                        description: ID of the criticality of the asset
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        description: List of teams responsible for the asset
+                        example:
+                        - 123
+                        - 456
+                      assetTypes:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - manual
+                        - tool
+                        description: List of asset types
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent asset
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 321
+                        - 987
+                        description: IDs of the asset's children
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the location where the asset is located
+                      serialNumber:
+                        type:
+                        - string
+                        - 'null'
+                        description: Serial number of the asset
+                        example: 000123ABC
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the asset
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "My Custom Field")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          My Custom Field: '000000000'
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 1
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the asset was deleted
+                        format: date-time
+                      creatorId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 851
+                        description: ID of the asset creator
+                      depreciation:
+                        type:
+                        - object
+                        - 'null'
+                        description: Depreciation information of the asset
+                        properties:
+                          id:
+                            type: number
+                            example: 42
+                            description: Global ID of the asset depreciation.
+                          accumulatedDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Accumulated depreciation of the asset.
+                            format: decimal
+                            example: '5000.00'
+                          annualDepreciation:
+                            type:
+                            - number
+                            - 'null'
+                            description: Annual depreciation of the asset.
+                            format: decimal
+                            example: '1000.00'
+                          depreciationStartDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date at which the asset depreciation started.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          currentBookValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Current book value of the asset.
+                            format: decimal
+                            example: '7500.00'
+                          purchasePrice:
+                            type:
+                            - number
+                            - 'null'
+                            description: Purchase price of the asset.
+                            format: decimal
+                            example: '12500.00'
+                          purchaseDate:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset was purchased.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          salvageValue:
+                            type:
+                            - number
+                            - 'null'
+                            description: Salvage value of the asset.
+                            format: decimal
+                            example: '2500.00'
+                          usefulLifeYears:
+                            type:
+                            - number
+                            - 'null'
+                            description: Useful life of the asset in years.
+                            format: decimal
+                            example: 10
+                          yearsDepreciated:
+                            type:
+                            - number
+                            - 'null'
+                            description: Years depreciated of the asset.
+                            format: decimal
+                            example: 5
+                          createdAt:
+                            type:
+                            - string
+                            - 'null'
+                            description: Date & time at which the asset depreciation was created.
+                            format: date-time
+                            example: '2022-01-01T00:00:00.000Z'
+                          archivedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the asset depreciation was archived.
+                            example: '2022-01-01T00:00:00.000Z'
+                      manufacturer:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the manufacturer of the asset
+                        example: Manufacturer
+                      model:
+                        type:
+                        - string
+                        - 'null'
+                        description: Name of the model of the asset
+                        example: Model
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this asset, unique per organization.
+                        example: ext-asset-001
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified asset.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: asset Not Found
+        '409':
+          description: Conflict with existing asset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
+      tags:
+      - Assets
+      operationId: patchAssetsExternalByExternalId
+      x-operation-id-source: derived
+    delete:
+      summary: Delete asset by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the asset
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '204':
+          description: Successfully deleted the asset
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified asset.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: asset Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Assets
+      operationId: deleteAssetsExternalByExternalId
       x-operation-id-source: derived
   /assets/{id}:
     get:
@@ -1073,6 +2664,12 @@ paths:
                         - 'null'
                         description: Name of the model of the asset
                         example: Model
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this asset, unique per organization.
+                        example: ext-asset-001
                       status:
                         type:
                         - object
@@ -1392,6 +2989,12 @@ paths:
                       format: date-time
                       description: Date & time at which the asset depreciation was archived.
                       example: '2022-01-01T00:00:00.000Z'
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this asset, unique per organization.
+                  example: ext-asset-001
                 manufacturer:
                   type:
                   - object
@@ -1748,6 +3351,12 @@ paths:
                         - 'null'
                         description: Name of the model of the asset
                         example: Model
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this asset, unique per organization.
+                        example: ext-asset-001
         '400':
           description: Failed to edit the asset
           content:
@@ -1792,6 +3401,27 @@ paths:
                   error:
                     type: string
                     example: asset Not Found
+        '409':
+          description: Conflict with existing asset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Assets
       operationId: patchAssetsById

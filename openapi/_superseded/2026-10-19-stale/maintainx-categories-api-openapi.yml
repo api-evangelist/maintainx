@@ -1,0 +1,454 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Categories API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Categories
+  description: Operations on Categories
+  x-traitTag: false
+paths:
+  /categories:
+    post:
+      summary: Create new category
+      requestBody:
+        description: Category to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - label
+              properties:
+                label:
+                  type: string
+                  example: Safety
+                  description: Label used when displaying the category.
+                description:
+                  type: string
+                  example: Used for everything related to Safety
+                  description: Description field for additional information.
+      responses:
+        '201':
+          description: Successfully created category
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 963
+                    description: Global ID of the category.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Categories
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postCategories
+      x-operation-id-source: derived
+    get:
+      summary: List categories
+      description: Endpoint used to list category resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Categories returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Categories list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - categories
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - label
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the category.
+                        label:
+                          type: string
+                          example: Safety
+                          description: Label used when displaying the category.
+                        description:
+                          type: string
+                          example: Used for everything related to Safety
+                          description: Description field for additional information.
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Categories.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Categories.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Categories
+      operationId: getCategories
+      x-operation-id-source: derived
+  /categories/{id}:
+    get:
+      summary: Get category
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the category
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved category's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - category
+                properties:
+                  category:
+                    type: object
+                    required:
+                    - id
+                    - label
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the category.
+                      label:
+                        type: string
+                        example: Safety
+                        description: Label used when displaying the category.
+                      description:
+                        type: string
+                        example: Used for everything related to Safety
+                        description: Description field for additional information.
+                      workOrderCount:
+                        type: integer
+                        example: 3
+                        description: The amount of work order using that category in your organization.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the category was last updated.
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified category or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Categories
+      operationId: getCategoriesById
+      x-operation-id-source: derived
+    patch:
+      summary: Update category
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the category
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Category to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: string
+                  example: Safety
+                  description: Label used when displaying the category.
+                description:
+                  type: string
+                  example: Used for everything related to Safety
+                  description: Description field for additional information.
+      responses:
+        '200':
+          description: Successfully edited category
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - category
+                properties:
+                  category:
+                    type: object
+                    required:
+                    - label
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the category.
+                      label:
+                        type: string
+                        example: Safety
+                        description: Label used when displaying the category.
+                      description:
+                        type: string
+                        example: Used for everything related to Safety
+                        description: Description field for additional information.
+                      workOrderCount:
+                        type: integer
+                        example: 3
+                        description: The amount of work order using that category in your organization.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the category was last updated.
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: Failed to edit the category
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: parentId is not valid
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified category.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: category Not Found
+      tags:
+      - Categories
+      operationId: patchCategoriesById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete category
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the category
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the category
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified category.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: category Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Categories
+      operationId: deleteCategoriesById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Organizations API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Organizations
+  description: Operations on Organizations
+  x-traitTag: false
+paths:
+  /organizations:
+    get:
+      summary: List organizations
+      description: Endpoint used to list organization resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Organizations returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      responses:
+        '200':
+          description: Successfully fetched Organizations list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - organizations
+                properties:
+                  organizations:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      properties:
+                        id:
+                          type: integer
+                          example: 15
+                          description: Global ID of the organization
+                        name:
+                          type: string
+                          example: My Organization
+                          description: Name of the organization
+                        timeZone:
+                          type: string
+                          description: 'Time zone of the organization. default: Etc/UTC'
+                          example: America/New_York
+                        imageUrl:
+                          type:
+                          - string
+                          - 'null'
+                          description: URL of the organization image
+                          example: https://example.com/image.png
+                        currency:
+                          type:
+                          - string
+                          - 'null'
+                          description: Currency of the organization
+                          example: USD
+                        dateFormatLocale:
+                          type:
+                          - string
+                          - 'null'
+                          description: Date format locale of the organization
+                          example: en-CA
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Organizations.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Organizations.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Organizations
+      operationId: getOrganizations
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

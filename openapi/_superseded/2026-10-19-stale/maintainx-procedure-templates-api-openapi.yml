@@ -1,0 +1,1028 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Procedure Templates API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Procedure Templates
+  description: Operations on Procedure Templates
+  x-traitTag: false
+paths:
+  /proceduretemplates:
+    post:
+      summary: Create procedure template
+      requestBody:
+        description: The procedure template to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The procedure template data
+              required:
+              - title
+              - fields
+              properties:
+                title:
+                  type: string
+                  example: Ladder Inspection Checklist
+                fields:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - type
+                    - label
+                    properties:
+                      label:
+                        type: string
+                        example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                      type:
+                        type: string
+                        example: INSPECTION_CHECK
+                        enum:
+                        - NUMBER
+                        - AMOUNT
+                        - TEXT
+                        - UNSUPPORTED
+                        - HEADING
+                        - FILE
+                        - SIGNATURE
+                        - MULTIPLE_CHOICE
+                        - INSPECTION_CHECK
+                        - YES_NO_NA
+                        - CHECKBOX
+                        - CHECKLIST
+                        - METER
+                        - DATE
+                        - CYCLE_COUNT
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      choices:
+                        type: array
+                        items:
+                          example: Partially
+                          type: string
+                      urls:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - link
+                          properties:
+                            label:
+                              type: string
+                              description: Label of the url
+                              example: MaintainX Website
+                            link:
+                              type: string
+                              description: Link
+                              example: www.getmaintainx.com
+                      meterId:
+                        type:
+                        - number
+                        - 'null'
+                        example: 1
+                        description: Id of the meter
+                      isDateAndTime:
+                        type: boolean
+                        default: false
+                        description: Indicate if a DATE field also contains the time
+                        example: false
+                      index:
+                        type: number
+                        example: 1
+                        description: Order which the row is displayed
+      responses:
+        '201':
+          description: Successfully created the custom fields
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - fields
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                    description: Id of the procedure template
+                  fields:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - label
+                      - type
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        label:
+                          type: string
+                          example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                        type:
+                          type: string
+                          example: INSPECTION_CHECK
+                          enum:
+                          - NUMBER
+                          - AMOUNT
+                          - TEXT
+                          - UNSUPPORTED
+                          - HEADING
+                          - FILE
+                          - SIGNATURE
+                          - MULTIPLE_CHOICE
+                          - INSPECTION_CHECK
+                          - YES_NO_NA
+                          - CHECKBOX
+                          - CHECKLIST
+                          - METER
+                          - DATE
+                          - CYCLE_COUNT
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                        choices:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            example: Partially
+                            type: string
+                        meterId:
+                          type:
+                          - number
+                          - 'null'
+                          items:
+                            example: 1
+                            type: number
+                        isDateAndTime:
+                          type:
+                          - boolean
+                          - 'null'
+                          description: Indicate if a DATE field also contains the time
+                          example: false
+                        attachmentId:
+                          type:
+                          - number
+                          - 'null'
+                          example: 1
+                        attachments:
+                          type: array
+                          title: attachment
+                          description: List of attachments linked to the procedure row
+                          items:
+                            type: object
+                            title: attachment
+                            required:
+                            - id
+                            - mimeType
+                            - fileName
+                            - url
+                            - createdAt
+                            properties:
+                              id:
+                                type: number
+                                description: Global ID of the attachment
+                                example: 12345
+                              mimeType:
+                                type: string
+                                description: MIME type of the file
+                                example: image/png
+                              fileName:
+                                type: string
+                                description: Attachment's file name
+                                example: image.png
+                              url:
+                                type: string
+                                description: Url of the file. Valid for 60 minutes.
+                                example: http://example.com/image.png
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the attachment was uploaded
+                                example: '2022-01-01T00:00:00.000Z'
+                              width:
+                                type:
+                                - number
+                                - 'null'
+                                description: Width if the file is an image
+                                example: 220
+                              height:
+                                type:
+                                - number
+                                - 'null'
+                                description: Height if the file is an image
+                                example: 100
+                        urls:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - link
+                            properties:
+                              label:
+                                type: string
+                                description: Label of the url
+                                example: MaintainX Website
+                              link:
+                                type: string
+                                description: Link
+                                example: www.getmaintainx.com
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Procedure Templates
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postProceduretemplates
+      x-operation-id-source: derived
+    get:
+      summary: List procedure templates
+      description: Endpoint used to list procedure template resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Procedure Templates returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          type: array
+          items:
+            type: string
+            enum:
+            - rows
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Procedure Templates list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - procedureTemplates
+                properties:
+                  procedureTemplates:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - title
+                      properties:
+                        id:
+                          type: number
+                          description: Global ID of the procedure template
+                        title:
+                          type: string
+                          description: Title of the procedure template
+                        rows:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - label
+                            - type
+                            properties:
+                              id:
+                                type: number
+                                example: 1
+                              label:
+                                type: string
+                                example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                              type:
+                                type: string
+                                example: INSPECTION_CHECK
+                                enum:
+                                - NUMBER
+                                - AMOUNT
+                                - TEXT
+                                - UNSUPPORTED
+                                - HEADING
+                                - FILE
+                                - SIGNATURE
+                                - MULTIPLE_CHOICE
+                                - INSPECTION_CHECK
+                                - YES_NO_NA
+                                - CHECKBOX
+                                - CHECKLIST
+                                - METER
+                                - DATE
+                                - CYCLE_COUNT
+                              description:
+                                type:
+                                - string
+                                - 'null'
+                              choices:
+                                type:
+                                - array
+                                - 'null'
+                                items:
+                                  example: Partially
+                                  type: string
+                              meterId:
+                                type:
+                                - number
+                                - 'null'
+                                items:
+                                  example: 1
+                                  type: number
+                              isDateAndTime:
+                                type:
+                                - boolean
+                                - 'null'
+                                description: Indicate if a DATE field also contains the time
+                                example: false
+                              attachmentId:
+                                type:
+                                - number
+                                - 'null'
+                                example: 1
+                              attachments:
+                                type: array
+                                title: attachment
+                                description: List of attachments linked to the procedure row
+                                items:
+                                  type: object
+                                  title: attachment
+                                  required:
+                                  - id
+                                  - mimeType
+                                  - fileName
+                                  - url
+                                  - createdAt
+                                  properties:
+                                    id:
+                                      type: number
+                                      description: Global ID of the attachment
+                                      example: 12345
+                                    mimeType:
+                                      type: string
+                                      description: MIME type of the file
+                                      example: image/png
+                                    fileName:
+                                      type: string
+                                      description: Attachment's file name
+                                      example: image.png
+                                    url:
+                                      type: string
+                                      description: Url of the file. Valid for 60 minutes.
+                                      example: http://example.com/image.png
+                                    createdAt:
+                                      type: string
+                                      format: date-time
+                                      description: Date & time at which the attachment was uploaded
+                                      example: '2022-01-01T00:00:00.000Z'
+                                    width:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      description: Width if the file is an image
+                                      example: 220
+                                    height:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      description: Height if the file is an image
+                                      example: 100
+                              urls:
+                                type: array
+                                items:
+                                  type: object
+                                  required:
+                                  - link
+                                  properties:
+                                    label:
+                                      type: string
+                                      description: Label of the url
+                                      example: MaintainX Website
+                                    link:
+                                      type: string
+                                      description: Link
+                                      example: www.getmaintainx.com
+                          description: (expand with query parameter)
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Procedure Templates.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Procedure Templates.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Procedure Templates
+      operationId: getProceduretemplates
+      x-operation-id-source: derived
+  /proceduretemplates/{id}:
+    get:
+      summary: Get procedure template
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the procedureTemplate
+        example: '1'
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          type: array
+          items:
+            type: string
+            enum:
+            - rows
+      responses:
+        '200':
+          description: Successfully retrieved procedureTemplate's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - procedureTemplate
+                properties:
+                  procedureTemplate:
+                    type: object
+                    required:
+                    - id
+                    - title
+                    - createdAt
+                    - deletedAt
+                    - updatedAt
+                    properties:
+                      id:
+                        type: number
+                        description: Global ID of the procedure template
+                      title:
+                        type: string
+                        description: Title of the procedure template
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the procedure template was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date & time at which the procedure template was deleted
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the procedure template was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+                      rows:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - label
+                          - type
+                          properties:
+                            id:
+                              type: number
+                              example: 1
+                            label:
+                              type: string
+                              example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                            type:
+                              type: string
+                              example: INSPECTION_CHECK
+                              enum:
+                              - NUMBER
+                              - AMOUNT
+                              - TEXT
+                              - UNSUPPORTED
+                              - HEADING
+                              - FILE
+                              - SIGNATURE
+                              - MULTIPLE_CHOICE
+                              - INSPECTION_CHECK
+                              - YES_NO_NA
+                              - CHECKBOX
+                              - CHECKLIST
+                              - METER
+                              - DATE
+                              - CYCLE_COUNT
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            choices:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                example: Partially
+                                type: string
+                            meterId:
+                              type:
+                              - number
+                              - 'null'
+                              items:
+                                example: 1
+                                type: number
+                            isDateAndTime:
+                              type:
+                              - boolean
+                              - 'null'
+                              description: Indicate if a DATE field also contains the time
+                              example: false
+                            attachmentId:
+                              type:
+                              - number
+                              - 'null'
+                              example: 1
+                            attachments:
+                              type: array
+                              title: attachment
+                              description: List of attachments linked to the procedure row
+                              items:
+                                type: object
+                                title: attachment
+                                required:
+                                - id
+                                - mimeType
+                                - fileName
+                                - url
+                                - createdAt
+                                properties:
+                                  id:
+                                    type: number
+                                    description: Global ID of the attachment
+                                    example: 12345
+                                  mimeType:
+                                    type: string
+                                    description: MIME type of the file
+                                    example: image/png
+                                  fileName:
+                                    type: string
+                                    description: Attachment's file name
+                                    example: image.png
+                                  url:
+                                    type: string
+                                    description: Url of the file. Valid for 60 minutes.
+                                    example: http://example.com/image.png
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                    description: Date & time at which the attachment was uploaded
+                                    example: '2022-01-01T00:00:00.000Z'
+                                  width:
+                                    type:
+                                    - number
+                                    - 'null'
+                                    description: Width if the file is an image
+                                    example: 220
+                                  height:
+                                    type:
+                                    - number
+                                    - 'null'
+                                    description: Height if the file is an image
+                                    example: 100
+                            urls:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - link
+                                properties:
+                                  label:
+                                    type: string
+                                    description: Label of the url
+                                    example: MaintainX Website
+                                  link:
+                                    type: string
+                                    description: Link
+                                    example: www.getmaintainx.com
+                        description: (expand with query parameter)
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified procedureTemplate or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Procedure Templates
+      operationId: getProceduretemplatesById
+      x-operation-id-source: derived
+    patch:
+      summary: Update Procedure Template
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the procedure template
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Procedure Template to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the procedure template
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  description: Description of the procedure template
+                fields:
+                  type: array
+                  items:
+                    type: object
+                    anyOf:
+                    - type: object
+                      required:
+                      - type
+                      - label
+                      properties:
+                        label:
+                          type: string
+                          example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                        type:
+                          type: string
+                          example: INSPECTION_CHECK
+                          enum:
+                          - NUMBER
+                          - AMOUNT
+                          - TEXT
+                          - UNSUPPORTED
+                          - HEADING
+                          - FILE
+                          - SIGNATURE
+                          - MULTIPLE_CHOICE
+                          - INSPECTION_CHECK
+                          - YES_NO_NA
+                          - CHECKBOX
+                          - CHECKLIST
+                          - METER
+                          - DATE
+                          - CYCLE_COUNT
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                        choices:
+                          type: array
+                          items:
+                            example: Partially
+                            type: string
+                        urls:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - link
+                            properties:
+                              label:
+                                type: string
+                                description: Label of the url
+                                example: MaintainX Website
+                              link:
+                                type: string
+                                description: Link
+                                example: www.getmaintainx.com
+                        meterId:
+                          type:
+                          - number
+                          - 'null'
+                          example: 1
+                          description: Id of the meter
+                        isDateAndTime:
+                          type: boolean
+                          default: false
+                          description: Indicate if a DATE field also contains the time
+                          example: false
+                        index:
+                          type: number
+                          example: 1
+                          description: Order which the row is displayed
+                      description: Adds a new row to the template
+                    - type: object
+                      description: Modify existing rows of the template
+                      required:
+                      - id
+                      properties:
+                        id:
+                          type: number
+                          description: Id of an existing row
+                          example: 1
+                        label:
+                          type: string
+                          example: 'Metal Parts: broken, loose, dented, rusty, missing'
+                        type:
+                          type: string
+                          example: INSPECTION_CHECK
+                          enum:
+                          - NUMBER
+                          - AMOUNT
+                          - TEXT
+                          - UNSUPPORTED
+                          - HEADING
+                          - FILE
+                          - SIGNATURE
+                          - MULTIPLE_CHOICE
+                          - INSPECTION_CHECK
+                          - YES_NO_NA
+                          - CHECKBOX
+                          - CHECKLIST
+                          - METER
+                          - DATE
+                          - CYCLE_COUNT
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                        choices:
+                          type: array
+                          items:
+                            example: Partially
+                            type: string
+                        urls:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - link
+                            properties:
+                              label:
+                                type: string
+                                description: Label of the url
+                                example: MaintainX Website
+                              link:
+                                type: string
+                                description: Link
+                                example: www.getmaintainx.com
+                        meterId:
+                          type:
+                          - number
+                          - 'null'
+                          example: 1
+                          description: Id of the meter
+                        isDateAndTime:
+                          type: boolean
+                          default: false
+                          description: Indicate if a DATE field also contains the time
+                          example: false
+                        index:
+                          type: number
+                          example: 1
+                          description: Order which the row is displayed
+      responses:
+        '204':
+          description: Successfully edited the procedure template
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Bad request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified procedure template.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: procedure template Not Found
+      tags:
+      - Procedure Templates
+      operationId: patchProceduretemplatesById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete procedure Template
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the procedure Template
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the procedureTemplate
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified procedureTemplate.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: procedureTemplate Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Procedure Templates
+      operationId: deleteProceduretemplatesById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

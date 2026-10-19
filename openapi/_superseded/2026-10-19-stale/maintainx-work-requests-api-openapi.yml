@@ -1,0 +1,4272 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Work Requests API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Work Requests
+  description: Operations on Work Requests
+  x-traitTag: false
+paths:
+  /workrequests:
+    post:
+      summary: Create work request
+      requestBody:
+        description: Work request to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - title
+              properties:
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: A forklift that needs to be reviewed for any potential problems
+                priority:
+                  type: string
+                  example: MEDIUM
+                  enum:
+                  - NONE
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                title:
+                  type: string
+                  example: Forklift Preventive Maintenance Form
+                assetId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 843
+                locationId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 852
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Request Type: Water Leak
+                approverTeamId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 254
+                  description: ID of the team that is reponsible for approving the request.
+                creatorContactInfo:
+                  type:
+                  - string
+                  - 'null'
+                  example: james@example.com
+                  description: The creator's contact information associated with this work order request. Possible types are `EMAIL`, `PHONE`, and `OTHER`, which will be inferred from the string provided
+      responses:
+        '200':
+          description: Successfully created work request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: number
+                    example: 963
+                    description: Global ID of the work request
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Work Requests
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postWorkrequests
+      x-operation-id-source: derived
+    get:
+      summary: List work requests
+      description: Endpoint used to list work request resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Work Requests returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: title
+        schema:
+          type: string
+          description: To filter work orders by title or sequential ID
+        in: query
+      - name: assets
+        schema:
+          type: array
+          title: asset ID filters
+          description: 'To filter by multiple asset IDs: `assets=630&assets=634`'
+          items:
+            type: integer
+        in: query
+      - name: locations
+        schema:
+          type: array
+          title: location ID filters
+          description: 'To filter by multiple location IDs: `locations=193&locations=194&locations=195`'
+          items:
+            type: integer
+        in: query
+      - name: priorities
+        schema:
+          type: array
+          title: priorities filters
+          description: 'To filter by multiple priorities: `priorities=LOW&priorities=MEDIUM`'
+          items:
+            type: string
+            example: MEDIUM
+            enum:
+            - NONE
+            - LOW
+            - MEDIUM
+            - HIGH
+        in: query
+      - name: statuses
+        schema:
+          type: array
+          title: statuses filters
+          description: 'To filter by multiple statuses: `statuses=APPROVED&statuses=DONE`'
+          items:
+            type: string
+            example: APPROVED
+            enum:
+            - PENDING
+            - REJECTED
+            - APPROVED
+            - DONE
+        in: query
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=asset&expand=location`'
+          type: array
+          items:
+            type: string
+            enum:
+            - asset
+            - location
+            - work_order
+            - extra_fields
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Work Requests list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequests
+                properties:
+                  workRequests:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - priority
+                      - title
+                      - requestStatus
+                      properties:
+                        id:
+                          type: number
+                          example: 963
+                          description: Global ID of the work request
+                        title:
+                          type: string
+                          example: Forklift Preventive Maintenance Form
+                        attachments:
+                          type: array
+                          title: attachment
+                          description: List of attachments linked to the Work Request
+                          items:
+                            type: object
+                            title: attachment
+                            required:
+                            - id
+                            - mimeType
+                            - fileName
+                            - url
+                            - createdAt
+                            properties:
+                              id:
+                                type: number
+                                description: Global ID of the attachment
+                                example: 12345
+                              mimeType:
+                                type: string
+                                description: MIME type of the file
+                                example: image/png
+                              fileName:
+                                type: string
+                                description: Attachment's file name
+                                example: image.png
+                              url:
+                                type: string
+                                description: Url of the file. Valid for 60 minutes.
+                                example: http://example.com/image.png
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the attachment was uploaded
+                                example: '2022-01-01T00:00:00.000Z'
+                              width:
+                                type:
+                                - number
+                                - 'null'
+                                description: Width if the file is an image
+                                example: 220
+                              height:
+                                type:
+                                - number
+                                - 'null'
+                                description: Height if the file is an image
+                                example: 100
+                        thumbnail:
+                          type:
+                          - object
+                          - 'null'
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                        priority:
+                          type: string
+                          example: MEDIUM
+                          enum:
+                          - NONE
+                          - LOW
+                          - MEDIUM
+                          - HIGH
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                          example: A forklift that needs to be reviewed for any potential problems
+                        requestStatus:
+                          type: string
+                          enum:
+                          - PENDING
+                          - REJECTED
+                          - APPROVED
+                          - DONE
+                          example: PENDING
+                        assetId:
+                          type:
+                          - number
+                          - 'null'
+                          format: integer
+                          example: 843
+                        locationId:
+                          type:
+                          - number
+                          - 'null'
+                          format: integer
+                          example: 852
+                        workOrderId:
+                          type:
+                          - number
+                          - 'null'
+                          format: integer
+                          example: 254
+                          description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                        sendEmailNotification:
+                          type: boolean
+                          example: true
+                        extraFields:
+                          type: object
+                          description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type") (expand with query parameter)'
+                          additionalProperties:
+                            type: string
+                          example:
+                            Request Type: Water Leak
+                        approverTeamId:
+                          type:
+                          - number
+                          - 'null'
+                          format: integer
+                          example: 254
+                          description: ID of the team that is reponsible for approving the request.
+                        creatorContactInfo:
+                          type:
+                          - object
+                          - 'null'
+                          description: The creator's contact information associated with this work order request
+                          properties:
+                            type:
+                              type: string
+                              example: EMAIL
+                              enum:
+                              - PHONE
+                              - EMAIL
+                              - OTHER
+                            value:
+                              type: string
+                              example: james@example.com
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: Date & time at which the work request was created
+                          example: '2022-01-01T00:00:00.000Z'
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: Date & time at which the work request was last updated
+                          example: '2022-01-01T00:00:00.000Z'
+                        asset:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - description
+                          - parentId
+                          - criticalityId
+                          - locationId
+                          - serialNumber
+                          - createdAt
+                          - updatedAt
+                          - creatorId
+                          description: Asset linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              example: 963
+                              description: Global ID of the asset
+                            name:
+                              type: string
+                              example: Forklift
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: Forklift that is used to to move heavy equipments around the warehouse
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the parent asset
+                            criticalityId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 150
+                              description: ID of the criticality of the asset
+                            locationId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the location where the asset is located
+                            serialNumber:
+                              type:
+                              - string
+                              - 'null'
+                              description: Serial number of the asset
+                              example: 000123ABC
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                            creatorId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 851
+                              description: ID of the asset creator
+                        location:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          description: Location linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              example: 963
+                              description: Global ID of the location
+                            name:
+                              type: string
+                              example: Warehouses
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: The warehouse where we store the forklifts
+                            address:
+                              type:
+                              - string
+                              - 'null'
+                              example: 1090 main street, Franklin
+                              description: Postal address of the location
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the parent location
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the location was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the location was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                        workOrder:
+                          type: object
+                          required:
+                          - updatedAt
+                          - status
+                          - title
+                          - createdAt
+                          - creatorId
+                          - id
+                          - sequentialId
+                          - organizationId
+                          description: Work Order linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              description: Global ID of the work order
+                            sequentialId:
+                              type: integer
+                              description: Organization specific ID of the work order
+                            assetId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 42
+                            attachments:
+                              type: array
+                              title: attachment
+                              description: List of attachments linked to the work order
+                              items:
+                                type: object
+                                title: attachment
+                                required:
+                                - id
+                                - mimeType
+                                - fileName
+                                - url
+                                - createdAt
+                                properties:
+                                  id:
+                                    type: number
+                                    description: Global ID of the attachment
+                                    example: 12345
+                                  mimeType:
+                                    type: string
+                                    description: MIME type of the file
+                                    example: image/png
+                                  fileName:
+                                    type: string
+                                    description: Attachment's file name
+                                    example: image.png
+                                  url:
+                                    type: string
+                                    description: Url of the file. Valid for 60 minutes.
+                                    example: http://example.com/image.png
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                    description: Date & time at which the attachment was uploaded
+                                    example: '2022-01-01T00:00:00.000Z'
+                                  width:
+                                    type:
+                                    - number
+                                    - 'null'
+                                    description: Width if the file is an image
+                                    example: 220
+                                  height:
+                                    type:
+                                    - number
+                                    - 'null'
+                                    description: Height if the file is an image
+                                    example: 100
+                            categories:
+                              type: array
+                              description: List of categories that identify the work order
+                              items:
+                                type: string
+                                example: Cleaning
+                                uniqueItems: true
+                            completedAt:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              description: Date & time at which the work order was last marked as DONE
+                              example: '2022-01-01T00:00:00.000Z'
+                            completerId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: ID of the user who completed the work order
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the work order was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            creatorId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: ID of the user who created the work order
+                            deletedAt:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              description: Date & time at which the work order was deleted
+                              example: '2022-01-01T00:00:00.000Z'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: A work order sample description
+                            dueDateIsFullDay:
+                              type:
+                              - boolean
+                              - 'null'
+                            dueDate:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              description: Date & time at which the work order is due
+                              example: '2022-01-01T00:00:00.000Z'
+                            estimatedTime:
+                              type:
+                              - integer
+                              - 'null'
+                              description: The estimated time taken in seconds to complete the work order
+                              example: 3600
+                            externalData:
+                              description: Extra data that can be attached to the work order, for example to help reference to a matching record in an external system.
+                              oneOf:
+                              - type: object
+                                example:
+                                  popularErpSolutionId: asd732da
+                              - type: number
+                                example: 732
+                              - type: string
+                                example: asd732da
+                            isParent:
+                              type:
+                              - boolean
+                              - 'null'
+                              description: If this is a parent work order
+                            lastMessageSentAt:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              description: Date & time at which the last comment was added to the work order
+                              example: '2022-01-01T00:00:00.000Z'
+                            startDate:
+                              type:
+                              - string
+                              - 'null'
+                              format: date-time
+                              description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                              example: '2022-01-01T00:00:00.000Z'
+                            locationId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: Global ID of the location assigned to the work order
+                              example: 611
+                            nextId:
+                              type:
+                              - integer
+                              - 'null'
+                            organizationId:
+                              type: number
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: The ID of the parent work order
+                            partsAvailability:
+                              type: string
+                              enum:
+                              - PARTS_AVAILABLE
+                              - PARTS_UNAVAILABLE
+                              - PARTIAL_PARTS
+                              - PARTS_AVAILABLE_BUT_OVERCOMMITTED
+                              description: Computed parts availability for this work order based on current inventory levels.
+                            partStatus:
+                              type: string
+                              enum:
+                              - NO_PARTS
+                              - ASSIGNED
+                              - RESERVED
+                              - KITTED
+                              - STAGED
+                              - ISSUED
+                              description: Part stage indicates the current readiness state of parts for this work order.
+                            previousId:
+                              type:
+                              - integer
+                              - 'null'
+                            priority:
+                              type: string
+                              example: MEDIUM
+                              enum:
+                              - NONE
+                              - LOW
+                              - MEDIUM
+                              - HIGH
+                            recurrenceInfo:
+                              type:
+                              - object
+                              - 'null'
+                              example:
+                                type: WEEKLY
+                                interval: 3
+                                days:
+                                - MONDAY
+                                - WEDNESDAY
+                                - FRIDAY
+                              oneOf:
+                              - type:
+                                - object
+                                - 'null'
+                                title: Daily
+                                required:
+                                - type
+                                properties:
+                                  type:
+                                    type: string
+                                    pattern: DAILY
+                                    enum:
+                                    - DAILY
+                                  automationMeterTrigger:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    description: Automation meter trigger configuration
+                                    properties:
+                                      automationTriggerInput:
+                                        type: object
+                                        properties:
+                                          conditions:
+                                            type: array
+                                            description: Conditions to trigger automation
+                                            items:
+                                              type: object
+                                              properties:
+                                                operator:
+                                                  type: string
+                                                  enum:
+                                                  - increasedBy
+                                                  - decreasedBy
+                                                  description: Operator for the condition
+                                                value:
+                                                  type: number
+                                                  description: Value for the condition
+                                              required:
+                                              - operator
+                                              - value
+                                          meterId:
+                                            type: integer
+                                            description: ID of the meter to trigger the automation
+                                        required:
+                                        - meterId
+                                        - conditions
+                                      lastTriggerValue:
+                                        type: number
+                                        description: Last trigger value for the meter
+                                      newDueDateOffsetSeconds:
+                                        type: integer
+                                        description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                        example: 86400
+                              - type:
+                                - object
+                                - 'null'
+                                title: Weekly
+                                required:
+                                - type
+                                - days
+                                properties:
+                                  type:
+                                    type: string
+                                    pattern: WEEKLY
+                                    enum:
+                                    - WEEKLY
+                                  interval:
+                                    type: integer
+                                    description: Number of weeks between events
+                                    minimum: 1
+                                    maximum: 52
+                                    default: 1
+                                  days:
+                                    type: array
+                                    description: Days of the week the event will occur
+                                    items:
+                                      type: string
+                                      enum:
+                                      - SUNDAY
+                                      - MONDAY
+                                      - TUESDAY
+                                      - WEDNESDAY
+                                      - THURSDAY
+                                      - FRIDAY
+                                      - SATURDAY
+                                  automationMeterTrigger:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    description: Automation meter trigger configuration
+                                    properties:
+                                      automationTriggerInput:
+                                        type: object
+                                        properties:
+                                          conditions:
+                                            type: array
+                                            description: Conditions to trigger automation
+                                            items:
+                                              type: object
+                                              properties:
+                                                operator:
+                                                  type: string
+                                                  enum:
+                                                  - increasedBy
+                                                  - decreasedBy
+                                                  description: Operator for the condition
+                                                value:
+                                                  type: number
+                                                  description: Value for the condition
+                                              required:
+                                              - operator
+                                              - value
+                                          meterId:
+                                            type: integer
+                                            description: ID of the meter to trigger the automation
+                                        required:
+                                        - meterId
+                                        - conditions
+                                      lastTriggerValue:
+                                        type: number
+                                        description: Last trigger value for the meter
+                                      newDueDateOffsetSeconds:
+                                        type: integer
+                                        description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                        example: 86400
+                              - type:
+                                - object
+                                - 'null'
+                                title: Monthly
+                                required:
+                                - type
+                                - day
+                                properties:
+                                  type:
+                                    type: string
+                                    pattern: MONTHLY
+                                    enum:
+                                    - MONTHLY
+                                  interval:
+                                    type: integer
+                                    description: Number of months between events
+                                    minimum: 1
+                                    maximum: 24
+                                    default: 1
+                                  day:
+                                    type: integer
+                                    minimum: 1
+                                    maximum: 31
+                                    description: Day of the month the event will occur
+                                  automationMeterTrigger:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    description: Automation meter trigger configuration
+                                    properties:
+                                      automationTriggerInput:
+                                        type: object
+                                        properties:
+                                          conditions:
+                                            type: array
+                                            description: Conditions to trigger automation
+                                            items:
+                                              type: object
+                                              properties:
+                                                operator:
+                                                  type: string
+                                                  enum:
+                                                  - increasedBy
+                                                  - decreasedBy
+                                                  description: Operator for the condition
+                                                value:
+                                                  type: number
+                                                  description: Value for the condition
+                                              required:
+                                              - operator
+                                              - value
+                                          meterId:
+                                            type: integer
+                                            description: ID of the meter to trigger the automation
+                                        required:
+                                        - meterId
+                                        - conditions
+                                      lastTriggerValue:
+                                        type: number
+                                        description: Last trigger value for the meter
+                                      newDueDateOffsetSeconds:
+                                        type: integer
+                                        description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                        example: 86400
+                              - type:
+                                - object
+                                - 'null'
+                                title: Yearly
+                                required:
+                                - type
+                                properties:
+                                  type:
+                                    type: string
+                                    pattern: YEARLY
+                                    enum:
+                                    - YEARLY
+                                  interval:
+                                    type: integer
+                                    description: Number of years between events
+                                    minimum: 1
+                                    maximum: 1000
+                                    default: 1
+                                  automationMeterTrigger:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    description: Automation meter trigger configuration
+                                    properties:
+                                      automationTriggerInput:
+                                        type: object
+                                        properties:
+                                          conditions:
+                                            type: array
+                                            description: Conditions to trigger automation
+                                            items:
+                                              type: object
+                                              properties:
+                                                operator:
+                                                  type: string
+                                                  enum:
+                                                  - increasedBy
+                                                  - decreasedBy
+                                                  description: Operator for the condition
+                                                value:
+                                                  type: number
+                                                  description: Value for the condition
+                                              required:
+                                              - operator
+                                              - value
+                                          meterId:
+                                            type: integer
+                                            description: ID of the meter to trigger the automation
+                                        required:
+                                        - meterId
+                                        - conditions
+                                      lastTriggerValue:
+                                        type: number
+                                        description: Last trigger value for the meter
+                                      newDueDateOffsetSeconds:
+                                        type: integer
+                                        description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                        example: 86400
+                              - type:
+                                - object
+                                - 'null'
+                                title: Periodically
+                                required:
+                                - type
+                                properties:
+                                  type:
+                                    type: string
+                                    pattern: PERIODICALLY
+                                    enum:
+                                    - PERIODICALLY
+                                  interval:
+                                    type: integer
+                                    description: Number of seconds between events
+                                    minimum: 0
+                                  automationMeterTrigger:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    description: Automation meter trigger configuration
+                                    properties:
+                                      automationTriggerInput:
+                                        type: object
+                                        properties:
+                                          conditions:
+                                            type: array
+                                            description: Conditions to trigger automation
+                                            items:
+                                              type: object
+                                              properties:
+                                                operator:
+                                                  type: string
+                                                  enum:
+                                                  - increasedBy
+                                                  - decreasedBy
+                                                  description: Operator for the condition
+                                                value:
+                                                  type: number
+                                                  description: Value for the condition
+                                              required:
+                                              - operator
+                                              - value
+                                          meterId:
+                                            type: integer
+                                            description: ID of the meter to trigger the automation
+                                        required:
+                                        - meterId
+                                        - conditions
+                                      lastTriggerValue:
+                                        type: number
+                                        description: Last trigger value for the meter
+                                      newDueDateOffsetSeconds:
+                                        type: integer
+                                        description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                        example: 86400
+                            requesterId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: ID of the user who requested the work order through the Work Request feature
+                            status:
+                              type: string
+                              enum:
+                              - OPEN
+                              - IN_PROGRESS
+                              - ON_HOLD
+                              - DONE
+                              - CANCELED
+                              - SKIPPED
+                              description: <br /><em>Note:</em> It is also possible to register a webhook to get notified when the status of any work order changes. Please see the <a href="#tag/Subscriptions">Subscriptions</a> section for more information.
+                            thumbnail:
+                              type:
+                              - object
+                              - 'null'
+                              title: attachment
+                              required:
+                              - id
+                              - mimeType
+                              - fileName
+                              - url
+                              - createdAt
+                              properties:
+                                id:
+                                  type: number
+                                  description: Global ID of the attachment
+                                  example: 12345
+                                mimeType:
+                                  type: string
+                                  description: MIME type of the file
+                                  example: image/png
+                                fileName:
+                                  type: string
+                                  description: Attachment's file name
+                                  example: image.png
+                                url:
+                                  type: string
+                                  description: Url of the file. Valid for 60 minutes.
+                                  example: http://example.com/image.png
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                  description: Date & time at which the attachment was uploaded
+                                  example: '2022-01-01T00:00:00.000Z'
+                                width:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Width if the file is an image
+                                  example: 220
+                                height:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Height if the file is an image
+                                  example: 100
+                            title:
+                              type: string
+                            type:
+                              type:
+                              - string
+                              - 'null'
+                              enum:
+                              - CYCLE_COUNT
+                              - OTHER
+                              - PREVENTIVE
+                              - REACTIVE
+                              description: Valid types of Work Orders, including options that are not available for creation/update. Historical Work Orders may have a null type.
+                              default: null
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the work order was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                            extraFields:
+                              type: object
+                              description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Estimated Time Allotted")'
+                              additionalProperties:
+                                type: string
+                              example:
+                                Estimated Time Allotted: 24 Hours
+                            vendorIds:
+                              type: array
+                              description: Vendor IDs
+                              items:
+                                type: number
+                                example: 1
+                            assigneeIds:
+                              type: array
+                              description: List of user ids assigned to the work order
+                              items:
+                                type: integer
+                            teamIds:
+                              type: array
+                              description: List of team ids assigned to the work order
+                              items:
+                                type: integer
+                            procedure:
+                              type:
+                              - object
+                              - 'null'
+                              description: Procedure attached to the work order
+                              required:
+                              - title
+                              - fields
+                              properties:
+                                id:
+                                  type: number
+                                  example: 1234
+                                  description: ID representing a procedure
+                                templateIds:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: number
+                                  example:
+                                  - 1234
+                                  - 1235
+                                  description: IDs of the procedure template of the procedure
+                                title:
+                                  type: string
+                                  description: Title of the procedure
+                                  example: Control dashboard audit
+                                maxScore:
+                                  type: number
+                                  example: 2
+                                  description: Maximum score of a procedure
+                                score:
+                                  type: number
+                                  example: 1
+                                  description: Score of a procedure
+                                fields:
+                                  type: array
+                                  items:
+                                    type: object
+                                    required:
+                                    - id
+                                    - label
+                                    - required
+                                    - type
+                                    - value
+                                    properties:
+                                      id:
+                                        type: number
+                                        example: 1234
+                                        description: ID of the procedure field
+                                      parentId:
+                                        type:
+                                        - number
+                                        - 'null'
+                                        example: 1233
+                                        description: ID of the parent of the current procedure field
+                                      procedureTemplateId:
+                                        type:
+                                        - number
+                                        - 'null'
+                                        example: 1234
+                                        description: ID of the procedure template this field originated from.
+                                      procedureTemplateFieldId:
+                                        type:
+                                        - number
+                                        - 'null'
+                                        example: 5678
+                                        description: ID of the procedure template field this field originated from.
+                                      required:
+                                        type: boolean
+                                        description: Indicate if field is required to be filled.
+                                      description:
+                                        example: Number of green lights
+                                        type:
+                                        - string
+                                        - 'null'
+                                        description: Description of the procedure field
+                                      type:
+                                        type: string
+                                        example: NUMBER
+                                        enum:
+                                        - NUMBER
+                                        - AMOUNT
+                                        - TEXT
+                                        - UNSUPPORTED
+                                        - HEADING
+                                        - FILE
+                                        - SIGNATURE
+                                        - MULTIPLE_CHOICE
+                                        - INSPECTION_CHECK
+                                        - YES_NO_NA
+                                        - CHECKBOX
+                                        - CHECKLIST
+                                        - METER
+                                        - DATE
+                                        - CYCLE_COUNT
+                                        description: Type of procedure field
+                                      label:
+                                        type: string
+                                        example: Number of green lights
+                                        description: Label of a procedure field
+                                      maxScore:
+                                        type: number
+                                        example: 2
+                                        description: Maximum score of a procedure field
+                                      score:
+                                        type: number
+                                        example: 1
+                                        description: Score of a procedure field
+                                      value:
+                                        type: object
+                                        description: Current value of a procedure field
+                                        properties:
+                                          text:
+                                            type:
+                                            - string
+                                            - 'null'
+                                            example: '12'
+                                          attachment:
+                                            type: object
+                                            title: attachment
+                                            required:
+                                            - id
+                                            - mimeType
+                                            - fileName
+                                            - url
+                                            - createdAt
+                                            properties:
+                                              id:
+                                                type: number
+                                                description: Global ID of the attachment
+                                                example: 12345
+                                              mimeType:
+                                                type: string
+                                                description: MIME type of the file
+                                                example: image/png
+                                              fileName:
+                                                type: string
+                                                description: Attachment's file name
+                                                example: image.png
+                                              url:
+                                                type: string
+                                                description: Url of the file. Valid for 60 minutes.
+                                                example: http://example.com/image.png
+                                              createdAt:
+                                                type: string
+                                                format: date-time
+                                                description: Date & time at which the attachment was uploaded
+                                                example: '2022-01-01T00:00:00.000Z'
+                                              width:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Width if the file is an image
+                                                example: 220
+                                              height:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Height if the file is an image
+                                                example: 100
+                                            deprecated: true
+                                          attachments:
+                                            type: array
+                                            items:
+                                              type: object
+                                              title: attachment
+                                              required:
+                                              - id
+                                              - mimeType
+                                              - fileName
+                                              - url
+                                              - createdAt
+                                              properties:
+                                                id:
+                                                  type: number
+                                                  description: Global ID of the attachment
+                                                  example: 12345
+                                                mimeType:
+                                                  type: string
+                                                  description: MIME type of the file
+                                                  example: image/png
+                                                fileName:
+                                                  type: string
+                                                  description: Attachment's file name
+                                                  example: image.png
+                                                url:
+                                                  type: string
+                                                  description: Url of the file. Valid for 60 minutes.
+                                                  example: http://example.com/image.png
+                                                createdAt:
+                                                  type: string
+                                                  format: date-time
+                                                  description: Date & time at which the attachment was uploaded
+                                                  example: '2022-01-01T00:00:00.000Z'
+                                                width:
+                                                  type:
+                                                  - number
+                                                  - 'null'
+                                                  description: Width if the file is an image
+                                                  example: 220
+                                                height:
+                                                  type:
+                                                  - number
+                                                  - 'null'
+                                                  description: Height if the file is an image
+                                                  example: 100
+                                          notes:
+                                            type:
+                                            - object
+                                            - 'null'
+                                            properties:
+                                              text:
+                                                type: string
+                                                example: 1 light bulb is burned out.
+                                            description: Note added to a procedure field
+                                          hasAttachments:
+                                            type:
+                                            - boolean
+                                            - 'null'
+                                            example: 'true'
+                                      meter:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          id:
+                                            type: number
+                                            description: Global ID of the meter.
+                                            example: 123
+                                          name:
+                                            type: string
+                                            description: Name of the meters
+                                        description: Meter of a procedure field. Will be filled if the type of the field is meter
+                                      assignees:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          userIds:
+                                            type: array
+                                            items:
+                                              type: number
+                                          teamIds:
+                                            type: array
+                                            items:
+                                              type: number
+                                      isDateAndTime:
+                                        type:
+                                        - boolean
+                                        - 'null'
+                                        description: Indicate if a DATE field also contains the time
+                                        example: false
+                            progress:
+                              type:
+                              - object
+                              - 'null'
+                              description: Progress information on the work order
+                              properties:
+                                openCount:
+                                  type: number
+                                  example: 1
+                                inProgressCount:
+                                  type: number
+                                  example: 1
+                                onHoldCount:
+                                  type: number
+                                  example: 1
+                                doneCount:
+                                  type: number
+                                  example: 1
+                            workOrderSummary:
+                              type:
+                              - object
+                              - 'null'
+                              description: Work Order Summary. Null when no summary is available.
+                              properties:
+                                content:
+                                  type: string
+                                  description: The original completion note content
+                                  example: Replaced the motor bearings and aligned the shaft.
+                                summary:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: AI-generated summary of the content
+                                  example: Motor bearing replacement and shaft alignment completed.
+                                authorId:
+                                  type:
+                                  - integer
+                                  - 'null'
+                                  description: ID of the user who authored the completion note
+                                  example: 963
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Work Requests.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Work Requests.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Work Requests
+      operationId: getWorkrequests
+      x-operation-id-source: derived
+  /workrequests/{id}:
+    get:
+      summary: Get work request
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the workRequest
+        example: '1'
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=asset&expand=location`'
+          type: array
+          items:
+            type: string
+            enum:
+            - asset
+            - location
+            - work_order
+            - extra_fields
+      responses:
+        '200':
+          description: Successfully retrieved workRequest's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequest
+                properties:
+                  workRequest:
+                    type: object
+                    required:
+                    - id
+                    - priority
+                    - title
+                    - requestStatus
+                    properties:
+                      id:
+                        type: number
+                        example: 963
+                        description: Global ID of the work request
+                      title:
+                        type: string
+                        example: Forklift Preventive Maintenance Form
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the Work Request
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      priority:
+                        type: string
+                        example: MEDIUM
+                        enum:
+                        - NONE
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: A forklift that needs to be reviewed for any potential problems
+                      requestStatus:
+                        type: string
+                        enum:
+                        - PENDING
+                        - REJECTED
+                        - APPROVED
+                        - DONE
+                        example: PENDING
+                      assetId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 843
+                      locationId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 852
+                      workOrderId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                      sendEmailNotification:
+                        type: boolean
+                        example: true
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type") (expand with query parameter)'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Request Type: Water Leak
+                      approverTeamId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: ID of the team that is reponsible for approving the request.
+                      creatorContactInfo:
+                        type:
+                        - object
+                        - 'null'
+                        description: The creator's contact information associated with this work order request
+                        properties:
+                          type:
+                            type: string
+                            example: EMAIL
+                            enum:
+                            - PHONE
+                            - EMAIL
+                            - OTHER
+                          value:
+                            type: string
+                            example: james@example.com
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+                      asset:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - description
+                        - parentId
+                        - criticalityId
+                        - locationId
+                        - serialNumber
+                        - createdAt
+                        - updatedAt
+                        - creatorId
+                        description: Asset linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the asset
+                          name:
+                            type: string
+                            example: Forklift
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Forklift that is used to to move heavy equipments around the warehouse
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent asset
+                          criticalityId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 150
+                            description: ID of the criticality of the asset
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the location where the asset is located
+                          serialNumber:
+                            type:
+                            - string
+                            - 'null'
+                            description: Serial number of the asset
+                            example: 000123ABC
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 851
+                            description: ID of the asset creator
+                      location:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        description: Location linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the location
+                          name:
+                            type: string
+                            example: Warehouses
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: The warehouse where we store the forklifts
+                          address:
+                            type:
+                            - string
+                            - 'null'
+                            example: 1090 main street, Franklin
+                            description: Postal address of the location
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent location
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                      workOrder:
+                        type: object
+                        required:
+                        - updatedAt
+                        - status
+                        - title
+                        - createdAt
+                        - creatorId
+                        - id
+                        - sequentialId
+                        - organizationId
+                        description: Work Order linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            description: Global ID of the work order
+                          sequentialId:
+                            type: integer
+                            description: Organization specific ID of the work order
+                          assetId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 42
+                          attachments:
+                            type: array
+                            title: attachment
+                            description: List of attachments linked to the work order
+                            items:
+                              type: object
+                              title: attachment
+                              required:
+                              - id
+                              - mimeType
+                              - fileName
+                              - url
+                              - createdAt
+                              properties:
+                                id:
+                                  type: number
+                                  description: Global ID of the attachment
+                                  example: 12345
+                                mimeType:
+                                  type: string
+                                  description: MIME type of the file
+                                  example: image/png
+                                fileName:
+                                  type: string
+                                  description: Attachment's file name
+                                  example: image.png
+                                url:
+                                  type: string
+                                  description: Url of the file. Valid for 60 minutes.
+                                  example: http://example.com/image.png
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                  description: Date & time at which the attachment was uploaded
+                                  example: '2022-01-01T00:00:00.000Z'
+                                width:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Width if the file is an image
+                                  example: 220
+                                height:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Height if the file is an image
+                                  example: 100
+                          categories:
+                            type: array
+                            description: List of categories that identify the work order
+                            items:
+                              type: string
+                              example: Cleaning
+                              uniqueItems: true
+                          completedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order was last marked as DONE
+                            example: '2022-01-01T00:00:00.000Z'
+                          completerId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who completed the work order
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the work order was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who created the work order
+                          deletedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order was deleted
+                            example: '2022-01-01T00:00:00.000Z'
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: A work order sample description
+                          dueDateIsFullDay:
+                            type:
+                            - boolean
+                            - 'null'
+                          dueDate:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order is due
+                            example: '2022-01-01T00:00:00.000Z'
+                          estimatedTime:
+                            type:
+                            - integer
+                            - 'null'
+                            description: The estimated time taken in seconds to complete the work order
+                            example: 3600
+                          externalData:
+                            description: Extra data that can be attached to the work order, for example to help reference to a matching record in an external system.
+                            oneOf:
+                            - type: object
+                              example:
+                                popularErpSolutionId: asd732da
+                            - type: number
+                              example: 732
+                            - type: string
+                              example: asd732da
+                          isParent:
+                            type:
+                            - boolean
+                            - 'null'
+                            description: If this is a parent work order
+                          lastMessageSentAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the last comment was added to the work order
+                            example: '2022-01-01T00:00:00.000Z'
+                          startDate:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                            example: '2022-01-01T00:00:00.000Z'
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: Global ID of the location assigned to the work order
+                            example: 611
+                          nextId:
+                            type:
+                            - integer
+                            - 'null'
+                          organizationId:
+                            type: number
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: The ID of the parent work order
+                          partsAvailability:
+                            type: string
+                            enum:
+                            - PARTS_AVAILABLE
+                            - PARTS_UNAVAILABLE
+                            - PARTIAL_PARTS
+                            - PARTS_AVAILABLE_BUT_OVERCOMMITTED
+                            description: Computed parts availability for this work order based on current inventory levels.
+                          partStatus:
+                            type: string
+                            enum:
+                            - NO_PARTS
+                            - ASSIGNED
+                            - RESERVED
+                            - KITTED
+                            - STAGED
+                            - ISSUED
+                            description: Part stage indicates the current readiness state of parts for this work order.
+                          previousId:
+                            type:
+                            - integer
+                            - 'null'
+                          priority:
+                            type: string
+                            example: MEDIUM
+                            enum:
+                            - NONE
+                            - LOW
+                            - MEDIUM
+                            - HIGH
+                          recurrenceInfo:
+                            type:
+                            - object
+                            - 'null'
+                            example:
+                              type: WEEKLY
+                              interval: 3
+                              days:
+                              - MONDAY
+                              - WEDNESDAY
+                              - FRIDAY
+                            oneOf:
+                            - type:
+                              - object
+                              - 'null'
+                              title: Daily
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: DAILY
+                                  enum:
+                                  - DAILY
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Weekly
+                              required:
+                              - type
+                              - days
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: WEEKLY
+                                  enum:
+                                  - WEEKLY
+                                interval:
+                                  type: integer
+                                  description: Number of weeks between events
+                                  minimum: 1
+                                  maximum: 52
+                                  default: 1
+                                days:
+                                  type: array
+                                  description: Days of the week the event will occur
+                                  items:
+                                    type: string
+                                    enum:
+                                    - SUNDAY
+                                    - MONDAY
+                                    - TUESDAY
+                                    - WEDNESDAY
+                                    - THURSDAY
+                                    - FRIDAY
+                                    - SATURDAY
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Monthly
+                              required:
+                              - type
+                              - day
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: MONTHLY
+                                  enum:
+                                  - MONTHLY
+                                interval:
+                                  type: integer
+                                  description: Number of months between events
+                                  minimum: 1
+                                  maximum: 24
+                                  default: 1
+                                day:
+                                  type: integer
+                                  minimum: 1
+                                  maximum: 31
+                                  description: Day of the month the event will occur
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Yearly
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: YEARLY
+                                  enum:
+                                  - YEARLY
+                                interval:
+                                  type: integer
+                                  description: Number of years between events
+                                  minimum: 1
+                                  maximum: 1000
+                                  default: 1
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Periodically
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: PERIODICALLY
+                                  enum:
+                                  - PERIODICALLY
+                                interval:
+                                  type: integer
+                                  description: Number of seconds between events
+                                  minimum: 0
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                          requesterId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who requested the work order through the Work Request feature
+                          status:
+                            type: string
+                            enum:
+                            - OPEN
+                            - IN_PROGRESS
+                            - ON_HOLD
+                            - DONE
+                            - CANCELED
+                            - SKIPPED
+                            description: <br /><em>Note:</em> It is also possible to register a webhook to get notified when the status of any work order changes. Please see the <a href="#tag/Subscriptions">Subscriptions</a> section for more information.
+                          thumbnail:
+                            type:
+                            - object
+                            - 'null'
+                            title: attachment
+                            required:
+                            - id
+                            - mimeType
+                            - fileName
+                            - url
+                            - createdAt
+                            properties:
+                              id:
+                                type: number
+                                description: Global ID of the attachment
+                                example: 12345
+                              mimeType:
+                                type: string
+                                description: MIME type of the file
+                                example: image/png
+                              fileName:
+                                type: string
+                                description: Attachment's file name
+                                example: image.png
+                              url:
+                                type: string
+                                description: Url of the file. Valid for 60 minutes.
+                                example: http://example.com/image.png
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the attachment was uploaded
+                                example: '2022-01-01T00:00:00.000Z'
+                              width:
+                                type:
+                                - number
+                                - 'null'
+                                description: Width if the file is an image
+                                example: 220
+                              height:
+                                type:
+                                - number
+                                - 'null'
+                                description: Height if the file is an image
+                                example: 100
+                          title:
+                            type: string
+                          type:
+                            type:
+                            - string
+                            - 'null'
+                            enum:
+                            - CYCLE_COUNT
+                            - OTHER
+                            - PREVENTIVE
+                            - REACTIVE
+                            description: Valid types of Work Orders, including options that are not available for creation/update. Historical Work Orders may have a null type.
+                            default: null
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the work order was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          extraFields:
+                            type: object
+                            description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Estimated Time Allotted")'
+                            additionalProperties:
+                              type: string
+                            example:
+                              Estimated Time Allotted: 24 Hours
+                          vendorIds:
+                            type: array
+                            description: Vendor IDs
+                            items:
+                              type: number
+                              example: 1
+                          assigneeIds:
+                            type: array
+                            description: List of user ids assigned to the work order
+                            items:
+                              type: integer
+                          teamIds:
+                            type: array
+                            description: List of team ids assigned to the work order
+                            items:
+                              type: integer
+                          procedure:
+                            type:
+                            - object
+                            - 'null'
+                            description: Procedure attached to the work order
+                            required:
+                            - title
+                            - fields
+                            properties:
+                              id:
+                                type: number
+                                example: 1234
+                                description: ID representing a procedure
+                              templateIds:
+                                type:
+                                - array
+                                - 'null'
+                                items:
+                                  type: number
+                                example:
+                                - 1234
+                                - 1235
+                                description: IDs of the procedure template of the procedure
+                              title:
+                                type: string
+                                description: Title of the procedure
+                                example: Control dashboard audit
+                              maxScore:
+                                type: number
+                                example: 2
+                                description: Maximum score of a procedure
+                              score:
+                                type: number
+                                example: 1
+                                description: Score of a procedure
+                              fields:
+                                type: array
+                                items:
+                                  type: object
+                                  required:
+                                  - id
+                                  - label
+                                  - required
+                                  - type
+                                  - value
+                                  properties:
+                                    id:
+                                      type: number
+                                      example: 1234
+                                      description: ID of the procedure field
+                                    parentId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 1233
+                                      description: ID of the parent of the current procedure field
+                                    procedureTemplateId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 1234
+                                      description: ID of the procedure template this field originated from.
+                                    procedureTemplateFieldId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 5678
+                                      description: ID of the procedure template field this field originated from.
+                                    required:
+                                      type: boolean
+                                      description: Indicate if field is required to be filled.
+                                    description:
+                                      example: Number of green lights
+                                      type:
+                                      - string
+                                      - 'null'
+                                      description: Description of the procedure field
+                                    type:
+                                      type: string
+                                      example: NUMBER
+                                      enum:
+                                      - NUMBER
+                                      - AMOUNT
+                                      - TEXT
+                                      - UNSUPPORTED
+                                      - HEADING
+                                      - FILE
+                                      - SIGNATURE
+                                      - MULTIPLE_CHOICE
+                                      - INSPECTION_CHECK
+                                      - YES_NO_NA
+                                      - CHECKBOX
+                                      - CHECKLIST
+                                      - METER
+                                      - DATE
+                                      - CYCLE_COUNT
+                                      description: Type of procedure field
+                                    label:
+                                      type: string
+                                      example: Number of green lights
+                                      description: Label of a procedure field
+                                    maxScore:
+                                      type: number
+                                      example: 2
+                                      description: Maximum score of a procedure field
+                                    score:
+                                      type: number
+                                      example: 1
+                                      description: Score of a procedure field
+                                    value:
+                                      type: object
+                                      description: Current value of a procedure field
+                                      properties:
+                                        text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          example: '12'
+                                        attachment:
+                                          type: object
+                                          title: attachment
+                                          required:
+                                          - id
+                                          - mimeType
+                                          - fileName
+                                          - url
+                                          - createdAt
+                                          properties:
+                                            id:
+                                              type: number
+                                              description: Global ID of the attachment
+                                              example: 12345
+                                            mimeType:
+                                              type: string
+                                              description: MIME type of the file
+                                              example: image/png
+                                            fileName:
+                                              type: string
+                                              description: Attachment's file name
+                                              example: image.png
+                                            url:
+                                              type: string
+                                              description: Url of the file. Valid for 60 minutes.
+                                              example: http://example.com/image.png
+                                            createdAt:
+                                              type: string
+                                              format: date-time
+                                              description: Date & time at which the attachment was uploaded
+                                              example: '2022-01-01T00:00:00.000Z'
+                                            width:
+                                              type:
+                                              - number
+                                              - 'null'
+                                              description: Width if the file is an image
+                                              example: 220
+                                            height:
+                                              type:
+                                              - number
+                                              - 'null'
+                                              description: Height if the file is an image
+                                              example: 100
+                                          deprecated: true
+                                        attachments:
+                                          type: array
+                                          items:
+                                            type: object
+                                            title: attachment
+                                            required:
+                                            - id
+                                            - mimeType
+                                            - fileName
+                                            - url
+                                            - createdAt
+                                            properties:
+                                              id:
+                                                type: number
+                                                description: Global ID of the attachment
+                                                example: 12345
+                                              mimeType:
+                                                type: string
+                                                description: MIME type of the file
+                                                example: image/png
+                                              fileName:
+                                                type: string
+                                                description: Attachment's file name
+                                                example: image.png
+                                              url:
+                                                type: string
+                                                description: Url of the file. Valid for 60 minutes.
+                                                example: http://example.com/image.png
+                                              createdAt:
+                                                type: string
+                                                format: date-time
+                                                description: Date & time at which the attachment was uploaded
+                                                example: '2022-01-01T00:00:00.000Z'
+                                              width:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Width if the file is an image
+                                                example: 220
+                                              height:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Height if the file is an image
+                                                example: 100
+                                        notes:
+                                          type:
+                                          - object
+                                          - 'null'
+                                          properties:
+                                            text:
+                                              type: string
+                                              example: 1 light bulb is burned out.
+                                          description: Note added to a procedure field
+                                        hasAttachments:
+                                          type:
+                                          - boolean
+                                          - 'null'
+                                          example: 'true'
+                                    meter:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        id:
+                                          type: number
+                                          description: Global ID of the meter.
+                                          example: 123
+                                        name:
+                                          type: string
+                                          description: Name of the meters
+                                      description: Meter of a procedure field. Will be filled if the type of the field is meter
+                                    assignees:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        userIds:
+                                          type: array
+                                          items:
+                                            type: number
+                                        teamIds:
+                                          type: array
+                                          items:
+                                            type: number
+                                    isDateAndTime:
+                                      type:
+                                      - boolean
+                                      - 'null'
+                                      description: Indicate if a DATE field also contains the time
+                                      example: false
+                          progress:
+                            type:
+                            - object
+                            - 'null'
+                            description: Progress information on the work order
+                            properties:
+                              openCount:
+                                type: number
+                                example: 1
+                              inProgressCount:
+                                type: number
+                                example: 1
+                              onHoldCount:
+                                type: number
+                                example: 1
+                              doneCount:
+                                type: number
+                                example: 1
+                          workOrderSummary:
+                            type:
+                            - object
+                            - 'null'
+                            description: Work Order Summary. Null when no summary is available.
+                            properties:
+                              content:
+                                type: string
+                                description: The original completion note content
+                                example: Replaced the motor bearings and aligned the shaft.
+                              summary:
+                                type:
+                                - string
+                                - 'null'
+                                description: AI-generated summary of the content
+                                example: Motor bearing replacement and shaft alignment completed.
+                              authorId:
+                                type:
+                                - integer
+                                - 'null'
+                                description: ID of the user who authored the completion note
+                                example: 963
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequest or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Work Requests
+      operationId: getWorkrequestsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete workRequest
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the workRequest
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the workRequest
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequest.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: workRequest Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Work Requests
+      operationId: deleteWorkrequestsById
+      x-operation-id-source: derived
+    patch:
+      summary: Update work request
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the work request
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Work request to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Forklift Preventive Maintenance Form
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: A forklift that needs to be reviewed for any potential problems
+                priority:
+                  type: string
+                  example: MEDIUM
+                  enum:
+                  - NONE
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                assetId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 843
+                locationId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 852
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Request Type: Water Leak
+                approverTeamId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 254
+                  description: ID of the team that is reponsible for approving the request.
+                creatorContactInfo:
+                  type:
+                  - string
+                  - 'null'
+                  example: james@example.com
+                  description: The creator's contact information associated with this work order request. Possible types are `EMAIL`, `PHONE`, and `OTHER`, which will be inferred from the string provided
+      responses:
+        '200':
+          description: Successfully edited work request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequest
+                properties:
+                  workRequest:
+                    type: object
+                    required:
+                    - id
+                    - title
+                    - priority
+                    - requestStatus
+                    properties:
+                      id:
+                        type: number
+                        example: 963
+                        description: Global ID of the work request
+                      title:
+                        type: string
+                        example: Forklift Preventive Maintenance Form
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the Work Request
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      priority:
+                        type: string
+                        example: MEDIUM
+                        enum:
+                        - NONE
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: A forklift that needs to be reviewed for any potential problems
+                      requestStatus:
+                        type: string
+                        enum:
+                        - PENDING
+                        - REJECTED
+                        - APPROVED
+                        - DONE
+                        example: PENDING
+                      assetId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 843
+                      locationId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 852
+                      workOrderId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                      sendEmailNotification:
+                        type: boolean
+                        example: true
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Request Type: Water Leak
+                      approverTeamId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: ID of the team that is reponsible for approving the request.
+                      creatorContactInfo:
+                        type:
+                        - object
+                        - 'null'
+                        description: The creator's contact information associated with this work order request
+                        properties:
+                          type:
+                            type: string
+                            example: EMAIL
+                            enum:
+                            - PHONE
+                            - EMAIL
+                            - OTHER
+                          value:
+                            type: string
+                            example: james@example.com
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: Failed to edit the work request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: parentId is not valid
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified work request.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: work request Not Found
+      tags:
+      - Work Requests
+      operationId: patchWorkrequestsById
+      x-operation-id-source: derived
+  /workrequests/{id}/attachments/{filename}:
+    put:
+      summary: Update work request attachment
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the work request.
+        example: '1'
+      - schema:
+          type: string
+        name: filename
+        in: path
+        required: true
+        description: Name of the attachment, including the extension.
+        example: datasheet.pdf
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Content type should be `application/octet-stream` and payload should use binary format for the attachment.
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+              format: binary
+          image/jpeg:
+            schema:
+              type: object
+              format: binary
+          image/png:
+            schema:
+              type: object
+              format: binary
+          image/gif:
+            schema:
+              type: object
+              format: binary
+          image/webp:
+            schema:
+              type: object
+              format: binary
+          image/flif:
+            schema:
+              type: object
+              format: binary
+          image/x-xcf:
+            schema:
+              type: object
+              format: binary
+          image/x-canon-cr2:
+            schema:
+              type: object
+              format: binary
+          image/x-canon-cr3:
+            schema:
+              type: object
+              format: binary
+          image/tiff:
+            schema:
+              type: object
+              format: binary
+          image/bmp:
+            schema:
+              type: object
+              format: binary
+          image/vnd.ms-photo:
+            schema:
+              type: object
+              format: binary
+          image/vnd.adobe.photoshop:
+            schema:
+              type: object
+              format: binary
+          application/x-indesign:
+            schema:
+              type: object
+              format: binary
+          application/epub+zip:
+            schema:
+              type: object
+              format: binary
+          application/x-xpinstall:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-powerpoint.slideshow.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.text:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.spreadsheet:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.presentation:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.presentationml.presentation:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.presentationml.slideshow:
+            schema:
+              type: object
+              format: binary
+          application/zip:
+            schema:
+              type: object
+              format: binary
+          application/x-tar:
+            schema:
+              type: object
+              format: binary
+          application/x-rar-compressed:
+            schema:
+              type: object
+              format: binary
+          application/gzip:
+            schema:
+              type: object
+              format: binary
+          application/x-bzip2:
+            schema:
+              type: object
+              format: binary
+          application/x-7z-compressed:
+            schema:
+              type: object
+              format: binary
+          application/x-apple-diskimage:
+            schema:
+              type: object
+              format: binary
+          application/vnd.apache.arrow.file:
+            schema:
+              type: object
+              format: binary
+          video/mp4:
+            schema:
+              type: object
+              format: binary
+          audio/midi:
+            schema:
+              type: object
+              format: binary
+          video/matroska:
+            schema:
+              type: object
+              format: binary
+          video/webm:
+            schema:
+              type: object
+              format: binary
+          video/quicktime:
+            schema:
+              type: object
+              format: binary
+          video/vnd.avi:
+            schema:
+              type: object
+              format: binary
+          audio/wav:
+            schema:
+              type: object
+              format: binary
+          audio/qcelp:
+            schema:
+              type: object
+              format: binary
+          audio/x-ms-asf:
+            schema:
+              type: object
+              format: binary
+          video/x-ms-asf:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-asf:
+            schema:
+              type: object
+              format: binary
+          video/mpeg:
+            schema:
+              type: object
+              format: binary
+          video/3gpp:
+            schema:
+              type: object
+              format: binary
+          audio/mpeg:
+            schema:
+              type: object
+              format: binary
+          audio/mp4:
+            schema:
+              type: object
+              format: binary
+          video/ogg:
+            schema:
+              type: object
+              format: binary
+          audio/ogg:
+            schema:
+              type: object
+              format: binary
+          audio/ogg; codecs=opus:
+            schema:
+              type: object
+              format: binary
+          application/ogg:
+            schema:
+              type: object
+              format: binary
+          audio/flac:
+            schema:
+              type: object
+              format: binary
+          audio/ape:
+            schema:
+              type: object
+              format: binary
+          audio/wavpack:
+            schema:
+              type: object
+              format: binary
+          audio/amr:
+            schema:
+              type: object
+              format: binary
+          application/pdf:
+            schema:
+              type: object
+              format: binary
+          application/x-elf:
+            schema:
+              type: object
+              format: binary
+          application/x-mach-binary:
+            schema:
+              type: object
+              format: binary
+          application/x-msdownload:
+            schema:
+              type: object
+              format: binary
+          application/x-shockwave-flash:
+            schema:
+              type: object
+              format: binary
+          application/rtf:
+            schema:
+              type: object
+              format: binary
+          application/wasm:
+            schema:
+              type: object
+              format: binary
+          font/woff:
+            schema:
+              type: object
+              format: binary
+          font/woff2:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-fontobject:
+            schema:
+              type: object
+              format: binary
+          font/ttf:
+            schema:
+              type: object
+              format: binary
+          font/otf:
+            schema:
+              type: object
+              format: binary
+          font/collection:
+            schema:
+              type: object
+              format: binary
+          image/x-icon:
+            schema:
+              type: object
+              format: binary
+          video/x-flv:
+            schema:
+              type: object
+              format: binary
+          application/postscript:
+            schema:
+              type: object
+              format: binary
+          application/eps:
+            schema:
+              type: object
+              format: binary
+          application/x-xz:
+            schema:
+              type: object
+              format: binary
+          application/x-sqlite3:
+            schema:
+              type: object
+              format: binary
+          application/x-nintendo-nes-rom:
+            schema:
+              type: object
+              format: binary
+          application/x-google-chrome-extension:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-cab-compressed:
+            schema:
+              type: object
+              format: binary
+          application/x-deb:
+            schema:
+              type: object
+              format: binary
+          application/x-unix-archive:
+            schema:
+              type: object
+              format: binary
+          application/x-rpm:
+            schema:
+              type: object
+              format: binary
+          application/x-compress:
+            schema:
+              type: object
+              format: binary
+          application/lzip:
+            schema:
+              type: object
+              format: binary
+          application/x-cfb:
+            schema:
+              type: object
+              format: binary
+          application/x-mie:
+            schema:
+              type: object
+              format: binary
+          application/mxf:
+            schema:
+              type: object
+              format: binary
+          video/mp2t:
+            schema:
+              type: object
+              format: binary
+          application/x-blender:
+            schema:
+              type: object
+              format: binary
+          image/bpg:
+            schema:
+              type: object
+              format: binary
+          image/j2c:
+            schema:
+              type: object
+              format: binary
+          image/jp2:
+            schema:
+              type: object
+              format: binary
+          image/jpx:
+            schema:
+              type: object
+              format: binary
+          image/jpm:
+            schema:
+              type: object
+              format: binary
+          image/mj2:
+            schema:
+              type: object
+              format: binary
+          audio/aiff:
+            schema:
+              type: object
+              format: binary
+          application/xml:
+            schema:
+              type: object
+              format: binary
+          application/x-mobipocket-ebook:
+            schema:
+              type: object
+              format: binary
+          image/heif:
+            schema:
+              type: object
+              format: binary
+          image/heif-sequence:
+            schema:
+              type: object
+              format: binary
+          image/heic:
+            schema:
+              type: object
+              format: binary
+          image/heic-sequence:
+            schema:
+              type: object
+              format: binary
+          image/icns:
+            schema:
+              type: object
+              format: binary
+          image/ktx:
+            schema:
+              type: object
+              format: binary
+          application/dicom:
+            schema:
+              type: object
+              format: binary
+          audio/x-musepack:
+            schema:
+              type: object
+              format: binary
+          text/calendar:
+            schema:
+              type: object
+              format: binary
+          text/vcard:
+            schema:
+              type: object
+              format: binary
+          text/vtt:
+            schema:
+              type: object
+              format: binary
+          model/gltf-binary:
+            schema:
+              type: object
+              format: binary
+          application/vnd.tcpdump.pcap:
+            schema:
+              type: object
+              format: binary
+          audio/x-dsf:
+            schema:
+              type: object
+              format: binary
+          application/x-ms-shortcut:
+            schema:
+              type: object
+              format: binary
+          application/x-ft-apple.alias:
+            schema:
+              type: object
+              format: binary
+          audio/x-voc:
+            schema:
+              type: object
+              format: binary
+          audio/vnd.dolby.dd-raw:
+            schema:
+              type: object
+              format: binary
+          audio/x-m4a:
+            schema:
+              type: object
+              format: binary
+          image/apng:
+            schema:
+              type: object
+              format: binary
+          image/x-olympus-orf:
+            schema:
+              type: object
+              format: binary
+          image/x-sony-arw:
+            schema:
+              type: object
+              format: binary
+          image/x-adobe-dng:
+            schema:
+              type: object
+              format: binary
+          image/x-nikon-nef:
+            schema:
+              type: object
+              format: binary
+          image/x-panasonic-rw2:
+            schema:
+              type: object
+              format: binary
+          image/x-fujifilm-raf:
+            schema:
+              type: object
+              format: binary
+          video/x-m4v:
+            schema:
+              type: object
+              format: binary
+          video/3gpp2:
+            schema:
+              type: object
+              format: binary
+          application/x-esri-shape:
+            schema:
+              type: object
+              format: binary
+          audio/aac:
+            schema:
+              type: object
+              format: binary
+          audio/x-it:
+            schema:
+              type: object
+              format: binary
+          audio/x-s3m:
+            schema:
+              type: object
+              format: binary
+          audio/x-xm:
+            schema:
+              type: object
+              format: binary
+          video/mp1s:
+            schema:
+              type: object
+              format: binary
+          video/mp2p:
+            schema:
+              type: object
+              format: binary
+          application/vnd.sketchup.skp:
+            schema:
+              type: object
+              format: binary
+          image/avif:
+            schema:
+              type: object
+              format: binary
+          application/x-lzh-compressed:
+            schema:
+              type: object
+              format: binary
+          application/pgp-encrypted:
+            schema:
+              type: object
+              format: binary
+          application/x-asar:
+            schema:
+              type: object
+              format: binary
+          model/stl:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-htmlhelp:
+            schema:
+              type: object
+              format: binary
+          model/3mf:
+            schema:
+              type: object
+              format: binary
+          image/jxl:
+            schema:
+              type: object
+              format: binary
+          application/zstd:
+            schema:
+              type: object
+              format: binary
+          image/jls:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-outlook:
+            schema:
+              type: object
+              format: binary
+          image/vnd.dwg:
+            schema:
+              type: object
+              format: binary
+          application/vnd.apache.parquet:
+            schema:
+              type: object
+              format: binary
+          application/java-vm:
+            schema:
+              type: object
+              format: binary
+          application/x-arj:
+            schema:
+              type: object
+              format: binary
+          application/x-cpio:
+            schema:
+              type: object
+              format: binary
+          application/x-ace-compressed:
+            schema:
+              type: object
+              format: binary
+          application/avro:
+            schema:
+              type: object
+              format: binary
+          application/vnd.iccprofile:
+            schema:
+              type: object
+              format: binary
+          application/x-ft-fbx:
+            schema:
+              type: object
+              format: binary
+          application/vnd.visio:
+            schema:
+              type: object
+              format: binary
+          application/vnd.android.package-archive:
+            schema:
+              type: object
+              format: binary
+          application/x-ft-draco:
+            schema:
+              type: object
+              format: binary
+          application/x-lz4:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.presentationml.template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.spreadsheetml.template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.openxmlformats-officedocument.wordprocessingml.template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-excel.template.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.text-template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.spreadsheet-template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.presentation-template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.graphics:
+            schema:
+              type: object
+              format: binary
+          application/vnd.oasis.opendocument.graphics-template:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-excel.sheet.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-word.document.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-word.template.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-powerpoint.template.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/vnd.ms-powerpoint.presentation.macroenabled.12:
+            schema:
+              type: object
+              format: binary
+          application/java-archive:
+            schema:
+              type: object
+              format: binary
+          application/vnd.rn-realmedia:
+            schema:
+              type: object
+              format: binary
+          application/x-spss-sav:
+            schema:
+              type: object
+              format: binary
+          application/x-ms-regedit:
+            schema:
+              type: object
+              format: binary
+          application/x-ft-windows-registry-hive:
+            schema:
+              type: object
+              format: binary
+          application/x-jmp-data:
+            schema:
+              type: object
+              format: binary
+          application/vnd.apple.keynote:
+            schema:
+              type: object
+              format: binary
+          application/vnd.apple.numbers:
+            schema:
+              type: object
+              format: binary
+          application/vnd.apple.pages:
+            schema:
+              type: object
+              format: binary
+          application/x-apache-arrow:
+            schema:
+              type: object
+              format: binary
+          application/x-lzip:
+            schema:
+              type: object
+              format: binary
+          application/x.apple.alias:
+            schema:
+              type: object
+              format: binary
+          application/x.ms.shortcut:
+            schema:
+              type: object
+              format: binary
+          audio/opus:
+            schema:
+              type: object
+              format: binary
+          audio/vnd.wave:
+            schema:
+              type: object
+              format: binary
+          audio/x-flac:
+            schema:
+              type: object
+              format: binary
+          video/x-matroska:
+            schema:
+              type: object
+              format: binary
+      responses:
+        '201':
+          description: Successfully updated work request's attachment.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publicUrl:
+                    type: string
+                  filename:
+                    type: string
+                  fileKey:
+                    type: string
+        '400':
+          description: Bad arguments.
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified work request.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: work request Not Found
+        '413':
+          description: Payload too large
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Attachment size must not exceed 1mB
+      tags:
+      - Work Requests
+      operationId: putWorkrequestsByIdAttachmentsByFilename
+      x-operation-id-source: derived
+    delete:
+      summary: Remove work request attachment
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the work request.
+        example: '1'
+      - schema:
+          type: string
+        name: filename
+        in: path
+        required: true
+        description: Name of the attachment, including the extension.
+        example: attachment.xls
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully removed work request's attachment.
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified Attachment.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Attachment Not Found
+      tags:
+      - Work Requests
+      operationId: deleteWorkrequestsByIdAttachmentsByFilename
+      x-operation-id-source: derived
+  /workrequests/{id}/thumbnail/{filename}:
+    put:
+      summary: Update work request's thumbnail
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the work request.
+        example: '1'
+      - schema:
+          type: string
+        name: filename
+        in: path
+        required: true
+        description: Name of the work request thumbnail, including the extension.
+        example: motor.png
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Content type should be `application/octet-stream` and payload should use binary format for the thumbnail.
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+              format: binary
+          image/jpeg:
+            schema:
+              type: object
+              format: binary
+          image/png:
+            schema:
+              type: object
+              format: binary
+          image/gif:
+            schema:
+              type: object
+              format: binary
+          image/webp:
+            schema:
+              type: object
+              format: binary
+          image/flif:
+            schema:
+              type: object
+              format: binary
+          image/x-xcf:
+            schema:
+              type: object
+              format: binary
+          image/x-canon-cr2:
+            schema:
+              type: object
+              format: binary
+          image/x-canon-cr3:
+            schema:
+              type: object
+              format: binary
+          image/tiff:
+            schema:
+              type: object
+              format: binary
+          image/bmp:
+            schema:
+              type: object
+              format: binary
+          image/vnd.ms-photo:
+            schema:
+              type: object
+              format: binary
+          image/vnd.adobe.photoshop:
+            schema:
+              type: object
+              format: binary
+          image/x-icon:
+            schema:
+              type: object
+              format: binary
+          image/bpg:
+            schema:
+              type: object
+              format: binary
+          image/j2c:
+            schema:
+              type: object
+              format: binary
+          image/jp2:
+            schema:
+              type: object
+              format: binary
+          image/jpx:
+            schema:
+              type: object
+              format: binary
+          image/jpm:
+            schema:
+              type: object
+              format: binary
+          image/mj2:
+            schema:
+              type: object
+              format: binary
+          image/heif:
+            schema:
+              type: object
+              format: binary
+          image/heif-sequence:
+            schema:
+              type: object
+              format: binary
+          image/heic:
+            schema:
+              type: object
+              format: binary
+          image/heic-sequence:
+            schema:
+              type: object
+              format: binary
+          image/icns:
+            schema:
+              type: object
+              format: binary
+          image/ktx:
+            schema:
+              type: object
+              format: binary
+          image/apng:
+            schema:
+              type: object
+              format: binary
+          image/x-olympus-orf:
+            schema:
+              type: object
+              format: binary
+          image/x-sony-arw:
+            schema:
+              type: object
+              format: binary
+          image/x-adobe-dng:
+            schema:
+              type: object
+              format: binary
+          image/x-nikon-nef:
+            schema:
+              type: object
+              format: binary
+          image/x-panasonic-rw2:
+            schema:
+              type: object
+              format: binary
+          image/x-fujifilm-raf:
+            schema:
+              type: object
+              format: binary
+          image/avif:
+            schema:
+              type: object
+              format: binary
+          image/jxl:
+            schema:
+              type: object
+              format: binary
+          image/jls:
+            schema:
+              type: object
+              format: binary
+          image/vnd.dwg:
+            schema:
+              type: object
+              format: binary
+      responses:
+        '201':
+          description: Successfully updated work request's thumbnail.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publicUrl:
+                    type: string
+                  filename:
+                    type: string
+                  fileKey:
+                    type: string
+        '400':
+          description: Bad arguments.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You cannot edit this entity.
+                    fieldPath: organizationId
+                    fieldValue: '1'
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified Work Request.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Work Request Not Found
+        '413':
+          description: Payload too large
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Attachment size must not exceed 1mB
+      tags:
+      - Work Requests
+      operationId: putWorkrequestsByIdThumbnailByFilename
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

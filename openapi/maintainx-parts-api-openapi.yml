@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Parts API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -164,26 +189,12 @@ paths:
                         type: string
                         example: XC230
                         description: Part number given to the part by this vendor
-                committedQuantities:
-                  type: object
-                  description: Quantities of the part currently committed to work orders, broken down by stage.
-                  properties:
-                    kitted:
-                      type: integer
-                      description: Quantity of parts that have been kitted for work orders
-                      example: 5
-                    reserved:
-                      type: integer
-                      description: Quantity of parts reserved for work orders
-                      example: 3
-                    staged:
-                      type: integer
-                      description: Quantity of parts that have been staged for work orders
-                      example: 2
-                assignedQuantity:
-                  type: integer
-                  description: Total quantity currently assigned to work orders across all stages.
-                  example: 10
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this part, unique per organization.
+                  example: ext-part-001
                 vendorIds:
                   type: array
                   items:
@@ -239,6 +250,27 @@ paths:
                           - type: boolean
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict with existing part
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Parts
       parameters:
@@ -339,6 +371,7 @@ paths:
             enum:
             - extra_fields
             - vendors
+            - asset_ids
       - schema:
           type: integer
         description: Required if using a multi organizations token
@@ -362,6 +395,8 @@ paths:
                 type: object
                 required:
                 - parts
+                - nextCursor
+                - nextPageUrl
                 properties:
                   parts:
                     type: array
@@ -441,6 +476,12 @@ paths:
                                 - string
                                 - 'null'
                                 example: tool room
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                                example: Warehouses
+                                description: Name of the location where the part is stored
                               reservedQuantity:
                                 type:
                                 - integer
@@ -468,7 +509,7 @@ paths:
                                 type: integer
                                 description: Quantity currently assigned to work orders at this location
                                 example: 5
-                          description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, and area within each location.
+                          description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
                         area:
                           type:
                           - string
@@ -545,6 +586,12 @@ paths:
                           - 'null'
                           example: 100
                           description: Total maximum quantity to keep in stock. Null when no part location has a max set. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        externalId:
+                          type:
+                          - string
+                          - 'null'
+                          description: External ID for this part, unique per organization.
+                          example: ext-part-001
                         organizationId:
                           type: integer
                           example: 1
@@ -570,6 +617,14 @@ paths:
                                 type: string
                                 example: XC230
                                 description: Part number given to the part by this vendor
+                        assetIds:
+                          type: array
+                          items:
+                            type: integer
+                          example:
+                          - 12
+                          - 4561
+                          description: List of asset IDs (expand with query parameter)
                   nextCursor:
                     description: The cursor to retrieve the next page of Parts.
                     type:
@@ -597,6 +652,1423 @@ paths:
       tags:
       - Parts
       operationId: getParts
+      x-operation-id-source: derived
+  /parts/external/{externalId}:
+    get:
+      summary: Get part by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the part
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved part
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - part
+                properties:
+                  part:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - updatedAt
+                    - createdAt
+                    properties:
+                      id:
+                        type: integer
+                        example: 123456
+                        description: Global ID of the part
+                      name:
+                        type: string
+                        example: Locknut - 1/8
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: ''
+                      area:
+                        type:
+                        - string
+                        - 'null'
+                        example: tool room
+                        description: 'Area of the part. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      unitCost:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Cost in cents. For example, for $1.20, put 120.
+                        example: 120
+                      availableQuantity:
+                        type: integer
+                        description: 'Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `inStockQuantity` instead.'
+                        example: 10
+                        deprecated: true
+                      inStockQuantity:
+                        type: integer
+                        description: Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 10
+                      minimumQuantity:
+                        type: integer
+                        description: Total minimum quantity before you should restock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 5
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: bWFpbnRhaW54Cg==
+                        description: String encoded barcode
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: 'ID of the location where the part is located. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - locationId
+                          properties:
+                            locationId:
+                              type: integer
+                              example: 852
+                              description: ID of the location where the part is located
+                            availableQuantity:
+                              type: integer
+                              description: Quantity currently in stock
+                              example: 10
+                            minimumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: Minimum quantity before you should restock
+                              example: 5
+                            maximumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 100
+                              description: Maximum quantity you want to stock. Must be greater than or equal to minimumQuantity.
+                            area:
+                              type:
+                              - string
+                              - 'null'
+                              example: tool room
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              example: Warehouses
+                              description: Name of the location where the part is stored
+                            reservedQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: 'Quantity currently reserved for work orders. Deprecated: Use `committedQuantities.reserved` instead.'
+                              example: 10
+                              deprecated: true
+                            committedQuantities:
+                              type: object
+                              description: Quantities of the part currently committed to work orders, broken down by stage.
+                              properties:
+                                kitted:
+                                  type: integer
+                                  description: Quantity of parts that have been kitted for work orders
+                                  example: 5
+                                reserved:
+                                  type: integer
+                                  description: Quantity of parts reserved for work orders
+                                  example: 3
+                                staged:
+                                  type: integer
+                                  description: Quantity of parts that have been staged for work orders
+                                  example: 2
+                            assignedQuantity:
+                              type: integer
+                              description: Quantity currently assigned to work orders at this location
+                              example: 5
+                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
+                      partTypes:
+                        type: array
+                        items:
+                          type: string
+                        description: List of part types
+                      assetIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 12
+                        - 4561
+                        description: List of asset IDs
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 1
+                        - 4
+                        description: List of team IDs in charge of the part
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Part Number")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Part Number: '000000000'
+                      vendors:
+                        type: array
+                        description: List of vendors of the part
+                        items:
+                          type: object
+                          properties:
+                            vendorId:
+                              type: integer
+                              example: '1'
+                              description: Id of the vendor
+                            partNumber:
+                              type: string
+                              example: XC230
+                              description: Part number given to the part by this vendor
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this part, unique per organization.
+                        example: ext-part-001
+                      orderedQuantity:
+                        type: integer
+                        description: Total quantity currently on order from purchase orders. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 15
+                      reservedQuantity:
+                        type: integer
+                        description: 'Total quantity currently reserved for work orders. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `committedQuantities.reserved` instead.'
+                        example: 3
+                        deprecated: true
+                      committedQuantities:
+                        type: object
+                        description: Quantities of the part currently committed to work orders, broken down by stage.
+                        properties:
+                          kitted:
+                            type: integer
+                            description: Quantity of parts that have been kitted for work orders
+                            example: 5
+                          reserved:
+                            type: integer
+                            description: Quantity of parts reserved for work orders
+                            example: 3
+                          staged:
+                            type: integer
+                            description: Quantity of parts that have been staged for work orders
+                            example: 2
+                      assignedQuantity:
+                        type: integer
+                        description: Total quantity currently assigned to work orders across all stages.
+                        example: 10
+                      maximumQuantity:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 100
+                        description: Total maximum quantity to keep in stock. Null when no part location has a max set. If your plan includes multi-location parts, this is the quantity across all part locations.
+                      vendorIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 23
+                        - 56
+                        description: 'List of vendor IDs. Deprecated: Use the `vendorId` field inside `vendors`.'
+                        deprecated: true
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the part
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date at which the part was deleted
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified part.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: part Not Found
+      tags:
+      - Parts
+      operationId: getPartsExternalByExternalId
+      x-operation-id-source: derived
+    patch:
+      summary: Create or update part by external ID
+      description: Idempotent upsert keyed on the external ID in the path. If a part has this external ID, it will be updated (and undeleted, if the part was previously deleted). Otherwise, a new part will be created with this external ID.
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the part
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Part to create or update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Locknut - 1/8
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: ''
+                area:
+                  type:
+                  - string
+                  - 'null'
+                  example: tool room
+                  description: 'Area of the part. Deprecated: Use new field inside `locations`. Will cause error if both fields are sent. See https://help.getmaintainx.com/multi-location-parts#integration-issues-with-multi-location-parts for more information.'
+                  deprecated: true
+                unitCost:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Cost in cents. For example, for $1.20, put 120.
+                  example: 120
+                availableQuantity:
+                  type: integer
+                  description: 'Total quantity currently in stock. Deprecated: Use new field inside `locations`. Will cause error if both fields are sent. See https://help.getmaintainx.com/multi-location-parts#integration-issues-with-multi-location-parts for more information.'
+                  example: 10
+                  deprecated: true
+                minimumQuantity:
+                  type: integer
+                  description: 'Total minimum quantity before you should restock. Deprecated: Use new field inside `locations`. Will cause error if both fields are sent. See https://help.getmaintainx.com/multi-location-parts#integration-issues-with-multi-location-parts for more information.'
+                  example: 5
+                  deprecated: true
+                barcode:
+                  type:
+                  - string
+                  - 'null'
+                  example: bWFpbnRhaW54Cg==
+                  description: String encoded barcode
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: 'ID of the location where the part is located. Deprecated: Use new field inside `locations`. Will cause error if both fields are sent. See https://help.getmaintainx.com/multi-location-parts#integration-issues-with-multi-location-parts for more information.'
+                  deprecated: true
+                partTypes:
+                  type: array
+                  items:
+                    type: string
+                  description: List of part types
+                assetIds:
+                  type: array
+                  items:
+                    type: integer
+                  example:
+                  - 12
+                  - 4561
+                  description: List of asset IDs
+                teamIds:
+                  type: array
+                  items:
+                    type: integer
+                  example:
+                  - 1
+                  - 4
+                  description: List of team IDs in charge of the part
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Part Number")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Part Number: '000000000'
+                vendors:
+                  type: array
+                  description: List of vendors of the part
+                  items:
+                    type: object
+                    properties:
+                      vendorId:
+                        type: integer
+                        example: '1'
+                        description: Id of the vendor
+                      partNumber:
+                        type: string
+                        example: XC230
+                        description: Part number given to the part by this vendor
+                vendorIds:
+                  type: array
+                  items:
+                    type: integer
+                  example:
+                  - 23
+                  - 56
+                  description: 'List of vendor IDs. Deprecated: Use the `vendorId` field inside `vendors`.'
+                  deprecated: true
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: Date & time at which the part was created
+                  example: '2022-01-01T00:00:00.000Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: Date & time at which the part was last updated. This doesn't include comments
+                  example: '2022-01-01T00:00:00.000Z'
+                deletedAt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: Date at which the part was deleted
+                  example: '2022-01-01T00:00:00.000Z'
+                locations:
+                  type: object
+                  properties:
+                    addedUpdated:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - locationId
+                        properties:
+                          locationId:
+                            type: integer
+                            example: 852
+                            description: ID of the location where the part is located
+                          availableQuantity:
+                            type: integer
+                            description: Quantity currently in stock
+                            example: 10
+                          minimumQuantity:
+                            type:
+                            - integer
+                            - 'null'
+                            description: Minimum quantity before you should restock
+                            example: 5
+                          maximumQuantity:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 100
+                            description: Maximum quantity you want to stock. Must be greater than or equal to minimumQuantity.
+                          area:
+                            type:
+                            - string
+                            - 'null'
+                            example: tool room
+                      description: List of locations to add or update
+                    removedLocationIds:
+                      type: array
+                      items:
+                        type: integer
+                      description: List of location IDs to remove from the part
+                      example:
+                      - 742
+                      - 514
+                  description: List of locations to add, update or remove.
+      responses:
+        '200':
+          description: Successfully updated part
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - part
+                properties:
+                  part:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - updatedAt
+                    - createdAt
+                    properties:
+                      id:
+                        type: integer
+                        example: 123456
+                        description: Global ID of the part
+                      name:
+                        type: string
+                        example: Locknut - 1/8
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: ''
+                      area:
+                        type:
+                        - string
+                        - 'null'
+                        example: tool room
+                        description: 'Area of the part. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      unitCost:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Cost in cents. For example, for $1.20, put 120.
+                        example: 120
+                      availableQuantity:
+                        type: integer
+                        description: 'Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `inStockQuantity` instead.'
+                        example: 10
+                        deprecated: true
+                      inStockQuantity:
+                        type: integer
+                        description: Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 10
+                      minimumQuantity:
+                        type: integer
+                        description: Total minimum quantity before you should restock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 5
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: bWFpbnRhaW54Cg==
+                        description: String encoded barcode
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: 'ID of the location where the part is located. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - locationId
+                          properties:
+                            locationId:
+                              type: integer
+                              example: 852
+                              description: ID of the location where the part is located
+                            availableQuantity:
+                              type: integer
+                              description: Quantity currently in stock
+                              example: 10
+                            minimumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: Minimum quantity before you should restock
+                              example: 5
+                            maximumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 100
+                              description: Maximum quantity you want to stock. Must be greater than or equal to minimumQuantity.
+                            area:
+                              type:
+                              - string
+                              - 'null'
+                              example: tool room
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              example: Warehouses
+                              description: Name of the location where the part is stored
+                            reservedQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: 'Quantity currently reserved for work orders. Deprecated: Use `committedQuantities.reserved` instead.'
+                              example: 10
+                              deprecated: true
+                            committedQuantities:
+                              type: object
+                              description: Quantities of the part currently committed to work orders, broken down by stage.
+                              properties:
+                                kitted:
+                                  type: integer
+                                  description: Quantity of parts that have been kitted for work orders
+                                  example: 5
+                                reserved:
+                                  type: integer
+                                  description: Quantity of parts reserved for work orders
+                                  example: 3
+                                staged:
+                                  type: integer
+                                  description: Quantity of parts that have been staged for work orders
+                                  example: 2
+                            assignedQuantity:
+                              type: integer
+                              description: Quantity currently assigned to work orders at this location
+                              example: 5
+                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
+                      partTypes:
+                        type: array
+                        items:
+                          type: string
+                        description: List of part types
+                      assetIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 12
+                        - 4561
+                        description: List of asset IDs
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 1
+                        - 4
+                        description: List of team IDs in charge of the part
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Part Number")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Part Number: '000000000'
+                      vendors:
+                        type: array
+                        description: List of vendors of the part
+                        items:
+                          type: object
+                          properties:
+                            vendorId:
+                              type: integer
+                              example: '1'
+                              description: Id of the vendor
+                            partNumber:
+                              type: string
+                              example: XC230
+                              description: Part number given to the part by this vendor
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this part, unique per organization.
+                        example: ext-part-001
+                      orderedQuantity:
+                        type: integer
+                        description: Total quantity currently on order from purchase orders. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 15
+                      reservedQuantity:
+                        type: integer
+                        description: 'Total quantity currently reserved for work orders. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `committedQuantities.reserved` instead.'
+                        example: 3
+                        deprecated: true
+                      committedQuantities:
+                        type: object
+                        description: Quantities of the part currently committed to work orders, broken down by stage.
+                        properties:
+                          kitted:
+                            type: integer
+                            description: Quantity of parts that have been kitted for work orders
+                            example: 5
+                          reserved:
+                            type: integer
+                            description: Quantity of parts reserved for work orders
+                            example: 3
+                          staged:
+                            type: integer
+                            description: Quantity of parts that have been staged for work orders
+                            example: 2
+                      assignedQuantity:
+                        type: integer
+                        description: Total quantity currently assigned to work orders across all stages.
+                        example: 10
+                      maximumQuantity:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 100
+                        description: Total maximum quantity to keep in stock. Null when no part location has a max set. If your plan includes multi-location parts, this is the quantity across all part locations.
+                      vendorIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 23
+                        - 56
+                        description: 'List of vendor IDs. Deprecated: Use the `vendorId` field inside `vendors`.'
+                        deprecated: true
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the part
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date at which the part was deleted
+                        example: '2022-01-01T00:00:00.000Z'
+        '201':
+          description: Successfully created part
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - part
+                properties:
+                  part:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - updatedAt
+                    - createdAt
+                    properties:
+                      id:
+                        type: integer
+                        example: 123456
+                        description: Global ID of the part
+                      name:
+                        type: string
+                        example: Locknut - 1/8
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: ''
+                      area:
+                        type:
+                        - string
+                        - 'null'
+                        example: tool room
+                        description: 'Area of the part. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      unitCost:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Cost in cents. For example, for $1.20, put 120.
+                        example: 120
+                      availableQuantity:
+                        type: integer
+                        description: 'Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `inStockQuantity` instead.'
+                        example: 10
+                        deprecated: true
+                      inStockQuantity:
+                        type: integer
+                        description: Total quantity currently in stock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 10
+                      minimumQuantity:
+                        type: integer
+                        description: Total minimum quantity before you should restock. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 5
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: bWFpbnRhaW54Cg==
+                        description: String encoded barcode
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: 'ID of the location where the part is located. Deprecated: for Parts with multiple locations, use the new field in `locations`'
+                        deprecated: true
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - locationId
+                          properties:
+                            locationId:
+                              type: integer
+                              example: 852
+                              description: ID of the location where the part is located
+                            availableQuantity:
+                              type: integer
+                              description: Quantity currently in stock
+                              example: 10
+                            minimumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: Minimum quantity before you should restock
+                              example: 5
+                            maximumQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 100
+                              description: Maximum quantity you want to stock. Must be greater than or equal to minimumQuantity.
+                            area:
+                              type:
+                              - string
+                              - 'null'
+                              example: tool room
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              example: Warehouses
+                              description: Name of the location where the part is stored
+                            reservedQuantity:
+                              type:
+                              - integer
+                              - 'null'
+                              description: 'Quantity currently reserved for work orders. Deprecated: Use `committedQuantities.reserved` instead.'
+                              example: 10
+                              deprecated: true
+                            committedQuantities:
+                              type: object
+                              description: Quantities of the part currently committed to work orders, broken down by stage.
+                              properties:
+                                kitted:
+                                  type: integer
+                                  description: Quantity of parts that have been kitted for work orders
+                                  example: 5
+                                reserved:
+                                  type: integer
+                                  description: Quantity of parts reserved for work orders
+                                  example: 3
+                                staged:
+                                  type: integer
+                                  description: Quantity of parts that have been staged for work orders
+                                  example: 2
+                            assignedQuantity:
+                              type: integer
+                              description: Quantity currently assigned to work orders at this location
+                              example: 5
+                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
+                      partTypes:
+                        type: array
+                        items:
+                          type: string
+                        description: List of part types
+                      assetIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 12
+                        - 4561
+                        description: List of asset IDs
+                      teamIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 1
+                        - 4
+                        description: List of team IDs in charge of the part
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Part Number")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Part Number: '000000000'
+                      vendors:
+                        type: array
+                        description: List of vendors of the part
+                        items:
+                          type: object
+                          properties:
+                            vendorId:
+                              type: integer
+                              example: '1'
+                              description: Id of the vendor
+                            partNumber:
+                              type: string
+                              example: XC230
+                              description: Part number given to the part by this vendor
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this part, unique per organization.
+                        example: ext-part-001
+                      orderedQuantity:
+                        type: integer
+                        description: Total quantity currently on order from purchase orders. If your plan includes multi-location parts, this is the quantity across all part locations.
+                        example: 15
+                      reservedQuantity:
+                        type: integer
+                        description: 'Total quantity currently reserved for work orders. If your plan includes multi-location parts, this is the quantity across all part locations. Deprecated: Use `committedQuantities.reserved` instead.'
+                        example: 3
+                        deprecated: true
+                      committedQuantities:
+                        type: object
+                        description: Quantities of the part currently committed to work orders, broken down by stage.
+                        properties:
+                          kitted:
+                            type: integer
+                            description: Quantity of parts that have been kitted for work orders
+                            example: 5
+                          reserved:
+                            type: integer
+                            description: Quantity of parts reserved for work orders
+                            example: 3
+                          staged:
+                            type: integer
+                            description: Quantity of parts that have been staged for work orders
+                            example: 2
+                      assignedQuantity:
+                        type: integer
+                        description: Total quantity currently assigned to work orders across all stages.
+                        example: 10
+                      maximumQuantity:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 100
+                        description: Total maximum quantity to keep in stock. Null when no part location has a max set. If your plan includes multi-location parts, this is the quantity across all part locations.
+                      vendorIds:
+                        type: array
+                        items:
+                          type: integer
+                        example:
+                        - 23
+                        - 56
+                        description: 'List of vendor IDs. Deprecated: Use the `vendorId` field inside `vendors`.'
+                        deprecated: true
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the part
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the part was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        description: Date at which the part was deleted
+                        example: '2022-01-01T00:00:00.000Z'
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified part.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: part Not Found
+        '409':
+          description: Conflict with existing part
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
+      tags:
+      - Parts
+      operationId: patchPartsExternalByExternalId
+      x-operation-id-source: derived
+    delete:
+      summary: Delete part by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the part
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '204':
+          description: Successfully deleted the part
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified part.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: part Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Parts
+      operationId: deletePartsExternalByExternalId
       x-operation-id-source: derived
   /parts/{id}:
     get:
@@ -710,6 +2182,12 @@ paths:
                               - string
                               - 'null'
                               example: tool room
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              example: Warehouses
+                              description: Name of the location where the part is stored
                             reservedQuantity:
                               type:
                               - integer
@@ -737,7 +2215,7 @@ paths:
                               type: integer
                               description: Quantity currently assigned to work orders at this location
                               example: 5
-                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, and area within each location.
+                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
                       partTypes:
                         type: array
                         items:
@@ -780,6 +2258,12 @@ paths:
                               type: string
                               example: XC230
                               description: Part number given to the part by this vendor
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this part, unique per organization.
+                        example: ext-part-001
                       orderedQuantity:
                         type: integer
                         description: Total quantity currently on order from purchase orders. If your plan includes multi-location parts, this is the quantity across all part locations.
@@ -1073,26 +2557,12 @@ paths:
                         type: string
                         example: XC230
                         description: Part number given to the part by this vendor
-                committedQuantities:
-                  type: object
-                  description: Quantities of the part currently committed to work orders, broken down by stage.
-                  properties:
-                    kitted:
-                      type: integer
-                      description: Quantity of parts that have been kitted for work orders
-                      example: 5
-                    reserved:
-                      type: integer
-                      description: Quantity of parts reserved for work orders
-                      example: 3
-                    staged:
-                      type: integer
-                      description: Quantity of parts that have been staged for work orders
-                      example: 2
-                assignedQuantity:
-                  type: integer
-                  description: Total quantity currently assigned to work orders across all stages.
-                  example: 10
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this part, unique per organization.
+                  example: ext-part-001
                 vendorIds:
                   type: array
                   items:
@@ -1263,6 +2733,12 @@ paths:
                               - string
                               - 'null'
                               example: tool room
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              example: Warehouses
+                              description: Name of the location where the part is stored
                             reservedQuantity:
                               type:
                               - integer
@@ -1290,7 +2766,7 @@ paths:
                               type: integer
                               description: Quantity currently assigned to work orders at this location
                               example: 5
-                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, and area within each location.
+                        description: Detailed list of locations where the part is stored, including properties such as available quantity, minimum quantity, reserved quantity, area, and name of each location.
                       partTypes:
                         type: array
                         items:
@@ -1333,6 +2809,12 @@ paths:
                               type: string
                               example: XC230
                               description: Part number given to the part by this vendor
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this part, unique per organization.
+                        example: ext-part-001
                       orderedQuantity:
                         type: integer
                         description: Total quantity currently on order from purchase orders. If your plan includes multi-location parts, this is the quantity across all part locations.
@@ -1530,6 +3012,27 @@ paths:
                   error:
                     type: string
                     example: part Not Found
+        '409':
+          description: Conflict with existing part
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Parts
       operationId: patchPartsById

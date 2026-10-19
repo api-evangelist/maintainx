@@ -1,0 +1,602 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Custom Fields API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Custom Fields
+  description: Operations on Custom Fields
+  x-traitTag: false
+paths:
+  /customfields/{entity}:
+    post:
+      summary: Create custom field
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - assets
+          - locations
+          - parts
+          - workOrders
+          - vendors
+          - purchaseOrders
+          - lineItemPurchaseOrders
+        name: entity
+        in: path
+        required: true
+        description: Type of entity
+        example: assets
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Custom fields to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The custom field data
+              required:
+              - fields
+              properties:
+                fields:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - label
+                    - type
+                    properties:
+                      label:
+                        type: string
+                        example: Date Purchased
+                      type:
+                        type: string
+                        enum:
+                        - oneline
+                        - multiline
+                        - number
+                        - singleSelect
+                        - date
+                        - datetime
+                        - link
+                      options:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                      includeInRecurrence:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Only relevent in the context of Work Orders
+                      required:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Mark this field as required. This only affect the frontend.
+                      unlisted:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Mark this custom field as unlisted. Once unlisted it will only be editable through the Rest API. When the custom field contains data, it will be displayed in the frontend; otherwise, it will remain hidden.
+      responses:
+        '200':
+          description: Successfully created the custom fields
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - label
+                  - type
+                  - sortOrder
+                  properties:
+                    id:
+                      type: number
+                      description: ID of the custom field
+                      example: 1
+                    label:
+                      type: string
+                      description: The label of the custom field
+                      example: Date Purchased
+                    sortOrder:
+                      type: integer
+                      description: The order which the field will be displayed in the UI
+                      example: 25
+                    type:
+                      type: string
+                      enum:
+                      - oneline
+                      - multiline
+                      - number
+                      - singleSelect
+                      - date
+                      - datetime
+                      - link
+                    options:
+                      type: array
+                      description: The possible choices to the field (if applicable).
+                      items:
+                        type: string
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Failed to create the custom field
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: User don't have the right permissions
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified custom field.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: custom field Not Found
+      tags:
+      - Custom Fields
+      operationId: postCustomfieldsByEntity
+      x-operation-id-source: derived
+    get:
+      summary: List custom fields
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - assets
+          - locations
+          - parts
+          - workOrders
+          - vendors
+          - purchaseOrders
+          - lineItemPurchaseOrders
+        name: entity
+        in: path
+        required: true
+        description: Type of entity
+        example: assets
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched the custom fields
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - label
+                  - type
+                  - sortOrder
+                  properties:
+                    id:
+                      type: number
+                      description: ID of the custom field
+                      example: 1
+                    label:
+                      type: string
+                      description: The label of the custom field
+                      example: Date Purchased
+                    sortOrder:
+                      type: integer
+                      description: A weighted value used to sort the custom fields. Fields are sorted lowest to highest. This is different from sortIndex.
+                      example: 25
+                    type:
+                      type: string
+                      enum:
+                      - oneline
+                      - multiline
+                      - number
+                      - singleSelect
+                      - date
+                      - datetime
+                      - link
+                    required:
+                      type:
+                      - boolean
+                      - 'null'
+                      description: This field is marked as required. This only affect the frontend.
+                    unlisted:
+                      type:
+                      - boolean
+                      - 'null'
+                      description: This field is marked as unlisted. Once unlisted it will only be editable through the Rest API. When the custom field contains data, it will be displayed in the frontend; otherwise, it will remain hidden.
+                    options:
+                      type: array
+                      description: The possible choices to the field (if applicable).
+                      items:
+                        type: string
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified custom field.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: custom field Not Found
+      tags:
+      - Custom Fields
+      operationId: getCustomfieldsByEntity
+      x-operation-id-source: derived
+  /customfields/{entity}/{id}:
+    patch:
+      summary: Edit custom field
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the custom field
+        example: '1'
+      - schema:
+          type: string
+          enum:
+          - assets
+          - locations
+          - parts
+          - workOrders
+          - vendors
+          - purchaseOrders
+          - lineItemPurchaseOrders
+        name: entity
+        in: path
+        required: true
+        description: Type of entity
+        example: assets
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Custom field to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The custom field data
+              required:
+              - field
+              properties:
+                field:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+                      example: Date Purchased
+                    type:
+                      type: string
+                      enum:
+                      - oneline
+                      - multiline
+                      - number
+                      - singleSelect
+                      - date
+                      - datetime
+                      - link
+                    options:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    includeInRecurrence:
+                      type:
+                      - boolean
+                      - 'null'
+                      description: Only relevent in the context of Work Orders
+                    sortIndex:
+                      type: integer
+                      description: 'Represents the actual index (zero based) that you wish the element to be set at. For example, if you have 6 custom fields, and would like to set the field as the second element, you would pass sortIndex: 1. This would in turn affect the sortOrder weight.'
+                    required:
+                      type:
+                      - boolean
+                      - 'null'
+                      description: Mark this custom field as required
+                    unlisted:
+                      type:
+                      - boolean
+                      - 'null'
+                      description: Mark this custom field as unlisted
+      responses:
+        '204':
+          description: Successfully edited the custom field
+        '400':
+          description: Failed to edit the custom field
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Invalid Property
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Failed to edit the custom field
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: User don't have the right permissions
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified custom field.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: custom field Not Found
+      tags:
+      - Custom Fields
+      operationId: patchCustomfieldsByEntityById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete custom field
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the custom field
+        example: '1'
+      - schema:
+          type: string
+          enum:
+          - assets
+          - locations
+          - parts
+          - workOrders
+          - vendors
+          - purchaseOrders
+          - lineItemPurchaseOrders
+        name: entity
+        in: path
+        required: true
+        description: Type of entity
+        example: assets
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the Custom Fields
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified Custom Fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Custom Fields Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Custom Fields
+      operationId: deleteCustomfieldsByEntityById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

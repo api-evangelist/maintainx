@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Manufacturers API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -73,6 +98,8 @@ paths:
                 type: object
                 required:
                 - manufacturers
+                - nextCursor
+                - nextPageUrl
                 properties:
                   manufacturers:
                     type: array
@@ -447,6 +474,8 @@ paths:
                 type: object
                 required:
                 - models
+                - nextCursor
+                - nextPageUrl
                 properties:
                   models:
                     type: array

@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Meter Readings API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -52,6 +77,7 @@ paths:
           application/json:
             schema:
               type: array
+              maxItems: 100
               items:
                 type: object
                 required:
@@ -200,6 +226,88 @@ paths:
         in: query
         required: false
       operationId: postMeterreadings
+      x-operation-id-source: derived
+  /meterreadings/{id}:
+    get:
+      summary: Get meter reading
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the meterReading
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved meterReading's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - meterReading
+                properties:
+                  meterReading:
+                    type: object
+                    required:
+                    - value
+                    - meterId
+                    - createdAt
+                    properties:
+                      id:
+                        type: string
+                        example: 963
+                        description: 'Global ID of the reading.
+
+                          IoT meters will produce IDs with the format ''{meterId}-{uuid}'', while manual meters will produce numbered IDs.'
+                      value:
+                        type: number
+                        description: The reading value given by the meter.
+                        example: 120
+                      meterId:
+                        type: number
+                        example: 53
+                        description: Global ID of the meter.
+                      createdAt:
+                        type: string
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: Meter Reading creation/processing date.
+                      readingDate:
+                        type:
+                        - string
+                        - 'null'
+                        example: '2022-01-01T00:00:00.000Z'
+                        description: Date at which the meter was read. This date can be set in the past, but cannot be further than 3 days for IoT meters.
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified meterReading or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Meter Readings
+      operationId: getMeterreadingsById
       x-operation-id-source: derived
 components:
   responses:

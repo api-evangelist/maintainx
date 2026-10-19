@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Locations API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -84,6 +109,12 @@ paths:
                   items:
                     type: number
                     example: 2
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this location, unique per organization.
+                  example: ext-location-001
       responses:
         '200':
           description: Successfully created location
@@ -130,6 +161,27 @@ paths:
                           - type: boolean
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict with existing location
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Locations
       parameters:
@@ -213,6 +265,8 @@ paths:
                 type: object
                 required:
                 - locations
+                - nextCursor
+                - nextPageUrl
                 properties:
                   locations:
                     type: array
@@ -260,6 +314,12 @@ paths:
                           type: integer
                           example: 1
                           description: ID of the organization that owns this resource
+                        externalId:
+                          type:
+                          - string
+                          - 'null'
+                          description: External ID for this location, unique per organization.
+                          example: ext-location-001
                         extraFields:
                           type: object
                           description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department") (expand with query parameter)'
@@ -310,6 +370,864 @@ paths:
       tags:
       - Locations
       operationId: getLocations
+      x-operation-id-source: derived
+  /locations/external/{externalId}:
+    get:
+      summary: Get location by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the location
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved location
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - location
+                properties:
+                  location:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the location
+                      name:
+                        type: string
+                        example: Warehouses
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: The warehouse where we store the forklifts
+                      address:
+                        type:
+                        - string
+                        - 'null'
+                        example: 1090 main street, Franklin
+                        description: Postal address of the location
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent location
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 342
+                        - 521
+                        description: IDs of the location's children
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the location
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Department: Electrical
+                      teamIds:
+                        type: array
+                        description: Team IDs
+                        items:
+                          type: number
+                          example: 2
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 2
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the location was deleted
+                        format: date-time
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this location, unique per organization.
+                        example: ext-location-001
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified location.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: location Not Found
+      tags:
+      - Locations
+      operationId: getLocationsExternalByExternalId
+      x-operation-id-source: derived
+    patch:
+      summary: Create or update location by external ID
+      description: Idempotent upsert keyed on the external ID in the path. If a location has this external ID, it will be updated (and undeleted, if the location was previously deleted). Otherwise, a new location will be created with this external ID.
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the location
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Location to create or update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Warehouses
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: The warehouse where we store the forklifts
+                address:
+                  type:
+                  - string
+                  - 'null'
+                  example: 1090 main street, Franklin
+                  description: Postal address of the location
+                barcode:
+                  type:
+                  - string
+                  - 'null'
+                  example: BWFPBNRHAW54CG
+                  description: String encoded barcode
+                parentId:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 852
+                  description: ID of the parent location
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Department: Electrical
+                vendorIds:
+                  type: array
+                  description: Vendor IDs
+                  items:
+                    type: number
+                    example: 2
+      responses:
+        '200':
+          description: Successfully updated location
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - location
+                properties:
+                  location:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the location
+                      name:
+                        type: string
+                        example: Warehouses
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: The warehouse where we store the forklifts
+                      address:
+                        type:
+                        - string
+                        - 'null'
+                        example: 1090 main street, Franklin
+                        description: Postal address of the location
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent location
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 342
+                        - 521
+                        description: IDs of the location's children
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the location
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Department: Electrical
+                      teamIds:
+                        type: array
+                        description: Team IDs
+                        items:
+                          type: number
+                          example: 2
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 2
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the location was deleted
+                        format: date-time
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this location, unique per organization.
+                        example: ext-location-001
+        '201':
+          description: Successfully created location
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - location
+                properties:
+                  location:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the location
+                      name:
+                        type: string
+                        example: Warehouses
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: The warehouse where we store the forklifts
+                      address:
+                        type:
+                        - string
+                        - 'null'
+                        example: 1090 main street, Franklin
+                        description: Postal address of the location
+                      barcode:
+                        type:
+                        - string
+                        - 'null'
+                        example: BWFPBNRHAW54CG
+                        description: String encoded barcode
+                      parentId:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 852
+                        description: ID of the parent location
+                      childrenIds:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: number
+                        example:
+                        - 342
+                        - 521
+                        description: IDs of the location's children
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the location
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Department: Electrical
+                      teamIds:
+                        type: array
+                        description: Team IDs
+                        items:
+                          type: number
+                          example: 2
+                      vendorIds:
+                        type: array
+                        description: Vendor IDs
+                        items:
+                          type: number
+                          example: 2
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the location was last updated. This doesn't include comments
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the location was deleted
+                        format: date-time
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this location, unique per organization.
+                        example: ext-location-001
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified location.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: location Not Found
+        '409':
+          description: Conflict with existing location
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
+      tags:
+      - Locations
+      operationId: patchLocationsExternalByExternalId
+      x-operation-id-source: derived
+    delete:
+      summary: Delete location by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the location
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '204':
+          description: Successfully deleted the location
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified location.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: location Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Locations
+      operationId: deleteLocationsExternalByExternalId
       x-operation-id-source: derived
   /locations/{id}:
     get:
@@ -505,6 +1423,12 @@ paths:
                         - 'null'
                         description: Date at which the location was deleted
                         format: date-time
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this location, unique per organization.
+                        example: ext-location-001
         '400':
           description: Error with query
           content:
@@ -598,6 +1522,12 @@ paths:
                   items:
                     type: number
                     example: 2
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  description: External ID for this location, unique per organization.
+                  example: ext-location-001
       responses:
         '200':
           description: Successfully edited location
@@ -781,6 +1711,12 @@ paths:
                         - 'null'
                         description: Date at which the location was deleted
                         format: date-time
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        description: External ID for this location, unique per organization.
+                        example: ext-location-001
         '400':
           description: Failed to edit the location
           content:
@@ -825,6 +1761,27 @@ paths:
                   error:
                     type: string
                     example: location Not Found
+        '409':
+          description: Conflict with existing location
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Locations
       operationId: patchLocationsById

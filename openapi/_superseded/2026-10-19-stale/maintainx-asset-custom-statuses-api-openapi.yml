@@ -1,0 +1,478 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Asset Custom Statuses API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Asset Custom Statuses
+  description: Operations on Asset Custom Statuses
+  x-traitTag: false
+paths:
+  /assetcustomstatuses:
+    post:
+      summary: Create new asset custom status type
+      requestBody:
+        description: AssetCustomStatus to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - baseAssetStatus
+              - label
+              properties:
+                label:
+                  type: string
+                  example: Decommissioned
+                baseAssetStatus:
+                  type: string
+                  example: OFFLINE
+                  enum:
+                  - IGNORE
+                  - OFFLINE
+                  - ONLINE
+      responses:
+        '201':
+          description: Successfully created asset custom status
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: number
+                    example: Global ID of the custom asset status.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Asset Custom Statuses
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postAssetcustomstatuses
+      x-operation-id-source: derived
+    get:
+      summary: List asset custom statuses
+      description: Endpoint used to list asset custom status resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Asset Custom Statuses returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Asset Custom Statuses list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assetCustomStatuses
+                properties:
+                  assetCustomStatuses:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - label
+                      - baseAssetStatus
+                      properties:
+                        id:
+                          type: number
+                          example: Global ID of the custom asset status.
+                        label:
+                          type: string
+                          example: Decommissioned
+                        baseAssetStatus:
+                          type: string
+                          example: OFFLINE
+                          enum:
+                          - IGNORE
+                          - OFFLINE
+                          - ONLINE
+                        downtimeType:
+                          type:
+                          - string
+                          - 'null'
+                          example: null
+                          enum:
+                          - PLANNED
+                          - UNPLANNED
+                          deprecated: true
+                          description: Downtime type on asset custom statuses will always return null. Use downtime type on asset status instead.
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: Date & time at which the asset custom status was created.
+                          example: '2022-01-01T12:34:56.123Z'
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: Date & time at which the asset custom status was last updated.
+                          example: '2022-01-01T12:34:56.123Z'
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Asset Custom Statuses.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Asset Custom Statuses.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Asset Custom Statuses
+      operationId: getAssetcustomstatuses
+      x-operation-id-source: derived
+  /assetcustomstatuses/{id}:
+    get:
+      summary: Get asset custom status
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the assetCustomStatus
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved assetCustomStatus's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assetCustomStatus
+                properties:
+                  assetCustomStatus:
+                    type: object
+                    required:
+                    - baseAssetStatus
+                    - label
+                    properties:
+                      id:
+                        type: number
+                        example: Global ID of the custom asset status.
+                      baseAssetStatus:
+                        type: string
+                        example: OFFLINE
+                        enum:
+                        - IGNORE
+                        - OFFLINE
+                        - ONLINE
+                      label:
+                        type: string
+                        example: Decommissioned
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset custom status was created.
+                        example: '2022-01-01T12:34:56.123Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset custom status was last updated.
+                        example: '2022-01-01T12:34:56.123Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the asset custom status was deleted.
+                        format: date-time
+                        example: '2022-01-01T12:34:56.123Z'
+                      downtimeType:
+                        type:
+                        - string
+                        - 'null'
+                        example: null
+                        enum:
+                        - PLANNED
+                        - UNPLANNED
+                        deprecated: true
+                        description: Downtime type on asset custom statuses will always return null. Use downtime type on asset status instead.
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified assetCustomStatus or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Asset Custom Statuses
+      operationId: getAssetcustomstatusesById
+      x-operation-id-source: derived
+    patch:
+      summary: Update asset custom status
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the assetCustomStatus
+        example: '4242'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: AssetCustomStatus to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - label
+              properties:
+                label:
+                  type: string
+                  example: Decommissioned
+      responses:
+        '200':
+          description: Successfully edited asset custom status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assetcustomstatus:
+                    type: object
+                    required:
+                    - id
+                    properties:
+                      id:
+                        type: number
+                        example: Global ID of the custom asset status.
+                      baseAssetStatus:
+                        type: string
+                        example: OFFLINE
+                        enum:
+                        - IGNORE
+                        - OFFLINE
+                        - ONLINE
+                      label:
+                        type: string
+                        example: Decommissioned
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset custom status was created.
+                        example: '2022-01-01T12:34:56.123Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the asset custom status was last updated.
+                        example: '2022-01-01T12:34:56.123Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the asset custom status was deleted.
+                        format: date-time
+                        example: '2022-01-01T12:34:56.123Z'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified assetcustomstatus.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: assetcustomstatus Not Found
+      tags:
+      - Asset Custom Statuses
+      operationId: patchAssetcustomstatusesById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete asset custom status
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the assetCustomStatus
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the assetCustomStatus
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified assetCustomStatus.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: assetCustomStatus Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Asset Custom Statuses
+      operationId: deleteAssetcustomstatusesById
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

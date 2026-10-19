@@ -1,0 +1,1008 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Users API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Users
+  description: Operations on Users
+  x-traitTag: false
+paths:
+  /users:
+    post:
+      summary: Create new user
+      requestBody:
+        description: User to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - firstName
+              - lastName
+              properties:
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+                role:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - ADMIN
+                  - MEMBER
+                  - OPERATOR
+                  - REQUESTER
+                  - SERVICE_ACCOUNT
+                  example: MEMBER
+                customRole:
+                  type:
+                  - string
+                  - 'null'
+                  example: Custom Role Name
+                  description: Custom role name if the user has a custom role assigned
+                email:
+                  type:
+                  - string
+                  - 'null'
+                  example: user@example.com
+                phoneNumber:
+                  type:
+                  - string
+                  - 'null'
+                  example: 415-555-0100
+                externalData:
+                  description: Extra data that can be attached to the user, for example to help reference to a matching record in an external system.
+                  oneOf:
+                  - type: object
+                    example:
+                      popularErpSolutionId: asd732da
+                  - type: number
+                    example: 732
+                  - type: string
+                    example: asd732da
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Department: Engineering
+                authType:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - NORMAL
+                  - SAML
+                  - OIDC
+                  example: SAML
+                inviteType:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - ALL
+                  - EMAIL
+                  - SMS
+                  - NONE
+                  example: ALL
+                hourlyRate:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 120
+                  description: Cost in cents. For example, for $1.20, put 120. Set to `null` to set the user's rate to organization default hourly rate if defined, otherwise it would set the rate to the user's hourly rate defined in any work order. If none is defined, setting `null` will set the user's hourly rate to `null`
+      responses:
+        '201':
+          description: Successfully created user
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 963
+                    description: Global ID of the user
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Failed to create the user
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You do not have permission to create this user.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified User.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: User Not Found
+      tags:
+      - Users
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postUsers
+      x-operation-id-source: derived
+    get:
+      summary: List users
+      description: Endpoint used to list user resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Users returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: onlyAssignable
+        schema:
+          type: boolean
+          description: Will only show users that can be assigned to a work order
+        in: query
+      - name: email
+        schema:
+          type: array
+          description: 'Filter users by email. You can filter for multiple users by specifying multiple emails like so: `/users?email=user1@example.com&email=user2@example.com`. Note that if you are using special characters in a url, you will need to URI encode them in order for us to interprete them correctly. For example, `+` should be encoded as `%2B` and though we accept `@`, they should still be encoded as `%40`. So filtering for email `user1+test@example.com`, you would use `/users?email=user1%2Btest%example.com` in your URI'
+          items:
+            type: string
+        in: query
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=role&expand=extra_fields`'
+          type: array
+          items:
+            type: string
+            enum:
+            - role
+            - extra_fields
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Users list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - users
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - firstName
+                      - lastName
+                      properties:
+                        id:
+                          type: integer
+                          example: 963
+                          description: Global ID of the user
+                        firstName:
+                          type: string
+                          example: John
+                        lastName:
+                          type: string
+                          example: Doe
+                        email:
+                          type:
+                          - string
+                          - 'null'
+                          example: user@example.com
+                        phoneNumber:
+                          type:
+                          - string
+                          - 'null'
+                          example: 415-555-0100
+                        authType:
+                          type:
+                          - string
+                          - 'null'
+                          enum:
+                          - NORMAL
+                          - SAML
+                          - OIDC
+                          example: SAML
+                        hourlyRate:
+                          type:
+                          - integer
+                          - 'null'
+                          example: 120
+                          description: Cost in cents. For example, for $1.20, the value will be 120. If the hourly rate is not set specifically for the user, the API will return the default organization hourly rate, if that is also not set, it will return the hourly rate that is specifically set for the user in any work order. Otherwise, it would be `undefined`
+                        lastVisitedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          example: '2026-05-06T12:34:56.000Z'
+                          description: Last time the user visited this organization. Scoped to the organization the request is made against. `null` if the user has never visited (e.g. an invited user who has not yet accepted). For service accounts, returns the organization-user creation date.
+                        role:
+                          type: string
+                          enum:
+                          - ADMIN
+                          - MEMBER
+                          - OPERATOR
+                          - REQUESTER
+                          - SERVICE_ACCOUNT
+                          example: MEMBER
+                          description: (expand with query parameter)
+                        extraFields:
+                          type: object
+                          description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department") (expand with query parameter)'
+                          additionalProperties:
+                            type: string
+                          example:
+                            Department: Engineering
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Users.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Users.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Users
+      operationId: getUsers
+      x-operation-id-source: derived
+  /users/{id}:
+    get:
+      summary: Get user
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the user
+        example: '1'
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved user's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - user
+                properties:
+                  user:
+                    type: object
+                    required:
+                    - id
+                    - firstName
+                    - lastName
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the user
+                      firstName:
+                        type: string
+                        example: John
+                      lastName:
+                        type: string
+                        example: Doe
+                      role:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - ADMIN
+                        - MEMBER
+                        - OPERATOR
+                        - REQUESTER
+                        - SERVICE_ACCOUNT
+                        example: MEMBER
+                      customRole:
+                        type:
+                        - string
+                        - 'null'
+                        example: Custom Role Name
+                        description: Custom role name if the user has a custom role assigned
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                        example: user@example.com
+                      phoneNumber:
+                        type:
+                        - string
+                        - 'null'
+                        example: 415-555-0100
+                      removedFromOrganization:
+                        type: boolean
+                        example: true
+                      authType:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - NORMAL
+                        - SAML
+                        - OIDC
+                        example: SAML
+                      hourlyRate:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 120
+                        description: Cost in cents. For example, for $1.20, the value will be 120. If the hourly rate is not set specifically for the user, the API will return the default organization hourly rate, if that is also not set, it will return the hourly rate that is specifically set for the user in any work order. Otherwise, it would be `undefined`
+                      externalData:
+                        description: Extra data that can be attached to the user, for example to help reference to a matching record in an external system.
+                        oneOf:
+                        - type: object
+                          example:
+                            popularErpSolutionId: asd732da
+                        - type: number
+                          example: 732
+                        - type: string
+                          example: asd732da
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Department: Engineering
+                      lastVisitedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2026-05-06T12:34:56.000Z'
+                        description: Last time the user visited this organization. Scoped to the organization the request is made against. `null` if the user has never visited (e.g. an invited user who has not yet accepted). For service accounts, returns the organization-user creation date.
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified user or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Users
+      operationId: getUsersById
+      x-operation-id-source: derived
+    patch:
+      summary: Update user
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the user
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: User to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+                email:
+                  type:
+                  - string
+                  - 'null'
+                  example: user@example.com
+                phoneNumber:
+                  type:
+                  - string
+                  - 'null'
+                  example: 415-555-0100
+                role:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - ADMIN
+                  - MEMBER
+                  - OPERATOR
+                  - REQUESTER
+                  - SERVICE_ACCOUNT
+                  example: MEMBER
+                customRole:
+                  type:
+                  - string
+                  - 'null'
+                  example: Custom Role Name
+                  description: Custom role name if the user has a custom role assigned
+                authType:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - NORMAL
+                  - SAML
+                  - OIDC
+                  example: SAML
+                externalData:
+                  description: Extra data that can be attached to the user, for example to help reference to a matching record in an external system.
+                  oneOf:
+                  - type: object
+                    example:
+                      popularErpSolutionId: asd732da
+                  - type: number
+                    example: 732
+                  - type: string
+                    example: asd732da
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Department: Engineering
+                hourlyRate:
+                  type:
+                  - integer
+                  - 'null'
+                  example: 120
+                  description: Cost in cents. For example, for $1.20, put 120. Set to `null` to set the user's rate to organization default hourly rate if defined, otherwise it would set the rate to the user's hourly rate defined in any work order. If none is defined, setting `null` will set the user's hourly rate to `null`
+      responses:
+        '200':
+          description: Successfully edited user
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - user
+                properties:
+                  user:
+                    type: object
+                    required:
+                    - id
+                    properties:
+                      id:
+                        type: integer
+                        example: 963
+                        description: Global ID of the user
+                      firstName:
+                        type: string
+                        example: John
+                      lastName:
+                        type: string
+                        example: Doe
+                      role:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - ADMIN
+                        - MEMBER
+                        - OPERATOR
+                        - REQUESTER
+                        - SERVICE_ACCOUNT
+                        example: MEMBER
+                      customRole:
+                        type:
+                        - string
+                        - 'null'
+                        example: Custom Role Name
+                        description: Custom role name if the user has a custom role assigned
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                        example: user@example.com
+                      phoneNumber:
+                        type:
+                        - string
+                        - 'null'
+                        example: 415-555-0100
+                      removedFromOrganization:
+                        type: boolean
+                        example: true
+                      authType:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - NORMAL
+                        - SAML
+                        - OIDC
+                        example: SAML
+                      hourlyRate:
+                        type:
+                        - integer
+                        - 'null'
+                        example: 120
+                        description: Cost in cents. For example, for $1.20, the value will be 120. If the hourly rate is not set specifically for the user, the API will return the default organization hourly rate, if that is also not set, it will return the hourly rate that is specifically set for the user in any work order. Otherwise, it would be `undefined`
+                      externalData:
+                        description: Extra data that can be attached to the user, for example to help reference to a matching record in an external system.
+                        oneOf:
+                        - type: object
+                          example:
+                            popularErpSolutionId: asd732da
+                        - type: number
+                          example: 732
+                        - type: string
+                          example: asd732da
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Department")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Department: Engineering
+                      lastVisitedAt:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2026-05-06T12:34:56.000Z'
+                        description: Last time the user visited this organization. Scoped to the organization the request is made against. `null` if the user has never visited (e.g. an invited user who has not yet accepted). For service accounts, returns the organization-user creation date.
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Cannot edit Auth Type
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You do not have permission to edit the Auth Type from SAML to NORMAL.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified user.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: user Not Found
+      tags:
+      - Users
+      operationId: patchUsersById
+      x-operation-id-source: derived
+    delete:
+      summary: Remove user from organization
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the user
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '204':
+          description: Successfully removed user
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified user.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: user Not Found
+      tags:
+      - Users
+      operationId: deleteUsersById
+      x-operation-id-source: derived
+  /users/{id}/messages:
+    post:
+      summary: Create new direct message to a user
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the user
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Message to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - content
+              properties:
+                content:
+                  type: string
+                  description: Content of the message to post
+      responses:
+        '201':
+          description: Successfully created the message
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - conversationId
+                properties:
+                  conversationId:
+                    type: number
+                    description: ID of the conversation
+        '400':
+          description: Failed to create the message
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: should have required property 'content'
+                    fieldPath: content
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: No conversation permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: You cannot create conversations
+                    fieldPath: content
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '404':
+          description: Could not find the specified user.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: user Not Found
+      tags:
+      - Users
+      operationId: postUsersByIdMessages
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

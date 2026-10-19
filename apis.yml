@@ -447,8 +447,7 @@ apis:
       Webhooks that don't get a successful response from your application over long periods of time might
     be deleted. A webhook call will timeout after 10 seconds.
       When a webhook is deleted, we send an email to the address linked to the user account that made
-    the request.
-    </div>
+    the request. </div>
 
 
     <h2>Security and Verification</h2>
@@ -472,8 +471,7 @@ apis:
       <strong>ℹ️ Note</strong>
       <p>When creating a webhook, you'll receive a secret that should be securely stored on your end.
     This secret is essential for signature verification and can also be accessed later through the MaintainX
-    interface if needed.</p>
-    </div>
+    interface if needed.</p> </div>
 
 
     <p>The timestamp is prefixed by <code>t=</code>. Each signature is prefixed by a scheme version. Scheme
@@ -737,6 +735,26 @@ apis:
     url: https://api.getmaintainx.com/v1/docs
   - type: APIReference
     url: https://api.getmaintainx.com/v1/docs
+- aid: maintainx:maintainx-customers-api
+  name: MaintainX Customers API
+  description: Operations on Customers
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-customers-api-openapi.yml
+- aid: maintainx:maintainx-rotation-schedules-api
+  name: MaintainX Rotation Schedules API
+  description: Operations on Rotation Schedules (custom work rotations)
+  humanURL: https://api.getmaintainx.com/v1/docs
+  baseURL: https://api.getmaintainx.com/v1
+  tags:
+  - Rotation Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/maintainx-rotation-schedules-api-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/maintainx-capability-edges.yml

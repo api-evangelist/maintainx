@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Work Requests API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -93,6 +118,13 @@ paths:
                   - 'null'
                   example: james@example.com
                   description: The creator's contact information associated with this work order request. Possible types are `EMAIL`, `PHONE`, and `OTHER`, which will be inferred from the string provided
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID for this work request, unique per organization.
+                  example: ext-workrequest-001
       responses:
         '200':
           description: Successfully created work request
@@ -139,6 +171,27 @@ paths:
                           - type: boolean
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict with existing work request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Work Requests
       parameters:
@@ -252,6 +305,8 @@ paths:
                 type: object
                 required:
                 - workRequests
+                - nextCursor
+                - nextPageUrl
                 properties:
                   workRequests:
                     type: array
@@ -445,6 +500,13 @@ paths:
                           format: date-time
                           description: Date & time at which the work request was last updated
                           example: '2022-01-01T00:00:00.000Z'
+                        externalId:
+                          type:
+                          - string
+                          - 'null'
+                          maxLength: 255
+                          description: External ID for this work request, unique per organization.
+                          example: ext-workrequest-001
                         asset:
                           type: object
                           required:
@@ -709,7 +771,7 @@ paths:
                               - string
                               - 'null'
                               format: date-time
-                              description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                              description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                               example: '2022-01-01T00:00:00.000Z'
                             locationId:
                               type:
@@ -1173,6 +1235,12 @@ paths:
                               description: List of team ids assigned to the work order
                               items:
                                 type: integer
+                            customerId:
+                              type:
+                              - integer
+                              - 'null'
+                              description: ID of the customer linked to the work order
+                              example: 128
                             procedure:
                               type:
                               - object
@@ -1426,6 +1494,13 @@ paths:
                                         - 'null'
                                         description: Indicate if a DATE field also contains the time
                                         example: false
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                              maxLength: 255
+                              description: External ID for this work order, unique per organization.
+                              example: ext-workorder-001
                             progress:
                               type:
                               - object
@@ -1494,17 +1569,17 @@ paths:
       - Work Requests
       operationId: getWorkrequests
       x-operation-id-source: derived
-  /workrequests/{id}:
+  /workrequests/external/{externalId}:
     get:
-      summary: Get work request
+      summary: Get work request by external ID
       parameters:
-      - schema:
-          type: integer
-        name: id
+      - name: externalId
         in: path
         required: true
-        description: ID of the workRequest
-        example: '1'
+        description: External ID of the work request
+        schema:
+          type: string
+          maxLength: 255
       - in: query
         name: expand
         schema:
@@ -1518,6 +1593,13 @@ paths:
             - location
             - work_order
             - extra_fields
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
       responses:
         '200':
           description: Successfully retrieved workRequest's information
@@ -1718,6 +1800,13 @@ paths:
                         format: date-time
                         description: Date & time at which the work request was last updated
                         example: '2022-01-01T00:00:00.000Z'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        maxLength: 255
+                        description: External ID for this work request, unique per organization.
+                        example: ext-workrequest-001
                       asset:
                         type: object
                         required:
@@ -1982,7 +2071,7 @@ paths:
                             - string
                             - 'null'
                             format: date-time
-                            description: Date & time at which the work order will show up in the inbox</br>Only valid when <b>dueDate</b> is set
+                            description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
                             example: '2022-01-01T00:00:00.000Z'
                           locationId:
                             type:
@@ -2446,6 +2535,12 @@ paths:
                             description: List of team ids assigned to the work order
                             items:
                               type: integer
+                          customerId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the customer linked to the work order
+                            example: 128
                           procedure:
                             type:
                             - object
@@ -2699,6 +2794,1956 @@ paths:
                                       - 'null'
                                       description: Indicate if a DATE field also contains the time
                                       example: false
+                          externalId:
+                            type:
+                            - string
+                            - 'null'
+                            maxLength: 255
+                            description: External ID for this work order, unique per organization.
+                            example: ext-workorder-001
+                          progress:
+                            type:
+                            - object
+                            - 'null'
+                            description: Progress information on the work order
+                            properties:
+                              openCount:
+                                type: number
+                                example: 1
+                              inProgressCount:
+                                type: number
+                                example: 1
+                              onHoldCount:
+                                type: number
+                                example: 1
+                              doneCount:
+                                type: number
+                                example: 1
+                          workOrderSummary:
+                            type:
+                            - object
+                            - 'null'
+                            description: Work Order Summary. Null when no summary is available.
+                            properties:
+                              content:
+                                type: string
+                                description: The original completion note content
+                                example: Replaced the motor bearings and aligned the shaft.
+                              summary:
+                                type:
+                                - string
+                                - 'null'
+                                description: AI-generated summary of the content
+                                example: Motor bearing replacement and shaft alignment completed.
+                              authorId:
+                                type:
+                                - integer
+                                - 'null'
+                                description: ID of the user who authored the completion note
+                                example: 963
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequest or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Work Requests
+      operationId: getWorkrequestsExternalByExternalId
+      x-operation-id-source: derived
+    patch:
+      summary: Create or update work request by external ID
+      description: Idempotent upsert keyed on the external ID in the path. If a work request has this external ID, it will be updated (and undeleted, if the work request was previously deleted). Otherwise, a new work request will be created with this external ID.
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the work request
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Work request to create or update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Forklift Preventive Maintenance Form
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: A forklift that needs to be reviewed for any potential problems
+                priority:
+                  type: string
+                  example: MEDIUM
+                  enum:
+                  - NONE
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                assetId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 843
+                locationId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 852
+                extraFields:
+                  type: object
+                  description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                  additionalProperties:
+                    type: string
+                  example:
+                    Request Type: Water Leak
+                approverTeamId:
+                  type:
+                  - number
+                  - 'null'
+                  format: integer
+                  example: 254
+                  description: ID of the team that is reponsible for approving the request.
+                creatorContactInfo:
+                  type:
+                  - string
+                  - 'null'
+                  example: james@example.com
+                  description: The creator's contact information associated with this work order request. Possible types are `EMAIL`, `PHONE`, and `OTHER`, which will be inferred from the string provided
+      responses:
+        '200':
+          description: Successfully updated work request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequest
+                properties:
+                  workRequest:
+                    type: object
+                    required:
+                    - id
+                    - title
+                    - priority
+                    - requestStatus
+                    properties:
+                      id:
+                        type: number
+                        example: 963
+                        description: Global ID of the work request
+                      title:
+                        type: string
+                        example: Forklift Preventive Maintenance Form
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the Work Request
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      priority:
+                        type: string
+                        example: MEDIUM
+                        enum:
+                        - NONE
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: A forklift that needs to be reviewed for any potential problems
+                      requestStatus:
+                        type: string
+                        enum:
+                        - PENDING
+                        - REJECTED
+                        - APPROVED
+                        - DONE
+                        example: PENDING
+                      assetId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 843
+                      locationId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 852
+                      workOrderId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                      sendEmailNotification:
+                        type: boolean
+                        example: true
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Request Type: Water Leak
+                      approverTeamId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: ID of the team that is reponsible for approving the request.
+                      creatorContactInfo:
+                        type:
+                        - object
+                        - 'null'
+                        description: The creator's contact information associated with this work order request
+                        properties:
+                          type:
+                            type: string
+                            example: EMAIL
+                            enum:
+                            - PHONE
+                            - EMAIL
+                            - OTHER
+                          value:
+                            type: string
+                            example: james@example.com
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        maxLength: 255
+                        description: External ID for this work request, unique per organization.
+                        example: ext-workrequest-001
+        '201':
+          description: Successfully created work request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequest
+                properties:
+                  workRequest:
+                    type: object
+                    required:
+                    - id
+                    - title
+                    - priority
+                    - requestStatus
+                    properties:
+                      id:
+                        type: number
+                        example: 963
+                        description: Global ID of the work request
+                      title:
+                        type: string
+                        example: Forklift Preventive Maintenance Form
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the Work Request
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      priority:
+                        type: string
+                        example: MEDIUM
+                        enum:
+                        - NONE
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: A forklift that needs to be reviewed for any potential problems
+                      requestStatus:
+                        type: string
+                        enum:
+                        - PENDING
+                        - REJECTED
+                        - APPROVED
+                        - DONE
+                        example: PENDING
+                      assetId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 843
+                      locationId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 852
+                      workOrderId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                      sendEmailNotification:
+                        type: boolean
+                        example: true
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type")'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Request Type: Water Leak
+                      approverTeamId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: ID of the team that is reponsible for approving the request.
+                      creatorContactInfo:
+                        type:
+                        - object
+                        - 'null'
+                        description: The creator's contact information associated with this work order request
+                        properties:
+                          type:
+                            type: string
+                            example: EMAIL
+                            enum:
+                            - PHONE
+                            - EMAIL
+                            - OTHER
+                          value:
+                            type: string
+                            example: james@example.com
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        maxLength: 255
+                        description: External ID for this work request, unique per organization.
+                        example: ext-workrequest-001
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified work request.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: work request Not Found
+        '409':
+          description: Conflict with existing work request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
+      tags:
+      - Work Requests
+      operationId: patchWorkrequestsExternalByExternalId
+      x-operation-id-source: derived
+    delete:
+      summary: Delete work request by external ID
+      parameters:
+      - name: externalId
+        in: path
+        required: true
+        description: External ID of the work request
+        schema:
+          type: string
+          maxLength: 255
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '204':
+          description: Successfully deleted the workRequest
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified workRequest.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: workRequest Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Work Requests
+      operationId: deleteWorkrequestsExternalByExternalId
+      x-operation-id-source: derived
+  /workrequests/{id}:
+    get:
+      summary: Get work request
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the workRequest
+        example: '1'
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=asset&expand=location`'
+          type: array
+          items:
+            type: string
+            enum:
+            - asset
+            - location
+            - work_order
+            - extra_fields
+      responses:
+        '200':
+          description: Successfully retrieved workRequest's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - workRequest
+                properties:
+                  workRequest:
+                    type: object
+                    required:
+                    - id
+                    - priority
+                    - title
+                    - requestStatus
+                    properties:
+                      id:
+                        type: number
+                        example: 963
+                        description: Global ID of the work request
+                      title:
+                        type: string
+                        example: Forklift Preventive Maintenance Form
+                      attachments:
+                        type: array
+                        title: attachment
+                        description: List of attachments linked to the Work Request
+                        items:
+                          type: object
+                          title: attachment
+                          required:
+                          - id
+                          - mimeType
+                          - fileName
+                          - url
+                          - createdAt
+                          properties:
+                            id:
+                              type: number
+                              description: Global ID of the attachment
+                              example: 12345
+                            mimeType:
+                              type: string
+                              description: MIME type of the file
+                              example: image/png
+                            fileName:
+                              type: string
+                              description: Attachment's file name
+                              example: image.png
+                            url:
+                              type: string
+                              description: Url of the file. Valid for 60 minutes.
+                              example: http://example.com/image.png
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the attachment was uploaded
+                              example: '2022-01-01T00:00:00.000Z'
+                            width:
+                              type:
+                              - number
+                              - 'null'
+                              description: Width if the file is an image
+                              example: 220
+                            height:
+                              type:
+                              - number
+                              - 'null'
+                              description: Height if the file is an image
+                              example: 100
+                      thumbnail:
+                        type:
+                        - object
+                        - 'null'
+                        title: attachment
+                        required:
+                        - id
+                        - mimeType
+                        - fileName
+                        - url
+                        - createdAt
+                        properties:
+                          id:
+                            type: number
+                            description: Global ID of the attachment
+                            example: 12345
+                          mimeType:
+                            type: string
+                            description: MIME type of the file
+                            example: image/png
+                          fileName:
+                            type: string
+                            description: Attachment's file name
+                            example: image.png
+                          url:
+                            type: string
+                            description: Url of the file. Valid for 60 minutes.
+                            example: http://example.com/image.png
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the attachment was uploaded
+                            example: '2022-01-01T00:00:00.000Z'
+                          width:
+                            type:
+                            - number
+                            - 'null'
+                            description: Width if the file is an image
+                            example: 220
+                          height:
+                            type:
+                            - number
+                            - 'null'
+                            description: Height if the file is an image
+                            example: 100
+                      priority:
+                        type: string
+                        example: MEDIUM
+                        enum:
+                        - NONE
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        example: A forklift that needs to be reviewed for any potential problems
+                      requestStatus:
+                        type: string
+                        enum:
+                        - PENDING
+                        - REJECTED
+                        - APPROVED
+                        - DONE
+                        example: PENDING
+                      assetId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 843
+                      locationId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 852
+                      workOrderId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: Global ID of the work order attached to the work request. A work order is created once a work request is approved.
+                      sendEmailNotification:
+                        type: boolean
+                        example: true
+                      extraFields:
+                        type: object
+                        description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Request Type") (expand with query parameter)'
+                        additionalProperties:
+                          type: string
+                        example:
+                          Request Type: Water Leak
+                      approverTeamId:
+                        type:
+                        - number
+                        - 'null'
+                        format: integer
+                        example: 254
+                        description: ID of the team that is reponsible for approving the request.
+                      creatorContactInfo:
+                        type:
+                        - object
+                        - 'null'
+                        description: The creator's contact information associated with this work order request
+                        properties:
+                          type:
+                            type: string
+                            example: EMAIL
+                            enum:
+                            - PHONE
+                            - EMAIL
+                            - OTHER
+                          value:
+                            type: string
+                            example: james@example.com
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was created
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Date & time at which the work request was last updated
+                        example: '2022-01-01T00:00:00.000Z'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        maxLength: 255
+                        description: External ID for this work request, unique per organization.
+                        example: ext-workrequest-001
+                      asset:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - description
+                        - parentId
+                        - criticalityId
+                        - locationId
+                        - serialNumber
+                        - createdAt
+                        - updatedAt
+                        - creatorId
+                        description: Asset linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the asset
+                          name:
+                            type: string
+                            example: Forklift
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Forklift that is used to to move heavy equipments around the warehouse
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent asset
+                          criticalityId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 150
+                            description: ID of the criticality of the asset
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the location where the asset is located
+                          serialNumber:
+                            type:
+                            - string
+                            - 'null'
+                            description: Serial number of the asset
+                            example: 000123ABC
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 851
+                            description: ID of the asset creator
+                      location:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        description: Location linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the location
+                          name:
+                            type: string
+                            example: Warehouses
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: The warehouse where we store the forklifts
+                          address:
+                            type:
+                            - string
+                            - 'null'
+                            example: 1090 main street, Franklin
+                            description: Postal address of the location
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent location
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                      workOrder:
+                        type: object
+                        required:
+                        - updatedAt
+                        - status
+                        - title
+                        - createdAt
+                        - creatorId
+                        - id
+                        - sequentialId
+                        - organizationId
+                        description: Work Order linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            description: Global ID of the work order
+                          sequentialId:
+                            type: integer
+                            description: Organization specific ID of the work order
+                          assetId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 42
+                          attachments:
+                            type: array
+                            title: attachment
+                            description: List of attachments linked to the work order
+                            items:
+                              type: object
+                              title: attachment
+                              required:
+                              - id
+                              - mimeType
+                              - fileName
+                              - url
+                              - createdAt
+                              properties:
+                                id:
+                                  type: number
+                                  description: Global ID of the attachment
+                                  example: 12345
+                                mimeType:
+                                  type: string
+                                  description: MIME type of the file
+                                  example: image/png
+                                fileName:
+                                  type: string
+                                  description: Attachment's file name
+                                  example: image.png
+                                url:
+                                  type: string
+                                  description: Url of the file. Valid for 60 minutes.
+                                  example: http://example.com/image.png
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                  description: Date & time at which the attachment was uploaded
+                                  example: '2022-01-01T00:00:00.000Z'
+                                width:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Width if the file is an image
+                                  example: 220
+                                height:
+                                  type:
+                                  - number
+                                  - 'null'
+                                  description: Height if the file is an image
+                                  example: 100
+                          categories:
+                            type: array
+                            description: List of categories that identify the work order
+                            items:
+                              type: string
+                              example: Cleaning
+                              uniqueItems: true
+                          completedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order was last marked as DONE
+                            example: '2022-01-01T00:00:00.000Z'
+                          completerId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who completed the work order
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the work order was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who created the work order
+                          deletedAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order was deleted
+                            example: '2022-01-01T00:00:00.000Z'
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: A work order sample description
+                          dueDateIsFullDay:
+                            type:
+                            - boolean
+                            - 'null'
+                          dueDate:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order is due
+                            example: '2022-01-01T00:00:00.000Z'
+                          estimatedTime:
+                            type:
+                            - integer
+                            - 'null'
+                            description: The estimated time taken in seconds to complete the work order
+                            example: 3600
+                          externalData:
+                            description: Extra data that can be attached to the work order, for example to help reference to a matching record in an external system.
+                            oneOf:
+                            - type: object
+                              example:
+                                popularErpSolutionId: asd732da
+                            - type: number
+                              example: 732
+                            - type: string
+                              example: asd732da
+                          isParent:
+                            type:
+                            - boolean
+                            - 'null'
+                            description: If this is a parent work order
+                          lastMessageSentAt:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the last comment was added to the work order
+                            example: '2022-01-01T00:00:00.000Z'
+                          startDate:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                            description: Date & time at which the work order will show up in the inbox<br />Only valid when <b>dueDate</b> is set
+                            example: '2022-01-01T00:00:00.000Z'
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: Global ID of the location assigned to the work order
+                            example: 611
+                          nextId:
+                            type:
+                            - integer
+                            - 'null'
+                          organizationId:
+                            type: number
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: The ID of the parent work order
+                          partsAvailability:
+                            type: string
+                            enum:
+                            - PARTS_AVAILABLE
+                            - PARTS_UNAVAILABLE
+                            - PARTIAL_PARTS
+                            - PARTS_AVAILABLE_BUT_OVERCOMMITTED
+                            description: Computed parts availability for this work order based on current inventory levels.
+                          partStatus:
+                            type: string
+                            enum:
+                            - NO_PARTS
+                            - ASSIGNED
+                            - RESERVED
+                            - KITTED
+                            - STAGED
+                            - ISSUED
+                            description: Part stage indicates the current readiness state of parts for this work order.
+                          previousId:
+                            type:
+                            - integer
+                            - 'null'
+                          priority:
+                            type: string
+                            example: MEDIUM
+                            enum:
+                            - NONE
+                            - LOW
+                            - MEDIUM
+                            - HIGH
+                          recurrenceInfo:
+                            type:
+                            - object
+                            - 'null'
+                            example:
+                              type: WEEKLY
+                              interval: 3
+                              days:
+                              - MONDAY
+                              - WEDNESDAY
+                              - FRIDAY
+                            oneOf:
+                            - type:
+                              - object
+                              - 'null'
+                              title: Daily
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: DAILY
+                                  enum:
+                                  - DAILY
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Weekly
+                              required:
+                              - type
+                              - days
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: WEEKLY
+                                  enum:
+                                  - WEEKLY
+                                interval:
+                                  type: integer
+                                  description: Number of weeks between events
+                                  minimum: 1
+                                  maximum: 52
+                                  default: 1
+                                days:
+                                  type: array
+                                  description: Days of the week the event will occur
+                                  items:
+                                    type: string
+                                    enum:
+                                    - SUNDAY
+                                    - MONDAY
+                                    - TUESDAY
+                                    - WEDNESDAY
+                                    - THURSDAY
+                                    - FRIDAY
+                                    - SATURDAY
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Monthly
+                              required:
+                              - type
+                              - day
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: MONTHLY
+                                  enum:
+                                  - MONTHLY
+                                interval:
+                                  type: integer
+                                  description: Number of months between events
+                                  minimum: 1
+                                  maximum: 24
+                                  default: 1
+                                day:
+                                  type: integer
+                                  minimum: 1
+                                  maximum: 31
+                                  description: Day of the month the event will occur
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Yearly
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: YEARLY
+                                  enum:
+                                  - YEARLY
+                                interval:
+                                  type: integer
+                                  description: Number of years between events
+                                  minimum: 1
+                                  maximum: 1000
+                                  default: 1
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                            - type:
+                              - object
+                              - 'null'
+                              title: Periodically
+                              required:
+                              - type
+                              properties:
+                                type:
+                                  type: string
+                                  pattern: PERIODICALLY
+                                  enum:
+                                  - PERIODICALLY
+                                interval:
+                                  type: integer
+                                  description: Number of seconds between events
+                                  minimum: 0
+                                automationMeterTrigger:
+                                  type:
+                                  - object
+                                  - 'null'
+                                  description: Automation meter trigger configuration
+                                  properties:
+                                    automationTriggerInput:
+                                      type: object
+                                      properties:
+                                        conditions:
+                                          type: array
+                                          description: Conditions to trigger automation
+                                          items:
+                                            type: object
+                                            properties:
+                                              operator:
+                                                type: string
+                                                enum:
+                                                - increasedBy
+                                                - decreasedBy
+                                                description: Operator for the condition
+                                              value:
+                                                type: number
+                                                description: Value for the condition
+                                            required:
+                                            - operator
+                                            - value
+                                        meterId:
+                                          type: integer
+                                          description: ID of the meter to trigger the automation
+                                      required:
+                                      - meterId
+                                      - conditions
+                                    lastTriggerValue:
+                                      type: number
+                                      description: Last trigger value for the meter
+                                    newDueDateOffsetSeconds:
+                                      type: integer
+                                      description: Offset in seconds for new due date. If you want to set the due date to 2 days from now set this to 172800 - (24 * 60 * 60 * 2)
+                                      example: 86400
+                          requesterId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the user who requested the work order through the Work Request feature
+                          status:
+                            type: string
+                            enum:
+                            - OPEN
+                            - IN_PROGRESS
+                            - ON_HOLD
+                            - DONE
+                            - CANCELED
+                            - SKIPPED
+                            description: <br /><em>Note:</em> It is also possible to register a webhook to get notified when the status of any work order changes. Please see the <a href="#tag/Subscriptions">Subscriptions</a> section for more information.
+                          thumbnail:
+                            type:
+                            - object
+                            - 'null'
+                            title: attachment
+                            required:
+                            - id
+                            - mimeType
+                            - fileName
+                            - url
+                            - createdAt
+                            properties:
+                              id:
+                                type: number
+                                description: Global ID of the attachment
+                                example: 12345
+                              mimeType:
+                                type: string
+                                description: MIME type of the file
+                                example: image/png
+                              fileName:
+                                type: string
+                                description: Attachment's file name
+                                example: image.png
+                              url:
+                                type: string
+                                description: Url of the file. Valid for 60 minutes.
+                                example: http://example.com/image.png
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: Date & time at which the attachment was uploaded
+                                example: '2022-01-01T00:00:00.000Z'
+                              width:
+                                type:
+                                - number
+                                - 'null'
+                                description: Width if the file is an image
+                                example: 220
+                              height:
+                                type:
+                                - number
+                                - 'null'
+                                description: Height if the file is an image
+                                example: 100
+                          title:
+                            type: string
+                          type:
+                            type:
+                            - string
+                            - 'null'
+                            enum:
+                            - CYCLE_COUNT
+                            - OTHER
+                            - PREVENTIVE
+                            - REACTIVE
+                            description: Valid types of Work Orders, including options that are not available for creation/update. Historical Work Orders may have a null type.
+                            default: null
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the work order was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          extraFields:
+                            type: object
+                            description: 'Custom Fields on the entity. The object keys are the exact Custom Field labels, including spaces or special characters. (ie: "Estimated Time Allotted")'
+                            additionalProperties:
+                              type: string
+                            example:
+                              Estimated Time Allotted: 24 Hours
+                          vendorIds:
+                            type: array
+                            description: Vendor IDs
+                            items:
+                              type: number
+                              example: 1
+                          assigneeIds:
+                            type: array
+                            description: List of user ids assigned to the work order
+                            items:
+                              type: integer
+                          teamIds:
+                            type: array
+                            description: List of team ids assigned to the work order
+                            items:
+                              type: integer
+                          customerId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: ID of the customer linked to the work order
+                            example: 128
+                          procedure:
+                            type:
+                            - object
+                            - 'null'
+                            description: Procedure attached to the work order
+                            required:
+                            - title
+                            - fields
+                            properties:
+                              id:
+                                type: number
+                                example: 1234
+                                description: ID representing a procedure
+                              templateIds:
+                                type:
+                                - array
+                                - 'null'
+                                items:
+                                  type: number
+                                example:
+                                - 1234
+                                - 1235
+                                description: IDs of the procedure template of the procedure
+                              title:
+                                type: string
+                                description: Title of the procedure
+                                example: Control dashboard audit
+                              maxScore:
+                                type: number
+                                example: 2
+                                description: Maximum score of a procedure
+                              score:
+                                type: number
+                                example: 1
+                                description: Score of a procedure
+                              fields:
+                                type: array
+                                items:
+                                  type: object
+                                  required:
+                                  - id
+                                  - label
+                                  - required
+                                  - type
+                                  - value
+                                  properties:
+                                    id:
+                                      type: number
+                                      example: 1234
+                                      description: ID of the procedure field
+                                    parentId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 1233
+                                      description: ID of the parent of the current procedure field
+                                    procedureTemplateId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 1234
+                                      description: ID of the procedure template this field originated from.
+                                    procedureTemplateFieldId:
+                                      type:
+                                      - number
+                                      - 'null'
+                                      example: 5678
+                                      description: ID of the procedure template field this field originated from.
+                                    required:
+                                      type: boolean
+                                      description: Indicate if field is required to be filled.
+                                    description:
+                                      example: Number of green lights
+                                      type:
+                                      - string
+                                      - 'null'
+                                      description: Description of the procedure field
+                                    type:
+                                      type: string
+                                      example: NUMBER
+                                      enum:
+                                      - NUMBER
+                                      - AMOUNT
+                                      - TEXT
+                                      - UNSUPPORTED
+                                      - HEADING
+                                      - FILE
+                                      - SIGNATURE
+                                      - MULTIPLE_CHOICE
+                                      - INSPECTION_CHECK
+                                      - YES_NO_NA
+                                      - CHECKBOX
+                                      - CHECKLIST
+                                      - METER
+                                      - DATE
+                                      - CYCLE_COUNT
+                                      description: Type of procedure field
+                                    label:
+                                      type: string
+                                      example: Number of green lights
+                                      description: Label of a procedure field
+                                    maxScore:
+                                      type: number
+                                      example: 2
+                                      description: Maximum score of a procedure field
+                                    score:
+                                      type: number
+                                      example: 1
+                                      description: Score of a procedure field
+                                    value:
+                                      type: object
+                                      description: Current value of a procedure field
+                                      properties:
+                                        text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          example: '12'
+                                        attachment:
+                                          type: object
+                                          title: attachment
+                                          required:
+                                          - id
+                                          - mimeType
+                                          - fileName
+                                          - url
+                                          - createdAt
+                                          properties:
+                                            id:
+                                              type: number
+                                              description: Global ID of the attachment
+                                              example: 12345
+                                            mimeType:
+                                              type: string
+                                              description: MIME type of the file
+                                              example: image/png
+                                            fileName:
+                                              type: string
+                                              description: Attachment's file name
+                                              example: image.png
+                                            url:
+                                              type: string
+                                              description: Url of the file. Valid for 60 minutes.
+                                              example: http://example.com/image.png
+                                            createdAt:
+                                              type: string
+                                              format: date-time
+                                              description: Date & time at which the attachment was uploaded
+                                              example: '2022-01-01T00:00:00.000Z'
+                                            width:
+                                              type:
+                                              - number
+                                              - 'null'
+                                              description: Width if the file is an image
+                                              example: 220
+                                            height:
+                                              type:
+                                              - number
+                                              - 'null'
+                                              description: Height if the file is an image
+                                              example: 100
+                                          deprecated: true
+                                        attachments:
+                                          type: array
+                                          items:
+                                            type: object
+                                            title: attachment
+                                            required:
+                                            - id
+                                            - mimeType
+                                            - fileName
+                                            - url
+                                            - createdAt
+                                            properties:
+                                              id:
+                                                type: number
+                                                description: Global ID of the attachment
+                                                example: 12345
+                                              mimeType:
+                                                type: string
+                                                description: MIME type of the file
+                                                example: image/png
+                                              fileName:
+                                                type: string
+                                                description: Attachment's file name
+                                                example: image.png
+                                              url:
+                                                type: string
+                                                description: Url of the file. Valid for 60 minutes.
+                                                example: http://example.com/image.png
+                                              createdAt:
+                                                type: string
+                                                format: date-time
+                                                description: Date & time at which the attachment was uploaded
+                                                example: '2022-01-01T00:00:00.000Z'
+                                              width:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Width if the file is an image
+                                                example: 220
+                                              height:
+                                                type:
+                                                - number
+                                                - 'null'
+                                                description: Height if the file is an image
+                                                example: 100
+                                        notes:
+                                          type:
+                                          - object
+                                          - 'null'
+                                          properties:
+                                            text:
+                                              type: string
+                                              example: 1 light bulb is burned out.
+                                          description: Note added to a procedure field
+                                        hasAttachments:
+                                          type:
+                                          - boolean
+                                          - 'null'
+                                          example: 'true'
+                                    meter:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        id:
+                                          type: number
+                                          description: Global ID of the meter.
+                                          example: 123
+                                        name:
+                                          type: string
+                                          description: Name of the meters
+                                      description: Meter of a procedure field. Will be filled if the type of the field is meter
+                                    assignees:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        userIds:
+                                          type: array
+                                          items:
+                                            type: number
+                                        teamIds:
+                                          type: array
+                                          items:
+                                            type: number
+                                    isDateAndTime:
+                                      type:
+                                      - boolean
+                                      - 'null'
+                                      description: Indicate if a DATE field also contains the time
+                                      example: false
+                          externalId:
+                            type:
+                            - string
+                            - 'null'
+                            maxLength: 255
+                            description: External ID for this work order, unique per organization.
+                            example: ext-workorder-001
                           progress:
                             type:
                             - object
@@ -2884,6 +4929,13 @@ paths:
                   format: integer
                   example: 254
                   description: ID of the team that is reponsible for approving the request.
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                  description: External ID for this work request, unique per organization.
+                  example: ext-workrequest-001
                 creatorContactInfo:
                   type:
                   - string
@@ -3090,6 +5142,13 @@ paths:
                         format: date-time
                         description: Date & time at which the work request was last updated
                         example: '2022-01-01T00:00:00.000Z'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                        maxLength: 255
+                        description: External ID for this work request, unique per organization.
+                        example: ext-workrequest-001
         '400':
           description: Failed to edit the work request
           content:
@@ -3134,6 +5193,27 @@ paths:
                   error:
                     type: string
                     example: work request Not Found
+        '409':
+          description: Conflict with existing work request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  conflictingMxId:
+                    type: integer
+                  isDeleted:
+                    type: boolean
+                required:
+                - error
+                - conflictingMxId
+                - isDeleted
+                example:
+                  error: Asset with externalId 'ext-123' already exists in this organization.
+                  conflictingMxId: 456
+                  isDeleted: false
       tags:
       - Work Requests
       operationId: patchWorkrequestsById

@@ -1,17 +1,42 @@
 openapi: 3.2.0
 info:
-  description: 'Welcome to the MaintainX API documentation!
+  description: 'REST API V1
 
 
-    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
 
 
-    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
 
 
-    Missing something?
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
 
-    Don''t hesitate to reach out support@getmaintainx.com'
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
   version: '1'
   title: MaintainX Maintenance Plans API
   contact:
@@ -19,9 +44,9 @@ info:
     name: Support
     email: support@getmaintainx.com
   x-logo:
-    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
     backgroundColor: '#FFFFFF'
-    altText: MaintainX logo
+    altText: MaintainX, an Autodesk company
 servers:
 - url: https://api.getmaintainx.com/v1
   description: Endpoint
@@ -140,6 +165,59 @@ paths:
                         description: Number of years between occurrences
                         minimum: 1
                         default: 1
+                  - type: object
+                    title: Periodically
+                    required:
+                    - type
+                    - interval
+                    properties:
+                      type:
+                        type: string
+                        pattern: PERIODICALLY
+                        enum:
+                        - PERIODICALLY
+                      interval:
+                        type: integer
+                        description: Number of seconds after the previous due date. Required for plans whose intervalStrategy is FLOATING, and rejected for any other interval strategy.
+                        minimum: 1
+                  - type: object
+                    title: Monthly by weekday
+                    required:
+                    - type
+                    - interval
+                    - weekOfMonth
+                    - dayOfWeek
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY_BY_WEEKDAY
+                        enum:
+                        - MONTHLY_BY_WEEKDAY
+                      interval:
+                        type: integer
+                        description: Number of months between occurrences
+                        minimum: 1
+                        default: 1
+                      weekOfMonth:
+                        type: string
+                        description: Which week of the month the event will occur
+                        enum:
+                        - FIRST
+                        - SECOND
+                        - THIRD
+                        - FOURTH
+                        - LAST
+                      dayOfWeek:
+                        type: string
+                        description: Day of the week the event will occur
+                        enum:
+                        - SUNDAY
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
                   description: The recurrence schedule configuration.
                 startDate:
                   type: string
@@ -194,6 +272,96 @@ paths:
                       description: The unit of the planning horizon.
                       example: WEEK
                   description: How far ahead to generate work orders.
+                triggerType:
+                  type: string
+                  enum:
+                  - CALENDAR
+                  - METER
+                  - CALENDAR_OR_METER
+                  description: What triggers work order generation. METER and CALENDAR_OR_METER require the meter configuration fields.
+                  example: CALENDAR
+                intervalStrategy:
+                  type: string
+                  enum:
+                  - FIXED
+                  - FLOATING
+                  description: The interval strategy for the schedule. FLOATING requires a PERIODICALLY recurrence, and CALENDAR_OR_METER plans must use FLOATING.
+                  example: FIXED
+                meterId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the meter driving this plan. Null unless triggerType is METER or CALENDAR_OR_METER.
+                  example: 123
+                meterTriggerCondition:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - INCREASED_BY
+                  - DECREASED_BY
+                  description: Direction the meter must move to trigger work order generation. INCREASED_BY suits meters that climb (odometer, run hours); DECREASED_BY suits meters that fall (fuel level, coolant).
+                  example: INCREASED_BY
+                meterIntervalValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Usage cycle between work orders, in the meter's own unit.
+                  example: 5000
+                meterHorizonValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Lead buffer, in meter units, for generating the work order before the next due value is reached.
+                  example: 1000
+                meterNextDueValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Meter reading at which the next work order is due.
+                  example: 10000
+                meterGenerationStartOffset:
+                  type:
+                  - object
+                  - 'null'
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: integer
+                      description: The numeric value of the offset.
+                      example: 2
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the meter generation start offset.
+                      example: DAY
+                  description: How far before the due date a meter-triggered work order starts, as a (value, unit) pair. Independent from workOrderStartDateOffset, which only applies to calendar triggers.
+                meterGenerationDueOffset:
+                  type:
+                  - object
+                  - 'null'
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: integer
+                      description: The numeric value of the offset.
+                      example: 4
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the meter generation due offset.
+                      example: DAY
+                  description: How long after the meter threshold is crossed a generated work order is due, as a (value, unit) pair.
                 planAssets:
                   type: array
                   items:
@@ -324,6 +492,8 @@ paths:
                 type: object
                 required:
                 - maintenancePlans
+                - nextCursor
+                - nextPageUrl
                 properties:
                   maintenancePlans:
                     type: array
@@ -420,14 +590,14 @@ paths:
                           - CALENDAR
                           - METER
                           - CALENDAR_OR_METER
-                          description: What triggers work order generation.
+                          description: What triggers work order generation. METER and CALENDAR_OR_METER require the meter configuration fields.
                           example: CALENDAR
                         intervalStrategy:
                           type: string
                           enum:
                           - FIXED
                           - FLOATING
-                          description: The interval strategy for the schedule.
+                          description: The interval strategy for the schedule. FLOATING requires a PERIODICALLY recurrence, and CALENDAR_OR_METER plans must use FLOATING.
                           example: FIXED
                         recurrence:
                           type: object
@@ -517,6 +687,59 @@ paths:
                                 description: Number of years between occurrences
                                 minimum: 1
                                 default: 1
+                          - type: object
+                            title: Periodically
+                            required:
+                            - type
+                            - interval
+                            properties:
+                              type:
+                                type: string
+                                pattern: PERIODICALLY
+                                enum:
+                                - PERIODICALLY
+                              interval:
+                                type: integer
+                                description: Number of seconds after the previous due date. Required for plans whose intervalStrategy is FLOATING, and rejected for any other interval strategy.
+                                minimum: 1
+                          - type: object
+                            title: Monthly by weekday
+                            required:
+                            - type
+                            - interval
+                            - weekOfMonth
+                            - dayOfWeek
+                            properties:
+                              type:
+                                type: string
+                                pattern: MONTHLY_BY_WEEKDAY
+                                enum:
+                                - MONTHLY_BY_WEEKDAY
+                              interval:
+                                type: integer
+                                description: Number of months between occurrences
+                                minimum: 1
+                                default: 1
+                              weekOfMonth:
+                                type: string
+                                description: Which week of the month the event will occur
+                                enum:
+                                - FIRST
+                                - SECOND
+                                - THIRD
+                                - FOURTH
+                                - LAST
+                              dayOfWeek:
+                                type: string
+                                description: Day of the week the event will occur
+                                enum:
+                                - SUNDAY
+                                - MONDAY
+                                - TUESDAY
+                                - WEDNESDAY
+                                - THURSDAY
+                                - FRIDAY
+                                - SATURDAY
                           description: The recurrence schedule configuration.
                         planningHorizon:
                           type: object
@@ -538,6 +761,81 @@ paths:
                               description: The unit of the planning horizon.
                               example: WEEK
                           description: How far ahead to generate work orders.
+                        meterId:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Global ID of the meter driving this plan. Null unless triggerType is METER or CALENDAR_OR_METER.
+                          example: 123
+                        meterTriggerCondition:
+                          type:
+                          - string
+                          - 'null'
+                          enum:
+                          - INCREASED_BY
+                          - DECREASED_BY
+                          description: Direction the meter must move to trigger work order generation. INCREASED_BY suits meters that climb (odometer, run hours); DECREASED_BY suits meters that fall (fuel level, coolant).
+                          example: INCREASED_BY
+                        meterIntervalValue:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Usage cycle between work orders, in the meter's own unit.
+                          example: 5000
+                        meterHorizonValue:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Lead buffer, in meter units, for generating the work order before the next due value is reached.
+                          example: 1000
+                        meterNextDueValue:
+                          type:
+                          - integer
+                          - 'null'
+                          description: Meter reading at which the next work order is due.
+                          example: 10000
+                        meterGenerationStartOffset:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - value
+                          - unit
+                          properties:
+                            value:
+                              type: integer
+                              description: The numeric value of the offset.
+                              example: 2
+                            unit:
+                              type: string
+                              enum:
+                              - HOUR
+                              - DAY
+                              - WEEK
+                              description: The unit of the meter generation start offset.
+                              example: DAY
+                          description: How far before the due date a meter-triggered work order starts, as a (value, unit) pair. Independent from workOrderStartDateOffset, which only applies to calendar triggers.
+                        meterGenerationDueOffset:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - value
+                          - unit
+                          properties:
+                            value:
+                              type: integer
+                              description: The numeric value of the offset.
+                              example: 4
+                            unit:
+                              type: string
+                              enum:
+                              - HOUR
+                              - DAY
+                              - WEEK
+                              description: The unit of the meter generation due offset.
+                              example: DAY
+                          description: How long after the meter threshold is crossed a generated work order is due, as a (value, unit) pair.
                         workOrderBlueprintId:
                           type: number
                           description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
@@ -952,14 +1250,14 @@ paths:
                         - CALENDAR
                         - METER
                         - CALENDAR_OR_METER
-                        description: What triggers work order generation.
+                        description: What triggers work order generation. METER and CALENDAR_OR_METER require the meter configuration fields.
                         example: CALENDAR
                       intervalStrategy:
                         type: string
                         enum:
                         - FIXED
                         - FLOATING
-                        description: The interval strategy for the schedule.
+                        description: The interval strategy for the schedule. FLOATING requires a PERIODICALLY recurrence, and CALENDAR_OR_METER plans must use FLOATING.
                         example: FIXED
                       recurrence:
                         type: object
@@ -1049,6 +1347,59 @@ paths:
                               description: Number of years between occurrences
                               minimum: 1
                               default: 1
+                        - type: object
+                          title: Periodically
+                          required:
+                          - type
+                          - interval
+                          properties:
+                            type:
+                              type: string
+                              pattern: PERIODICALLY
+                              enum:
+                              - PERIODICALLY
+                            interval:
+                              type: integer
+                              description: Number of seconds after the previous due date. Required for plans whose intervalStrategy is FLOATING, and rejected for any other interval strategy.
+                              minimum: 1
+                        - type: object
+                          title: Monthly by weekday
+                          required:
+                          - type
+                          - interval
+                          - weekOfMonth
+                          - dayOfWeek
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY_BY_WEEKDAY
+                              enum:
+                              - MONTHLY_BY_WEEKDAY
+                            interval:
+                              type: integer
+                              description: Number of months between occurrences
+                              minimum: 1
+                              default: 1
+                            weekOfMonth:
+                              type: string
+                              description: Which week of the month the event will occur
+                              enum:
+                              - FIRST
+                              - SECOND
+                              - THIRD
+                              - FOURTH
+                              - LAST
+                            dayOfWeek:
+                              type: string
+                              description: Day of the week the event will occur
+                              enum:
+                              - SUNDAY
+                              - MONDAY
+                              - TUESDAY
+                              - WEDNESDAY
+                              - THURSDAY
+                              - FRIDAY
+                              - SATURDAY
                         description: The recurrence schedule configuration.
                       planningHorizon:
                         type: object
@@ -1070,6 +1421,81 @@ paths:
                             description: The unit of the planning horizon.
                             example: WEEK
                         description: How far ahead to generate work orders.
+                      meterId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the meter driving this plan. Null unless triggerType is METER or CALENDAR_OR_METER.
+                        example: 123
+                      meterTriggerCondition:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - INCREASED_BY
+                        - DECREASED_BY
+                        description: Direction the meter must move to trigger work order generation. INCREASED_BY suits meters that climb (odometer, run hours); DECREASED_BY suits meters that fall (fuel level, coolant).
+                        example: INCREASED_BY
+                      meterIntervalValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Usage cycle between work orders, in the meter's own unit.
+                        example: 5000
+                      meterHorizonValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Lead buffer, in meter units, for generating the work order before the next due value is reached.
+                        example: 1000
+                      meterNextDueValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Meter reading at which the next work order is due.
+                        example: 10000
+                      meterGenerationStartOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: integer
+                            description: The numeric value of the offset.
+                            example: 2
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the meter generation start offset.
+                            example: DAY
+                        description: How far before the due date a meter-triggered work order starts, as a (value, unit) pair. Independent from workOrderStartDateOffset, which only applies to calendar triggers.
+                      meterGenerationDueOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: integer
+                            description: The numeric value of the offset.
+                            example: 4
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the meter generation due offset.
+                            example: DAY
+                        description: How long after the meter threshold is crossed a generated work order is due, as a (value, unit) pair.
                       workOrderBlueprintId:
                         type: number
                         description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.
@@ -1316,6 +1742,59 @@ paths:
                         description: Number of years between occurrences
                         minimum: 1
                         default: 1
+                  - type: object
+                    title: Periodically
+                    required:
+                    - type
+                    - interval
+                    properties:
+                      type:
+                        type: string
+                        pattern: PERIODICALLY
+                        enum:
+                        - PERIODICALLY
+                      interval:
+                        type: integer
+                        description: Number of seconds after the previous due date. Required for plans whose intervalStrategy is FLOATING, and rejected for any other interval strategy.
+                        minimum: 1
+                  - type: object
+                    title: Monthly by weekday
+                    required:
+                    - type
+                    - interval
+                    - weekOfMonth
+                    - dayOfWeek
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY_BY_WEEKDAY
+                        enum:
+                        - MONTHLY_BY_WEEKDAY
+                      interval:
+                        type: integer
+                        description: Number of months between occurrences
+                        minimum: 1
+                        default: 1
+                      weekOfMonth:
+                        type: string
+                        description: Which week of the month the event will occur
+                        enum:
+                        - FIRST
+                        - SECOND
+                        - THIRD
+                        - FOURTH
+                        - LAST
+                      dayOfWeek:
+                        type: string
+                        description: Day of the week the event will occur
+                        enum:
+                        - SUNDAY
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
                   description: The recurrence schedule configuration.
                 startDate:
                   type: string
@@ -1370,6 +1849,96 @@ paths:
                       description: The unit of the planning horizon.
                       example: WEEK
                   description: How far ahead to generate work orders.
+                triggerType:
+                  type: string
+                  enum:
+                  - CALENDAR
+                  - METER
+                  - CALENDAR_OR_METER
+                  description: What triggers work order generation. Immutable after creation - the plan's current value is accepted, a different value is rejected. To use a different schedule type, create a new plan and archive this one.
+                  example: CALENDAR
+                intervalStrategy:
+                  type: string
+                  enum:
+                  - FIXED
+                  - FLOATING
+                  description: The interval strategy for the schedule. Immutable after creation - the plan's current value is accepted, a different value is rejected. To use a different schedule behavior, create a new plan and archive this one.
+                  example: FIXED
+                meterId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the meter driving this plan. Null unless triggerType is METER or CALENDAR_OR_METER.
+                  example: 123
+                meterTriggerCondition:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - INCREASED_BY
+                  - DECREASED_BY
+                  description: Direction the meter must move to trigger work order generation. INCREASED_BY suits meters that climb (odometer, run hours); DECREASED_BY suits meters that fall (fuel level, coolant).
+                  example: INCREASED_BY
+                meterIntervalValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Usage cycle between work orders, in the meter's own unit.
+                  example: 5000
+                meterHorizonValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Lead buffer, in meter units, for generating the work order before the next due value is reached.
+                  example: 1000
+                meterNextDueValue:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Meter reading at which the next work order is due.
+                  example: 10000
+                meterGenerationStartOffset:
+                  type:
+                  - object
+                  - 'null'
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: integer
+                      description: The numeric value of the offset.
+                      example: 2
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the meter generation start offset.
+                      example: DAY
+                  description: How far before the due date a meter-triggered work order starts, as a (value, unit) pair. Independent from workOrderStartDateOffset, which only applies to calendar triggers.
+                meterGenerationDueOffset:
+                  type:
+                  - object
+                  - 'null'
+                  required:
+                  - value
+                  - unit
+                  properties:
+                    value:
+                      type: integer
+                      description: The numeric value of the offset.
+                      example: 4
+                    unit:
+                      type: string
+                      enum:
+                      - HOUR
+                      - DAY
+                      - WEEK
+                      description: The unit of the meter generation due offset.
+                      example: DAY
+                  description: How long after the meter threshold is crossed a generated work order is due, as a (value, unit) pair.
                 nextWorkOrderToGenerateDueDate:
                   type:
                   - string
@@ -1535,14 +2104,14 @@ paths:
                         - CALENDAR
                         - METER
                         - CALENDAR_OR_METER
-                        description: What triggers work order generation.
+                        description: What triggers work order generation. METER and CALENDAR_OR_METER require the meter configuration fields.
                         example: CALENDAR
                       intervalStrategy:
                         type: string
                         enum:
                         - FIXED
                         - FLOATING
-                        description: The interval strategy for the schedule.
+                        description: The interval strategy for the schedule. FLOATING requires a PERIODICALLY recurrence, and CALENDAR_OR_METER plans must use FLOATING.
                         example: FIXED
                       recurrence:
                         type: object
@@ -1632,6 +2201,59 @@ paths:
                               description: Number of years between occurrences
                               minimum: 1
                               default: 1
+                        - type: object
+                          title: Periodically
+                          required:
+                          - type
+                          - interval
+                          properties:
+                            type:
+                              type: string
+                              pattern: PERIODICALLY
+                              enum:
+                              - PERIODICALLY
+                            interval:
+                              type: integer
+                              description: Number of seconds after the previous due date. Required for plans whose intervalStrategy is FLOATING, and rejected for any other interval strategy.
+                              minimum: 1
+                        - type: object
+                          title: Monthly by weekday
+                          required:
+                          - type
+                          - interval
+                          - weekOfMonth
+                          - dayOfWeek
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY_BY_WEEKDAY
+                              enum:
+                              - MONTHLY_BY_WEEKDAY
+                            interval:
+                              type: integer
+                              description: Number of months between occurrences
+                              minimum: 1
+                              default: 1
+                            weekOfMonth:
+                              type: string
+                              description: Which week of the month the event will occur
+                              enum:
+                              - FIRST
+                              - SECOND
+                              - THIRD
+                              - FOURTH
+                              - LAST
+                            dayOfWeek:
+                              type: string
+                              description: Day of the week the event will occur
+                              enum:
+                              - SUNDAY
+                              - MONDAY
+                              - TUESDAY
+                              - WEDNESDAY
+                              - THURSDAY
+                              - FRIDAY
+                              - SATURDAY
                         description: The recurrence schedule configuration.
                       planningHorizon:
                         type: object
@@ -1653,6 +2275,81 @@ paths:
                             description: The unit of the planning horizon.
                             example: WEEK
                         description: How far ahead to generate work orders.
+                      meterId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the meter driving this plan. Null unless triggerType is METER or CALENDAR_OR_METER.
+                        example: 123
+                      meterTriggerCondition:
+                        type:
+                        - string
+                        - 'null'
+                        enum:
+                        - INCREASED_BY
+                        - DECREASED_BY
+                        description: Direction the meter must move to trigger work order generation. INCREASED_BY suits meters that climb (odometer, run hours); DECREASED_BY suits meters that fall (fuel level, coolant).
+                        example: INCREASED_BY
+                      meterIntervalValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Usage cycle between work orders, in the meter's own unit.
+                        example: 5000
+                      meterHorizonValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Lead buffer, in meter units, for generating the work order before the next due value is reached.
+                        example: 1000
+                      meterNextDueValue:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Meter reading at which the next work order is due.
+                        example: 10000
+                      meterGenerationStartOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: integer
+                            description: The numeric value of the offset.
+                            example: 2
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the meter generation start offset.
+                            example: DAY
+                        description: How far before the due date a meter-triggered work order starts, as a (value, unit) pair. Independent from workOrderStartDateOffset, which only applies to calendar triggers.
+                      meterGenerationDueOffset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - value
+                        - unit
+                        properties:
+                          value:
+                            type: integer
+                            description: The numeric value of the offset.
+                            example: 4
+                          unit:
+                            type: string
+                            enum:
+                            - HOUR
+                            - DAY
+                            - WEEK
+                            description: The unit of the meter generation due offset.
+                            example: DAY
+                        description: How long after the meter threshold is crossed a generated work order is due, as a (value, unit) pair.
                       workOrderBlueprintId:
                         type: number
                         description: ID of the maintenance plan work order blueprint used to generate work orders. These can be created through the /maintenanceplans/workorderblueprints endpoint.

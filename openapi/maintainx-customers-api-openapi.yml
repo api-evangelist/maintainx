@@ -1,0 +1,555 @@
+openapi: 3.2.0
+info:
+  description: 'REST API V1
+
+
+    Support: support@getmaintainx.com | https://www.getmaintainx.com/
+
+
+    This is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.
+
+
+    For setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.
+
+
+    What''s in this reference:
+
+
+    Full endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)
+
+
+    Request and response schemas with field-level detail
+
+
+    Query parameters, filters, and pagination behavior
+
+
+    Authentication requirements and error codes
+
+
+    Subscriptions and webhooks for event-driven integrations
+
+
+    Base URL: https://api.getmaintainx.com/v1
+
+
+    All requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).
+
+
+    API access is available on Premium and Enterprise plans.'
+  version: '1'
+  title: MaintainX Customers API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3.us-west-2.amazonaws.com/logo/adsk-maintainx-logo.svg
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX, an Autodesk company
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Customers
+  description: Operations on Customers
+  x-traitTag: false
+paths:
+  /customers:
+    get:
+      summary: List customers
+      description: Endpoint used to list customer resources
+      tags:
+      - Customers
+      parameters:
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: Maximum number of Customers returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: expand
+        in: query
+        schema:
+          title: Expand specific fields in the request
+          type: array
+          items:
+            type: string
+            enum:
+            - extra_fields
+      responses:
+        '200':
+          description: Successfully fetched Customers list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - customers
+                - nextCursor
+                - nextPageUrl
+                properties:
+                  customers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExternalCustomerListItem'
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Customers.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Customers.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      operationId: getCustomers
+      x-operation-id-source: derived
+    post:
+      summary: Create customer
+      tags:
+      - Customers
+      parameters:
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      requestBody:
+        description: Customer to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              additionalProperties: false
+              properties:
+                name:
+                  type: string
+                  example: Acme Manufacturing
+                  description: Name of the customer
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: Primary service customer
+                  description: Description of the customer
+                extraFields:
+                  type: object
+                  description: Customer custom fields, keyed by field label
+                  example:
+                    external_id: QBO-42
+                  additionalProperties:
+                    type: string
+      responses:
+        '201':
+          description: Successfully created customer
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: integer
+                    example: 123456
+                    description: Global ID of the customer
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+      operationId: postCustomers
+      x-operation-id-source: derived
+  /customers/{id}:
+    get:
+      summary: Get customer
+      tags:
+      - Customers
+      parameters:
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the customer
+        example: '1'
+      responses:
+        '200':
+          description: Successfully retrieved customer information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - customer
+                properties:
+                  customer:
+                    $ref: '#/components/schemas/ExternalCustomer'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified customer or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: customer not found.
+      operationId: getCustomersById
+      x-operation-id-source: derived
+    patch:
+      summary: Update customer
+      tags:
+      - Customers
+      parameters:
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the customer
+        example: '1'
+      requestBody:
+        description: 'Customer fields to update. Include at least one of: name, description, extraFields.'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              additionalProperties: false
+              properties:
+                name:
+                  type: string
+                  example: Acme Manufacturing
+                  description: Name of the customer
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  example: Primary service customer
+                  description: Description of the customer
+                extraFields:
+                  type: object
+                  description: Customer custom fields, keyed by field label
+                  example:
+                    external_id: QBO-42
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: Successfully updated customer
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - customer
+                properties:
+                  customer:
+                    $ref: '#/components/schemas/ExternalCustomer'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                          description: Description of the error
+                        fieldPath:
+                          type: string
+                          description: Path of the invalid field
+                        fieldValue:
+                          type: string
+                          description: Invalid field value
+      operationId: patchCustomersById
+      x-operation-id-source: derived
+components:
+  schemas:
+    ExternalCustomer:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - archivedAt
+      - createdAt
+      - updatedAt
+      - extraFields
+      properties:
+        id:
+          type: integer
+          example: 123456
+          description: Global ID of the customer
+        name:
+          type: string
+          example: Acme Manufacturing
+          description: Name of the customer
+        description:
+          type:
+          - string
+          - 'null'
+          example: Primary service customer
+          description: Description of the customer
+        archivedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was archived. Null if the customer is active.
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was created
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was last updated
+        extraFields:
+          type: object
+          description: Customer custom fields, keyed by field label
+          example:
+            external_id: QBO-42
+          additionalProperties:
+            type: string
+    ExternalCustomerListItem:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - archivedAt
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: integer
+          example: 123456
+          description: Global ID of the customer
+        name:
+          type: string
+          example: Acme Manufacturing
+          description: Name of the customer
+        description:
+          type:
+          - string
+          - 'null'
+          example: Primary service customer
+          description: Description of the customer
+        archivedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was archived. Null if the customer is active.
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was created
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2025-01-22T15:30:00.000Z'
+          description: Date the customer was last updated
+        extraFields:
+          type: object
+          description: Customer custom fields, keyed by field label (expand with query parameter)
+          example:
+            external_id: QBO-42
+          additionalProperties:
+            type: string
+        organizationId:
+          type: integer
+          description: Organization ID when using a multi-organization token
+          example: 1
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

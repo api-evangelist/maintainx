@@ -1,0 +1,1673 @@
+openapi: 3.2.0
+info:
+  description: 'Welcome to the MaintainX API documentation!
+
+
+    You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!
+
+
+    To get started, in your MaintainX account go to "Settings > Integrations" and click "+ New Key" button to generate a new Rest API key.
+
+
+    Missing something?
+
+    Don''t hesitate to reach out support@getmaintainx.com'
+  version: '1'
+  title: MaintainX Meters API
+  contact:
+    url: https://www.getmaintainx.com/
+    name: Support
+    email: support@getmaintainx.com
+  x-logo:
+    url: https://maintainx-static.s3-us-west-2.amazonaws.com/img/default-org-logo.png
+    backgroundColor: '#FFFFFF'
+    altText: MaintainX logo
+servers:
+- url: https://api.getmaintainx.com/v1
+  description: Endpoint
+security:
+- Bearer: []
+tags:
+- name: Meters
+  description: Operations on Meters
+  x-traitTag: false
+paths:
+  /meters:
+    post:
+      summary: Create new meter
+      description: Endpoint used to create a new meter. Pay attention to the `measurementType` field as it has a significant impact on the behavior of your meter.
+      requestBody:
+        description: Asset to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - unit
+              properties:
+                name:
+                  type: string
+                  description: Name of the meters
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  description: Description of the meter
+                  example: This meter is used for monitoring the temperature of the boiler
+                measurementType:
+                  type: string
+                  default: MANUAL
+                  enum:
+                  - MANUAL
+                  - IOT_DEVICE
+                  - AUTOMATED_SENSOR
+                  example: AUTOMATED_SENSOR
+                  description: 'Represents the Type of meter. <br><br><code>Manual</code>: They are made to be used in the MaintainX app and to retain manually entered values and are limited to 10 distinct readings creation requests per 24 hours over REST API. Batched readings requests only count as one toward the rate limit. <br><br><code>Automated</code>: (Enterprise Plan) Automated meters store high frequency readings sent from integrations and have normal rate limiting. <br><br>~~<code>IoT Device</code>~~: IoT Device meters are deprecated and should no longer be used in the future. Creating an IoT Device meter will mimic automated meters in terms of behavior to avoid breaking changes.'
+                readingFrequency:
+                  type:
+                  - object
+                  - 'null'
+                  description: Expected reading frequency of the meter. Mostly useful for manual meters.
+                  example:
+                    type: WEEKLY
+                    interval: 3
+                    days:
+                    - MONDAY
+                    - WEDNESDAY
+                    - FRIDAY
+                  anyOf:
+                  - type:
+                    - object
+                    - 'null'
+                    title: Secondly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: SECONDLY
+                        enum:
+                        - SECONDLY
+                      interval:
+                        type: integer
+                        description: Number of seconds between readings. Minimum 10s for IOT_DEVICE, 86400s for MANUAL
+                        minimum: 10
+                        default: 10
+                  - type:
+                    - object
+                    - 'null'
+                    title: Minutly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: MINUTLY
+                        enum:
+                        - MINUTLY
+                      interval:
+                        type: integer
+                        description: Number of minutes between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Hourly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: HOURLY
+                        enum:
+                        - HOURLY
+                      interval:
+                        type: integer
+                        description: Number of hours between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Daily
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: DAILY
+                        enum:
+                        - DAILY
+                      interval:
+                        type: integer
+                        description: Number of days between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Weekly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: WEEKLY
+                        enum:
+                        - WEEKLY
+                      interval:
+                        type: integer
+                        description: Number of weeks between readings
+                        minimum: 1
+                        maximum: 52
+                        default: 1
+                      days:
+                        type: array
+                        description: Days of the week the event will occur
+                        items:
+                          type: string
+                          enum:
+                          - SUNDAY
+                          - MONDAY
+                          - TUESDAY
+                          - WEDNESDAY
+                          - THURSDAY
+                          - FRIDAY
+                          - SATURDAY
+                  - type:
+                    - object
+                    - 'null'
+                    title: Monthly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY
+                        enum:
+                        - MONTHLY
+                      interval:
+                        type: integer
+                        description: Number of months between readings
+                        minimum: 1
+                        maximum: 12
+                        default: 1
+                      day:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        description: Day of the month the event will occur
+                  - type:
+                    - object
+                    - 'null'
+                    title: Yearly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: YEARLY
+                        enum:
+                        - YEARLY
+                      interval:
+                        type: integer
+                        description: Number of years between readings
+                        minimum: 1
+                        maximum: 1000
+                        default: 1
+                unit:
+                  type: string
+                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                  example: Celsius
+                assetId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the asset tied to the meter
+                  example: 123
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the location tied to the meter
+                  example: 123
+      responses:
+        '201':
+          description: Successfully created meter
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: number
+                    description: Global ID of the meter.
+                    example: 123
+        '400':
+          description: OrganizationId was not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: Missing x-organization-id header.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '502':
+          description: The creation of the resource failed on the upstream service.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: The creation of the source associated with this meter failed.
+      tags:
+      - Meters
+      parameters:
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      operationId: postMeters
+      x-operation-id-source: derived
+    get:
+      summary: List meters
+      description: Endpoint used to list meter resources
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          description: Last pagination reference
+          type: string
+      - name: limit
+        in: query
+        schema:
+          description: max number of Meters returned
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 100
+      - name: measurementType
+        schema:
+          type: string
+          description: The measurement type of the meter to filter by
+          enum:
+          - MANUAL
+          - IOT_DEVICE
+          - AUTOMATED_SENSOR
+          example: MANUAL
+        in: query
+      - name: assets
+        schema:
+          type: array
+          title: asset ID filters
+          description: 'To filter by multiple asset IDs: `assets=123&assets=456`'
+          items:
+            type: integer
+        in: query
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=asset&expand=location`'
+          type: array
+          items:
+            type: string
+            enum:
+            - asset
+            - location
+            - last_reading
+      - schema:
+          type: integer
+        description: Required if using a multi organizations token
+        name: x-organization-id
+        in: header
+        required: false
+        example: '1'
+      responses:
+        '200':
+          description: Successfully fetched Meters list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - meters
+                properties:
+                  meters:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - unit
+                      - measurementType
+                      properties:
+                        id:
+                          type: number
+                          description: Global ID of the meter.
+                          example: 123
+                        name:
+                          type: string
+                          description: Name of the meters
+                        unit:
+                          type: string
+                          description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                          example: Celsius
+                        measurementType:
+                          type: string
+                          default: MANUAL
+                          enum:
+                          - MANUAL
+                          - IOT_DEVICE
+                          - AUTOMATED_SENSOR
+                          example: AUTOMATED_SENSOR
+                          description: 'Represents the Type of meter. <br><br><code>Manual</code>: They are made to be used in the MaintainX app and to retain manually entered values and are limited to 10 distinct readings creation requests per 24 hours over REST API. Batched readings requests only count as one toward the rate limit. <br><br><code>Automated</code>: (Enterprise Plan) Automated meters store high frequency readings sent from integrations and have normal rate limiting. <br><br>~~<code>IoT Device</code>~~: IoT Device meters are deprecated and should no longer be used in the future. Creating an IoT Device meter will mimic automated meters in terms of behavior to avoid breaking changes.'
+                        asset:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - name
+                          - description
+                          - parentId
+                          - criticalityId
+                          - locationId
+                          - serialNumber
+                          - createdAt
+                          - updatedAt
+                          - creatorId
+                          description: Asset linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              example: 963
+                              description: Global ID of the asset
+                            name:
+                              type: string
+                              example: Forklift
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: Forklift that is used to to move heavy equipments around the warehouse
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the parent asset
+                            criticalityId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 150
+                              description: ID of the criticality of the asset
+                            locationId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the location where the asset is located
+                            serialNumber:
+                              type:
+                              - string
+                              - 'null'
+                              description: Serial number of the asset
+                              example: 000123ABC
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the asset was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                            creatorId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 851
+                              description: ID of the asset creator
+                        location:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - name
+                          description: Location linked to the element (expand with query parameter)
+                          properties:
+                            id:
+                              type: integer
+                              example: 963
+                              description: Global ID of the location
+                            name:
+                              type: string
+                              example: Warehouses
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              example: The warehouse where we store the forklifts
+                            address:
+                              type:
+                              - string
+                              - 'null'
+                              example: 1090 main street, Franklin
+                              description: Postal address of the location
+                            parentId:
+                              type:
+                              - integer
+                              - 'null'
+                              example: 852
+                              description: ID of the parent location
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the location was created
+                              example: '2022-01-01T00:00:00.000Z'
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: Date & time at which the location was last updated. This doesn't include comments
+                              example: '2022-01-01T00:00:00.000Z'
+                        lastReading:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - createdAt
+                          - meterId
+                          - readingDate
+                          - value
+                          description: Last reading of a meter (expand with query parameter)
+                          properties:
+                            id:
+                              type: string
+                              example: 963
+                              description: 'Global ID of the reading.
+
+                                IoT meters will produce IDs with the format ''{meterId}-{uuid}'', while manual meters will produce numbered IDs.'
+                            meterId:
+                              type: number
+                              example: 53
+                              description: Global ID of the meter.
+                            createdAt:
+                              type: string
+                              example: '2022-01-01T00:00:00.000Z'
+                              description: Meter Reading creation/processing date.
+                            readingDate:
+                              type:
+                              - string
+                              - 'null'
+                              example: '2022-01-01T00:00:00.000Z'
+                              description: Date at which the meter was read. This date can be set in the past, but cannot be further than 3 days for IoT meters.
+                            value:
+                              type: number
+                              description: The reading value given by the meter.
+                              example: 120
+                  nextCursor:
+                    description: The cursor to retrieve the next page of Meters.
+                    type:
+                    - string
+                    - 'null'
+                  nextPageUrl:
+                    description: Path with query parameters that can be used to retrieve the next page of Meters.
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      tags:
+      - Meters
+      operationId: getMeters
+      x-operation-id-source: derived
+  /meters/{id}:
+    get:
+      summary: Get meter
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the meter
+        example: '1'
+      - in: query
+        name: expand
+        schema:
+          title: Expand specific fields in the request
+          description: 'To expand multiple fields: `expand=asset&expand=location`'
+          type: array
+          items:
+            type: string
+            enum:
+            - asset
+            - location
+            - last_reading
+      responses:
+        '200':
+          description: Successfully retrieved meter's information
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - meter
+                properties:
+                  meter:
+                    type: object
+                    required:
+                    - id
+                    - assetId
+                    - locationId
+                    - creatorId
+                    - updaterId
+                    - name
+                    - uuid
+                    - description
+                    - measurementType
+                    - readingFrequency
+                    - unit
+                    - createdAt
+                    - updatedAt
+                    - deletedAt
+                    properties:
+                      id:
+                        type: number
+                        description: Global ID of the meter.
+                        example: 123
+                      assetId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the asset tied to the meter
+                        example: 123
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the location tied to the meter
+                        example: 123
+                      creatorId:
+                        type: integer
+                        description: Global ID of the user who created the meter
+                        example: 123
+                      updaterId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the last user who updated the meter
+                        example: 123
+                      name:
+                        type: string
+                        description: Name of the meters
+                      uuid:
+                        type: string
+                        description: Universally unique identifier of the meter in the UUID format
+                        example: cd6fdffd-c9e2-4a40-9715-a182a6e5b557
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: Description of the meter
+                        example: This meter is used for monitoring the temperature of the boiler
+                      measurementType:
+                        type: string
+                        default: MANUAL
+                        enum:
+                        - MANUAL
+                        - IOT_DEVICE
+                        - AUTOMATED_SENSOR
+                        example: AUTOMATED_SENSOR
+                        description: 'Represents the Type of meter. <br><br><code>Manual</code>: They are made to be used in the MaintainX app and to retain manually entered values and are limited to 10 distinct readings creation requests per 24 hours over REST API. Batched readings requests only count as one toward the rate limit. <br><br><code>Automated</code>: (Enterprise Plan) Automated meters store high frequency readings sent from integrations and have normal rate limiting. <br><br>~~<code>IoT Device</code>~~: IoT Device meters are deprecated and should no longer be used in the future. Creating an IoT Device meter will mimic automated meters in terms of behavior to avoid breaking changes.'
+                      readingFrequency:
+                        type:
+                        - object
+                        - 'null'
+                        description: Expected reading frequency of the meter. Mostly useful for manual meters.
+                        example:
+                          type: WEEKLY
+                          interval: 3
+                          days:
+                          - MONDAY
+                          - WEDNESDAY
+                          - FRIDAY
+                        anyOf:
+                        - type:
+                          - object
+                          - 'null'
+                          title: Secondly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: SECONDLY
+                              enum:
+                              - SECONDLY
+                            interval:
+                              type: integer
+                              description: Number of seconds between readings. Minimum 10s for IOT_DEVICE, 86400s for MANUAL
+                              minimum: 10
+                              default: 10
+                        - type:
+                          - object
+                          - 'null'
+                          title: Minutly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: MINUTLY
+                              enum:
+                              - MINUTLY
+                            interval:
+                              type: integer
+                              description: Number of minutes between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Hourly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: HOURLY
+                              enum:
+                              - HOURLY
+                            interval:
+                              type: integer
+                              description: Number of hours between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Daily
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: DAILY
+                              enum:
+                              - DAILY
+                            interval:
+                              type: integer
+                              description: Number of days between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Weekly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: WEEKLY
+                              enum:
+                              - WEEKLY
+                            interval:
+                              type: integer
+                              description: Number of weeks between readings
+                              minimum: 1
+                              maximum: 52
+                              default: 1
+                            days:
+                              type: array
+                              description: Days of the week the event will occur
+                              items:
+                                type: string
+                                enum:
+                                - SUNDAY
+                                - MONDAY
+                                - TUESDAY
+                                - WEDNESDAY
+                                - THURSDAY
+                                - FRIDAY
+                                - SATURDAY
+                        - type:
+                          - object
+                          - 'null'
+                          title: Monthly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY
+                              enum:
+                              - MONTHLY
+                            interval:
+                              type: integer
+                              description: Number of months between readings
+                              minimum: 1
+                              maximum: 12
+                              default: 1
+                            day:
+                              type: integer
+                              minimum: 1
+                              maximum: 31
+                              description: Day of the month the event will occur
+                        - type:
+                          - object
+                          - 'null'
+                          title: Yearly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: YEARLY
+                              enum:
+                              - YEARLY
+                            interval:
+                              type: integer
+                              description: Number of years between readings
+                              minimum: 1
+                              maximum: 1000
+                              default: 1
+                      unit:
+                        type: string
+                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                        example: Celsius
+                      createdAt:
+                        type: string
+                        description: Meter creation date.
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        description: Date that Meter was last modified.
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the meter was deleted.
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+                      asset:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        - description
+                        - parentId
+                        - criticalityId
+                        - locationId
+                        - serialNumber
+                        - createdAt
+                        - updatedAt
+                        - creatorId
+                        description: Asset linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the asset
+                          name:
+                            type: string
+                            example: Forklift
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: Forklift that is used to to move heavy equipments around the warehouse
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent asset
+                          criticalityId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 150
+                            description: ID of the criticality of the asset
+                          locationId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the location where the asset is located
+                          serialNumber:
+                            type:
+                            - string
+                            - 'null'
+                            description: Serial number of the asset
+                            example: 000123ABC
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the asset was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                          creatorId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 851
+                            description: ID of the asset creator
+                      location:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        description: Location linked to the element (expand with query parameter)
+                        properties:
+                          id:
+                            type: integer
+                            example: 963
+                            description: Global ID of the location
+                          name:
+                            type: string
+                            example: Warehouses
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            example: The warehouse where we store the forklifts
+                          address:
+                            type:
+                            - string
+                            - 'null'
+                            example: 1090 main street, Franklin
+                            description: Postal address of the location
+                          parentId:
+                            type:
+                            - integer
+                            - 'null'
+                            example: 852
+                            description: ID of the parent location
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was created
+                            example: '2022-01-01T00:00:00.000Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            description: Date & time at which the location was last updated. This doesn't include comments
+                            example: '2022-01-01T00:00:00.000Z'
+                      lastReading:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - createdAt
+                        - meterId
+                        - readingDate
+                        - value
+                        description: Last reading of a meter (expand with query parameter)
+                        properties:
+                          id:
+                            type: string
+                            example: 963
+                            description: 'Global ID of the reading.
+
+                              IoT meters will produce IDs with the format ''{meterId}-{uuid}'', while manual meters will produce numbered IDs.'
+                          meterId:
+                            type: number
+                            example: 53
+                            description: Global ID of the meter.
+                          createdAt:
+                            type: string
+                            example: '2022-01-01T00:00:00.000Z'
+                            description: Meter Reading creation/processing date.
+                          readingDate:
+                            type:
+                            - string
+                            - 'null'
+                            example: '2022-01-01T00:00:00.000Z'
+                            description: Date at which the meter was read. This date can be set in the past, but cannot be further than 3 days for IoT meters.
+                          value:
+                            type: number
+                            description: The reading value given by the meter.
+                            example: 120
+        '400':
+          description: Error with query
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    description: Description of error
+                    type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified meter or the user cannot access it.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Not Found.
+      tags:
+      - Meters
+      operationId: getMetersById
+      x-operation-id-source: derived
+    patch:
+      summary: Update meter
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the meter
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Meter to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assetId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the asset tied to the meter
+                  example: 123
+                locationId:
+                  type:
+                  - integer
+                  - 'null'
+                  description: Global ID of the location tied to the meter
+                  example: 123
+                description:
+                  type:
+                  - string
+                  - 'null'
+                  description: Description of the meter
+                  example: This meter is used for monitoring the temperature of the boiler
+                name:
+                  type: string
+                  description: Name of the meters
+                readingFrequency:
+                  type:
+                  - object
+                  - 'null'
+                  description: Expected reading frequency of the meter. Mostly useful for manual meters.
+                  example:
+                    type: WEEKLY
+                    interval: 3
+                    days:
+                    - MONDAY
+                    - WEDNESDAY
+                    - FRIDAY
+                  anyOf:
+                  - type:
+                    - object
+                    - 'null'
+                    title: Secondly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: SECONDLY
+                        enum:
+                        - SECONDLY
+                      interval:
+                        type: integer
+                        description: Number of seconds between readings. Minimum 10s for IOT_DEVICE, 86400s for MANUAL
+                        minimum: 10
+                        default: 10
+                  - type:
+                    - object
+                    - 'null'
+                    title: Minutly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: MINUTLY
+                        enum:
+                        - MINUTLY
+                      interval:
+                        type: integer
+                        description: Number of minutes between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Hourly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: HOURLY
+                        enum:
+                        - HOURLY
+                      interval:
+                        type: integer
+                        description: Number of hours between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Daily
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: DAILY
+                        enum:
+                        - DAILY
+                      interval:
+                        type: integer
+                        description: Number of days between readings
+                        minimum: 1
+                        default: 1
+                  - type:
+                    - object
+                    - 'null'
+                    title: Weekly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: WEEKLY
+                        enum:
+                        - WEEKLY
+                      interval:
+                        type: integer
+                        description: Number of weeks between readings
+                        minimum: 1
+                        maximum: 52
+                        default: 1
+                      days:
+                        type: array
+                        description: Days of the week the event will occur
+                        items:
+                          type: string
+                          enum:
+                          - SUNDAY
+                          - MONDAY
+                          - TUESDAY
+                          - WEDNESDAY
+                          - THURSDAY
+                          - FRIDAY
+                          - SATURDAY
+                  - type:
+                    - object
+                    - 'null'
+                    title: Monthly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: MONTHLY
+                        enum:
+                        - MONTHLY
+                      interval:
+                        type: integer
+                        description: Number of months between readings
+                        minimum: 1
+                        maximum: 12
+                        default: 1
+                      day:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        description: Day of the month the event will occur
+                  - type:
+                    - object
+                    - 'null'
+                    title: Yearly
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        pattern: YEARLY
+                        enum:
+                        - YEARLY
+                      interval:
+                        type: integer
+                        description: Number of years between readings
+                        minimum: 1
+                        maximum: 1000
+                        default: 1
+                unit:
+                  type: string
+                  description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                  example: Celsius
+      responses:
+        '200':
+          description: Successfully edited meter
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - meter
+                properties:
+                  meter:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: number
+                        description: Global ID of the meter.
+                        example: 123
+                      assetId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the asset tied to the meter
+                        example: 123
+                      locationId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the location tied to the meter
+                        example: 123
+                      creatorId:
+                        type: integer
+                        description: Global ID of the user who created the meter
+                        example: 123
+                      updaterId:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Global ID of the last user who updated the meter
+                        example: 123
+                      name:
+                        type: string
+                        description: Name of the meters
+                      uuid:
+                        type: string
+                        description: Universally unique identifier of the meter in the UUID format
+                        example: cd6fdffd-c9e2-4a40-9715-a182a6e5b557
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: Description of the meter
+                        example: This meter is used for monitoring the temperature of the boiler
+                      measurementType:
+                        type: string
+                        default: MANUAL
+                        enum:
+                        - MANUAL
+                        - IOT_DEVICE
+                        - AUTOMATED_SENSOR
+                        example: AUTOMATED_SENSOR
+                        description: 'Represents the Type of meter. <br><br><code>Manual</code>: They are made to be used in the MaintainX app and to retain manually entered values and are limited to 10 distinct readings creation requests per 24 hours over REST API. Batched readings requests only count as one toward the rate limit. <br><br><code>Automated</code>: (Enterprise Plan) Automated meters store high frequency readings sent from integrations and have normal rate limiting. <br><br>~~<code>IoT Device</code>~~: IoT Device meters are deprecated and should no longer be used in the future. Creating an IoT Device meter will mimic automated meters in terms of behavior to avoid breaking changes.'
+                      readingFrequency:
+                        type:
+                        - object
+                        - 'null'
+                        description: Expected reading frequency of the meter. Mostly useful for manual meters.
+                        example:
+                          type: WEEKLY
+                          interval: 3
+                          days:
+                          - MONDAY
+                          - WEDNESDAY
+                          - FRIDAY
+                        anyOf:
+                        - type:
+                          - object
+                          - 'null'
+                          title: Secondly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: SECONDLY
+                              enum:
+                              - SECONDLY
+                            interval:
+                              type: integer
+                              description: Number of seconds between readings. Minimum 10s for IOT_DEVICE, 86400s for MANUAL
+                              minimum: 10
+                              default: 10
+                        - type:
+                          - object
+                          - 'null'
+                          title: Minutly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: MINUTLY
+                              enum:
+                              - MINUTLY
+                            interval:
+                              type: integer
+                              description: Number of minutes between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Hourly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: HOURLY
+                              enum:
+                              - HOURLY
+                            interval:
+                              type: integer
+                              description: Number of hours between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Daily
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: DAILY
+                              enum:
+                              - DAILY
+                            interval:
+                              type: integer
+                              description: Number of days between readings
+                              minimum: 1
+                              default: 1
+                        - type:
+                          - object
+                          - 'null'
+                          title: Weekly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: WEEKLY
+                              enum:
+                              - WEEKLY
+                            interval:
+                              type: integer
+                              description: Number of weeks between readings
+                              minimum: 1
+                              maximum: 52
+                              default: 1
+                            days:
+                              type: array
+                              description: Days of the week the event will occur
+                              items:
+                                type: string
+                                enum:
+                                - SUNDAY
+                                - MONDAY
+                                - TUESDAY
+                                - WEDNESDAY
+                                - THURSDAY
+                                - FRIDAY
+                                - SATURDAY
+                        - type:
+                          - object
+                          - 'null'
+                          title: Monthly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: MONTHLY
+                              enum:
+                              - MONTHLY
+                            interval:
+                              type: integer
+                              description: Number of months between readings
+                              minimum: 1
+                              maximum: 12
+                              default: 1
+                            day:
+                              type: integer
+                              minimum: 1
+                              maximum: 31
+                              description: Day of the month the event will occur
+                        - type:
+                          - object
+                          - 'null'
+                          title: Yearly
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                              pattern: YEARLY
+                              enum:
+                              - YEARLY
+                            interval:
+                              type: integer
+                              description: Number of years between readings
+                              minimum: 1
+                              maximum: 1000
+                              default: 1
+                      unit:
+                        type: string
+                        description: "Measurement unit for the readings. Any string is accepted. However, if applicable, we recommed you to use the following units as it may carry extra functionality: <br><ul> \n            <li>Distance:\n              <ul>\n                <li><code>Miles</code></li><li><code>Feet</code></li><li><code>Inches</code></li><li><code>Kilometers</code></li><li><code>Meters</code></li><li><code>Centimeters</code></li><li><code>Millimeters</code></li>\n              </ul>\n            </li>\n            <li>Volume:\n              <ul>\n                <li><code>Gallons</code></li><li><code>Liters</code></li><li><code>Milliliters</code></li><li><code>Cubic Meters</code></li>\n              </ul>\n            </li>\n            <li>Temperature:\n              <ul>\n                <li><code>Celsius</code></li><li><code>Fahrenheit</code></li><li><code>Kelvin</code></li>\n              </ul>\n            </li>\n            <li>Other:\n              <ul>\n                <li><code>Hours</code></li><li><code>Cycles</code></li><li><code>PSI</code></li><li><code>Kilograms</code></li><li><code>Grams</code></li><li><code>dBm</code></li><li><code>Nm</code></li>\n              </ul>\n            </li>\n            <li>Velocity:\n              <ul>\n                <li><code>MetersPerSecond</code></li><li><code>InchesPerSecond</code></li><li><code>MillimetersPerSecond</code></li>\n              </ul>\n            </li>\n            <li>Acceleration:\n              <ul>\n                <li><code>G-Force</code></li><li><code>MetersPerSecondSquared</code></li><li><code>FeetPerSecondSquared</code></li>\n              </ul>\n            </li>\n            <li>Electrical:\n              <ul>\n                <li><code>Volts</code></li><li><code>Amps</code></li>\n              </ul>\n            </li>\n      </ul>\n    "
+                        example: Celsius
+                      createdAt:
+                        type: string
+                        description: Meter creation date.
+                        example: '2022-01-01T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        description: Date that Meter was last modified.
+                        example: '2022-01-01T00:00:00.000Z'
+                      deletedAt:
+                        type:
+                        - string
+                        - 'null'
+                        description: Date at which the meter was deleted.
+                        format: date-time
+                        example: '2022-01-01T00:00:00.000Z'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified location.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: location Not Found
+      tags:
+      - Meters
+      operationId: patchMetersById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete meter
+      parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the meter
+        example: '1'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      responses:
+        '204':
+          description: Successfully deleted the meter
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Could not find the specified meter.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: meter Not Found
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error.
+      tags:
+      - Meters
+      operationId: deleteMetersById
+      x-operation-id-source: derived
+  /meters/{meterId}/readings:
+    post:
+      summary: Create new meter reading
+      description: 'We strongly recommend using the batch create endpoint POST /meterreadings to create meter readings since it is more efficient and allows you to send more readings at once without consuming as much rate limit as this endpoint.
+
+
+        Rate Limits
+
+
+        For Automated and IoT meter readings: 1 request / 10 seconds
+
+
+        For Manual meter readings: 10 requests / 24 hours'
+      deprecated: true
+      parameters:
+      - schema:
+          type: integer
+        name: meterId
+        in: path
+        required: true
+        description: ID of the meter
+        example: '123'
+      - schema:
+          type: boolean
+        description: Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)
+        name: skipWebhook
+        in: query
+        required: false
+      requestBody:
+        description: Meter Reading to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - readingValue
+              properties:
+                readingValue:
+                  type: number
+                  description: The reading value given by the meter.
+                  example: 120
+                readingDate:
+                  type:
+                  - string
+                  - 'null'
+                  example: '2020-07-22T14:01:00Z'
+                  description: Reading date when the meter was read. This date can be set in the past, but cannot go further than 3 days for IoT meters.
+      responses:
+        '201':
+          description: Successfully created reading
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - readingValue
+                properties:
+                  id:
+                    type: string
+                    example: 963
+                    description: 'Global ID of the reading.
+
+                      IoT meters will produce IDs with the format ''{meterId}-{uuid}'', while manual meters will produce numbered IDs.'
+                  createdAt:
+                    type: string
+                    example: '2022-01-01T00:00:00.000Z'
+                    description: Reading creation or processing date.
+                  readingDate:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2020-07-22T14:01:00Z'
+                    description: Reading date when the meter was read. This date can be set in the past, but cannot go further than 3 days for IoT meters.
+                  readingValue:
+                    type: number
+                    description: The reading value given by the meter.
+                    example: 120
+        '400':
+          description: Failed to create the reading
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errors
+                example:
+                  errors:
+                  - error: errors with request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        error:
+                          type: string
+                        fieldPath:
+                          type:
+                          - string
+                          - 'null'
+                        fieldValue:
+                          oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '429':
+          description: Too many requests. Please retry in 10 seconds
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests. Please retry in 10 seconds
+      tags:
+      - Meters
+      operationId: postMetersByMeterIdReadings
+      x-operation-id-source: derived
+components:
+  responses:
+    UnauthorizedError:
+      description: Invalid token
+  securitySchemes:
+    Bearer:
+      description: "\n  <p>Authenticate by adding the following HTTP header to your requests:</p>\n<pre>Authorization: bearer {{token}}</pre>\n<p>The <code>token</code> can be generated in your MaintainX account. Go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations &gt; API Keys\"</a> to generate a key for your user.</p>\n"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
