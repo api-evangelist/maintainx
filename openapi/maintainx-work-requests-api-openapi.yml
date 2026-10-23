@@ -6350,3 +6350,9 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-provenance:
+  method: harvested
+  publisher: MaintainX
+  source: https://api.getmaintainx.com/v1/openapi.json?v=26.10.1451-310524
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
