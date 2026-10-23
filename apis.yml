@@ -756,6 +756,8 @@ apis:
   - type: OpenAPI
     url: openapi/maintainx-rotation-schedules-api-openapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/maintainx/overview
 - type: CapabilityMap
   url: capabilities/maintainx-capability-edges.yml
   name: MaintainX Business Capability Map
