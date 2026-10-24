@@ -1,39 +1,1424 @@
 {
+  "info": {
+    "_postman_id": "3702e19c-6829-47c1-b42e-fbe407815c77",
+    "name": "MaintainX Users API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:56:34.000Z",
+    "updatedAt": "2026-10-22T01:56:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3702e19c-6829-47c1-b42e-fbe407815c77"
+  },
   "item": [
     {
-      "id": "da4c1bd2-54cb-49c5-b194-28cd1bbe1845",
-      "name": "Users",
-      "description": {
-        "content": "Operations on Users",
-        "type": "text/plain"
-      },
+      "name": "users",
       "item": [
         {
-          "id": "d8941aa2-c579-4705-be53-80f32f969f64",
-          "name": "Create new user",
-          "request": {
-            "name": "Create new user",
-            "description": {},
-            "url": {
-              "path": [
-                "users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{id}",
+          "item": [
+            {
+              "name": "messages",
+              "item": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "name": "Create new direct message to a user",
+                  "id": "bc00b31c-7765-4b69-acb6-ef797de69672",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id",
+                        "messages"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "36ac8264-35ac-4314-b81a-e5d5430ee4b5",
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) ID of the user"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "4f77cd95-260f-4455-8adc-c4de02102e5d",
+                      "name": "Successfully created the message",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":id",
+                            "messages"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"conversationId\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T01:56:34.000Z",
+                      "updatedAt": "2026-10-22T01:56:34.000Z",
+                      "uid": "35240-4f77cd95-260f-4455-8adc-c4de02102e5d"
+                    },
+                    {
+                      "id": "74a420fb-32c2-4e2d-850f-eaa9b5dc8617",
+                      "name": "Failed to create the message",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":id",
+                            "messages"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:56:34.000Z",
+                      "updatedAt": "2026-10-22T01:56:34.000Z",
+                      "uid": "35240-74a420fb-32c2-4e2d-850f-eaa9b5dc8617"
+                    },
+                    {
+                      "id": "bbdabd30-0bf1-430d-8fa0-cc6ba6bb83f5",
+                      "name": "Invalid token",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":id",
+                            "messages"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:56:34.000Z",
+                      "updatedAt": "2026-10-22T01:56:34.000Z",
+                      "uid": "35240-bbdabd30-0bf1-430d-8fa0-cc6ba6bb83f5"
+                    },
+                    {
+                      "id": "aaa633f9-b672-4713-8953-fe0e2b5dd219",
+                      "name": "No conversation permissions",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":id",
+                            "messages"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:56:34.000Z",
+                      "updatedAt": "2026-10-22T01:56:34.000Z",
+                      "uid": "35240-aaa633f9-b672-4713-8953-fe0e2b5dd219"
+                    },
+                    {
+                      "id": "6a362e5c-d5f9-4e6c-a2e7-f2c6d5d86e62",
+                      "name": "Could not find the specified user.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:id/messages?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":id",
+                            "messages"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:56:34.000Z",
+                      "updatedAt": "2026-10-22T01:56:34.000Z",
+                      "uid": "35240-6a362e5c-d5f9-4e6c-a2e7-f2c6d5d86e62"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-bc00b31c-7765-4b69-acb6-ef797de69672"
                 }
               ],
-              "variable": []
+              "id": "69f4b1c5-ca39-4857-b0ba-016809445eda",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-69f4b1c5-ca39-4857-b0ba-016809445eda"
             },
+            {
+              "name": "Get user",
+              "id": "d78ff779-e577-4b5e-a642-f0e4805be704",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "09f1d578-d179-4616-9783-6e0526e514e8",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the user"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "84b13d3b-5c09-4b3c-8d01-a14cc54208f2",
+                  "name": "Successfully retrieved user's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"user\": {\n    \"id\": \"<integer>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"role\": \"MEMBER\",\n    \"customRole\": \"<string,null>\",\n    \"email\": \"<string,null>\",\n    \"phoneNumber\": \"<string,null>\",\n    \"removedFromOrganization\": \"<boolean>\",\n    \"authType\": \"NORMAL\",\n    \"hourlyRate\": \"<integer,null>\",\n    \"externalData\": {},\n    \"extraFields\": {\n      \"cupidatat_5\": \"<string>\",\n      \"ullamco43\": \"<string>\"\n    },\n    \"lastVisitedAt\": \"<string,null-date-time>\",\n    \"createdAt\": \"<string,null-date-time>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-84b13d3b-5c09-4b3c-8d01-a14cc54208f2"
+                },
+                {
+                  "id": "d5b5b16f-e739-48ea-be16-a19cd5b056d9",
+                  "name": "Error with query",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-d5b5b16f-e739-48ea-be16-a19cd5b056d9"
+                },
+                {
+                  "id": "60ebd333-7139-44b1-ab4a-6cb568c1937d",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-60ebd333-7139-44b1-ab4a-6cb568c1937d"
+                },
+                {
+                  "id": "a47b1d8c-6cb9-46c4-9116-21d5fc49aa8e",
+                  "name": "Could not find the specified user or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-a47b1d8c-6cb9-46c4-9116-21d5fc49aa8e"
+                }
+              ],
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-d78ff779-e577-4b5e-a642-f0e4805be704"
+            },
+            {
+              "name": "Update user",
+              "id": "6dbf7fa0-f256-4dbb-8816-6229863c6238",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "95cbe6d8-b6f7-4dc7-a151-42f200be9e03",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the user"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "edd2bb9b-acbb-4cef-af8c-88134c0e3c50",
+                  "name": "Successfully edited user",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"user\": {\n    \"id\": \"<integer>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"role\": \"ADMIN\",\n    \"customRole\": \"<string,null>\",\n    \"email\": \"<string,null>\",\n    \"phoneNumber\": \"<string,null>\",\n    \"removedFromOrganization\": \"<boolean>\",\n    \"authType\": \"OIDC\",\n    \"hourlyRate\": \"<integer,null>\",\n    \"externalData\": {},\n    \"extraFields\": {\n      \"nulla1f\": \"<string>\",\n      \"incididunt7\": \"<string>\",\n      \"sintd_\": \"<string>\"\n    },\n    \"lastVisitedAt\": \"<string,null-date-time>\",\n    \"createdAt\": \"<string,null-date-time>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-edd2bb9b-acbb-4cef-af8c-88134c0e3c50"
+                },
+                {
+                  "id": "77f5095b-596e-41fc-be3e-97174ba9f1e6",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-77f5095b-596e-41fc-be3e-97174ba9f1e6"
+                },
+                {
+                  "id": "6940414e-269d-422f-9007-b9853d53e981",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-6940414e-269d-422f-9007-b9853d53e981"
+                },
+                {
+                  "id": "a27cc762-dda0-43e8-841f-156b21f0d236",
+                  "name": "Cannot edit Auth Type",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-a27cc762-dda0-43e8-841f-156b21f0d236"
+                },
+                {
+                  "id": "93bc0956-e132-4793-9716-10d40c18814e",
+                  "name": "Could not find the specified user.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"role\": \"REQUESTER\",\n  \"customRole\": \"<string,null>\",\n  \"authType\": \"OIDC\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"qui_1c0\": \"<string>\",\n    \"do7b\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-93bc0956-e132-4793-9716-10d40c18814e"
+                }
+              ],
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-6dbf7fa0-f256-4dbb-8816-6229863c6238"
+            },
+            {
+              "name": "Remove user from organization",
+              "id": "bf02acb6-8cda-4c03-b7f9-65c9671a3983",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "26529352-8c6d-4a23-bf2d-f49e653d59ed",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the user"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "0f32346c-4465-497c-b0e2-0d05b7757509",
+                  "name": "Successfully removed user",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-0f32346c-4465-497c-b0e2-0d05b7757509"
+                },
+                {
+                  "id": "2510c6d6-7866-4e9c-bdda-4f5d88df1e70",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-2510c6d6-7866-4e9c-bdda-4f5d88df1e70"
+                },
+                {
+                  "id": "18296de8-a80b-4256-acc7-b8c53c7cf229",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-18296de8-a80b-4256-acc7-b8c53c7cf229"
+                },
+                {
+                  "id": "77d613ea-1dfd-4afe-9742-e879b6cfb42b",
+                  "name": "Could not find the specified user.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:56:34.000Z",
+                  "updatedAt": "2026-10-22T01:56:34.000Z",
+                  "uid": "35240-77d613ea-1dfd-4afe-9742-e879b6cfb42b"
+                }
+              ],
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-bf02acb6-8cda-4c03-b7f9-65c9671a3983"
+            }
+          ],
+          "id": "6c411175-6c15-4ca3-88dd-77ec84a2a645",
+          "createdAt": "2026-10-22T01:56:34.000Z",
+          "updatedAt": "2026-10-22T01:56:34.000Z",
+          "uid": "35240-6c411175-6c15-4ca3-88dd-77ec84a2a645"
+        },
+        {
+          "name": "Create new user",
+          "id": "a19b2017-9717-49a8-8a41-4ae927852cb6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -47,412 +1432,459 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"<string>\",\n  \"customRole\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"externalData\": \"<object>\",\n  \"extraFields\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"authType\": \"<string>\",\n  \"inviteType\": \"<string>\",\n  \"hourlyRate\": \"<integer>\"\n}",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "2b41490c-b095-464b-838c-beeaad4a4f78",
+              "id": "d01475b3-2544-48ae-ab04-0e393f91469b",
               "name": "Successfully created user",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"authType\": \"SAML\",\n  \"inviteType\": \"ALL\",\n  \"hourlyRate\": 120\n}",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 963\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-d01475b3-2544-48ae-ab04-0e393f91469b"
             },
             {
-              "id": "a7e794d1-bfaa-4620-bacf-3101f4bebf12",
+              "id": "6005d1d1-4ce2-4e03-85af-a433992e299e",
               "name": "OrganizationId was not provided",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"authType\": \"SAML\",\n  \"inviteType\": \"ALL\",\n  \"hourlyRate\": 120\n}",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-6005d1d1-4ce2-4e03-85af-a433992e299e"
             },
             {
-              "id": "a5487f76-cd7d-44b4-8c6e-b00f7b4ae019",
+              "id": "3b1386ff-c694-4ced-b23d-4d1cdff6c2c8",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"authType\": \"SAML\",\n  \"inviteType\": \"ALL\",\n  \"hourlyRate\": 120\n}",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-3b1386ff-c694-4ced-b23d-4d1cdff6c2c8"
             },
             {
-              "id": "f6b21e8c-572b-486a-98b9-36d4476ab419",
+              "id": "2e668da6-82fe-4a0c-bfe1-59f593df1818",
               "name": "Failed to create the user",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"authType\": \"SAML\",\n  \"inviteType\": \"ALL\",\n  \"hourlyRate\": 120\n}",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You do not have permission to create this user.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-2e668da6-82fe-4a0c-bfe1-59f593df1818"
             },
             {
-              "id": "bd69eaf6-8b56-4a2c-a543-b577d9072ee5",
+              "id": "d56c58e7-7446-4c79-890d-0af417409591",
               "name": "Could not find the specified User.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"authType\": \"SAML\",\n  \"inviteType\": \"ALL\",\n  \"hourlyRate\": 120\n}",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": \"ADMIN\",\n  \"customRole\": \"<string,null>\",\n  \"email\": \"<string,null>\",\n  \"phoneNumber\": \"<string,null>\",\n  \"externalData\": {},\n  \"extraFields\": {\n    \"enim_efc\": \"<string>\"\n  },\n  \"authType\": \"OIDC\",\n  \"inviteType\": \"NONE\",\n  \"hourlyRate\": \"<integer,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"User Not Found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-d56c58e7-7446-4c79-890d-0af417409591"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:56:34.000Z",
+          "updatedAt": "2026-10-22T01:56:34.000Z",
+          "uid": "35240-a19b2017-9717-49a8-8a41-4ae927852cb6"
         },
         {
-          "id": "e655d1e2-7ef5-4293-89f2-ed3a2748413c",
           "name": "List users",
+          "id": "6aaed80e-4622-4b97-93d8-2ab10c8d8645",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List users",
-            "description": {
-              "content": "Endpoint used to list user resources",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
-              "path": [
-                "users"
-              ],
+              "raw": "{{baseUrl}}/users?cursor=<string>&limit=100&onlyAssignable=<boolean>&email=<string>&email=<string>&expand=extra_fields&expand=role",
               "host": [
                 "{{baseUrl}}"
               ],
+              "path": [
+                "users"
+              ],
               "query": [
                 {
-                  "disabled": false,
                   "key": "cursor",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "limit",
                   "value": "100"
                 },
                 {
-                  "disabled": false,
                   "key": "onlyAssignable",
                   "value": "<boolean>"
                 },
                 {
-                  "disabled": false,
                   "key": "email",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "email",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "expand",
-                  "value": "<string>"
+                  "value": "extra_fields"
                 },
                 {
-                  "disabled": false,
                   "key": "expand",
-                  "value": "<string>"
+                  "value": "role"
                 }
-              ],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Endpoint used to list user resources"
           },
           "response": [
             {
-              "id": "76e918c5-a756-4730-961d-1998df7eaf85",
+              "id": "b55ec490-9a85-4e68-94a7-867f0cf2484d",
               "name": "Successfully fetched Users list",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "users"
-                  ],
+                  "raw": "{{baseUrl}}/users?cursor=<string>&limit=100&onlyAssignable=<boolean>&email=<string>&expand=role",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
                   ],
                   "query": [
                     {
@@ -472,65 +1904,56 @@
                       "value": "<string>"
                     },
                     {
-                      "key": "email",
-                      "value": "<string>"
-                    },
-                    {
                       "key": "expand",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "expand",
-                      "value": "<string>"
+                      "value": "role"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"users\": [\n    {\n      \"id\": 963,\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"email\": \"user@example.com\",\n      \"phoneNumber\": \"415-555-0100\",\n      \"authType\": \"SAML\",\n      \"hourlyRate\": 120,\n      \"lastVisitedAt\": \"2026-05-06T12:34:56.000Z\",\n      \"role\": \"MEMBER\",\n      \"extraFields\": {\n        \"Department\": \"Engineering\"\n      }\n    },\n    {\n      \"id\": 963,\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"email\": \"user@example.com\",\n      \"phoneNumber\": \"415-555-0100\",\n      \"authType\": \"SAML\",\n      \"hourlyRate\": 120,\n      \"lastVisitedAt\": \"2026-05-06T12:34:56.000Z\",\n      \"role\": \"MEMBER\",\n      \"extraFields\": {\n        \"Department\": \"Engineering\"\n      }\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string,null>\",\n      \"phoneNumber\": \"<string,null>\",\n      \"authType\": \"NORMAL\",\n      \"hourlyRate\": \"<integer,null>\",\n      \"lastVisitedAt\": \"<string,null-date-time>\",\n      \"createdAt\": \"<string,null-date-time>\",\n      \"role\": \"SERVICE_ACCOUNT\",\n      \"extraFields\": {\n        \"fugiat9f7\": \"<string>\",\n        \"proident_0d_\": \"<string>\",\n        \"quis_3f6\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string,null>\",\n      \"phoneNumber\": \"<string,null>\",\n      \"authType\": \"OIDC\",\n      \"hourlyRate\": \"<integer,null>\",\n      \"lastVisitedAt\": \"<string,null-date-time>\",\n      \"createdAt\": \"<string,null-date-time>\",\n      \"role\": \"REQUESTER\",\n      \"extraFields\": {\n        \"ad_b4\": \"<string>\",\n        \"quis607\": \"<string>\",\n        \"velit_d\": \"<string>\",\n        \"nulla_617\": \"<string>\"\n      }\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-b55ec490-9a85-4e68-94a7-867f0cf2484d"
             },
             {
-              "id": "f7ec097e-a853-4a47-9ee9-d7b298e89eba",
+              "id": "517f3464-4316-46db-8a18-f8e30e1e842f",
               "name": "Error with query",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "users"
-                  ],
+                  "raw": "{{baseUrl}}/users?cursor=<string>&limit=100&onlyAssignable=<boolean>&email=<string>&expand=role",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
                   ],
                   "query": [
                     {
@@ -550,65 +1973,52 @@
                       "value": "<string>"
                     },
                     {
-                      "key": "email",
-                      "value": "<string>"
-                    },
-                    {
                       "key": "expand",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "expand",
-                      "value": "<string>"
+                      "value": "role"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-517f3464-4316-46db-8a18-f8e30e1e842f"
             },
             {
-              "id": "e26f5bcd-e4e9-47d8-894c-71d643bed6e4",
+              "id": "c011cf98-2f14-4c31-9870-f1f8a5780805",
               "name": "Invalid token",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "users"
-                  ],
+                  "raw": "{{baseUrl}}/users?cursor=<string>&limit=100&onlyAssignable=<boolean>&email=<string>&expand=role",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
                   ],
                   "query": [
                     {
@@ -628,1482 +2038,489 @@
                       "value": "<string>"
                     },
                     {
-                      "key": "email",
-                      "value": "<string>"
-                    },
-                    {
                       "key": "expand",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "expand",
-                      "value": "<string>"
+                      "value": "role"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-c011cf98-2f14-4c31-9870-f1f8a5780805"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:56:34.000Z",
+          "updatedAt": "2026-10-22T01:56:34.000Z",
+          "uid": "35240-6aaed80e-4622-4b97-93d8-2ab10c8d8645"
+        }
+      ],
+      "id": "da80ba32-4d6d-4ce9-a5dc-91e2b5bde425",
+      "createdAt": "2026-10-22T01:56:34.000Z",
+      "updatedAt": "2026-10-22T01:56:34.000Z",
+      "uid": "35240-da80ba32-4d6d-4ce9-a5dc-91e2b5bde425"
+    },
+    {
+      "name": "work-shifts",
+      "item": [
+        {
+          "name": "Set user work shifts",
+          "id": "39c25623-4d51-41a2-86be-a6779ac33d84",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a68542bc-afb9-405a-9caf-7f58ca957996",
-          "name": "Get user",
-          "request": {
-            "name": "Get user",
-            "description": {},
-            "url": {
-              "path": [
-                "users",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the user"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
           },
-          "response": [
-            {
-              "id": "49ed85db-fe4e-403e-8e3b-d6653aca7fe4",
-              "name": "Successfully retrieved user's information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"user\": {\n    \"id\": 963,\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"role\": \"MEMBER\",\n    \"customRole\": \"Custom Role Name\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": \"415-555-0100\",\n    \"removedFromOrganization\": true,\n    \"authType\": \"SAML\",\n    \"hourlyRate\": 120,\n    \"externalData\": {\n      \"popularErpSolutionId\": \"asd732da\"\n    },\n    \"extraFields\": {\n      \"Department\": \"Engineering\"\n    },\n    \"lastVisitedAt\": \"2026-05-06T12:34:56.000Z\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "586fc131-492c-43c6-8095-3ec57e75463d",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b573a027-866a-447b-b59f-0c4919d4a559",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8072d880-bc96-4ff1-8dd6-b5f309950d02",
-              "name": "Could not find the specified user or the user cannot access it.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Not Found.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f398a393-d689-413b-8175-e2cff69ddc30",
-          "name": "Update user",
           "request": {
-            "name": "Update user",
-            "description": {},
-            "url": {
-              "path": [
-                "users",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the user"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"role\": \"<string>\",\n  \"customRole\": \"<string>\",\n  \"authType\": \"<string>\",\n  \"externalData\": \"<object>\",\n  \"extraFields\": {\n    \"key_0\": \"<string>\"\n  },\n  \"hourlyRate\": \"<integer>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "87362809-f736-422f-bef4-f0a0063b5491",
-              "name": "Successfully edited user",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"authType\": \"SAML\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"hourlyRate\": 120\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"user\": {\n    \"id\": 963,\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"role\": \"MEMBER\",\n    \"customRole\": \"Custom Role Name\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": \"415-555-0100\",\n    \"removedFromOrganization\": true,\n    \"authType\": \"SAML\",\n    \"hourlyRate\": 120,\n    \"externalData\": {\n      \"popularErpSolutionId\": \"asd732da\"\n    },\n    \"extraFields\": {\n      \"Department\": \"Engineering\"\n    },\n    \"lastVisitedAt\": \"2026-05-06T12:34:56.000Z\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "51147754-d3bd-40f5-a919-961a791192c2",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"authType\": \"SAML\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"hourlyRate\": 120\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5d6af959-7d8c-4e4a-9141-c674c346f46a",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"authType\": \"SAML\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"hourlyRate\": 120\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "08cbb602-a028-433e-80ff-809fef8fa952",
-              "name": "Cannot edit Auth Type",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"authType\": \"SAML\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"hourlyRate\": 120\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You do not have permission to edit the Auth Type from SAML to NORMAL.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7eb6770e-6d21-4423-ab24-2025d1291e92",
-              "name": "Could not find the specified user.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phoneNumber\": \"415-555-0100\",\n  \"role\": \"MEMBER\",\n  \"customRole\": \"Custom Role Name\",\n  \"authType\": \"SAML\",\n  \"externalData\": {\n    \"popularErpSolutionId\": \"asd732da\"\n  },\n  \"extraFields\": {\n    \"Department\": \"Engineering\"\n  },\n  \"hourlyRate\": 120\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"user Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e9fdd409-5660-486b-b4bc-f1dd764cac64",
-          "name": "Remove user from organization",
-          "request": {
-            "name": "Remove user from organization",
-            "description": {},
-            "url": {
-              "path": [
-                "users",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the user"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2e246104-85ff-49ce-82fb-890dace390f9",
-              "name": "Successfully removed user",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "72f8b251-cfd6-4726-9987-beb36310c118",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1ce05be6-0869-4c9c-ba58-b29d9d868466",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "899d22db-fddb-4ba9-aac0-b82e50990946",
-              "name": "Could not find the specified user.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"user Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dbfc5724-2259-4ce3-b8a2-ecabc3d289e5",
-          "name": "Create new direct message to a user",
-          "request": {
-            "name": "Create new direct message to a user",
-            "description": {},
-            "url": {
-              "path": [
-                "users",
-                ":id",
-                "messages"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the user"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
             "method": "POST",
-            "auth": null,
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"<string>\"\n}",
+              "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-shifts"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Set per-day work shift capacity for one or more users. Re-sending a (user, date) pair overwrites the previous override. A maximum of 250 work shifts can be set per request."
           },
           "response": [
             {
-              "id": "18850f74-74e5-458e-972b-d0729ab0a162",
-              "name": "Successfully created the message",
+              "id": "75054ba8-c9d1-4a46-8943-0d49e63a3cdb",
+              "name": "Successfully set the work shifts.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
-                    "key": "Accept",
+                    "key": "Content-Type",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"conversationId\": 475.1374533766062\n}",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-75054ba8-c9d1-4a46-8943-0d49e63a3cdb"
             },
             {
-              "id": "d657419e-5576-485c-bcae-91d8fc733d76",
-              "name": "Failed to create the message",
+              "id": "79796f0d-30b7-46d7-b5c1-93c2768f2c59",
+              "name": "The request body was invalid. Possible causes: date is not an RFC 3339 datetime; seconds outside 0\u201386400; NON_WORKING or TIME_OFF with non-zero seconds; WORKING with zero seconds; or more than 250 work shifts in one request.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"should have required property 'content'\",\n      \"fieldPath\": \"content\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-79796f0d-30b7-46d7-b5c1-93c2768f2c59"
             },
             {
-              "id": "17388613-bd33-4614-b410-139f7a5191ae",
+              "id": "48c6efeb-cd77-43e0-9a10-558a7530b865",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-48c6efeb-cd77-43e0-9a10-558a7530b865"
             },
             {
-              "id": "eacbee26-5073-4d48-b5a0-de4779bc9652",
-              "name": "No conversation permissions",
+              "id": "a3278ef7-b95c-4a1a-8003-06f610dc21a2",
+              "name": "You do not have permission to edit workload capacity.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"You cannot create conversations\",\n      \"fieldPath\": \"content\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-a3278ef7-b95c-4a1a-8003-06f610dc21a2"
             },
             {
-              "id": "78c3fbe7-aefc-400a-9fc4-95c08e36f2d0",
+              "id": "85f88060-d639-4f22-9bde-d97236f479d6",
               "name": "Could not find the specified user.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the user"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"user Not Found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-85f88060-d639-4f22-9bde-d97236f479d6"
+            },
+            {
+              "id": "cde63e57-1126-47a7-9290-e72d90918201",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workShifts\": [\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    },\n    {\n      \"userId\": \"<number>\",\n      \"date\": \"<dateTime>\",\n      \"seconds\": \"<number>\",\n      \"status\": \"TIME_OFF\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/work-shifts?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "work-shifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:56:34.000Z",
+              "updatedAt": "2026-10-22T01:56:34.000Z",
+              "uid": "35240-cde63e57-1126-47a7-9290-e72d90918201"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:56:34.000Z",
+          "updatedAt": "2026-10-22T01:56:34.000Z",
+          "uid": "35240-39c25623-4d51-41a2-86be-a6779ac33d84"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "942bae7c-b2ff-44e3-86ff-a7a131e871c2",
+      "createdAt": "2026-10-22T01:56:34.000Z",
+      "updatedAt": "2026-10-22T01:56:34.000Z",
+      "uid": "35240-942bae7c-b2ff-44e3-86ff-a7a131e871c2"
     }
   ],
   "auth": {
@@ -2111,17 +2528,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "dc1e9cd2-9407-4330-9b92-98d18528dafa",
-    "name": "MaintainX Asset Criticalities Users API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

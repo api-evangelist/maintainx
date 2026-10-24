@@ -1,39 +1,834 @@
 {
+  "info": {
+    "_postman_id": "3b9ccae7-7c41-4028-a0ab-90c726b64557",
+    "name": "MaintainX Work Request Portals API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:57:03.000Z",
+    "updatedAt": "2026-10-22T01:57:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3b9ccae7-7c41-4028-a0ab-90c726b64557"
+  },
   "item": [
     {
-      "id": "539085d2-1bb3-46d2-838e-910aa0eea6b1",
-      "name": "Work Request Portals",
-      "description": {
-        "content": "Operations on Work Request Portals",
-        "type": "text/plain"
-      },
+      "name": "workrequestportals",
       "item": [
         {
-          "id": "54bcb0d4-5cb9-442c-b566-4f6e6d3e3c76",
-          "name": "Create new work request portal",
-          "request": {
-            "name": "Create new work request portal",
-            "description": {},
-            "url": {
-              "path": [
-                "workrequestportals"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get work request portal",
+              "id": "5c22b637-934e-4f50-a9b2-4d6a02b8253e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e80d8b3a-57dc-4a3f-974f-2639bc1ef943",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the workRequestPortal"
+                    }
+                  ]
+                }
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "id": "d32f94fd-334b-43e8-93e1-1552bf33cd43",
+                  "name": "Successfully retrieved workRequestPortal's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"workRequestPortal\": {\n    \"id\": \"<integer>\",\n    \"title\": \"<string>\",\n    \"welcomeText\": \"<string,null>\",\n    \"descriptionPlaceholder\": \"<string,null>\",\n    \"contactInformation\": \"<string,null>\",\n    \"portalUrl\": \"<string>\",\n    \"locationId\": \"<integer,null>\",\n    \"assetId\": \"<integer,null>\",\n    \"emailOnly\": \"<boolean,null>\",\n    \"sendEmailNotification\": \"<boolean,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-d32f94fd-334b-43e8-93e1-1552bf33cd43"
+                },
+                {
+                  "id": "3e951f01-d4e4-41ed-886d-f87e4e062240",
+                  "name": "Error with query",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-3e951f01-d4e4-41ed-886d-f87e4e062240"
+                },
+                {
+                  "id": "f36ad759-3847-4c1a-84e0-52062856ad38",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-f36ad759-3847-4c1a-84e0-52062856ad38"
+                },
+                {
+                  "id": "3bb0b1a6-7cd6-4954-9957-2d0c886d9f5b",
+                  "name": "Could not find the specified workRequestPortal or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-3bb0b1a6-7cd6-4954-9957-2d0c886d9f5b"
                 }
               ],
-              "variable": []
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-5c22b637-934e-4f50-a9b2-4d6a02b8253e"
             },
+            {
+              "name": "Update work request portal",
+              "id": "f32bf88b-462f-43bd-9674-e408fd9eae36",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "8822dcfe-05ad-476c-af6e-b8fd043dcf6f",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the work request portal"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "1b74da16-b6cd-4bc9-908d-098970b68d20",
+                  "name": "Successfully edited work request portal",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"workRequestPortal\": {\n    \"id\": \"<integer>\",\n    \"title\": \"<string>\",\n    \"welcomeText\": \"<string,null>\",\n    \"descriptionPlaceholder\": \"<string,null>\",\n    \"contactInformation\": \"<string,null>\",\n    \"portalUrl\": \"<string>\",\n    \"locationId\": \"<integer,null>\",\n    \"assetId\": \"<integer,null>\",\n    \"emailOnly\": \"<boolean,null>\",\n    \"sendEmailNotification\": \"<boolean,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-1b74da16-b6cd-4bc9-908d-098970b68d20"
+                },
+                {
+                  "id": "e9e031b2-673d-4f65-a702-8d973798a9b5",
+                  "name": "Failed to edit the work request portal",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-e9e031b2-673d-4f65-a702-8d973798a9b5"
+                },
+                {
+                  "id": "68a14a7d-6600-44ad-a167-73be6af7e8a1",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-68a14a7d-6600-44ad-a167-73be6af7e8a1"
+                },
+                {
+                  "id": "42b13504-9280-47cf-987e-79dd36c9db7d",
+                  "name": "Could not find the specified work request portal.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-42b13504-9280-47cf-987e-79dd36c9db7d"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-f32bf88b-462f-43bd-9674-e408fd9eae36"
+            },
+            {
+              "name": "Delete work request portal",
+              "id": "8c646c32-d71f-4931-bb58-064067cd842c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2b47b9d4-7ebd-4d15-bdb2-cb2c8b40e148",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the workRequestPortal"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "80bc5f98-8c38-4200-9ded-0d6f99eb13aa",
+                  "name": "Successfully deleted the workRequestPortal",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-80bc5f98-8c38-4200-9ded-0d6f99eb13aa"
+                },
+                {
+                  "id": "faa59e43-ea10-4e6d-a554-4f8777487d40",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-faa59e43-ea10-4e6d-a554-4f8777487d40"
+                },
+                {
+                  "id": "aa50d9e4-e1ea-4cf2-b187-64f35a4f97d6",
+                  "name": "Could not find the specified workRequestPortal.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-aa50d9e4-e1ea-4cf2-b187-64f35a4f97d6"
+                },
+                {
+                  "id": "b963b798-32a1-4fa2-bc46-97c86514640c",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workrequestportals/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workrequestportals",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:04.000Z",
+                  "updatedAt": "2026-10-22T01:57:04.000Z",
+                  "uid": "35240-b963b798-32a1-4fa2-bc46-97c86514640c"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-8c646c32-d71f-4931-bb58-064067cd842c"
+            }
+          ],
+          "id": "3801a688-1ad8-467a-8eb1-40541d9df357",
+          "createdAt": "2026-10-22T01:57:04.000Z",
+          "updatedAt": "2026-10-22T01:57:04.000Z",
+          "uid": "35240-3801a688-1ad8-467a-8eb1-40541d9df357"
+        },
+        {
+          "name": "Create new work request portal",
+          "id": "706e459b-29d9-41a9-8106-d257b4d62b68",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -47,302 +842,312 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string>\",\n  \"descriptionPlaceholder\": \"<string>\",\n  \"contactInformation\": \"<string>\",\n  \"locationId\": \"<integer>\",\n  \"assetId\": \"<integer>\",\n  \"emailOnly\": \"<boolean>\",\n  \"sendEmailNotification\": \"<boolean>\"\n}",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/workrequestportals?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workrequestportals"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "22adc79e-b28b-4978-8855-677fa7cbfc75",
+              "id": "8f60f184-73cc-4f37-a329-40eeb0621002",
               "name": "Successfully created portal",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 963\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-8f60f184-73cc-4f37-a329-40eeb0621002"
             },
             {
-              "id": "dba9c2a6-22b8-461d-8380-0070a7a8f564",
+              "id": "4001505f-2fb1-486d-bded-72d7df9cb63c",
               "name": "OrganizationId was not provided",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-4001505f-2fb1-486d-bded-72d7df9cb63c"
             },
             {
-              "id": "70d74252-6b7a-434d-b2e1-e0c04ff404bd",
+              "id": "f48484ae-05eb-4e84-8432-525e12b4d49f",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-f48484ae-05eb-4e84-8432-525e12b4d49f"
             },
             {
-              "id": "2b74076b-e571-487a-b67c-f2fb0bd43ca9",
+              "id": "a8c42265-fde5-45a8-b8a3-c39376a8dc42",
               "name": "You are forbidden to perform the requested action, to access this resource or the feature is disabled by your administrator",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string,null>\",\n  \"descriptionPlaceholder\": \"<string,null>\",\n  \"contactInformation\": \"<string,null>\",\n  \"locationId\": \"<integer,null>\",\n  \"assetId\": \"<integer,null>\",\n  \"emailOnly\": \"<boolean,null>\",\n  \"sendEmailNotification\": \"<boolean,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workrequestportals?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Forbidden\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-a8c42265-fde5-45a8-b8a3-c39376a8dc42"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:57:04.000Z",
+          "updatedAt": "2026-10-22T01:57:04.000Z",
+          "uid": "35240-706e459b-29d9-41a9-8106-d257b4d62b68"
         },
         {
-          "id": "29497cc7-ff71-4437-8cd2-973d189060d5",
           "name": "List work request portals",
+          "id": "5e937900-b600-4c37-8139-9fae3758c667",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List work request portals",
-            "description": {
-              "content": "Endpoint used to list work request portal resources",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "workrequestportals"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -352,20 +1157,56 @@
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/workrequestportals?cursor=<string>&limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workrequestportals"
+              ],
+              "query": [
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Endpoint used to list work request portal resources"
           },
           "response": [
             {
-              "id": "dd6e68b0-6808-40a3-ae92-e1e2b7054c92",
+              "id": "df734e9c-3296-4e8a-be5b-727d56e68cfc",
               "name": "Successfully fetched Work Request Portals list",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
+                  "raw": "{{baseUrl}}/workrequestportals?cursor=<string>&limit=100",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
                   ],
                   "query": [
                     {
@@ -376,54 +1217,53 @@
                       "key": "limit",
                       "value": "100"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"workRequestPortals\": [\n    {\n      \"id\": 963,\n      \"title\": \"Shipping Portal\",\n      \"portalUrl\": \"https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993\",\n      \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n      \"descriptionPlaceholder\": \"Describe your request\",\n      \"contactInformation\": \"Jimmy@example.com\",\n      \"assetId\": 852,\n      \"locationId\": 852,\n      \"emailOnly\": true,\n      \"sendEmailNotification\": true\n    },\n    {\n      \"id\": 963,\n      \"title\": \"Shipping Portal\",\n      \"portalUrl\": \"https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993\",\n      \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n      \"descriptionPlaceholder\": \"Describe your request\",\n      \"contactInformation\": \"Jimmy@example.com\",\n      \"assetId\": 852,\n      \"locationId\": 852,\n      \"emailOnly\": true,\n      \"sendEmailNotification\": true\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"workRequestPortals\": [\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"portalUrl\": \"<string>\",\n      \"welcomeText\": \"<string,null>\",\n      \"descriptionPlaceholder\": \"<string,null>\",\n      \"contactInformation\": \"<string,null>\",\n      \"assetId\": \"<integer,null>\",\n      \"locationId\": \"<integer,null>\",\n      \"emailOnly\": \"<boolean,null>\",\n      \"sendEmailNotification\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"portalUrl\": \"<string>\",\n      \"welcomeText\": \"<string,null>\",\n      \"descriptionPlaceholder\": \"<string,null>\",\n      \"contactInformation\": \"<string,null>\",\n      \"assetId\": \"<integer,null>\",\n      \"locationId\": \"<integer,null>\",\n      \"emailOnly\": \"<boolean,null>\",\n      \"sendEmailNotification\": \"<boolean,null>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-df734e9c-3296-4e8a-be5b-727d56e68cfc"
             },
             {
-              "id": "732b93b9-23cc-4604-a5ac-f0bc9ec7084f",
+              "id": "384d2af1-96c9-4976-9f42-2a7ec65ad1dd",
               "name": "Error with query",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
+                  "raw": "{{baseUrl}}/workrequestportals?cursor=<string>&limit=100",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
                   ],
                   "query": [
                     {
@@ -434,54 +1274,49 @@
                       "key": "limit",
                       "value": "100"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-384d2af1-96c9-4976-9f42-2a7ec65ad1dd"
             },
             {
-              "id": "98f97f76-b650-41d3-b679-e3adee5090e6",
+              "id": "9b628168-7a66-42c0-bdf9-7c8c26df1d4a",
               "name": "Invalid token",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "workrequestportals"
-                  ],
+                  "raw": "{{baseUrl}}/workrequestportals?cursor=<string>&limit=100",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workrequestportals"
                   ],
                   "query": [
                     {
@@ -492,886 +1327,30 @@
                       "key": "limit",
                       "value": "100"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "684176bd-e034-476c-8551-87535216f4fd",
-          "name": "Get work request portal",
-          "request": {
-            "name": "Get work request portal",
-            "description": {},
-            "url": {
-              "path": [
-                "workrequestportals",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the workRequestPortal"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3d6eca58-8ccf-4a6a-be4c-0f9335c72376",
-              "name": "Successfully retrieved workRequestPortal's information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"workRequestPortal\": {\n    \"id\": 963,\n    \"title\": \"Shipping Portal\",\n    \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n    \"descriptionPlaceholder\": \"Describe your request\",\n    \"contactInformation\": \"Jimmy@example.com\",\n    \"portalUrl\": \"https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993\",\n    \"locationId\": 852,\n    \"assetId\": 852,\n    \"emailOnly\": true,\n    \"sendEmailNotification\": true\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "488792ca-3886-4223-8825-b339046fe436",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "36a37de9-8e92-45f8-be5a-93337693e516",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "fb4df6af-2dbb-4d56-83c5-0c2b0d79368f",
-              "name": "Could not find the specified workRequestPortal or the user cannot access it.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Not Found.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "78528650-2e20-40ae-9107-fe35ab94e5b0",
-          "name": "Update work request portal",
-          "request": {
-            "name": "Update work request portal",
-            "description": {},
-            "url": {
-              "path": [
-                "workrequestportals",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the work request portal"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"<string>\",\n  \"welcomeText\": \"<string>\",\n  \"descriptionPlaceholder\": \"<string>\",\n  \"contactInformation\": \"<string>\",\n  \"locationId\": \"<integer>\",\n  \"assetId\": \"<integer>\",\n  \"emailOnly\": \"<boolean>\",\n  \"sendEmailNotification\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "3a9b923a-ca99-41e3-82ec-edfcd7137cb5",
-              "name": "Successfully edited work request portal",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the work request portal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"workRequestPortal\": {\n    \"id\": 963,\n    \"title\": \"Shipping Portal\",\n    \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n    \"descriptionPlaceholder\": \"Describe your request\",\n    \"contactInformation\": \"Jimmy@example.com\",\n    \"portalUrl\": \"https://app.getmaintainx.com/request-portal/ae9d33c8-ef78-44c4-925d-352878db0993\",\n    \"locationId\": 852,\n    \"assetId\": 852,\n    \"emailOnly\": true,\n    \"sendEmailNotification\": true\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0ad4dec3-ea6e-4736-a394-15bb2082f9b9",
-              "name": "Failed to edit the work request portal",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the work request portal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"parentId is not valid\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2785b08f-b508-4f7e-b4ab-90e86103a648",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the work request portal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "db0625af-db99-4f24-9db2-054169de8565",
-              "name": "Could not find the specified work request portal.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the work request portal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"title\": \"Shipping Portal\",\n  \"welcomeText\": \"Use this portal for all request related to our shipping activities\",\n  \"descriptionPlaceholder\": \"Describe your request\",\n  \"contactInformation\": \"Jimmy@example.com\",\n  \"locationId\": 852,\n  \"assetId\": 852,\n  \"emailOnly\": true,\n  \"sendEmailNotification\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"work request portal Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:04.000Z",
+              "updatedAt": "2026-10-22T01:57:04.000Z",
+              "uid": "35240-9b628168-7a66-42c0-bdf9-7c8c26df1d4a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4d9053b7-a94f-4bc8-9e32-4b80ef1a23b9",
-          "name": "Delete work request portal",
-          "request": {
-            "name": "Delete work request portal",
-            "description": {},
-            "url": {
-              "path": [
-                "workrequestportals",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the workRequestPortal"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "6c6cc9d2-14fc-46d0-a888-6f35b706b8d2",
-              "name": "Successfully deleted the workRequestPortal",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "aa0a3216-c32f-4887-99ac-2d58a2937908",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "cac8a039-613f-4ff2-bf8b-609e8b07be6d",
-              "name": "Could not find the specified workRequestPortal.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"workRequestPortal Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "acae1d18-62a9-4430-bc56-7b279fbd2550",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "workrequestportals",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the workRequestPortal"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:57:04.000Z",
+          "updatedAt": "2026-10-22T01:57:04.000Z",
+          "uid": "35240-5e937900-b600-4c37-8139-9fae3758c667"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "ae9ce023-2104-48dd-aead-2acb3a9d3b79",
+      "createdAt": "2026-10-22T01:57:04.000Z",
+      "updatedAt": "2026-10-22T01:57:04.000Z",
+      "uid": "35240-ae9ce023-2104-48dd-aead-2acb3a9d3b79"
     }
   ],
   "auth": {
@@ -1379,17 +1358,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "dcad9a0d-6bde-4956-aa44-7278c00c06eb",
-    "name": "MaintainX Asset Criticalities Work Request Portals API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

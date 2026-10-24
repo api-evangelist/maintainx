@@ -1,52 +1,395 @@
 {
+  "info": {
+    "_postman_id": "7df1e542-ddce-49a1-81b9-539524aae300",
+    "name": "MaintainX Manufacturers API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:54:51.000Z",
+    "updatedAt": "2026-10-22T01:54:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7df1e542-ddce-49a1-81b9-539524aae300"
+  },
   "item": [
     {
-      "id": "6490af4f-2cf1-4100-9ceb-8ef739703a17",
-      "name": "Manufacturers",
-      "description": {
-        "content": "Operations on Manufacturers and Models",
-        "type": "text/plain"
-      },
+      "name": "manufacturers",
       "item": [
         {
-          "id": "f020070c-645a-4762-ab67-aa699e497a58",
-          "name": "List manufacturers",
-          "request": {
-            "name": "List manufacturers",
-            "description": {
-              "content": "Endpoint used to list manufacturer resources",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "manufacturers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get manufacturer",
+              "id": "2ae6b1a0-548f-4809-a67f-e5d49179e55d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2639452a-a26a-435e-b115-cc94ca1d7e95",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the manufacturer"
+                    }
+                  ]
+                }
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>"
+                  "id": "72f435d3-c34e-4ca1-8564-1f4cfd0173fb",
+                  "name": "Successfully retrieved manufacturer's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"manufacturer\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-72f435d3-c34e-4ca1-8564-1f4cfd0173fb"
                 },
                 {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100"
+                  "id": "3555af9b-a619-426d-bd1a-d53b4a1ba6aa",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-3555af9b-a619-426d-bd1a-d53b4a1ba6aa"
+                },
+                {
+                  "id": "b7b8abae-1b4e-49e2-ab14-b518d3b4253d",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-b7b8abae-1b4e-49e2-ab14-b518d3b4253d"
+                },
+                {
+                  "id": "97e68c09-9609-4eb1-803a-505bf0e38873",
+                  "name": "Manufacturer REST API get is currently disabled",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-97e68c09-9609-4eb1-803a-505bf0e38873"
+                },
+                {
+                  "id": "8ea5d0cc-1f16-40d9-8528-cd4d9e7677b8",
+                  "name": "Could not find the specified manufacturer.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-8ea5d0cc-1f16-40d9-8528-cd4d9e7677b8"
+                },
+                {
+                  "id": "8ba53cd3-23ed-4bfe-8d46-642f09789201",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/manufacturers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "manufacturers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-8ba53cd3-23ed-4bfe-8d46-642f09789201"
                 }
               ],
-              "variable": []
-            },
+              "createdAt": "2026-10-22T01:54:51.000Z",
+              "updatedAt": "2026-10-22T01:54:51.000Z",
+              "uid": "35240-2ae6b1a0-548f-4809-a67f-e5d49179e55d"
+            }
+          ],
+          "id": "0e0d0d4b-bfd9-4779-b826-db35d765cc11",
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-0e0d0d4b-bfd9-4779-b826-db35d765cc11"
+        },
+        {
+          "name": "List manufacturers",
+          "id": "a1cf2798-aed4-4ee1-8a3d-580aae1b8049",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
               },
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
                 "key": "x-organization-ids",
                 "value": "<string>"
@@ -56,294 +399,282 @@
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "34b4344d-35f7-49fa-9c98-b22d67506f0d",
-              "name": "Successfully fetched Manufacturers list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"manufacturers\": [\n    {\n      \"id\": 963,\n      \"name\": \"ACME Corporation\",\n      \"organizationId\": 1\n    },\n    {\n      \"id\": 963,\n      \"name\": \"ACME Corporation\",\n      \"organizationId\": 1\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3109aab3-67f3-433d-adbe-2c8c781a4ac6",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "796b365a-c2b6-4017-91b7-901772f7b01d",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9c0eec6f-48e9-4347-841c-cbe2e8a9e03d",
-              "name": "Manufacturer REST API list is currently disabled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Manufacturer REST API list is currently disabled.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "847e058c-f27b-47e7-8e2e-ac17b8454a12",
-          "name": "Create new manufacturer",
-          "request": {
-            "name": "Create new manufacturer",
-            "description": {},
             "url": {
-              "path": [
-                "manufacturers"
-              ],
+              "raw": "{{baseUrl}}/manufacturers?cursor=<string>&limit=100",
               "host": [
                 "{{baseUrl}}"
               ],
+              "path": [
+                "manufacturers"
+              ],
               "query": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Endpoint used to list manufacturer resources"
+          },
+          "response": [
+            {
+              "id": "a8c22925-3a8d-4ec4-94c8-db33e551d2ec",
+              "name": "Successfully fetched Manufacturers list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "variable": []
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"manufacturers\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"organizationId\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"organizationId\": \"<integer>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-a8c22925-3a8d-4ec4-94c8-db33e551d2ec"
             },
+            {
+              "id": "6fd9f3ec-ff4f-4d40-b007-1f142aa4a6d1",
+              "name": "Error with query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-6fd9f3ec-ff4f-4d40-b007-1f142aa4a6d1"
+            },
+            {
+              "id": "bc00b35a-5227-46a3-95d7-a4bce2be4eaf",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-bc00b35a-5227-46a3-95d7-a4bce2be4eaf"
+            },
+            {
+              "id": "4fc6ea8b-5dbf-4dad-94f7-b0a2d08ce9e4",
+              "name": "Manufacturer REST API list is currently disabled",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-4fc6ea8b-5dbf-4dad-94f7-b0a2d08ce9e4"
+            }
+          ],
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-a1cf2798-aed4-4ee1-8a3d-580aae1b8049"
+        },
+        {
+          "name": "Create new manufacturer",
+          "id": "4adf59b2-4f7b-482a-8163-f30bb2d4d1ec",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -357,406 +688,392 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "manufacturers"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "0b7e7b75-4d52-4d9c-b2ba-cff62d37cf56",
+              "id": "a2ad3b60-9e96-4508-aaf5-f5639af3ecc5",
               "name": "Successfully created manufacturer",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"ACME Corporation\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 963\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-a2ad3b60-9e96-4508-aaf5-f5639af3ecc5"
             },
             {
-              "id": "9add217e-4b6e-4bdd-83a4-12fba75b103a",
+              "id": "3fa64536-e995-48f4-9027-304812d86b18",
               "name": "OrganizationId was not provided",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"ACME Corporation\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-3fa64536-e995-48f4-9027-304812d86b18"
             },
             {
-              "id": "43bd64de-019a-466a-bc8f-3cd975698142",
+              "id": "21e68267-7e7c-4ec6-9345-447842f5ed41",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"ACME Corporation\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-21e68267-7e7c-4ec6-9345-447842f5ed41"
             },
             {
-              "id": "09f112f4-5ab5-4746-a9ce-6268f59908d0",
+              "id": "b2feee34-04d1-4f6d-bf43-7c716038d61a",
               "name": "Manufacturer REST API creation is currently disabled",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"ACME Corporation\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Manufacturer REST API creation is currently disabled.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-b2feee34-04d1-4f6d-bf43-7c716038d61a"
             },
             {
-              "id": "04ad00ee-1b4f-4723-af2d-3a7e22e37632",
+              "id": "11c78743-651c-4fca-8fda-0f8b15c9befe",
               "name": "Internal server error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"ACME Corporation\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manufacturers?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manufacturers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-11c78743-651c-4fca-8fda-0f8b15c9befe"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-4adf59b2-4f7b-482a-8163-f30bb2d4d1ec"
+        }
+      ],
+      "id": "8f46476b-6bd4-422b-ad7d-8a30d7e91194",
+      "createdAt": "2026-10-22T01:54:51.000Z",
+      "updatedAt": "2026-10-22T01:54:51.000Z",
+      "uid": "35240-8f46476b-6bd4-422b-ad7d-8a30d7e91194"
+    },
+    {
+      "name": "models",
+      "item": [
         {
-          "id": "4e868150-a2ea-4071-9a6c-5f77fc3db14c",
-          "name": "Get manufacturer",
-          "request": {
-            "name": "Get manufacturer",
-            "description": {},
-            "url": {
-              "path": [
-                "manufacturers",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the manufacturer"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "f1513ff5-3093-43e4-955f-f7f52f06727f",
-              "name": "Successfully retrieved manufacturer's information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the manufacturer"
-                    }
-                  ]
-                },
+              "name": "Get model",
+              "id": "bd8e9597-48ee-426c-891d-54b140fe0aa5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
@@ -766,352 +1083,361 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"manufacturer\": {\n    \"id\": 963,\n    \"name\": \"ACME Corporation\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b19d507e-f5f5-4656-9c44-d5283a4d9884",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "manufacturers",
-                    ":id"
-                  ],
+                  "raw": "{{baseUrl}}/models/:id",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the manufacturer"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "116c06fc-e941-4932-9ca7-ac057180046a",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
                   "path": [
-                    "manufacturers",
+                    "models",
                     ":id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
+                      "id": "64402351-3f28-49c9-9293-ea440580a327",
                       "key": "id",
-                      "description": "(Required) ID of the manufacturer"
+                      "value": "<integer>",
+                      "description": "(Required) ID of the model"
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
                 }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f5b4fe3e-82e0-4fd9-8963-cb98724d9669",
-              "name": "Manufacturer REST API get is currently disabled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              },
+              "response": [
+                {
+                  "id": "32bd84ea-c7ac-43a1-9445-eaf31140f2bf",
+                  "name": "Successfully retrieved model information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the manufacturer"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"model\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"manufacturerId\": \"<integer,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-32bd84ea-c7ac-43a1-9445-eaf31140f2bf"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Manufacturer REST API get is currently disabled.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9870d0d2-6f23-484a-a839-d47e256f9e06",
-              "name": "Could not find the specified manufacturer.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "id": "f70c7603-c637-40bc-b268-b25cf6bbf2aa",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the manufacturer"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-f70c7603-c637-40bc-b268-b25cf6bbf2aa"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"manufacturer Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e8cb44d6-309b-412d-9f50-6b576f5ebe53",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "manufacturers",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "id": "db036fb4-c5d4-40db-9ccf-544dc093c712",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-db036fb4-c5d4-40db-9ccf-544dc093c712"
+                },
+                {
+                  "id": "b2b5c0c7-3dd6-4596-adb6-f8c36ec2224f",
+                  "name": "Model REST API get is currently disabled",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the manufacturer"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-b2b5c0c7-3dd6-4596-adb6-f8c36ec2224f"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "11d49157-cf9f-44a6-847d-fbfe06c3efb8",
+                  "name": "Could not find the specified model.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-11d49157-cf9f-44a6-847d-fbfe06c3efb8"
+                },
+                {
+                  "id": "650b06b6-f14d-4a1e-8849-778d1c6b033f",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:52.000Z",
+                  "updatedAt": "2026-10-22T01:54:52.000Z",
+                  "uid": "35240-650b06b6-f14d-4a1e-8849-778d1c6b033f"
                 }
               ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:54:51.000Z",
+              "updatedAt": "2026-10-22T01:54:51.000Z",
+              "uid": "35240-bd8e9597-48ee-426c-891d-54b140fe0aa5"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "edcc515e-8dbc-41bc-85d3-6da3e0144052",
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-edcc515e-8dbc-41bc-85d3-6da3e0144052"
         },
         {
-          "id": "d6a20711-f8dd-4eed-abf7-3fa286d03496",
           "name": "List models",
+          "id": "d7bafd9f-e7c0-4e25-bc0b-ab04a4c603da",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List models",
-            "description": {
-              "content": "Endpoint used to list model resources",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
               },
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
                 "key": "x-organization-ids",
                 "value": "<string>"
@@ -1121,294 +1447,282 @@
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "313c7de2-01c4-4cfd-9b77-65382811d8f8",
-              "name": "Successfully fetched Models list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"models\": [\n    {\n      \"id\": 963,\n      \"name\": \"D10\",\n      \"manufacturerId\": 123,\n      \"organizationId\": 1\n    },\n    {\n      \"id\": 963,\n      \"name\": \"D10\",\n      \"manufacturerId\": 123,\n      \"organizationId\": 1\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "722d56df-4ef0-445f-ada9-185fe01d3fe2",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b7c64311-c0d7-4856-8060-4f69cd760354",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9585c24d-47cf-47b4-b6c6-8b952aa5e2e4",
-              "name": "Model REST API list is currently disabled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
-                    "key": "x-organization-ids",
-                    "value": "1,2,3"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Model REST API list is currently disabled.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e2ed78b0-b90f-4ace-900b-db95abf1d5cd",
-          "name": "Create new model",
-          "request": {
-            "name": "Create new model",
-            "description": {},
             "url": {
-              "path": [
-                "models"
-              ],
+              "raw": "{{baseUrl}}/models?cursor=<string>&limit=100",
               "host": [
                 "{{baseUrl}}"
               ],
+              "path": [
+                "models"
+              ],
               "query": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Endpoint used to list model resources"
+          },
+          "response": [
+            {
+              "id": "6ea1aa4d-fac4-4e1c-9b1e-ffea83e63675",
+              "name": "Successfully fetched Models list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "variable": []
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"models\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"manufacturerId\": \"<integer,null>\",\n      \"organizationId\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"manufacturerId\": \"<integer,null>\",\n      \"organizationId\": \"<integer>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-6ea1aa4d-fac4-4e1c-9b1e-ffea83e63675"
             },
+            {
+              "id": "d0918579-b88d-4f8f-bcd9-1757bdcde818",
+              "name": "Error with query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-d0918579-b88d-4f8f-bcd9-1757bdcde818"
+            },
+            {
+              "id": "5ffdb971-2fdb-4303-a0c9-1d8590a42103",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-5ffdb971-2fdb-4303-a0c9-1d8590a42103"
+            },
+            {
+              "id": "fc3e4561-3b19-4be3-beef-432e901c84d1",
+              "name": "Model REST API list is currently disabled",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Required if using a multi organizations token and doing an operation on resources from multiple organizations. This is mutually exclusive with the x-organization-id header (use one or the other).",
+                    "key": "x-organization-ids",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-fc3e4561-3b19-4be3-beef-432e901c84d1"
+            }
+          ],
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-d7bafd9f-e7c0-4e25-bc0b-ab04a4c603da"
+        },
+        {
+          "name": "Create new model",
+          "id": "231faf4d-d4ae-403d-930b-3ba1ec4b90ff",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -1422,794 +1736,443 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "b4d35c34-35bf-484b-9aaf-358bb4950b2d",
+              "id": "aeb1a0d8-f42b-4e59-8452-fd5d2f163f78",
               "name": "Successfully created manufacturer model",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 963\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-aeb1a0d8-f42b-4e59-8452-fd5d2f163f78"
             },
             {
-              "id": "a7e47470-c2be-4209-b46c-04a961edfed7",
+              "id": "f9751984-2105-403d-8f84-59abd1afeb47",
               "name": "OrganizationId was not provided",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-f9751984-2105-403d-8f84-59abd1afeb47"
             },
             {
-              "id": "ca8412a5-e1d9-4332-b060-5acc2a73939e",
+              "id": "94db8e5f-0483-4698-832b-91ecd4280cde",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-94db8e5f-0483-4698-832b-91ecd4280cde"
             },
             {
-              "id": "bbffc54f-9ac8-4b08-878a-86cd8b5dc797",
+              "id": "6ed8eb91-e477-4a6e-9517-a1bed59af560",
               "name": "Manufacturer model REST API creation is currently disabled",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Manufacturer model REST API creation is currently disabled.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-6ed8eb91-e477-4a6e-9517-a1bed59af560"
             },
             {
-              "id": "08d8acdc-5730-41b0-9bcf-0b2e5b2ed680",
+              "id": "53b466a4-4fe7-4dd5-af73-9f687fb5a041",
               "name": "Could not find the specified manufacturer.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"manufacturer Not Found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-53b466a4-4fe7-4dd5-af73-9f687fb5a041"
             },
             {
-              "id": "6824074c-30f0-46eb-aa3f-7e23bcca5e8e",
+              "id": "746320a3-8103-4bc3-9550-93c8909f44c0",
               "name": "Internal server error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"D10\",\n  \"manufacturerId\": 123\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"manufacturerId\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:52.000Z",
+              "updatedAt": "2026-10-22T01:54:52.000Z",
+              "uid": "35240-746320a3-8103-4bc3-9550-93c8909f44c0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "08f77232-ca5e-403f-a30c-ab4600f8f7da",
-          "name": "Get model",
-          "request": {
-            "name": "Get model",
-            "description": {},
-            "url": {
-              "path": [
-                "models",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the model"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "4ca59f7e-b4d3-4ede-bd4a-ba94f5afba35",
-              "name": "Successfully retrieved model information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"model\": {\n    \"id\": 963,\n    \"name\": \"D10\",\n    \"manufacturerId\": 123\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "caaa3f99-fc5a-41be-b370-ca96ab37cc3c",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "16d959d8-7042-4b8a-9136-ad4bace7457f",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "fb27da23-08f9-4703-b4b9-2d4c86218e3d",
-              "name": "Model REST API get is currently disabled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Model REST API get is currently disabled.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5aa5e324-db7e-4200-ac74-01235acc648f",
-              "name": "Could not find the specified model.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"model Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2e803e6e-5437-455c-ad07-9b4443efb6b1",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the model"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:54:51.000Z",
+          "updatedAt": "2026-10-22T01:54:51.000Z",
+          "uid": "35240-231faf4d-d4ae-403d-930b-3ba1ec4b90ff"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "712d46bf-63e2-45a6-93af-c934ada28d29",
+      "createdAt": "2026-10-22T01:54:51.000Z",
+      "updatedAt": "2026-10-22T01:54:51.000Z",
+      "uid": "35240-712d46bf-63e2-45a6-93af-c934ada28d29"
     }
   ],
   "auth": {
@@ -2217,17 +2180,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f7231fd3-61ed-4c4b-bbcb-8d8e9bfb0d8f",
-    "name": "MaintainX Asset Criticalities Manufacturers API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

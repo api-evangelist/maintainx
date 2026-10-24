@@ -1,113 +1,1151 @@
 {
+  "info": {
+    "_postman_id": "66313185-af62-46eb-84e1-6a1103d24215",
+    "name": "MaintainX Custom Fields API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:54:26.000Z",
+    "updatedAt": "2026-10-22T01:54:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-66313185-af62-46eb-84e1-6a1103d24215"
+  },
   "item": [
     {
-      "id": "122ab8e3-f62b-4cb6-b52e-4fa91f47ee44",
-      "name": "Custom Fields",
-      "description": {
-        "content": "Operations on Custom Fields",
-        "type": "text/plain"
-      },
+      "name": "customfields",
       "item": [
         {
-          "id": "6a681e10-8f31-4d64-a160-cb6544c8d9a3",
-          "name": "Create custom field",
-          "request": {
-            "name": "Create custom field",
-            "description": {},
-            "url": {
-              "path": [
-                "customfields",
-                ":entity"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "entity",
-                  "description": "(Required) Type of entity"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{entity}",
+          "item": [
             {
-              "id": "90cf8d66-7876-4e8a-a2da-125d49ad81a9",
-              "name": "Successfully created the custom fields",
-              "originalRequest": {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Edit custom field",
+                  "id": "a96c48e5-dc45-4f6a-bc1d-4529585ff856",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8f4061a4-6ccd-4cc6-863d-ab014803b68d",
+                          "key": "entity",
+                          "value": "lineItemPurchaseOrders",
+                          "description": "(Required) Type of entity"
+                        },
+                        {
+                          "id": "a003523a-9e7e-4e2c-bd8a-bf4c88b2962e",
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) ID of the custom field"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "37db1f43-f2a2-4f84-85fd-1c75fc6fcc28",
+                      "name": "Successfully edited the custom field",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-37db1f43-f2a2-4f84-85fd-1c75fc6fcc28"
+                    },
+                    {
+                      "id": "6f67d829-973d-4d65-992b-96f9b6ed6d15",
+                      "name": "Failed to edit the custom field",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-6f67d829-973d-4d65-992b-96f9b6ed6d15"
+                    },
+                    {
+                      "id": "befc0891-7582-4577-99eb-525baa7f0205",
+                      "name": "Invalid token",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-befc0891-7582-4577-99eb-525baa7f0205"
+                    },
+                    {
+                      "id": "ca6b3719-948c-4d00-b022-1a77aad00219",
+                      "name": "Failed to edit the custom field",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-ca6b3719-948c-4d00-b022-1a77aad00219"
+                    },
+                    {
+                      "id": "886801c5-3f4d-4f78-a624-63c7395a5b88",
+                      "name": "Could not find the specified custom field.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"link\",\n    \"options\": \"<array,null>\",\n    \"includeInRecurrence\": \"<boolean,null>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-886801c5-3f4d-4f78-a624-63c7395a5b88"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-a96c48e5-dc45-4f6a-bc1d-4529585ff856"
+                },
+                {
+                  "name": "Delete custom field",
+                  "id": "aa1489af-0c0c-4856-92de-076380009f3d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "bc230b78-e29e-4da9-82af-379f9dd90a02",
+                          "key": "entity",
+                          "value": "lineItemPurchaseOrders",
+                          "description": "(Required) Type of entity"
+                        },
+                        {
+                          "id": "aac3ee27-9741-41c7-ac31-4496c75394b6",
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) ID of the custom field"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "fb42c674-a43e-4eb5-ae1f-b77c1ce7cbe8",
+                      "name": "Successfully deleted the Custom Fields",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-fb42c674-a43e-4eb5-ae1f-b77c1ce7cbe8"
+                    },
+                    {
+                      "id": "b6460111-45ba-4e58-939b-6e708f1cca91",
+                      "name": "Invalid token",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-b6460111-45ba-4e58-939b-6e708f1cca91"
+                    },
+                    {
+                      "id": "fb830130-6bb4-4369-ad9a-894e41e7ad1f",
+                      "name": "Could not find the specified Custom Fields.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-fb830130-6bb4-4369-ad9a-894e41e7ad1f"
+                    },
+                    {
+                      "id": "28cbdfe4-55c2-44e1-aa4d-ba8dab74f469",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customfields/:entity/:id?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customfields",
+                            ":entity",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "entity"
+                            },
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:54:27.000Z",
+                      "updatedAt": "2026-10-22T01:54:27.000Z",
+                      "uid": "35240-28cbdfe4-55c2-44e1-aa4d-ba8dab74f469"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-aa1489af-0c0c-4856-92de-076380009f3d"
+                }
+              ],
+              "id": "d58e9b19-80d3-4abc-bfad-64d306b3c74f",
+              "createdAt": "2026-10-22T01:54:27.000Z",
+              "updatedAt": "2026-10-22T01:54:27.000Z",
+              "uid": "35240-d58e9b19-80d3-4abc-bfad-64d306b3c74f"
+            },
+            {
+              "name": "Create custom field",
+              "id": "1f76a17d-3311-447a-96ad-c27b98fbf502",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "customfields",
                     ":entity"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
                       "key": "skipWebhook",
                       "value": "<boolean>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "47f3d89e-e710-4996-a202-a1d9e8cba350",
                       "key": "entity",
+                      "value": "lineItemPurchaseOrders",
                       "description": "(Required) Type of entity"
                     }
                   ]
+                }
+              },
+              "response": [
+                {
+                  "id": "8b03b28b-6d83-41c2-a22d-d857a4d7241a",
+                  "name": "Successfully created the custom fields",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<number>\",\n    \"label\": \"<string>\",\n    \"type\": \"datetime\",\n    \"sortOrder\": \"<integer>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"id\": \"<number>\",\n    \"label\": \"<string>\",\n    \"type\": \"multiline\",\n    \"sortOrder\": \"<integer>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-8b03b28b-6d83-41c2-a22d-d857a4d7241a"
                 },
+                {
+                  "id": "e659dbd1-3959-4ef8-89c3-6f79754fd0b5",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-e659dbd1-3959-4ef8-89c3-6f79754fd0b5"
+                },
+                {
+                  "id": "4ecaec8f-d0b2-4ffe-ac82-39baf1fd56c1",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-4ecaec8f-d0b2-4ffe-ac82-39baf1fd56c1"
+                },
+                {
+                  "id": "d6d309fb-e1fd-46a5-871b-86e6d5875f17",
+                  "name": "Failed to create the custom field",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-d6d309fb-e1fd-46a5-871b-86e6d5875f17"
+                },
+                {
+                  "id": "cdcb0406-f9b7-4472-bcf1-d700527e6a64",
+                  "name": "Could not find the specified custom field.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"<string>\",\n      \"type\": \"datetime\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"type\": \"multiline\",\n      \"options\": \"<array,null>\",\n      \"includeInRecurrence\": \"<boolean,null>\",\n      \"required\": \"<boolean,null>\",\n      \"unlisted\": \"<boolean,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-cdcb0406-f9b7-4472-bcf1-d700527e6a64"
+                }
+              ],
+              "createdAt": "2026-10-22T01:54:27.000Z",
+              "updatedAt": "2026-10-22T01:54:27.000Z",
+              "uid": "35240-1f76a17d-3311-447a-96ad-c27b98fbf502"
+            },
+            {
+              "name": "List custom fields",
+              "id": "9c2a085b-f51a-407c-b9fc-1574bc1ef3e4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Required if using a multi organizations token",
                     "key": "x-organization-id",
                     "value": "<integer>"
@@ -117,1334 +1155,245 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 1,\n    \"label\": \"Date Purchased\",\n    \"type\": \"oneline\",\n    \"sortOrder\": 25,\n    \"options\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"id\": 1,\n    \"label\": \"Date Purchased\",\n    \"type\": \"oneline\",\n    \"sortOrder\": 25,\n    \"options\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7d7f6992-9de5-455a-8d4f-20b5c79d7617",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/customfields/:entity",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "customfields",
                     ":entity"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "f2443a3f-e1cd-4ee8-971e-fa8bf4f04d04",
                       "key": "entity",
+                      "value": "lineItemPurchaseOrders",
                       "description": "(Required) Type of entity"
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0c39b92f-80fb-4ef4-87ff-bf471e195ceb",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "6e3b00ec-31a6-4d2e-9ed7-c1f2b1c39380",
+                  "name": "Successfully fetched the custom fields",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<number>\",\n    \"label\": \"<string>\",\n    \"type\": \"singleSelect\",\n    \"sortOrder\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"id\": \"<number>\",\n    \"label\": \"<string>\",\n    \"type\": \"datetime\",\n    \"sortOrder\": \"<integer>\",\n    \"required\": \"<boolean,null>\",\n    \"unlisted\": \"<boolean,null>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-6e3b00ec-31a6-4d2e-9ed7-c1f2b1c39380"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ea18c3e5-f3de-443b-be03-e1e4f3731909",
-              "name": "Failed to create the custom field",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "c6de5993-119b-4df8-80a7-728bdd262360",
+                  "name": "OrganizationId was not provided",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-c6de5993-119b-4df8-80a7-728bdd262360"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"User don't have the right permissions\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "51fcccf3-4250-40d8-adef-2e531f2c31bb",
-              "name": "Could not find the specified custom field.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
+                  "id": "2de7b7c4-69e5-4421-a51f-8acfc0796976",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
                     }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-2de7b7c4-69e5-4421-a51f-8acfc0796976"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fields\": [\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    },\n    {\n      \"label\": \"Date Purchased\",\n      \"type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"includeInRecurrence\": \"<boolean>\",\n      \"required\": \"<boolean>\",\n      \"unlisted\": \"<boolean>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "f8b23fe2-046e-45c0-bea6-e4d51f14a137",
+                  "name": "Could not find the specified custom field.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customfields/:entity",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customfields",
+                        ":entity"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entity"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:27.000Z",
+                  "updatedAt": "2026-10-22T01:54:27.000Z",
+                  "uid": "35240-f8b23fe2-046e-45c0-bea6-e4d51f14a137"
                 }
               ],
-              "body": "{\n  \"error\": \"custom field Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:54:27.000Z",
+              "updatedAt": "2026-10-22T01:54:27.000Z",
+              "uid": "35240-9c2a085b-f51a-407c-b9fc-1574bc1ef3e4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "69297969-8d14-4835-b12e-a61038c8351f",
-          "name": "List custom fields",
-          "request": {
-            "name": "List custom fields",
-            "description": {},
-            "url": {
-              "path": [
-                "customfields",
-                ":entity"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "entity",
-                  "description": "(Required) Type of entity"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9c6623a2-cf45-4254-8f07-e55224b2e52f",
-              "name": "Successfully fetched the custom fields",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 1,\n    \"label\": \"Date Purchased\",\n    \"type\": \"datetime\",\n    \"sortOrder\": 25,\n    \"required\": false,\n    \"unlisted\": true,\n    \"options\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"id\": 1,\n    \"label\": \"Date Purchased\",\n    \"type\": \"singleSelect\",\n    \"sortOrder\": 25,\n    \"required\": true,\n    \"unlisted\": true,\n    \"options\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0aebf6f5-9bb3-4080-b53b-6c3301323439",
-              "name": "OrganizationId was not provided",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3157ab36-5f8f-4ada-931a-4a0ffc2f7cf0",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6529f34b-25c7-4ec4-af44-03fac769e212",
-              "name": "Could not find the specified custom field.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"custom field Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b2bc0ee5-de61-404d-8ae5-7b40c6a12518",
-          "name": "Edit custom field",
-          "request": {
-            "name": "Edit custom field",
-            "description": {},
-            "url": {
-              "path": [
-                "customfields",
-                ":entity",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the custom field"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "entity",
-                  "description": "(Required) Type of entity"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"field\": {\n    \"label\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "53749409-c87e-4a24-b200-2899673a3a18",
-              "name": "Successfully edited the custom field",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"field\": {\n    \"label\": \"Date Purchased\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "76f49a13-d633-485d-9204-dbfc673f4a2c",
-              "name": "Failed to edit the custom field",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"field\": {\n    \"label\": \"Date Purchased\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Invalid Property\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4eabbaec-dde9-44f2-9fde-a561ef976c36",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"field\": {\n    \"label\": \"Date Purchased\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8e505a84-90ef-468f-9aae-547c6ee3a315",
-              "name": "Failed to edit the custom field",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"field\": {\n    \"label\": \"Date Purchased\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"User don't have the right permissions\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b7f427eb-f81b-4ddf-b4fb-72952800e2b7",
-              "name": "Could not find the specified custom field.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"field\": {\n    \"label\": \"Date Purchased\",\n    \"type\": \"<string>\",\n    \"options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeInRecurrence\": \"<boolean>\",\n    \"sortIndex\": \"<integer>\",\n    \"required\": \"<boolean>\",\n    \"unlisted\": \"<boolean>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"custom field Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "313e53ee-85bf-42e5-9d61-457e657194d7",
-          "name": "Delete custom field",
-          "request": {
-            "name": "Delete custom field",
-            "description": {},
-            "url": {
-              "path": [
-                "customfields",
-                ":entity",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the custom field"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "entity",
-                  "description": "(Required) Type of entity"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2562edc3-f282-4224-8191-69f047500fcd",
-              "name": "Successfully deleted the Custom Fields",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ea83e679-626f-43be-b3a6-80c9797c09a5",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8135c23d-b2f6-49ab-b16f-c636fd5f1874",
-              "name": "Could not find the specified Custom Fields.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Custom Fields Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fc1404d1-c4d4-4be0-8590-2c8e9437b554",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "customfields",
-                    ":entity",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the custom field"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "entity",
-                      "description": "(Required) Type of entity"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f26f4665-5cbb-4c3b-ae20-5bdb184a4b0e",
+          "createdAt": "2026-10-22T01:54:27.000Z",
+          "updatedAt": "2026-10-22T01:54:27.000Z",
+          "uid": "35240-f26f4665-5cbb-4c3b-ae20-5bdb184a4b0e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "dc01e92d-5c4e-4ab3-a984-f60e3a9eaa52",
+      "createdAt": "2026-10-22T01:54:27.000Z",
+      "updatedAt": "2026-10-22T01:54:27.000Z",
+      "uid": "35240-dc01e92d-5c4e-4ab3-a984-f60e3a9eaa52"
     }
   ],
   "auth": {
@@ -1452,17 +1401,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "32092ab8-ef68-4fa0-b6a7-30ee68c09b11",
-    "name": "MaintainX Asset Criticalities Custom Fields API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

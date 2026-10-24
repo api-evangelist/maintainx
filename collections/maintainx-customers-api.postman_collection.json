@@ -1,0 +1,1124 @@
+{
+  "info": {
+    "_postman_id": "cff62774-0f03-4909-9e64-1836f65aad92",
+    "name": "MaintainX Customers API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:57:21.000Z",
+    "updatedAt": "2026-10-22T01:57:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cff62774-0f03-4909-9e64-1836f65aad92"
+  },
+  "item": [
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get customer",
+              "id": "f56e6281-a2f3-4bf3-aebf-a2294cf43339",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "bcdc5bf9-e16e-4927-8b59-83c6b7cd0bb3",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the customer"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "dfcd849e-2cd2-4a0a-8334-c4798aa281dc",
+                  "name": "Successfully retrieved customer information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"customer\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string,null>\",\n    \"archivedAt\": \"<string,null-date-time>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"extraFields\": {\n      \"magna_c\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-dfcd849e-2cd2-4a0a-8334-c4798aa281dc"
+                },
+                {
+                  "id": "288d81e4-e3ab-4698-a336-c6099a757ccf",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-288d81e4-e3ab-4698-a336-c6099a757ccf"
+                },
+                {
+                  "id": "ae519964-7098-4cfe-9f6b-7a9b624a7647",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-ae519964-7098-4cfe-9f6b-7a9b624a7647"
+                },
+                {
+                  "id": "43cc6efd-b786-4c5a-8e97-e6bf814723cb",
+                  "name": "Could not find the specified customer or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-43cc6efd-b786-4c5a-8e97-e6bf814723cb"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-f56e6281-a2f3-4bf3-aebf-a2294cf43339"
+            },
+            {
+              "name": "Update customer",
+              "id": "5f846df0-9358-4adf-9751-48c9cda3f247",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"adipisicing_3_\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a9470cc8-1722-486d-8489-0e4eedb0ae5e",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the customer"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "ca53e1f5-a2fc-49c8-af7d-af81e83502e1",
+                  "name": "Successfully updated customer",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"adipisicing_3_\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"customer\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string,null>\",\n    \"archivedAt\": \"<string,null-date-time>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"extraFields\": {\n      \"magna_c\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-ca53e1f5-a2fc-49c8-af7d-af81e83502e1"
+                },
+                {
+                  "id": "7ddf8f38-97c5-4c0a-b130-828ff94fda69",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"adipisicing_3_\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-7ddf8f38-97c5-4c0a-b130-828ff94fda69"
+                },
+                {
+                  "id": "182dbe1c-edbb-48a4-8f40-2e3f2b61b973",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"adipisicing_3_\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-182dbe1c-edbb-48a4-8f40-2e3f2b61b973"
+                },
+                {
+                  "id": "9f88afb0-d521-42d0-bc5a-197f32e7d3ab",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "Required if using a multi organizations token",
+                        "key": "x-organization-id",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"adipisicing_3_\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:21.000Z",
+                  "updatedAt": "2026-10-22T01:57:21.000Z",
+                  "uid": "35240-9f88afb0-d521-42d0-bc5a-197f32e7d3ab"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-5f846df0-9358-4adf-9751-48c9cda3f247"
+            }
+          ],
+          "id": "deb7299c-78cc-4456-9ea9-fe0833a14cfb",
+          "createdAt": "2026-10-22T01:57:21.000Z",
+          "updatedAt": "2026-10-22T01:57:21.000Z",
+          "uid": "35240-deb7299c-78cc-4456-9ea9-fe0833a14cfb"
+        },
+        {
+          "name": "List customers",
+          "id": "9768b8da-ad5f-4a73-83f3-ba78170e2cbd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers?cursor=<string>&limit=100&expand=extra_fields&expand=extra_fields",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "key": "expand",
+                  "value": "extra_fields"
+                },
+                {
+                  "key": "expand",
+                  "value": "extra_fields"
+                }
+              ]
+            },
+            "description": "Endpoint used to list customer resources"
+          },
+          "response": [
+            {
+              "id": "cb7b56bd-68e7-4fb1-8a40-e73acb9752f9",
+              "name": "Successfully fetched Customers list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?cursor=<string>&limit=100&expand=extra_fields",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "extra_fields"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"customers\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string,null>\",\n      \"archivedAt\": \"<string,null-date-time>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"extraFields\": {\n        \"in_e\": \"<string>\"\n      },\n      \"organizationId\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string,null>\",\n      \"archivedAt\": \"<string,null-date-time>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"extraFields\": {\n        \"nulla_632\": \"<string>\",\n        \"anim_e\": \"<string>\"\n      },\n      \"organizationId\": \"<integer>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-cb7b56bd-68e7-4fb1-8a40-e73acb9752f9"
+            },
+            {
+              "id": "2ef95762-620b-458a-93a2-ce8b64d1fc5b",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?cursor=<string>&limit=100&expand=extra_fields",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "extra_fields"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-2ef95762-620b-458a-93a2-ce8b64d1fc5b"
+            },
+            {
+              "id": "781dcc46-da6d-4da2-8a2e-f1c32a739fd8",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?cursor=<string>&limit=100&expand=extra_fields",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "extra_fields"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-781dcc46-da6d-4da2-8a2e-f1c32a739fd8"
+            }
+          ],
+          "createdAt": "2026-10-22T01:57:21.000Z",
+          "updatedAt": "2026-10-22T01:57:21.000Z",
+          "uid": "35240-9768b8da-ad5f-4a73-83f3-ba78170e2cbd"
+        },
+        {
+          "name": "Create customer",
+          "id": "6d9d08ea-1cf3-4503-a258-1830e2b8cf72",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"qui21f\": \"<string>\",\n    \"nisi_39\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "521e2f06-becf-4614-8af8-fe59f96536a0",
+              "name": "Successfully created customer",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"qui21f\": \"<string>\",\n    \"nisi_39\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-521e2f06-becf-4614-8af8-fe59f96536a0"
+            },
+            {
+              "id": "52aa9f86-e492-44b2-84d1-e7850fbf9ff3",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"qui21f\": \"<string>\",\n    \"nisi_39\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-52aa9f86-e492-44b2-84d1-e7850fbf9ff3"
+            },
+            {
+              "id": "08bc53f3-7efa-4e90-a920-9dcf814c1ff9",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"qui21f\": \"<string>\",\n    \"nisi_39\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-08bc53f3-7efa-4e90-a920-9dcf814c1ff9"
+            },
+            {
+              "id": "44c2a260-4616-447c-9740-ce7dbb62dd1e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"extraFields\": {\n    \"qui21f\": \"<string>\",\n    \"nisi_39\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:21.000Z",
+              "updatedAt": "2026-10-22T01:57:21.000Z",
+              "uid": "35240-44c2a260-4616-447c-9740-ce7dbb62dd1e"
+            }
+          ],
+          "createdAt": "2026-10-22T01:57:21.000Z",
+          "updatedAt": "2026-10-22T01:57:21.000Z",
+          "uid": "35240-6d9d08ea-1cf3-4503-a258-1830e2b8cf72"
+        }
+      ],
+      "id": "3fb8a0d9-bdbf-45e0-8a09-d9d1cd49f503",
+      "createdAt": "2026-10-22T01:57:21.000Z",
+      "updatedAt": "2026-10-22T01:57:21.000Z",
+      "uid": "35240-3fb8a0d9-bdbf-45e0-8a09-d9d1cd49f503"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
+    }
+  ]
+}

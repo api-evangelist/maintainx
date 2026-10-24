@@ -1,104 +1,101 @@
 {
+  "info": {
+    "_postman_id": "65f182c6-b19d-4091-bcc3-c300e313a478",
+    "name": "MaintainX OpenAPI Documentation API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:55:19.000Z",
+    "updatedAt": "2026-10-22T01:55:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-65f182c6-b19d-4091-bcc3-c300e313a478"
+  },
   "item": [
     {
-      "id": "0a2c5475-75c6-48d7-a755-d9ac82d0f74c",
-      "name": "OpenAPI Documentation",
-      "description": {
-        "content": "OpenAPI Specification Documentation",
-        "type": "text/plain"
-      },
+      "name": "versions",
       "item": [
         {
-          "id": "b2ec9dd0-fa2b-427b-9eb6-3e195b690dbd",
           "name": "Get list of available API versions",
+          "id": "6c5aeffd-4ed5-46d8-8fed-a2065507a68f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get list of available API versions",
-            "description": {},
-            "url": {
-              "protocol": "https",
-              "path": [
-                "versions"
-              ],
-              "host": [
-                "api",
-                "getmaintainx",
-                "com"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "https://api.getmaintainx.com/versions",
+              "protocol": "https",
+              "host": [
+                "api",
+                "getmaintainx",
+                "com"
+              ],
+              "path": [
+                "versions"
+              ]
+            }
           },
           "response": [
             {
-              "id": "1d761d49-f1a9-42f6-aeb1-c894a7f6e38e",
+              "id": "831be712-2862-4ede-ae49-753d2eaa4a88",
               "name": "Successfully retrieved list of available versions",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
+                  "raw": "https://api.getmaintainx.com/versions",
                   "protocol": "https",
-                  "path": [
-                    "versions"
-                  ],
                   "host": [
                     "api",
                     "getmaintainx",
                     "com"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  "path": [
+                    "versions"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"version\": \"1\"\n  },\n  {\n    \"version\": \"1\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"version\": \"<string>\"\n  },\n  {\n    \"version\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-10-22T01:55:20.000Z",
+              "updatedAt": "2026-10-22T01:55:20.000Z",
+              "uid": "35240-831be712-2862-4ede-ae49-753d2eaa4a88"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:55:20.000Z",
+          "updatedAt": "2026-10-22T01:55:20.000Z",
+          "uid": "35240-6c5aeffd-4ed5-46d8-8fed-a2065507a68f"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "1e0330d0-f29d-45ab-b703-f56638d11487",
+      "createdAt": "2026-10-22T01:55:20.000Z",
+      "updatedAt": "2026-10-22T01:55:20.000Z",
+      "uid": "35240-1e0330d0-f29d-45ab-b703-f56638d11487"
     }
   ],
   "auth": {
@@ -106,17 +103,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "7fdda27b-4fef-45c4-ba19-8be23471ef1c",
-    "name": "MaintainX Asset Criticalities OpenAPI Documentation API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

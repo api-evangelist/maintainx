@@ -1,36 +1,584 @@
 {
+  "info": {
+    "_postman_id": "0e905a96-2fda-4495-bd7a-2add00ba10cc",
+    "name": "MaintainX Part Transfer Requests API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:55:42.000Z",
+    "updatedAt": "2026-10-22T01:55:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0e905a96-2fda-4495-bd7a-2add00ba10cc"
+  },
   "item": [
     {
-      "id": "d21f98a5-1072-4fb9-90a2-4fd7d71f5a9b",
-      "name": "Part Transfer Requests",
-      "description": {
-        "content": "Operations on Part Transfer Requests",
-        "type": "text/plain"
-      },
+      "name": "parttransferrequests",
       "item": [
         {
-          "id": "ae485b20-07b4-4648-ad12-2733fbd64f37",
-          "name": "Create a part transfer request",
-          "request": {
-            "name": "Create a part transfer request",
-            "description": {},
-            "url": {
-              "path": [
-                "parttransferrequests"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get part transfer request",
+              "id": "5099e4f3-a0e0-4c51-abb7-aedf6918231e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2e7e5558-b531-42f4-a6af-2622e15380cf",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the partTransferRequest"
+                    }
+                  ]
+                }
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "id": "15557f11-c661-46db-bea5-46d769b26b9f",
+                  "name": "Successfully retrieved partTransferRequest's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"partTransferRequest\": {\n    \"id\": \"<integer>\",\n    \"destinationOrganizationId\": \"<integer>\",\n    \"sourceOrganizationId\": \"<integer>\",\n    \"sourcePartId\": \"<integer>\",\n    \"destinationPartId\": \"<integer>\",\n    \"quantityRequested\": \"<integer>\",\n    \"quantityReceived\": \"<integer,null>\",\n    \"quantityTransferred\": \"<integer,null>\",\n    \"requestMessage\": \"<string,null>\",\n    \"responseMessage\": \"<string,null>\",\n    \"status\": \"CANCELED\",\n    \"transferrerId\": \"<integer,null>\",\n    \"requesterId\": \"<integer>\",\n    \"sourceLocationId\": \"<integer>\",\n    \"destinationLocations\": [\n      {\n        \"quantity\": \"<integer>\",\n        \"locationId\": \"<integer>\"\n      },\n      {\n        \"quantity\": \"<integer>\",\n        \"locationId\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-15557f11-c661-46db-bea5-46d769b26b9f"
+                },
+                {
+                  "id": "b2313f25-3808-4d6d-9dde-c635eaeea9c4",
+                  "name": "Error with query",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-b2313f25-3808-4d6d-9dde-c635eaeea9c4"
+                },
+                {
+                  "id": "3fc31838-8e74-42b3-a094-300692d07fea",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-3fc31838-8e74-42b3-a094-300692d07fea"
+                },
+                {
+                  "id": "85744ab4-a773-40fe-adff-7c9c09c418d1",
+                  "name": "Could not find the specified partTransferRequest or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-85744ab4-a773-40fe-adff-7c9c09c418d1"
                 }
               ],
-              "variable": []
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-5099e4f3-a0e0-4c51-abb7-aedf6918231e"
             },
+            {
+              "name": "Update part transfer request",
+              "id": "9490f1a2-c9bc-4841-b565-d69869a9674e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"APPROVED\",\n  \"responseMessage\": \"<string,null>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2f142635-5a77-432f-8fa8-ba72122e5692",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the part transfer request"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "590f48d5-b14a-4bc8-a4bb-be1e6854e3c5",
+                  "name": "Successfully updated part transfer request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"APPROVED\",\n  \"responseMessage\": \"<string,null>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"partTransferRequest\": {\n    \"id\": \"<integer>\",\n    \"destinationOrganizationId\": \"<integer>\",\n    \"sourceOrganizationId\": \"<integer>\",\n    \"sourcePartId\": \"<integer>\",\n    \"destinationPartId\": \"<integer>\",\n    \"quantityRequested\": \"<integer>\",\n    \"quantityReceived\": \"<integer,null>\",\n    \"quantityTransferred\": \"<integer,null>\",\n    \"requestMessage\": \"<string,null>\",\n    \"responseMessage\": \"<string,null>\",\n    \"status\": \"CANCELED\",\n    \"transferrerId\": \"<integer,null>\",\n    \"requesterId\": \"<integer>\",\n    \"sourceLocationId\": \"<integer>\",\n    \"destinationLocations\": [\n      {\n        \"quantity\": \"<integer>\",\n        \"locationId\": \"<integer>\"\n      },\n      {\n        \"quantity\": \"<integer>\",\n        \"locationId\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-590f48d5-b14a-4bc8-a4bb-be1e6854e3c5"
+                },
+                {
+                  "id": "4eae52e1-e229-4abf-9844-d793dc63f497",
+                  "name": "Failed to edit the part transfer request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"APPROVED\",\n  \"responseMessage\": \"<string,null>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-4eae52e1-e229-4abf-9844-d793dc63f497"
+                },
+                {
+                  "id": "b245a688-7000-4f86-a3b2-76617e50d4c4",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"APPROVED\",\n  \"responseMessage\": \"<string,null>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-b245a688-7000-4f86-a3b2-76617e50d4c4"
+                },
+                {
+                  "id": "ce3092ef-1c2b-4cc2-86b4-ffd3e5b0873e",
+                  "name": "Could not find the specified partTransferRequest.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"APPROVED\",\n  \"responseMessage\": \"<string,null>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/parttransferrequests/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "parttransferrequests",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:43.000Z",
+                  "updatedAt": "2026-10-22T01:55:43.000Z",
+                  "uid": "35240-ce3092ef-1c2b-4cc2-86b4-ffd3e5b0873e"
+                }
+              ],
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-9490f1a2-c9bc-4841-b565-d69869a9674e"
+            }
+          ],
+          "id": "fba7ee60-a8e3-43d7-964f-93f0e47a9549",
+          "createdAt": "2026-10-22T01:55:43.000Z",
+          "updatedAt": "2026-10-22T01:55:43.000Z",
+          "uid": "35240-fba7ee60-a8e3-43d7-964f-93f0e47a9549"
+        },
+        {
+          "name": "Create a part transfer request",
+          "id": "ebbfd0ee-3c1d-4727-a9fc-a01b4779a821",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -41,288 +589,292 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string>\"\n}",
+              "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string,null>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/parttransferrequests?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "parttransferrequests"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "7ae8d14b-5374-4b33-b4fd-9ec734d6dda5",
+              "id": "115dad7d-0bba-453b-801e-7f4fc4b64aaa",
               "name": "Successfully created part transfer request",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"quantityRequested\": 3,\n  \"sourcePartId\": 843,\n  \"destinationPartId\": 852,\n  \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\"\n}",
+                  "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 963\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-115dad7d-0bba-453b-801e-7f4fc4b64aaa"
             },
             {
-              "id": "7bea6d41-d2ad-4624-8dce-fa2a0f3d1a58",
+              "id": "b9f9c82c-7b6b-4489-a2f2-13f5b0d5714a",
               "name": "OrganizationId was not provided",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"quantityRequested\": 3,\n  \"sourcePartId\": 843,\n  \"destinationPartId\": 852,\n  \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\"\n}",
+                  "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Missing x-organization-id header.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-b9f9c82c-7b6b-4489-a2f2-13f5b0d5714a"
             },
             {
-              "id": "2260b238-b69a-4e2f-b1f9-7f0b0e750cc3",
+              "id": "3b773544-07f9-4636-bba5-6eaab0a8847f",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"quantityRequested\": 3,\n  \"sourcePartId\": 843,\n  \"destinationPartId\": 852,\n  \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\"\n}",
+                  "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-3b773544-07f9-4636-bba5-6eaab0a8847f"
             },
             {
-              "id": "9c2118d1-44aa-4389-a25a-1b340a649c2c",
+              "id": "cf55525e-5596-4448-be5e-344bbff27883",
               "name": "Could not find the specified Part.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"quantityRequested\": 3,\n  \"sourcePartId\": 843,\n  \"destinationPartId\": 852,\n  \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\"\n}",
+                  "raw": "{\n  \"quantityRequested\": \"<integer>\",\n  \"sourcePartId\": \"<integer>\",\n  \"destinationPartId\": \"<integer>\",\n  \"requestMessage\": \"<string,null>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"Part Not Found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-cf55525e-5596-4448-be5e-344bbff27883"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:55:43.000Z",
+          "updatedAt": "2026-10-22T01:55:43.000Z",
+          "uid": "35240-ebbfd0ee-3c1d-4727-a9fc-a01b4779a821"
         },
         {
-          "id": "dc0d1ce6-8c7f-40ca-967c-224ad87ba712",
           "name": "List part transfer requests",
+          "id": "596e4b3f-abf8-4bca-a9f8-ef9af63ea109",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List part transfer requests",
-            "description": {
-              "content": "Endpoint used to list part transfer request resources",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "parttransferrequests"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100"
-                },
-                {
-                  "disabled": false,
-                  "key": "statuses",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "statuses",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
-                "disabled": false,
                 "description": "Required if using a multi organizations token",
                 "key": "x-organization-id",
                 "value": "<integer>"
@@ -332,782 +884,220 @@
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9c097f9f-d92e-46f2-aa61-83a70910025e",
-              "name": "Successfully fetched Part Transfer Requests list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"partTransferRequests\": [\n    {\n      \"id\": 963,\n      \"destinationOrganizationId\": 1001,\n      \"sourceOrganizationId\": 1002,\n      \"sourcePartId\": 843,\n      \"destinationPartId\": 852,\n      \"quantityRequested\": 3,\n      \"quantityReceived\": 2,\n      \"quantityTransferred\": 2,\n      \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\",\n      \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n      \"status\": \"PENDING\",\n      \"transferrerId\": 102,\n      \"requesterId\": 201,\n      \"sourceLocationId\": 852,\n      \"destinationLocations\": [\n        {\n          \"quantity\": 2,\n          \"locationId\": 917\n        },\n        {\n          \"quantity\": 2,\n          \"locationId\": 917\n        }\n      ]\n    },\n    {\n      \"id\": 963,\n      \"destinationOrganizationId\": 1001,\n      \"sourceOrganizationId\": 1002,\n      \"sourcePartId\": 843,\n      \"destinationPartId\": 852,\n      \"quantityRequested\": 3,\n      \"quantityReceived\": 2,\n      \"quantityTransferred\": 2,\n      \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\",\n      \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n      \"status\": \"PENDING\",\n      \"transferrerId\": 102,\n      \"requesterId\": 201,\n      \"sourceLocationId\": 852,\n      \"destinationLocations\": [\n        {\n          \"quantity\": 2,\n          \"locationId\": 917\n        },\n        {\n          \"quantity\": 2,\n          \"locationId\": 917\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "43d833f0-d28c-4a59-887c-6c0ebf854674",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1e885001-1965-494c-8434-a810d73afd6b",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b3ce27d3-9385-4b9f-a212-6d05488aad16",
-          "name": "Get part transfer request",
-          "request": {
-            "name": "Get part transfer request",
-            "description": {},
             "url": {
-              "path": [
-                "parttransferrequests",
-                ":id"
-              ],
+              "raw": "{{baseUrl}}/parttransferrequests?cursor=<string>&limit=100&statuses=PENDING&statuses=APPROVED",
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the partTransferRequest"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ded5de40-6731-4f59-8344-8e387fa724b7",
-              "name": "Successfully retrieved partTransferRequest's information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the partTransferRequest"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"partTransferRequest\": {\n    \"id\": 963,\n    \"destinationOrganizationId\": 1001,\n    \"sourceOrganizationId\": 1002,\n    \"sourcePartId\": 843,\n    \"destinationPartId\": 852,\n    \"quantityRequested\": 3,\n    \"quantityReceived\": 2,\n    \"quantityTransferred\": 2,\n    \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\",\n    \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n    \"status\": \"PENDING\",\n    \"transferrerId\": 102,\n    \"requesterId\": 201,\n    \"sourceLocationId\": 852,\n    \"destinationLocations\": [\n      {\n        \"quantity\": 2,\n        \"locationId\": 917\n      },\n      {\n        \"quantity\": 2,\n        \"locationId\": 917\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0d671d4a-ebee-4fe1-8ab5-d6ca91c2a42e",
-              "name": "Error with query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the partTransferRequest"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b29d8881-9aaf-405b-b89a-547275027968",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the partTransferRequest"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ab7be5f7-506f-405b-8304-21f9b60c7d90",
-              "name": "Could not find the specified partTransferRequest or the user cannot access it.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the partTransferRequest"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Not Found.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "76b2c9f7-e174-4431-945a-48763f6c8368",
-          "name": "Update part transfer request",
-          "request": {
-            "name": "Update part transfer request",
-            "description": {},
-            "url": {
               "path": [
-                "parttransferrequests",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
+                "parttransferrequests"
               ],
               "query": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
+                  "key": "cursor",
+                  "value": "<string>"
+                },
                 {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the part transfer request"
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "key": "statuses",
+                  "value": "PENDING"
+                },
+                {
+                  "key": "statuses",
+                  "value": "APPROVED"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"sourceLocationId\": \"<integer>\",\n  \"destinationLocations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"quantity\": \"<integer>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "Endpoint used to list part transfer request resources"
           },
           "response": [
             {
-              "id": "150fb310-36e0-4afe-bbeb-c4c17d2a953f",
-              "name": "Successfully updated part transfer request",
+              "id": "ebb37e26-7f1c-4ccd-9a45-1122431a0350",
+              "name": "Successfully fetched Part Transfer Requests list",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the part transfer request"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"PENDING\",\n  \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n  \"sourceLocationId\": 852,\n  \"destinationLocations\": [\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    },\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    }\n  ],\n  \"quantity\": 42\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?cursor=<string>&limit=100&statuses=APPROVED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
                     }
-                  }
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"partTransferRequest\": {\n    \"id\": 963,\n    \"destinationOrganizationId\": 1001,\n    \"sourceOrganizationId\": 1002,\n    \"sourcePartId\": 843,\n    \"destinationPartId\": 852,\n    \"quantityRequested\": 3,\n    \"quantityReceived\": 2,\n    \"quantityTransferred\": 2,\n    \"requestMessage\": \"Would you please send us five ball screws for our cnc machine?\",\n    \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n    \"status\": \"PENDING\",\n    \"transferrerId\": 102,\n    \"requesterId\": 201,\n    \"sourceLocationId\": 852,\n    \"destinationLocations\": [\n      {\n        \"quantity\": 2,\n        \"locationId\": 917\n      },\n      {\n        \"quantity\": 2,\n        \"locationId\": 917\n      }\n    ]\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"partTransferRequests\": [\n    {\n      \"id\": \"<integer>\",\n      \"destinationOrganizationId\": \"<integer>\",\n      \"sourceOrganizationId\": \"<integer>\",\n      \"sourcePartId\": \"<integer>\",\n      \"destinationPartId\": \"<integer>\",\n      \"quantityRequested\": \"<integer>\",\n      \"quantityReceived\": \"<integer,null>\",\n      \"quantityTransferred\": \"<integer,null>\",\n      \"requestMessage\": \"<string,null>\",\n      \"responseMessage\": \"<string,null>\",\n      \"status\": \"DECLINED\",\n      \"transferrerId\": \"<integer,null>\",\n      \"requesterId\": \"<integer>\",\n      \"sourceLocationId\": \"<integer>\",\n      \"destinationLocations\": [\n        {\n          \"quantity\": \"<integer>\",\n          \"locationId\": \"<integer>\"\n        },\n        {\n          \"quantity\": \"<integer>\",\n          \"locationId\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"destinationOrganizationId\": \"<integer>\",\n      \"sourceOrganizationId\": \"<integer>\",\n      \"sourcePartId\": \"<integer>\",\n      \"destinationPartId\": \"<integer>\",\n      \"quantityRequested\": \"<integer>\",\n      \"quantityReceived\": \"<integer,null>\",\n      \"quantityTransferred\": \"<integer,null>\",\n      \"requestMessage\": \"<string,null>\",\n      \"responseMessage\": \"<string,null>\",\n      \"status\": \"CANCELED\",\n      \"transferrerId\": \"<integer,null>\",\n      \"requesterId\": \"<integer>\",\n      \"sourceLocationId\": \"<integer>\",\n      \"destinationLocations\": [\n        {\n          \"quantity\": \"<integer>\",\n          \"locationId\": \"<integer>\"\n        },\n        {\n          \"quantity\": \"<integer>\",\n          \"locationId\": \"<integer>\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-ebb37e26-7f1c-4ccd-9a45-1122431a0350"
             },
             {
-              "id": "eaad7ef0-7e77-4749-9600-02fb2041413a",
-              "name": "Failed to edit the part transfer request",
+              "id": "d5367ce9-8d1c-4a96-b305-2c792b23be97",
+              "name": "Error with query",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the part transfer request"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"PENDING\",\n  \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n  \"sourceLocationId\": 852,\n  \"destinationLocations\": [\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    },\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    }\n  ],\n  \"quantity\": 42\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?cursor=<string>&limit=100&statuses=APPROVED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
                     }
-                  }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"status is not valid\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-d5367ce9-8d1c-4a96-b305-2c792b23be97"
             },
             {
-              "id": "0cc06acd-e6f9-437d-9ac5-2a91c2365706",
+              "id": "522a8feb-c819-44a0-953d-5b9b078923d8",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the part transfer request"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"PENDING\",\n  \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n  \"sourceLocationId\": 852,\n  \"destinationLocations\": [\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    },\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    }\n  ],\n  \"quantity\": 42\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                "url": {
+                  "raw": "{{baseUrl}}/parttransferrequests?cursor=<string>&limit=100&statuses=APPROVED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parttransferrequests"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "APPROVED"
                     }
-                  }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6ad274b1-8e39-41e4-b1f3-2a9e73ab8dc9",
-              "name": "Could not find the specified partTransferRequest.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "parttransferrequests",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the part transfer request"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"PENDING\",\n  \"responseMessage\": \"Sorry, we do not have enough extra ball screws to share them with you.\",\n  \"sourceLocationId\": 852,\n  \"destinationLocations\": [\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    },\n    {\n      \"quantity\": 2,\n      \"locationId\": 917\n    }\n  ],\n  \"quantity\": 42\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"partTransferRequest Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:55:43.000Z",
+              "updatedAt": "2026-10-22T01:55:43.000Z",
+              "uid": "35240-522a8feb-c819-44a0-953d-5b9b078923d8"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:55:43.000Z",
+          "updatedAt": "2026-10-22T01:55:43.000Z",
+          "uid": "35240-596e4b3f-abf8-4bca-a9f8-ef9af63ea109"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "e0b21f09-5675-4ac7-a11e-c8b062363fb1",
+      "createdAt": "2026-10-22T01:55:43.000Z",
+      "updatedAt": "2026-10-22T01:55:43.000Z",
+      "uid": "35240-e0b21f09-5675-4ac7-a11e-c8b062363fb1"
     }
   ],
   "auth": {
@@ -1115,17 +1105,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "24f4ec24-f9bf-4d8d-8e85-cb02f8bef61f",
-    "name": "MaintainX Asset Criticalities Part Transfer Requests API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

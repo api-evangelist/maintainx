@@ -1,1295 +1,1281 @@
 {
+  "info": {
+    "_postman_id": "216633bc-bd3d-49a6-a4fd-0bdf98c176fe",
+    "name": "MaintainX Procedure Template Rows API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:55:55.000Z",
+    "updatedAt": "2026-10-22T01:55:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-216633bc-bd3d-49a6-a4fd-0bdf98c176fe"
+  },
   "item": [
     {
-      "id": "9aa0bf02-ef65-4e3d-a40b-c805c03fc85d",
-      "name": "Procedure Template Rows",
-      "description": {
-        "content": "Operations on Procedure Template Rows",
-        "type": "text/plain"
-      },
+      "name": "proceduretemplaterows",
       "item": [
         {
-          "id": "c677b4c2-893f-4678-a2b9-a962173e4569",
-          "name": "Update Procedure Template Row",
-          "request": {
-            "name": "Update Procedure Template Row",
-            "description": {},
-            "url": {
-              "path": [
-                "proceduretemplaterows",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the procedure template row"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "bd865ac6-8330-4f54-833f-0da725f8211f",
-              "name": "Successfully edited the procedure template row",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "attachments",
+              "item": [
+                {
+                  "name": "{filename}",
+                  "item": [
                     {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
+                      "name": "Update procedure template row attachment",
+                      "id": "e0b26ac1-2484-43c0-8513-58ca958877bf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "Required if using a multi organizations token",
+                            "key": "x-organization-id",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/xml"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "xml",
+                              "language": "xml"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "proceduretemplaterows",
+                            ":id",
+                            "attachments",
+                            ":filename"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "57324f8b-204f-4c6a-b890-5e314580d46f",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) ID of the procedure template row."
+                            },
+                            {
+                              "id": "2fead809-6dde-41d1-9e7c-ecccd4e1a93a",
+                              "key": "filename",
+                              "value": "<string>",
+                              "description": "(Required) Name of the attachment, including the extension."
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "1c601a81-07c0-430d-975b-939577351972",
+                          "name": "Successfully updated procedure template row's attachment.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Required if using a multi organizations token",
+                                "key": "x-organization-id",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/xml"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "xml",
+                                  "language": "xml"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "proceduretemplaterows",
+                                ":id",
+                                "attachments",
+                                ":filename"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                                  "key": "skipWebhook",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "filename"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"publicUrl\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"fileKey\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:55:56.000Z",
+                          "updatedAt": "2026-10-22T01:55:56.000Z",
+                          "uid": "35240-1c601a81-07c0-430d-975b-939577351972"
+                        },
+                        {
+                          "id": "f4584fe1-d4e2-48b3-9d8b-ec4e833d5d6c",
+                          "name": "Bad arguments.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Required if using a multi organizations token",
+                                "key": "x-organization-id",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/xml"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "xml",
+                                  "language": "xml"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "proceduretemplaterows",
+                                ":id",
+                                "attachments",
+                                ":filename"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                                  "key": "skipWebhook",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "filename"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-22T01:55:56.000Z",
+                          "updatedAt": "2026-10-22T01:55:56.000Z",
+                          "uid": "35240-f4584fe1-d4e2-48b3-9d8b-ec4e833d5d6c"
+                        },
+                        {
+                          "id": "84d06522-f0c9-4b38-9341-41a8d5f1401a",
+                          "name": "Invalid token",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Required if using a multi organizations token",
+                                "key": "x-organization-id",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/xml"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "xml",
+                                  "language": "xml"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "proceduretemplaterows",
+                                ":id",
+                                "attachments",
+                                ":filename"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                                  "key": "skipWebhook",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "filename"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:55:56.000Z",
+                          "updatedAt": "2026-10-22T01:55:56.000Z",
+                          "uid": "35240-84d06522-f0c9-4b38-9341-41a8d5f1401a"
+                        },
+                        {
+                          "id": "acc38621-de71-41e9-9936-e370a79ca275",
+                          "name": "Could not find the specified procedure template row.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Required if using a multi organizations token",
+                                "key": "x-organization-id",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/xml"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "xml",
+                                  "language": "xml"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "proceduretemplaterows",
+                                ":id",
+                                "attachments",
+                                ":filename"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                                  "key": "skipWebhook",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "filename"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:55:56.000Z",
+                          "updatedAt": "2026-10-22T01:55:56.000Z",
+                          "uid": "35240-acc38621-de71-41e9-9936-e370a79ca275"
+                        },
+                        {
+                          "id": "4a88aa3f-fca9-42cb-99b9-0c03b2f0b7c5",
+                          "name": "Payload too large",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Required if using a multi organizations token",
+                                "key": "x-organization-id",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/xml"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "xml",
+                                  "language": "xml"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments/:filename?skipWebhook=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "proceduretemplaterows",
+                                ":id",
+                                "attachments",
+                                ":filename"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                                  "key": "skipWebhook",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "filename"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Request Entity Too Large",
+                          "code": 413,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:55:56.000Z",
+                          "updatedAt": "2026-10-22T01:55:56.000Z",
+                          "uid": "35240-4a88aa3f-fca9-42cb-99b9-0c03b2f0b7c5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:55:56.000Z",
+                      "updatedAt": "2026-10-22T01:55:56.000Z",
+                      "uid": "35240-e0b26ac1-2484-43c0-8513-58ca958877bf"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row"
-                    }
-                  ]
+                  "id": "4303fdad-fdaf-40d8-be7d-e8c96f38dae4",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-4303fdad-fdaf-40d8-be7d-e8c96f38dae4"
                 },
+                {
+                  "name": "Remove procedure template row attachment",
+                  "id": "b6cab4c0-9521-46ae-90c3-cef26c16c3fd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id",
+                        "attachments"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "eb41a1ff-a54a-4a27-8778-0f3754292f37",
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) ID of the procedure template row."
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "718eb63e-e2d1-47f5-8200-c6889470a835",
+                      "name": "Successfully removed procedure template row's attachment.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "proceduretemplaterows",
+                            ":id",
+                            "attachments"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:55:56.000Z",
+                      "updatedAt": "2026-10-22T01:55:56.000Z",
+                      "uid": "35240-718eb63e-e2d1-47f5-8200-c6889470a835"
+                    },
+                    {
+                      "id": "c6a322a1-dbb3-4f11-9b7c-a8be3c83cdbf",
+                      "name": "Invalid token",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "proceduretemplaterows",
+                            ":id",
+                            "attachments"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:55:56.000Z",
+                      "updatedAt": "2026-10-22T01:55:56.000Z",
+                      "uid": "35240-c6a322a1-dbb3-4f11-9b7c-a8be3c83cdbf"
+                    },
+                    {
+                      "id": "5e29f4b8-f071-467e-a267-9dba15506a74",
+                      "name": "Could not find the specified procedure template row.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/proceduretemplaterows/:id/attachments?skipWebhook=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "proceduretemplaterows",
+                            ":id",
+                            "attachments"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                              "key": "skipWebhook",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:55:56.000Z",
+                      "updatedAt": "2026-10-22T01:55:56.000Z",
+                      "uid": "35240-5e29f4b8-f071-467e-a267-9dba15506a74"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-b6cab4c0-9521-46ae-90c3-cef26c16c3fd"
+                }
+              ],
+              "id": "27bdce7e-18cf-4f6a-ba91-cb2f9be1088c",
+              "createdAt": "2026-10-22T01:55:56.000Z",
+              "updatedAt": "2026-10-22T01:55:56.000Z",
+              "uid": "35240-27bdce7e-18cf-4f6a-ba91-cb2f9be1088c"
+            },
+            {
+              "name": "Update Procedure Template Row",
+              "id": "8d3d6955-2d71-497e-a8ba-1c0399b0860e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PATCH",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n  \"type\": \"INSPECTION_CHECK\",\n  \"description\": \"<string>\",\n  \"choices\": [\n    \"Partially\",\n    \"Partially\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    },\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    }\n  ],\n  \"meterId\": 1,\n  \"isDateAndTime\": false,\n  \"index\": 1\n}",
+                  "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"CYCLE_COUNT\",\n  \"description\": \"<string,null>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number,null>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"row\": {\n    \"id\": 1,\n    \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n    \"type\": \"INSPECTION_CHECK\",\n    \"description\": \"string\",\n    \"choices\": [\n      \"Partially\",\n      \"Partially\"\n    ],\n    \"meterId\": 9624.143904305316,\n    \"isDateAndTime\": false,\n    \"attachmentId\": 1,\n    \"attachments\": [\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      },\n      {\n        \"id\": 12345,\n        \"mimeType\": \"image/png\",\n        \"fileName\": \"image.png\",\n        \"url\": \"http://example.com/image.png\",\n        \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n        \"width\": 220,\n        \"height\": 100\n      }\n    ],\n    \"urls\": [\n      {\n        \"link\": \"www.getmaintainx.com\",\n        \"label\": \"MaintainX Website\"\n      },\n      {\n        \"link\": \"www.getmaintainx.com\",\n        \"label\": \"MaintainX Website\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a3d3e004-a11c-4c0e-8435-9c0db59ed5e1",
-              "name": "Bad request",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "proceduretemplaterows",
                     ":id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
                       "key": "skipWebhook",
                       "value": "<boolean>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
+                      "id": "4cd52bac-53c2-4187-ae37-fc73fcbd0b82",
                       "key": "id",
+                      "value": "<integer>",
                       "description": "(Required) ID of the procedure template row"
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                }
+              },
+              "response": [
+                {
+                  "id": "b49a9d56-af6b-43da-a4bd-080c9f89fcd2",
+                  "name": "Successfully edited the procedure template row",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"CYCLE_COUNT\",\n  \"description\": \"<string,null>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number,null>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"row\": {\n    \"id\": \"<number>\",\n    \"label\": \"<string>\",\n    \"type\": \"CYCLE_COUNT\",\n    \"description\": \"<string,null>\",\n    \"choices\": \"<array,null>\",\n    \"meterId\": \"<number,null>\",\n    \"isDateAndTime\": \"<boolean,null>\",\n    \"attachmentId\": \"<number,null>\",\n    \"attachments\": [\n      {\n        \"id\": \"<number>\",\n        \"mimeType\": \"<string>\",\n        \"fileName\": \"<string>\",\n        \"url\": \"<string>\",\n        \"createdAt\": \"<dateTime>\",\n        \"width\": \"<number,null>\",\n        \"height\": \"<number,null>\"\n      },\n      {\n        \"id\": \"<number>\",\n        \"mimeType\": \"<string>\",\n        \"fileName\": \"<string>\",\n        \"url\": \"<string>\",\n        \"createdAt\": \"<dateTime>\",\n        \"width\": \"<number,null>\",\n        \"height\": \"<number,null>\"\n      }\n    ],\n    \"urls\": [\n      {\n        \"link\": \"<string>\",\n        \"label\": \"<string>\"\n      },\n      {\n        \"link\": \"<string>\",\n        \"label\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-b49a9d56-af6b-43da-a4bd-080c9f89fcd2"
+                },
+                {
+                  "id": "0ae1eac2-e72d-41d3-994c-5e2211a6d20d",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"CYCLE_COUNT\",\n  \"description\": \"<string,null>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number,null>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-0ae1eac2-e72d-41d3-994c-5e2211a6d20d"
+                },
+                {
+                  "id": "d6ee6def-cdda-4ace-8037-14e3c59acdf6",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"CYCLE_COUNT\",\n  \"description\": \"<string,null>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number,null>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-d6ee6def-cdda-4ace-8037-14e3c59acdf6"
+                },
+                {
+                  "id": "fe4c71c0-1e2a-41de-b624-32b2cfacf331",
+                  "name": "Could not find the specified procedure template row.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"CYCLE_COUNT\",\n  \"description\": \"<string,null>\",\n  \"choices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"link\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"meterId\": \"<number,null>\",\n  \"isDateAndTime\": false,\n  \"index\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-fe4c71c0-1e2a-41de-b624-32b2cfacf331"
+                }
+              ],
+              "createdAt": "2026-10-22T01:55:56.000Z",
+              "updatedAt": "2026-10-22T01:55:56.000Z",
+              "uid": "35240-8d3d6955-2d71-497e-a8ba-1c0399b0860e"
+            },
+            {
+              "name": "Delete procedure Template Row",
+              "id": "3c7bdf4b-f474-43e1-9c2f-47f55b3ba501",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n  \"type\": \"INSPECTION_CHECK\",\n  \"description\": \"<string>\",\n  \"choices\": [\n    \"Partially\",\n    \"Partially\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    },\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    }\n  ],\n  \"meterId\": 1,\n  \"isDateAndTime\": false,\n  \"index\": 1\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Bad request\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "188deaa6-2901-400b-a6d1-14742dae7687",
-              "name": "Invalid token",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "proceduretemplaterows",
                     ":id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
                       "key": "skipWebhook",
                       "value": "<boolean>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
+                      "id": "73781063-48f5-4c00-9b43-650b1b467c0a",
                       "key": "id",
-                      "description": "(Required) ID of the procedure template row"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n  \"type\": \"INSPECTION_CHECK\",\n  \"description\": \"<string>\",\n  \"choices\": [\n    \"Partially\",\n    \"Partially\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    },\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    }\n  ],\n  \"meterId\": 1,\n  \"isDateAndTime\": false,\n  \"index\": 1\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ceffe1e9-efce-4f9a-ae6b-ba8e3b12e0a7",
-              "name": "Could not find the specified procedure template row.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
                       "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"label\": \"Metal Parts: broken, loose, dented, rusty, missing\",\n  \"type\": \"INSPECTION_CHECK\",\n  \"description\": \"<string>\",\n  \"choices\": [\n    \"Partially\",\n    \"Partially\"\n  ],\n  \"urls\": [\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    },\n    {\n      \"link\": \"www.getmaintainx.com\",\n      \"label\": \"MaintainX Website\"\n    }\n  ],\n  \"meterId\": 1,\n  \"isDateAndTime\": false,\n  \"index\": 1\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"procedure template row Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "956b57bb-33e8-4be7-8d0d-e32c90cfbe6d",
-          "name": "Delete procedure Template Row",
-          "request": {
-            "name": "Delete procedure Template Row",
-            "description": {},
-            "url": {
-              "path": [
-                "proceduretemplaterows",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the procedure Template Row"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0c2d3cdb-f88e-4ce2-90a8-a868ffb35f98",
-              "name": "Successfully deleted the procedureTemplateRow",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
                       "description": "(Required) ID of the procedure Template Row"
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
                 }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "1c4d7bf8-9de3-45ee-ac5d-07303696013e",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure Template Row"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f1044477-5561-4109-a84d-8ffe259697b2",
-              "name": "Could not find the specified procedureTemplateRow.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
+                  "id": "fc3c7cda-b3c1-44d3-a91b-1d62a6304224",
+                  "name": "Successfully deleted the procedureTemplateRow",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
                     }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure Template Row"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"procedureTemplateRow Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5802ddae-36b6-48c0-a1f8-c311a04858a7",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure Template Row"
-                    }
-                  ]
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-fc3c7cda-b3c1-44d3-a91b-1d62a6304224"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "f3cef4e6-bca9-4fee-8e64-9d38938a5cc8",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-f3cef4e6-bca9-4fee-8e64-9d38938a5cc8"
+                },
+                {
+                  "id": "2227513d-64a7-4135-b8bf-8c9b15499c2f",
+                  "name": "Could not find the specified procedureTemplateRow.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-2227513d-64a7-4135-b8bf-8c9b15499c2f"
+                },
+                {
+                  "id": "09dd3c37-9497-4ba6-a52f-1449cbadab6d",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/proceduretemplaterows/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "proceduretemplaterows",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:55:56.000Z",
+                  "updatedAt": "2026-10-22T01:55:56.000Z",
+                  "uid": "35240-09dd3c37-9497-4ba6-a52f-1449cbadab6d"
                 }
               ],
-              "body": "{\n  \"error\": \"Internal server error.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:55:56.000Z",
+              "updatedAt": "2026-10-22T01:55:56.000Z",
+              "uid": "35240-3c7bdf4b-f474-43e1-9c2f-47f55b3ba501"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "228d1092-89e2-4254-b1a7-1de52d41564e",
-          "name": "Remove procedure template row attachment",
-          "request": {
-            "name": "Remove procedure template row attachment",
-            "description": {},
-            "url": {
-              "path": [
-                "proceduretemplaterows",
-                ":id",
-                "attachments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the procedure template row."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "69afe760-02dc-45bf-b824-82942ae87b01",
-              "name": "Successfully removed procedure template row's attachment.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "053303ce-baa6-4b7f-a995-034e3082ab57",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9ccaafb0-3cfa-442f-9420-9713003840c1",
-              "name": "Could not find the specified procedure template row.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"procedure template row Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c2bba53d-395b-49f5-a0da-10884cc793f4",
-          "name": "Update procedure template row attachment",
-          "request": {
-            "name": "Update procedure template row attachment",
-            "description": {},
-            "url": {
-              "path": [
-                "proceduretemplaterows",
-                ":id",
-                "attachments",
-                ":filename"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "id",
-                  "description": "(Required) ID of the procedure template row."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "filename",
-                  "description": "(Required) Name of the attachment, including the extension."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Required if using a multi organizations token",
-                "key": "x-organization-id",
-                "value": "<integer>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/xml"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-              "options": {
-                "raw": {
-                  "language": "xml"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "80de8207-7c81-4fe3-aeab-5558798c9de8",
-              "name": "Successfully updated procedure template row's attachment.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments",
-                    ":filename"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "filename",
-                      "description": "(Required) Name of the attachment, including the extension."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-                  "options": {
-                    "raw": {
-                      "language": "xml"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"publicUrl\": \"string\",\n  \"filename\": \"string\",\n  \"fileKey\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "50b5b7b0-2ebb-40ce-9025-1d2ebde2e12c",
-              "name": "Bad arguments.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments",
-                    ":filename"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "filename",
-                      "description": "(Required) Name of the attachment, including the extension."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-                  "options": {
-                    "raw": {
-                      "language": "xml"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "\"string\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a39f2288-b664-42a3-9482-b2dcdc79909e",
-              "name": "Invalid token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments",
-                    ":filename"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "filename",
-                      "description": "(Required) Name of the attachment, including the extension."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-                  "options": {
-                    "raw": {
-                      "language": "xml"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "333df1aa-3680-4f9c-b781-1e2fc83b8cf9",
-              "name": "Could not find the specified procedure template row.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments",
-                    ":filename"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "filename",
-                      "description": "(Required) Name of the attachment, including the extension."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-                  "options": {
-                    "raw": {
-                      "language": "xml"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"procedure template row Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "139cfac5-d934-4ab5-b788-5124df45c46f",
-              "name": "Payload too large",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "proceduretemplaterows",
-                    ":id",
-                    "attachments",
-                    ":filename"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "id",
-                      "description": "(Required) ID of the procedure template row."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "filename",
-                      "description": "(Required) Name of the attachment, including the extension."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Required if using a multi organizations token",
-                    "key": "x-organization-id",
-                    "value": "<integer>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n</element>",
-                  "options": {
-                    "raw": {
-                      "language": "xml"
-                    }
-                  }
-                }
-              },
-              "status": "Request Entity Too Large",
-              "code": 413,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"Attachment size must not exceed 1mB\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "470177b5-23ff-4698-b788-e4c6c2f1069c",
+          "createdAt": "2026-10-22T01:55:56.000Z",
+          "updatedAt": "2026-10-22T01:55:56.000Z",
+          "uid": "35240-470177b5-23ff-4698-b788-e4c6c2f1069c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "3b0a4c11-36a2-479a-b888-16b6bd46e2af",
+      "createdAt": "2026-10-22T01:55:56.000Z",
+      "updatedAt": "2026-10-22T01:55:56.000Z",
+      "uid": "35240-3b0a4c11-36a2-479a-b888-16b6bd46e2af"
     }
   ],
   "auth": {
@@ -1297,17 +1283,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c2901b7e-501d-4134-ab47-b8ed6f359bbd",
-    "name": "MaintainX Asset Criticalities Procedure Template Rows API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

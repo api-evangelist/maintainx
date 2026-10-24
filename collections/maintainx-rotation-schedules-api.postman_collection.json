@@ -1,0 +1,2045 @@
+{
+  "info": {
+    "_postman_id": "c7f7f90b-40a8-4910-b95f-579b53147977",
+    "name": "MaintainX Rotation Schedules API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:57:27.000Z",
+    "updatedAt": "2026-10-22T01:57:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c7f7f90b-40a8-4910-b95f-579b53147977"
+  },
+  "item": [
+    {
+      "name": "rotationschedules",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "assignedusers",
+              "item": [
+                {
+                  "name": "List rotation schedule assigned users",
+                  "id": "3a306944-aa9c-4fa4-a4df-1473945c84cb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id/assignedusers?cursor=<string>&limit=100",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id",
+                        "assignedusers"
+                      ],
+                      "query": [
+                        {
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "100"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c7b90e47-1fba-4658-b673-d55e3a360e9d",
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) ID of the rotation schedule"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "03cf9aa9-7277-464b-9a78-410f65029082",
+                      "name": "Successfully fetched Assigned Users list",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rotationschedules/:id/assignedusers?cursor=<string>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rotationschedules",
+                            ":id",
+                            "assignedusers"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"assignedusers\": [\n    {\n      \"id\": \"<integer>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string,null>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+                      "createdAt": "2026-10-22T01:57:28.000Z",
+                      "updatedAt": "2026-10-22T01:57:28.000Z",
+                      "uid": "35240-03cf9aa9-7277-464b-9a78-410f65029082"
+                    },
+                    {
+                      "id": "9421709e-dd48-49ce-acf4-8f4c7de16c9d",
+                      "name": "Error with query",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rotationschedules/:id/assignedusers?cursor=<string>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rotationschedules",
+                            ":id",
+                            "assignedusers"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:57:28.000Z",
+                      "updatedAt": "2026-10-22T01:57:28.000Z",
+                      "uid": "35240-9421709e-dd48-49ce-acf4-8f4c7de16c9d"
+                    },
+                    {
+                      "id": "7bb002b2-36bd-4187-b75c-760073730a92",
+                      "name": "Invalid token",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rotationschedules/:id/assignedusers?cursor=<string>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rotationschedules",
+                            ":id",
+                            "assignedusers"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:57:28.000Z",
+                      "updatedAt": "2026-10-22T01:57:28.000Z",
+                      "uid": "35240-7bb002b2-36bd-4187-b75c-760073730a92"
+                    },
+                    {
+                      "id": "6a1f5aca-58ec-4fa8-b21c-02d843fd4235",
+                      "name": "Cannot find the parent resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rotationschedules/:id/assignedusers?cursor=<string>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rotationschedules",
+                            ":id",
+                            "assignedusers"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:57:28.000Z",
+                      "updatedAt": "2026-10-22T01:57:28.000Z",
+                      "uid": "35240-6a1f5aca-58ec-4fa8-b21c-02d843fd4235"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-3a306944-aa9c-4fa4-a4df-1473945c84cb"
+                }
+              ],
+              "id": "a7237e80-63b0-4822-ae96-6f38a3d7aeb1",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-a7237e80-63b0-4822-ae96-6f38a3d7aeb1"
+            },
+            {
+              "name": "Get rotation schedule",
+              "id": "5d3498d8-8eab-4c12-b1c3-5b23fe33cbf1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0cd6fe58-865c-4b1b-955d-f6220eb6edf9",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the rotationSchedule"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "5861977f-7786-44fe-8aeb-228dda460f8e",
+                  "name": "Successfully retrieved rotationSchedule's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"rotationSchedule\": {\n    \"id\": \"<integer>\",\n    \"organizationId\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"startDate\": \"<dateTime>\",\n    \"days\": [\n      {\n        \"dayIndex\": \"<integer>\",\n        \"dayType\": \"WORKING\",\n        \"seconds\": \"<integer>\"\n      }\n    ],\n    \"isDefault\": \"<boolean>\",\n    \"assignedUsersCount\": \"<integer>\",\n    \"sourceTemplatePattern\": \"<string,null>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<string,null-date-time>\",\n    \"archivedAt\": \"<string,null-date-time>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-5861977f-7786-44fe-8aeb-228dda460f8e"
+                },
+                {
+                  "id": "4b1d5413-fb78-4f29-bcaa-7d8e1ab02cb6",
+                  "name": "Error with query",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-4b1d5413-fb78-4f29-bcaa-7d8e1ab02cb6"
+                },
+                {
+                  "id": "0a110e58-2cda-49c4-90fe-ac17982446d0",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-0a110e58-2cda-49c4-90fe-ac17982446d0"
+                },
+                {
+                  "id": "d6ef0118-5d25-4ea6-82ff-2de309b4d031",
+                  "name": "Could not find the specified rotationSchedule or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-d6ef0118-5d25-4ea6-82ff-2de309b4d031"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-5d3498d8-8eab-4c12-b1c3-5b23fe33cbf1"
+            },
+            {
+              "name": "Delete rotation schedule",
+              "id": "1a1631e5-bd0a-485f-881a-79ce70c3835f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "6c763afb-1cd6-4fd6-824b-399d909331fc",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the rotationSchedule"
+                    }
+                  ]
+                },
+                "description": "Deletes a rotation schedule and unassigns every user currently assigned to it. This is a soft delete: the rotation stops being returned by the read endpoints and cannot be restored through the REST API. Deleting an already deleted rotation is a no-op. The default rotation cannot be deleted."
+              },
+              "response": [
+                {
+                  "id": "496b04b5-dc45-4e2e-b318-cade34716a46",
+                  "name": "Successfully deleted the rotationSchedule",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-496b04b5-dc45-4e2e-b318-cade34716a46"
+                },
+                {
+                  "id": "3fff41cc-f9ef-4df5-a1bf-ce1f6ba8e454",
+                  "name": "The default rotation cannot be deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-3fff41cc-f9ef-4df5-a1bf-ce1f6ba8e454"
+                },
+                {
+                  "id": "71761b41-401c-4800-9dde-e862f8a32ebb",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-71761b41-401c-4800-9dde-e862f8a32ebb"
+                },
+                {
+                  "id": "dd079317-5c45-4151-a763-b6b358ef4cf4",
+                  "name": "The caller cannot delete this rotation schedule",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-dd079317-5c45-4151-a763-b6b358ef4cf4"
+                },
+                {
+                  "id": "3c64ffe8-d51b-4f3b-8a86-5c62dcebeb0e",
+                  "name": "Could not find the specified rotationSchedule.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-3c64ffe8-d51b-4f3b-8a86-5c62dcebeb0e"
+                },
+                {
+                  "id": "fad03cfe-f6dc-4d96-ac48-01053d8fd644",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-fad03cfe-f6dc-4d96-ac48-01053d8fd644"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-1a1631e5-bd0a-485f-881a-79ce70c3835f"
+            },
+            {
+              "name": "Update rotation schedule",
+              "id": "2017f55c-e00f-4321-babd-2f1f66b80161",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "c5fd7a25-4f8f-4ba4-a59e-a2ea427e838d",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the rotation schedule"
+                    }
+                  ]
+                },
+                "description": "Updates a custom work rotation and, optionally, who is assigned to it. Changing `days` or `startDate` re-bases the cycle for every user currently assigned to the rotation. Adding users unassigns them from whatever rotation they are currently on, and removing them returns them to the organization default rotation. `isDefault` and `sourceTemplatePattern` are fixed at creation and cannot be changed here. The organization is resolved from `{id}`, so no `x-organization-id` header is required."
+              },
+              "response": [
+                {
+                  "id": "608ec4c8-bfa6-4511-b42e-81c2ffb2642f",
+                  "name": "Successfully updated rotation schedule",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"rotationSchedule\": {\n    \"id\": \"<integer>\",\n    \"organizationId\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"startDate\": \"<dateTime>\",\n    \"days\": [\n      {\n        \"dayIndex\": \"<integer>\",\n        \"dayType\": \"WORKING\",\n        \"seconds\": \"<integer>\"\n      }\n    ],\n    \"isDefault\": \"<boolean>\",\n    \"assignedUsersCount\": \"<integer>\",\n    \"sourceTemplatePattern\": \"<string,null>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<string,null-date-time>\",\n    \"archivedAt\": \"<string,null-date-time>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-608ec4c8-bfa6-4511-b42e-81c2ffb2642f"
+                },
+                {
+                  "id": "8999a98b-abe2-43d9-8833-b352dcf555b7",
+                  "name": "Failed to update the rotation schedule",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-8999a98b-abe2-43d9-8833-b352dcf555b7"
+                },
+                {
+                  "id": "17fdb039-c372-46fa-a3c1-5f8cd77c25f7",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-17fdb039-c372-46fa-a3c1-5f8cd77c25f7"
+                },
+                {
+                  "id": "2b9b568b-d3d6-4f0e-acbe-3add823abc86",
+                  "name": "The caller cannot edit this rotation schedule",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-2b9b568b-d3d6-4f0e-acbe-3add823abc86"
+                },
+                {
+                  "id": "91749deb-6a6a-4888-ba05-281830e6819a",
+                  "name": "Could not find the specified rotation schedule.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-91749deb-6a6a-4888-ba05-281830e6819a"
+                },
+                {
+                  "id": "ad7d5315-8dac-44a6-9493-123b21e21122",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"NON_WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"users\": {\n    \"addedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"removedIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rotationschedules/:id?skipWebhook=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rotationschedules",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                          "key": "skipWebhook",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:57:28.000Z",
+                  "updatedAt": "2026-10-22T01:57:28.000Z",
+                  "uid": "35240-ad7d5315-8dac-44a6-9493-123b21e21122"
+                }
+              ],
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-2017f55c-e00f-4321-babd-2f1f66b80161"
+            }
+          ],
+          "id": "c0c530e9-73ec-4d3b-a563-67910dfcae83",
+          "createdAt": "2026-10-22T01:57:28.000Z",
+          "updatedAt": "2026-10-22T01:57:28.000Z",
+          "uid": "35240-c0c530e9-73ec-4d3b-a563-67910dfcae83"
+        },
+        {
+          "name": "List rotation schedules",
+          "id": "3f627f64-4013-4bd7-95a5-994e8349e5fa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rotationschedules?cursor=<string>&limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rotationschedules"
+              ],
+              "query": [
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Endpoint used to list rotation schedule resources"
+          },
+          "response": [
+            {
+              "id": "2b64b970-c8f2-47b7-aada-189336a077fa",
+              "name": "Successfully fetched Rotation Schedules list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"rotationSchedules\": [\n    {\n      \"id\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"startDate\": \"<dateTime>\",\n      \"days\": [\n        {\n          \"dayIndex\": \"<integer>\",\n          \"dayType\": \"WORKING\",\n          \"seconds\": \"<integer>\"\n        }\n      ],\n      \"isDefault\": \"<boolean>\",\n      \"assignedUsersCount\": \"<integer>\",\n      \"sourceTemplatePattern\": \"<string,null>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<string,null-date-time>\",\n      \"archivedAt\": \"<string,null-date-time>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"startDate\": \"<dateTime>\",\n      \"days\": [\n        {\n          \"dayIndex\": \"<integer>\",\n          \"dayType\": \"NON_WORKING\",\n          \"seconds\": \"<integer>\"\n        }\n      ],\n      \"isDefault\": \"<boolean>\",\n      \"assignedUsersCount\": \"<integer>\",\n      \"sourceTemplatePattern\": \"<string,null>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<string,null-date-time>\",\n      \"archivedAt\": \"<string,null-date-time>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-2b64b970-c8f2-47b7-aada-189336a077fa"
+            },
+            {
+              "id": "909d136d-27d1-4cb0-9731-bfdd9bdaf38c",
+              "name": "Error with query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-909d136d-27d1-4cb0-9731-bfdd9bdaf38c"
+            },
+            {
+              "id": "2f1af390-5221-4014-bf5e-e025917063cb",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-2f1af390-5221-4014-bf5e-e025917063cb"
+            }
+          ],
+          "createdAt": "2026-10-22T01:57:28.000Z",
+          "updatedAt": "2026-10-22T01:57:28.000Z",
+          "uid": "35240-3f627f64-4013-4bd7-95a5-994e8349e5fa"
+        },
+        {
+          "name": "Create rotation schedule",
+          "id": "0acbe0a4-4682-4399-ac1d-40fd8db80407",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Required if using a multi organizations token",
+                "key": "x-organization-id",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rotationschedules"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Creates a custom work rotation. Assigning users removes them from any rotation they are currently assigned to. A rotation can only be created as the default in an organization with no saved default."
+          },
+          "response": [
+            {
+              "id": "aad0a250-4c81-4f13-a7f8-16cbd92574d0",
+              "name": "Successfully created rotation schedule",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-aad0a250-4c81-4f13-a7f8-16cbd92574d0"
+            },
+            {
+              "id": "e5851882-e926-4718-a883-744fd94b8fcb",
+              "name": "OrganizationId was not provided",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-e5851882-e926-4718-a883-744fd94b8fcb"
+            },
+            {
+              "id": "b4cb92f9-6071-421b-8a3a-28b3eb0f868e",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-b4cb92f9-6071-421b-8a3a-28b3eb0f868e"
+            },
+            {
+              "id": "cbcfa7f3-fda6-4a8f-9428-a5463c478a7b",
+              "name": "The caller cannot create rotation schedules",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-cbcfa7f3-fda6-4a8f-9428-a5463c478a7b"
+            },
+            {
+              "id": "510a86df-2bc5-40d0-a97f-be693fe6295f",
+              "name": "Could not find the specified route.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-510a86df-2bc5-40d0-a97f-be693fe6295f"
+            },
+            {
+              "id": "d40a60d8-ae06-4d1a-afa7-09a447baf1ac",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Required if using a multi organizations token",
+                    "key": "x-organization-id",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"days\": [\n    {\n      \"dayIndex\": \"<integer>\",\n      \"dayType\": \"WORKING\",\n      \"seconds\": \"<integer>\"\n    }\n  ],\n  \"userIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rotationschedules?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rotationschedules"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:57:28.000Z",
+              "updatedAt": "2026-10-22T01:57:28.000Z",
+              "uid": "35240-d40a60d8-ae06-4d1a-afa7-09a447baf1ac"
+            }
+          ],
+          "createdAt": "2026-10-22T01:57:28.000Z",
+          "updatedAt": "2026-10-22T01:57:28.000Z",
+          "uid": "35240-0acbe0a4-4682-4399-ac1d-40fd8db80407"
+        }
+      ],
+      "id": "1b6d1ef5-be3e-4030-9fe4-d3cf799b4c4f",
+      "createdAt": "2026-10-22T01:57:28.000Z",
+      "updatedAt": "2026-10-22T01:57:28.000Z",
+      "uid": "35240-1b6d1ef5-be3e-4030-9fe4-d3cf799b4c4f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
+    }
+  ]
+}

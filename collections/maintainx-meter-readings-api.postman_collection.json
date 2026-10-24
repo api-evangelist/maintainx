@@ -1,39 +1,257 @@
 {
+  "info": {
+    "_postman_id": "bcfa1113-c5c4-4925-8cd2-e16024b7ecd0",
+    "name": "MaintainX Meter Readings API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:54:58.000Z",
+    "updatedAt": "2026-10-22T01:54:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bcfa1113-c5c4-4925-8cd2-e16024b7ecd0"
+  },
   "item": [
     {
-      "id": "3f229e87-4623-47ba-8348-8a94222e1ea0",
-      "name": "Meter Readings",
-      "description": {
-        "content": "Operations on Meter Readings",
-        "type": "text/plain"
-      },
+      "name": "meterreadings",
       "item": [
         {
-          "id": "54a09fb2-0178-4258-99d6-e8a8dc0b76c3",
-          "name": "Batch create new meter readings",
-          "request": {
-            "name": "Batch create new meter readings",
-            "description": {
-              "content": "We strongly recommend using this endpoint to create meter readings since it is more efficient.\n      <h3>Rate Limits</h3>\n      <li>For Automated and IoT meter readings: 100 requests / 60 seconds</li>\n      <li>For Manual meter readings: 10 requests / 24 hours</li>\n      ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "meterreadings"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get meter reading",
+              "id": "c092fdef-351f-409b-a305-fbe7cbd564f7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "6e085f91-977b-4140-8e55-a61316a3957b",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) ID of the meterReading"
+                    }
+                  ]
+                }
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "skipWebhook",
-                  "value": "<boolean>",
-                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)"
+                  "id": "9b8f346e-3c65-4968-ad02-672ba459d7c0",
+                  "name": "Successfully retrieved meterReading's information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/meterreadings/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "meterreadings",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meterReading\": {\n    \"value\": \"<number>\",\n    \"meterId\": \"<number>\",\n    \"createdAt\": \"<string>\",\n    \"id\": \"<string>\",\n    \"readingDate\": \"<string,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:54:59.000Z",
+                  "updatedAt": "2026-10-22T01:54:59.000Z",
+                  "uid": "35240-9b8f346e-3c65-4968-ad02-672ba459d7c0"
+                },
+                {
+                  "id": "1c5705e3-6b4b-4abc-bfa0-66ab7731fe3c",
+                  "name": "Error with query",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/meterreadings/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "meterreadings",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:59.000Z",
+                  "updatedAt": "2026-10-22T01:54:59.000Z",
+                  "uid": "35240-1c5705e3-6b4b-4abc-bfa0-66ab7731fe3c"
+                },
+                {
+                  "id": "5e32f1cc-c97a-4a3f-a2c8-7a3dc6ad5f3a",
+                  "name": "Invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/meterreadings/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "meterreadings",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:54:59.000Z",
+                  "updatedAt": "2026-10-22T01:54:59.000Z",
+                  "uid": "35240-5e32f1cc-c97a-4a3f-a2c8-7a3dc6ad5f3a"
+                },
+                {
+                  "id": "83cc5227-f5b3-423e-a6d4-c80e968f5349",
+                  "name": "Could not find the specified meterReading or the user cannot access it.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/meterreadings/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "meterreadings",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:54:59.000Z",
+                  "updatedAt": "2026-10-22T01:54:59.000Z",
+                  "uid": "35240-83cc5227-f5b3-423e-a6d4-c80e968f5349"
                 }
               ],
-              "variable": []
-            },
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-c092fdef-351f-409b-a305-fbe7cbd564f7"
+            }
+          ],
+          "id": "bc38d023-9b19-4be1-b446-058f2a9ac383",
+          "createdAt": "2026-10-22T01:54:59.000Z",
+          "updatedAt": "2026-10-22T01:54:59.000Z",
+          "uid": "35240-bc38d023-9b19-4be1-b446-058f2a9ac383"
+        },
+        {
+          "name": "Batch create new meter readings",
+          "id": "1dc88ce7-8141-41a9-8c74-b84110e72a9b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -44,367 +262,414 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string>\"\n  }\n]",
+              "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "meterreadings"
+              ],
+              "query": [
+                {
+                  "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                  "key": "skipWebhook",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "We strongly recommend using this endpoint to create meter readings since it is more efficient.\n\nRate Limits\n\nFor Automated and IoT meter readings: 100 requests / 60 seconds\n\nFor Manual meter readings: 10 requests / 24 hours"
           },
           "response": [
             {
-              "id": "f8ad724c-b04b-4130-a8a0-5b67492e7f90",
+              "id": "cbed6dd1-faa2-46dd-a8a9-bbf4297fd4ee",
               "name": "Successfully created meter readings",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"createdAt\": \"2022-01-01T00:00:00.000Z\",\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"createdAt\": \"<string>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"createdAt\": \"<string>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-cbed6dd1-faa2-46dd-a8a9-bbf4297fd4ee"
             },
             {
-              "id": "205fb3d5-2528-4391-909b-9fe31a68cad2",
+              "id": "c0897b8f-bc84-4f63-a8b3-3bf2927ba15f",
               "name": "Error occurred trying to insert a meter reading",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Unexpected error\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-c0897b8f-bc84-4f63-a8b3-3bf2927ba15f"
             },
             {
-              "id": "80561c6f-4248-42fc-886d-c4fd62ade4e7",
+              "id": "c79839de-b20d-4ee2-a9bb-be89f079f373",
               "name": "Invalid token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-c79839de-b20d-4ee2-a9bb-be89f079f373"
             },
             {
-              "id": "d3eadc5b-d623-4bef-8aff-d4437551c52d",
+              "id": "f0d30df5-b16b-406f-a1a7-589fd22a2408",
               "name": "You are forbidden to perform the requested action or to access this resource",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"Forbidden\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"fieldPath\": \"<string,null>\",\n      \"fieldValue\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-f0d30df5-b16b-406f-a1a7-589fd22a2408"
             },
             {
-              "id": "0ea3fb74-c0f2-492c-83f9-d06607f9579c",
+              "id": "6a4335a3-2e56-45dd-8196-555117945dfa",
               "name": "Could not find the specified meter.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"meter Not Found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-6a4335a3-2e56-45dd-8196-555117945dfa"
             },
             {
-              "id": "341099fd-a80c-4bba-b21a-d083b96e9307",
+              "id": "976aeeb0-3daf-4208-bcf7-16338d8979a2",
               "name": "You have exceeded the rate limit for manual meter readings",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "meterreadings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "skipWebhook",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  },\n  {\n    \"meterId\": 53,\n    \"value\": 120,\n    \"readingDate\": \"2022-01-01T00:00:00.000Z\"\n  }\n]",
+                  "raw": "[\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  },\n  {\n    \"meterId\": \"<number>\",\n    \"value\": \"<number>\",\n    \"readingDate\": \"<string,null>\"\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/meterreadings?skipWebhook=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "meterreadings"
+                  ],
+                  "query": [
+                    {
+                      "description": "Set `skipWebhook=true`, `skipWebhook=1` or `skipWebhook=yes` to skip all webhooks upon successful operation on the endpoint. [Learn more about webhooks](#tag/Subscriptions-and-Webhooks)",
+                      "key": "skipWebhook",
+                      "value": "<boolean>"
+                    }
+                  ]
                 }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"Too Many Requests. Manual meter readings are limited to 10 every 24h 00m 00s. For a higher recording frequency please use Meters of type IoT. Contact support@getmaintainx.com for help.\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:54:59.000Z",
+              "updatedAt": "2026-10-22T01:54:59.000Z",
+              "uid": "35240-976aeeb0-3daf-4208-bcf7-16338d8979a2"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:54:59.000Z",
+          "updatedAt": "2026-10-22T01:54:59.000Z",
+          "uid": "35240-1dc88ce7-8141-41a9-8c74-b84110e72a9b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "7c796738-b2dc-4bc3-9acd-7ced374e95bd",
+      "createdAt": "2026-10-22T01:54:59.000Z",
+      "updatedAt": "2026-10-22T01:54:59.000Z",
+      "uid": "35240-7c796738-b2dc-4bc3-9acd-7ced374e95bd"
     }
   ],
   "auth": {
@@ -412,17 +677,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "1662e5be-759c-4849-97b3-2a26062c8d89",
-    "name": "MaintainX Asset Criticalities Meter Readings API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }

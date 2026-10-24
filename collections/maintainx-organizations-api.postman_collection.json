@@ -1,63 +1,77 @@
 {
+  "info": {
+    "_postman_id": "c856940d-380e-4edf-8999-27b340c1b899",
+    "name": "MaintainX Organizations API",
+    "description": "REST API V1\n\nSupport: support@getmaintainx.com | https://www.getmaintainx.com/\n\nThis is the MaintainX REST API reference. It provides detailed documentation for endpoints, request parameters, response schemas, and error codes available.\n\nFor setup guides, authentication walkthroughs, how-tos, etc., see the Build With MaintainX guide.\n\nWhat's in this reference:\n\nFull endpoint listings across all MaintainX entities (Work Orders, Assets, Parts, Locations, Users, and more)\n\nRequest and response schemas with field-level detail\n\nQuery parameters, filters, and pagination behavior\n\nAuthentication requirements and error codes\n\nSubscriptions and webhooks for event-driven integrations\n\nBase URL: https://api.getmaintainx.com/v1\n\nAll requests must be authenticated with a Bearer token (see Settings > Integrations > API Keys to generate a key).\n\nAPI access is available on Premium and Enterprise plans.\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:55:36.000Z",
+    "updatedAt": "2026-10-22T01:55:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c856940d-380e-4edf-8999-27b340c1b899"
+  },
   "item": [
     {
-      "id": "a085779d-ca17-4265-9e86-1618ad9718df",
-      "name": "Organizations",
-      "description": {
-        "content": "Operations on Organizations",
-        "type": "text/plain"
-      },
+      "name": "organizations",
       "item": [
         {
-          "id": "f5452789-6125-4453-8bc5-73e9fd9fa117",
           "name": "List organizations",
+          "id": "99f0a265-3d0d-417b-9fd0-197a6b1a481c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List organizations",
-            "description": {
-              "content": "Endpoint used to list organization resources",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/organizations?cursor=<string>&limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ],
+              "query": [
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Endpoint used to list organization resources"
           },
           "response": [
             {
-              "id": "f5e5984e-b296-48da-a79e-272a1e9b941e",
+              "id": "2092cdb8-36d9-4dca-8241-0e586115fe14",
               "name": "Successfully fetched Organizations list",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "organizations"
-                  ],
+                  "raw": "{{baseUrl}}/organizations?cursor=<string>&limit=100",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
                   ],
                   "query": [
                     {
@@ -68,100 +82,48 @@
                       "key": "limit",
                       "value": "100"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"organizations\": [\n    {\n      \"id\": 15,\n      \"name\": \"My Organization\",\n      \"timeZone\": \"America/New_York\",\n      \"imageUrl\": \"https://example.com/image.png\",\n      \"currency\": \"USD\",\n      \"dateFormatLocale\": \"en-CA\"\n    },\n    {\n      \"id\": 15,\n      \"name\": \"My Organization\",\n      \"timeZone\": \"America/New_York\",\n      \"imageUrl\": \"https://example.com/image.png\",\n      \"currency\": \"USD\",\n      \"dateFormatLocale\": \"en-CA\"\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"nextPageUrl\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"organizations\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"imageUrl\": \"<string,null>\",\n      \"currency\": \"<string,null>\",\n      \"dateFormatLocale\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"imageUrl\": \"<string,null>\",\n      \"currency\": \"<string,null>\",\n      \"dateFormatLocale\": \"<string,null>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\",\n  \"nextPageUrl\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-22T01:55:37.000Z",
+              "updatedAt": "2026-10-22T01:55:37.000Z",
+              "uid": "35240-2092cdb8-36d9-4dca-8241-0e586115fe14"
             },
             {
-              "id": "b37783ad-72b1-4e1c-9deb-d547b90a3368",
+              "id": "71e7bc10-78e6-4135-9609-8d7894e23dae",
               "name": "Error with query",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9048f15b-a9bc-4715-9bce-873f3a10e845",
-              "name": "Invalid token",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "organizations"
-                  ],
+                  "raw": "{{baseUrl}}/organizations?cursor=<string>&limit=100",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
                   ],
                   "query": [
                     {
@@ -172,50 +134,78 @@
                       "key": "limit",
                       "value": "100"
                     }
-                  ],
-                  "variable": []
-                },
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:55:37.000Z",
+              "updatedAt": "2026-10-22T01:55:37.000Z",
+              "uid": "35240-71e7bc10-78e6-4135-9609-8d7894e23dae"
+            },
+            {
+              "id": "c5563b70-1fcf-4077-98f1-a8748b351493",
+              "name": "Invalid token",
+              "originalRequest": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/organizations?cursor=<string>&limit=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:55:37.000Z",
+              "updatedAt": "2026-10-22T01:55:37.000Z",
+              "uid": "35240-c5563b70-1fcf-4077-98f1-a8748b351493"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:55:37.000Z",
+          "updatedAt": "2026-10-22T01:55:37.000Z",
+          "uid": "35240-99f0a265-3d0d-417b-9fd0-197a6b1a481c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getmaintainx.com/v1",
-      "key": "baseUrl"
+      "id": "fa2d9190-fb6d-427c-903a-12982fc4b3b8",
+      "createdAt": "2026-10-22T01:55:37.000Z",
+      "updatedAt": "2026-10-22T01:55:37.000Z",
+      "uid": "35240-fa2d9190-fb6d-427c-903a-12982fc4b3b8"
     }
   ],
   "auth": {
@@ -223,17 +213,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b4f7bc14-3994-4b87-8bc0-b2b8d7aacbd4",
-    "name": "MaintainX Asset Criticalities Organizations API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Welcome to the MaintainX API documentation!<br/><br/>You can use the MaintainX API to programmatically interact with all the entities in MaintainX. Use it to retrieve and manage data of Work Orders, Work Requests, Assets, and more!<br/><br/>To get started, in your MaintainX account go to <a href=\"https://app.getmaintainx.com/settings/integrations/apiKeys\">\"Settings &gt; Integrations\"</a> and click \"&plus; New Key\" button to generate a new Rest API key.<br/><br/><b>Missing something?</b><br/>Don't hesitate to reach out <a href=\"mailto:support@getmaintainx.com\">support@getmaintainx.com</a><br/><br/>\n\nContact Support:\n Name: Support\n Email: support@getmaintainx.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getmaintainx.com/v1"
     }
-  }
+  ]
 }
